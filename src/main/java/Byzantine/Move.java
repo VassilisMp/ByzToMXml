@@ -27,6 +27,18 @@ public class Move implements Serializable {
         this.time = move.time;
     }
 
+    public int getMove() {
+        return move;
+    }
+
+    public Boolean getLyric() {
+        return lyric;
+    }
+
+    public Boolean getTime() {
+        return time;
+    }
+
     @Override
     public String toString() {
         return "Move{" + move + (lyric?"l":"") + (time?"t":"") + '}';

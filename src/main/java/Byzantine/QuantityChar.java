@@ -1,5 +1,7 @@
 package Byzantine;
 
+import org.audiveris.proxymusic.Note;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -52,7 +54,10 @@ public class QuantityChar extends ByzChar implements Comparable {
 
     @Override
     public void run() {
+        for (Move move : moves) {
+            Note note = new ExtendedNote(move.getLyric(), move.getTime());
 
+        }
     }
 
 }
