@@ -5,6 +5,7 @@ import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,26 +28,16 @@ import javax.xml.bind.Marshaller;
 public class Main {
     static List<Note> noteList;
 
-    public static void main(String[] args) throws IOException {
-
-        BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
-        stepMap.put(Step.C, 0);
-        stepMap.put(Step.D, 1);
-        stepMap.put(Step.E, 2);
-        stepMap.put(Step.F, 3);
-        stepMap.put(Step.G, 4);
-        stepMap.put(Step.A, 5);
-        stepMap.put(Step.B, 6);
+    public static void main(String[] args) {
 
         noteList = new ArrayList<>();
 
-        ObjectFactory factory = new ObjectFactory();
         // Note 0 ---
         Note note = new ExtendedNote(true, true);
         noteList.add(note);
 
         // Pitch
-        Pitch pitch = factory.createPitch();
+        Pitch pitch = new Pitch();
         note.setPitch(pitch);
         pitch.setStep(Step.C);
         pitch.setOctave(4);
@@ -55,19 +46,12 @@ public class Main {
         note.setDuration(new BigDecimal(4));
 
         // Type
-        NoteType type = factory.createNoteType();
+        NoteType type = new NoteType();
         type.setValue("whole");
         note.setType(type);
 
-        Note lastNote = noteList.get(noteList.size() - 1);
-        Pitch lastPitch = lastNote.getPitch();
-        Step step = lastPitch.getStep();
-        int octave = lastPitch.getOctave();
-        int stepNum = stepMap.get(step);
-        String strNum = octave + "" + stepNum;
-        int parsedInt = Integer.parseInt(strNum, 7);
-        System.out.println(Integer.toString(parsedInt + 14, 7));
-        System.out.println(note);
+        Runnable qChar = new QuantityChar(225, "", ByzClass.B, Arrays.asList(new Move(2, false, true), new Move(3, true, true)));
+        qChar.run();
 
         /*
         XWPFDocument docx = new XWPFDocument(new FileInputStream("a.docx"));
