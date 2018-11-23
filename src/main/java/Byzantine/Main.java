@@ -43,15 +43,22 @@ public class Main {
         pitch.setOctave(4);
 
         // Duration
-        note.setDuration(new BigDecimal(4));
+        note.setDuration(new BigDecimal(TimeChar.division));
 
         // Type
         NoteType type = new NoteType();
-        type.setValue("whole");
+        type.setValue("quarter");
         note.setType(type);
 
-        Runnable qChar = new QuantityChar(225, "", ByzClass.B, Arrays.asList(new Move(2, false, true), new Move(3, true, true)));
+        Runnable qChar = new QuantityChar(225, "", ByzClass.B, Arrays.asList(new Move(2, false, true), new Move(3, true, false), new Move(3, true, false), new Move(3, true, false)));
         qChar.run();
+
+        System.out.println(noteList);
+
+        Runnable tChar = new TimeChar(234, "", ByzClass.B, 0, 1, true);
+        tChar.run();
+
+        System.out.println(noteList);
 
         /*
         XWPFDocument docx = new XWPFDocument(new FileInputStream("a.docx"));

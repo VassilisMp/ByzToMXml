@@ -25,6 +25,14 @@ public final class ExtendedNote extends Note {
                 "lyric=" + lyric +
                 ", time=" + time +
                 ", pitch=" + pitch.getStep() + pitch.getOctave() +
+                ", duration=" + duration +
+                ", type=" + type.getValue() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        return false;
     }
 }

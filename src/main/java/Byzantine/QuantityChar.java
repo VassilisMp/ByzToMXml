@@ -1,5 +1,8 @@
 package Byzantine;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.EnumHashBiMap;
+import com.google.common.collect.HashBiMap;
 import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.Pitch;
@@ -15,6 +18,16 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class QuantityChar extends ByzChar implements Comparable {
+    private final static BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
+    static {
+        stepMap.put(Step.C,0);
+        stepMap.put(Step.D,1);
+        stepMap.put(Step.E,2);
+        stepMap.put(Step.F,3);
+        stepMap.put(Step.G,4);
+        stepMap.put(Step.A,5);
+        stepMap.put(Step.B,6);
+    }
     private static final long serialVersionUID = 976878594555516894L;
     //moves
     Move[] moves;
@@ -82,7 +95,7 @@ public class QuantityChar extends ByzChar implements Comparable {
             thisPitch.setOctave(thisOctave);
 
             // Duration
-            note.setDuration(new BigDecimal(1));
+            note.setDuration(new BigDecimal(TimeChar.division));
 
             // Type
             NoteType type = new NoteType();
