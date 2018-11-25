@@ -50,7 +50,12 @@ public class Main {
         type.setValue("quarter");
         note.setType(type);
 
-        Runnable qChar = new QuantityChar(225, "", ByzClass.B, Arrays.asList(new Move(2, false, true), new Move(3, true, false), new Move(3, true, false), new Move(3, true, false)));
+        Runnable qChar = new QuantityChar(225, "", ByzClass.B, Arrays.asList(
+                new Move(2, false, true),
+                new Move(3, true, false),
+                new Move(3, true, false),
+                new Move(3, true, false)
+        ));
         qChar.run();
 
         System.out.println(noteList);

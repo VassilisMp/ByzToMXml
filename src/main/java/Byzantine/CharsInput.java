@@ -13,23 +13,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.commons.collections4.list.SetUniqueList;
 
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 // L059 έμεινα εκεί στην εισαγωγή
-@XmlRootElement
 public class CharsInput extends Application {
 
     private static HBox timesHBox;
     private static VBox movesVBox;
     private static ChoiceBox<Integer> movesNum;
     private static String codePattern = "([BFILPX])((0[4-9][0-9])|(0[3-9][3-9])|(1[0-9][0-9])|(2[0-4][0-9])|(250))";
-    //@XmlElementWrapper
-    @XmlAnyElement
     private List<UnicodeChar> charList;
 
 

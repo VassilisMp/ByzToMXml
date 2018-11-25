@@ -1,14 +1,8 @@
 package Byzantine;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
 public class MixedChar extends ByzChar {
     private static final long serialVersionUID = -3903289443515625540L;
 

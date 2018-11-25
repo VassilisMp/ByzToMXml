@@ -2,21 +2,15 @@ package Byzantine;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
-import com.google.common.collect.HashBiMap;
 import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
 public class QuantityChar extends ByzChar implements Comparable {
     private final static BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
     static {
@@ -102,7 +96,7 @@ public class QuantityChar extends ByzChar implements Comparable {
             type.setValue("quarter");
             note.setType(type);
 
-            System.out.println(note);
+            //System.out.println(note);
         }
     }
 

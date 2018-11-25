@@ -1,13 +1,8 @@
 package Byzantine;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Objects;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
 public class UnicodeChar implements Runnable, Serializable {
 
     private static final long serialVersionUID = 7662794995100881459L;

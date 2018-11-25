@@ -6,19 +6,14 @@ import org.audiveris.proxymusic.EmptyPlacement;
 import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.NoteType;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.ListIterator;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement
 public class TimeChar extends ByzChar{
     private static final long serialVersionUID = 6353312089523385239L;
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
+    // division must be <= 16383
     static int division = 2;
     private final static BiMap<String, Integer> noteTypeMap = HashBiMap.create(14);
     static {
@@ -57,24 +52,43 @@ public class TimeChar extends ByzChar{
             if (divisions % 2 == 1 && dotPlace == 0) {
                 for (Note n : subList) {
                     int duration = n.getDuration().intValue();
-                    duration /= divisions+1;
+                    int timeUnit = division/(divisions+1);
+                    duration -= division;
+                    duration += timeUnit;
                     // in this case it means the division being used in the measure isn't enough to describe smaller NoteTypes
                     // so division change follows
-                    if (duration == 0) {
+                    if (timeUnit == 0) {
                         // change the measure division, so it can describe smaller notes
                         division *= divisions+1;
                         // reInsert the values in the map to add those supported by the new measure division
                         mapValuesInsert();
                         // change the duration of all notes according to the new corresponding values of the NoteTypes
+                        int finalDuration = duration;
                         Main.noteList.forEach(N -> {
-                            String noteType = N.getType().getValue();
-                            int newValue = noteTypeMap.get(noteType);
+                            NoteType noteType = N.getType();
+                            String newNoteType = noteTypeMap.inverse().get(finalDuration);
+                            if (newNoteType == null)
+                                for (int i = 1; newNoteType == null; i++)
+                                    newNoteType = noteTypeMap.inverse().get(finalDuration - i);
+                            noteType.setValue(newNoteType);
+                            int newValue = noteTypeMap.get(noteType.getValue());
+                            if (N.getDot().size() > 0) {
+                                int nextDotDuration = newValue/2;
+                                int TotalDotsDuration = 0;
+                                for (int i = 0; i < N.getDot().size(); i++) {
+                                    TotalDotsDuration += nextDotDuration;
+                                    nextDotDuration /= 2;
+                                }
+                                newValue += TotalDotsDuration;
+                            }
                             N.setDuration(new BigDecimal(newValue));
                         });
                         System.out.println(Main.noteList);
                         // the duration is recalculated after measure division has changed and affected this note too.
                         duration = n.getDuration().intValue();
-                        duration /= divisions+1;
+                        timeUnit = division/(divisions+1);
+                        duration -= division;
+                        duration += timeUnit;
                     }
                     // Set the new Duration
                     n.setDuration(new BigDecimal(duration));
@@ -117,7 +131,8 @@ public class TimeChar extends ByzChar{
                 for (int i = 1; newNoteType2 == null; i++) {
                     newNoteType2 = noteTypeMap.inverse().get(duration - i);
                 }
-                note2.getDot().add(new EmptyPlacement());
+                if (note2.getDot().size() == 0)
+                    note2.getDot().add(new EmptyPlacement());
             }
             noteType2.setValue(newNoteType2);
         }
@@ -150,13 +165,13 @@ public class TimeChar extends ByzChar{
         noteTypeMap.put("whole", division * 4);
         noteTypeMap.put("half", division * 2);
         noteTypeMap.put("quarter", division);
-        if (division >= 2) noteTypeMap.put("eighth", division / 2);
-        if (division >= 4) noteTypeMap.put("16th", division / 4);
-        if (division >= 8) noteTypeMap.put("32nd", division / 8);
-        if (division >= 16) noteTypeMap.put("64th", division / 16);
-        if (division >= 32) noteTypeMap.put("128th", division / 32);
-        if (division >= 64) noteTypeMap.put("256th", division / 64);
-        if (division >= 128) noteTypeMap.put("512th", division / 128);
-        if (division >= 256) noteTypeMap.put("1024th", division / 256);
+        if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
+        if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
+        if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
+        if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
+        if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
+        if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
+        if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
+        if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
     }
 }
