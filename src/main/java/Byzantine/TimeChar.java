@@ -2,19 +2,21 @@ package Byzantine;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import org.audiveris.proxymusic.EmptyPlacement;
-import org.audiveris.proxymusic.Note;
-import org.audiveris.proxymusic.NoteType;
+import org.audiveris.proxymusic.*;
 
+import java.lang.String;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 public class TimeChar extends ByzChar{
     private static final long serialVersionUID = 6353312089523385239L;
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
-    static int division = 2;
+    static int division = 1;
     private final static BiMap<String, Integer> noteTypeMap = HashBiMap.create(14);
     static {
         mapValuesInsert();
@@ -23,6 +25,7 @@ public class TimeChar extends ByzChar{
     int dotPlace;
     int divisions;
     Boolean argo;
+    private static Integer tupletNum = 0;
 
     TimeChar(int codePoint, String font, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
         super(codePoint, font, byzClass);
@@ -45,53 +48,57 @@ public class TimeChar extends ByzChar{
     @Override
     public void run() throws NullPointerException {
         if (divisions > 0 && !argo) {
+            // get index of the last note that canGetTime
             int index = getIndex();
             List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
+            int addedTime;
+            // in this case it means the division being used in the measure isn't enough to describe smaller NoteTypes
+            // so variables are recalculated
+            if (division%(divisions+1) != 0)
+                addedTime = getNewAddedTime();
+            else
+                addedTime = division/(divisions+1);
             // If division is even, it means there aren't dotted notes
             // implementation for case of gorgon, trigorgon, pentagorgon...
-            if (divisions % 2 == 1 && dotPlace == 0) {
-                for (Note n : subList) {
-                    int duration = n.getDuration().intValue();
-                    int timeUnit = division/(divisions+1);
-                    duration -= division;
-                    duration += timeUnit;
-                    // in this case it means the division being used in the measure isn't enough to describe smaller NoteTypes
-                    // so division change follows
-                    if (timeUnit == 0) {
-                        // change the measure division, so it can describe smaller notes
-                        division *= divisions+1;
-                        // reInsert the values in the map to add those supported by the new measure division
-                        mapValuesInsert();
-                        // change the duration of all notes according to the new corresponding values of the NoteTypes
-                        int finalDuration = duration;
-                        Main.noteList.forEach(N -> {
-                            NoteType noteType = N.getType();
-                            String newNoteType = noteTypeMap.inverse().get(finalDuration);
-                            if (newNoteType == null)
-                                for (int i = 1; newNoteType == null; i++)
-                                    newNoteType = noteTypeMap.inverse().get(finalDuration - i);
-                            noteType.setValue(newNoteType);
-                            int newValue = noteTypeMap.get(noteType.getValue());
-                            if (N.getDot().size() > 0) {
-                                int nextDotDuration = newValue/2;
-                                int TotalDotsDuration = 0;
-                                for (int i = 0; i < N.getDot().size(); i++) {
-                                    TotalDotsDuration += nextDotDuration;
-                                    nextDotDuration /= 2;
-                                }
-                                newValue += TotalDotsDuration;
-                            }
-                            N.setDuration(new BigDecimal(newValue));
-                        });
-                        System.out.println(Main.noteList);
-                        // the duration is recalculated after measure division has changed and affected this note too.
-                        duration = n.getDuration().intValue();
-                        timeUnit = division/(divisions+1);
-                        duration -= division;
-                        duration += timeUnit;
+            if (dotPlace == 0) {
+                for (int i = 0; i < subList.size(); i++) {
+                    Note n = subList.get(i);
+                    int duration = getDuration(addedTime, n);
+                    // in this case tuplets are used
+                    if (256 % (divisions + 1) != 0) {
+                        TimeModification timeModification = new TimeModification();
+                        timeModification.setActualNotes(BigInteger.valueOf(divisions + 1));
+                        timeModification.setNormalNotes(BigInteger.valueOf(divisions));
+                        n.setTimeModification(timeModification);
+                        if (i == 0) {
+                            Tuplet tuplet = new Tuplet();
+                            tuplet.setBracket(YesNo.YES);
+                            tuplet.setNumber(++tupletNum);
+                            tuplet.setPlacement(AboveBelow.ABOVE);
+                            tuplet.setType(StartStop.START);
+                            List<Notations> notationsList = n.getNotations();
+                            Notations notations = new Notations();
+                            notations.getTiedOrSlurOrTuplet().add(tuplet);
+                            notationsList.add(notations);
+                        }
+                        if (i == subList.size() - 1) {
+                            List<Notations> notationsList = n.getNotations();
+                            Notations notations = new Notations();
+                            Tuplet tuplet = new Tuplet();
+                            tuplet.setNumber(tupletNum);
+                            tuplet.setType(StartStop.STOP);
+                            notations.getTiedOrSlurOrTuplet().add(tuplet);
+                            notationsList.add(notations);
+                        }
+                        String newNoteType = null;
+                        /*BiMap<Integer, String> typeMapInverse = noteTypeMap.inverse();
+                        for (int j = 0; newNoteType == null; j++)
+                            newNoteType = typeMapInverse.get(duration - j);*/
+                        if (divisions == 2)
+                            newNoteType = "eighth";
+                        n.getType().setValue(newNoteType);
+                        continue;
                     }
-                    // Set the new Duration
-                    n.setDuration(new BigDecimal(duration));
                     // Get current NoteType
                     NoteType noteType = n.getType();
                     // Set the new NoteType
@@ -100,15 +107,14 @@ public class TimeChar extends ByzChar{
                     noteType.setValue(newNoteType);
                 }
             }
-            System.out.println(Main.noteList);
+            //System.out.println(Main.noteList);
         } else if (argo) {
             int index = getIndex();
             List<Note> subList = Main.noteList.subList(index - 1, index + 1);
             //System.out.println(subList);
             Note note1 = subList.get(0);
-            int duration = note1.getDuration().intValue();
-            duration /= 2;
-            note1.setDuration(new BigDecimal(duration));
+            int addedTime = division/2;
+            int duration = getDuration(addedTime, note1);
             // Get current NoteType
             NoteType noteType1 = note1.getType();
             // Set the new NoteType
@@ -139,7 +145,37 @@ public class TimeChar extends ByzChar{
 
     }
 
-    private int getIndex() {
+    private int getDuration(int addedTime, Note n) {
+        int duration = n.getDuration().intValue();
+        // subtract one time unit from duration
+        duration -= division;
+        // and add the new addedTime instead
+        duration += addedTime;
+        // Set the new Duration
+        n.setDuration(new BigDecimal(duration));
+        return duration;
+    }
+
+    private int getNewAddedTime() {
+        changeDivision();
+        // the newAddedTime value is returned
+        return division/(divisions+1);
+    }
+
+    private void changeDivision() {
+        division *= divisions+1;
+        // reInsert the values in the map to add those supported by the new measure division
+        mapValuesInsert();
+        // change the duration of all notes according to the new corresponding to the new division value
+        Main.noteList.forEach(N -> {
+            int newValue = N.getDuration().intValue();
+            newValue *= divisions+1;
+            N.setDuration(new BigDecimal(newValue));
+        });
+        System.out.println(Main.noteList);
+    }
+
+    static int getIndex() {
         ListIterator<Note> iterator = Main.noteList.listIterator(Main.noteList.size());
         Note note = null;
         int index = 0;
@@ -156,7 +192,7 @@ public class TimeChar extends ByzChar{
         return index;
     }
 
-    private static void mapValuesInsert() {
+    static void mapValuesInsert() {
         noteTypeMap.clear();
         // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
         noteTypeMap.put("maxima", division * 28);

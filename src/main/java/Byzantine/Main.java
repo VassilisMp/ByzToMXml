@@ -60,7 +60,7 @@ public class Main {
 
         System.out.println(noteList);
 
-        Runnable tChar = new TimeChar(234, "", ByzClass.B, 0, 1, true);
+        Runnable tChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
         tChar.run();
 
         System.out.println(noteList);
