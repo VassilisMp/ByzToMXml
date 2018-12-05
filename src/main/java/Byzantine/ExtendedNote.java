@@ -2,7 +2,7 @@ package Byzantine;
 
 import org.audiveris.proxymusic.Note;
 
-public final class ExtendedNote extends Note {
+public final class ExtendedNote extends Note implements Cloneable {
     private boolean lyric;
     private boolean time;
 
@@ -35,4 +35,10 @@ public final class ExtendedNote extends Note {
         if (this == o) return true;
         return false;
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
 }

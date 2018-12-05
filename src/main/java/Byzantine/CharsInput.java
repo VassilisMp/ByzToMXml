@@ -16,17 +16,22 @@ import org.apache.commons.collections4.list.SetUniqueList;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 // L059 έμεινα εκεί στην εισαγωγή
 public class CharsInput extends Application {
 
-    private static HBox timesHBox;
-    private static VBox movesVBox;
-    private static ChoiceBox<Integer> movesNum;
-    private static String codePattern = "([BFILPX])((0[4-9][0-9])|(0[3-9][3-9])|(1[0-9][0-9])|(2[0-4][0-9])|(250))";
+    private HBox timesHBox;
+    private VBox movesVBox;
+    private ChoiceBox<Integer> movesNum;
+    private static final String codePattern = "([BFILPX])((0[4-9][0-9])|(0[3-9][3-9])|(1[0-9][0-9])|(2[0-4][0-9])|(250))";
     private List<UnicodeChar> charList;
-
+    private int fixedChildren;
+    private Button addTime;
+    private Button addQuantity;
 
     @Override
     public void start(Stage primaryStage) {
@@ -60,6 +65,9 @@ public class CharsInput extends Application {
         Button addButton = new Button("Add");
         parent.getChildren().add(addButton);
 
+        Button getButton = new Button("Get");
+        parent.getChildren().add(getButton);
+
         TextField charCodeText = new TextField();
         charCodeText.setPromptText("charCode");
         charCodeText.setPrefWidth(60);
@@ -73,6 +81,78 @@ public class CharsInput extends Application {
         parent.getChildren().add(cb);
         //cb.getSelectionModel().selectFirst();
 
+        fixedChildren = parent.getChildren().size();
+
+        /*
+        Get Button Listener
+        TODO
+        make an object with the code given in the codepoint textField
+        and find the one the charList if it exists
+        */
+        getButton.setOnAction(e -> {
+            String charCode = charCodeText.getText();
+
+            UnicodeChar unicodeChar = charList.stream().
+                    filter(Char -> Objects.equals(((ByzChar) Char).getCodePointClass(), charCode)).
+                    findAny().
+                    orElseGet(() -> {
+                        showGeneralAlert("there in no such Character in the list");
+                        return null;
+                    });
+            if (unicodeChar != null) {
+                switch (unicodeChar.getClass().getSimpleName()) {
+                    case "QuantityChar": {
+                        cb.getSelectionModel().select("Quantity");
+                        Move[] moves = ((QuantityChar)unicodeChar).getMoves();
+                        deletePrevious(parent);
+                        timesHBox = null;
+                        MovesHBox(primaryStage, parent);
+                        movesNum.getSelectionModel().select(moves.length-1);
+                        movesVBox.getChildren().clear();
+                        for (Move move : moves) {
+                            CheckBox lyricCheckBoxl = new CheckBox("lyric");
+                            lyricCheckBoxl.setSelected(move.getLyric());
+                            CheckBox timeCheckBoxl = new CheckBox("time");
+                            timeCheckBoxl.setSelected(move.getTime());
+                            TextField textFieldl = new TextField();
+                            textFieldl.setPrefWidth(40);
+                            textFieldl.setText(move.getMove() + "");
+                            movesVBox.getChildren().add(new HBox(textFieldl, lyricCheckBoxl, timeCheckBoxl));
+                        }
+                        primaryStage.sizeToScene();
+                        //System.out.println(oldValue + "  " + newValue);
+                    }
+                    break;
+                    case "TimeChar":
+                        TimeChar timeChar = ((TimeChar)unicodeChar);
+                        cb.getSelectionModel().select("Time");
+                        deletePrevious(parent);
+                        movesVBox = null;
+                        timesHBox(primaryStage, parent);
+                        // Set argoCheckBox
+                        ((CheckBox) timesHBox.getChildren().get(0)).setSelected(timeChar.getArgo());
+                        // Set divisionsText
+                        ((TextField) timesHBox.getChildren().get(1)).setText(timeChar.getDivisions() + "");
+                        // Set dotPlaceText
+                        ((TextField) timesHBox.getChildren().get(2)).setText(timeChar.getDotPlace() + "");
+                        //charList.add(TChar(sc, charCode));
+                        break;
+                    case "MixedChar":
+                        cb.getSelectionModel().select("Mixed");
+                        deletePrevious(parent);
+                        parent.getChildren().add(new Label("Quantity"));
+                        MovesHBox(primaryStage, parent);
+                        parent.getChildren().addAll(new Separator());
+                        parent.getChildren().add(new Label("Time"));
+                        timesHBox(primaryStage, parent);
+                        //charList.add(MChar(sc, charCode));
+                        break;
+                    default:
+                        System.out.println("option out of options");
+                }
+            }
+        });
+
         // Add Button Listener
         addButton.setOnAction(e -> {
             String charCode = charCodeText.getText();
@@ -84,8 +164,28 @@ public class CharsInput extends Application {
                 return;
             }
 
-            int codePoint = Integer.parseInt(charCode.substring(1, charCode.length()));
+            int codePoint = Integer.parseInt(charCode.substring(1));
             ByzClass byzClass = ByzClass.valueOf(charCode.charAt(0) + "");
+
+            // delete Character if already exists, to add the new one
+            Optional<UnicodeChar> any = charList.stream()
+                    .filter(Char -> Objects.equals(((ByzChar) Char).getCodePointClass(), charCode))
+                    .findAny();
+            if(any.isPresent()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Replacement");
+                alert.setContentText("Already exists, proceed replacement?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent()) {
+                    if (result.get() == ButtonType.OK) {
+                        if (UniqueCharList.remove(any.get()))
+                            System.out.println("removed");
+                    } else {
+                        return;
+                    }
+                }
+            }
 
             int selected = cb.getSelectionModel().getSelectedIndex();
             switch (selected) {
@@ -156,7 +256,8 @@ public class CharsInput extends Application {
 
         // CharType choiceBox Listener
         cb.getSelectionModel()
-                .selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                .selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
             switch (newValue) {
                 case "Quantity": {
                     deletePrevious(parent);
@@ -208,8 +309,7 @@ public class CharsInput extends Application {
             showGeneralAlert("dotPlace must be a number");
             return null;
         }
-        TimeChar timeChar = new TimeChar(codePoint, "", byzClass, dotPlace, divisions, argo);
-        return timeChar;
+        return new TimeChar(codePoint, "", byzClass, dotPlace, divisions, argo);
     }
 
     private QuantityChar getQuantityChar(int codePoint, ByzClass byzClass) {
@@ -235,14 +335,13 @@ public class CharsInput extends Application {
             moves.add(mov);
         }
         //System.out.println(new QuantityChar(codePoint, "", byzClass, moves));
-        QuantityChar quantityChar = new QuantityChar(codePoint, "", byzClass, moves);
-        return quantityChar;
+        return new QuantityChar(codePoint, "", byzClass, moves);
     }
 
     private void deletePrevious(VBox parent) {
         // delete nodes used in previous choice
-        if (parent.getChildren().size() > 4)
-            parent.getChildren().remove(4, parent.getChildren().size());
+        if (parent.getChildren().size() > fixedChildren)
+            parent.getChildren().remove(fixedChildren, parent.getChildren().size());
     }
 
     private void timesHBox(Stage primaryStage, VBox parent) {
@@ -269,7 +368,7 @@ public class CharsInput extends Application {
         primaryStage.sizeToScene();
     }
 
-    private void MovesHBox(Stage primaryStage, VBox parent) {
+    private HBox MovesHBox(Stage primaryStage, VBox parent) {
         // HBox containing moves number selection from ChoiceBox
         HBox movesHBox = new HBox(8);
         movesHBox.setPadding(new Insets(10));
@@ -316,6 +415,8 @@ public class CharsInput extends Application {
                 primaryStage.sizeToScene();
             }
         });
+
+        return movesHBox;
     }
 
     // Show a Information Alert for wrong input in move TextField

@@ -10,4 +10,12 @@ public class ByzChar extends UnicodeChar {
         super(codePoint, font);
         ByzClass = byzClass;
     }
+
+    public Byzantine.ByzClass getByzClass() {
+        return ByzClass;
+    }
+
+    public String getCodePointClass() {
+        return ByzClass + String.format("%03d", codePoint);
+    }
 }

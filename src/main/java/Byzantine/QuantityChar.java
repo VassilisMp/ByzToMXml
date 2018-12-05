@@ -24,11 +24,15 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
     private static final long serialVersionUID = 976878594555516894L;
     //moves
-    Move[] moves;
+    private Move[] moves;
 
     public QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, List<Move> moves) {
         super(codePoint, font, byzClass);
         this.moves = moves.toArray(new Move[0]);
+    }
+
+    public Move[] getMoves() {
+        return moves;
     }
 
     @Override

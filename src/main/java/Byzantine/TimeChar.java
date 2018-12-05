@@ -2,6 +2,7 @@ package Byzantine;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import org.apache.commons.lang3.SerializationUtils;
 import org.audiveris.proxymusic.*;
 
 import java.lang.String;
@@ -19,12 +20,27 @@ public class TimeChar extends ByzChar{
     static int division = 1;
     private final static BiMap<String, Integer> noteTypeMap = HashBiMap.create(14);
     static {
-        mapValuesInsert();
+        noteTypeMap.clear();
+        // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
+        noteTypeMap.put("maxima", division * 28);
+        noteTypeMap.put("long", division * 16);
+        noteTypeMap.put("breve", division * 8);
+        noteTypeMap.put("whole", division * 4);
+        noteTypeMap.put("half", division * 2);
+        noteTypeMap.put("quarter", division);
+        if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
+        if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
+        if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
+        if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
+        if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
+        if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
+        if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
+        if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
     }
 
-    int dotPlace;
-    int divisions;
-    Boolean argo;
+    private int dotPlace;
+    private int divisions;
+    private Boolean argo;
     private static Integer tupletNum = 0;
 
     TimeChar(int codePoint, String font, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
@@ -32,6 +48,18 @@ public class TimeChar extends ByzChar{
         this.dotPlace = dotPlace;
         this.divisions = divisions;
         this.argo = argo;
+    }
+
+    public int getDotPlace() {
+        return dotPlace;
+    }
+
+    public int getDivisions() {
+        return divisions;
+    }
+
+    public Boolean getArgo() {
+        return argo;
     }
 
     @Override
@@ -63,9 +91,27 @@ public class TimeChar extends ByzChar{
             if (dotPlace == 0) {
                 for (int i = 0; i < subList.size(); i++) {
                     Note n = subList.get(i);
+                    // get and set duration
                     int duration = getDuration(addedTime, n);
                     // in this case tuplets are used
                     if (256 % (divisions + 1) != 0) {
+                        if (duration > division) {
+                            Note note = new Note();
+                            note.setDuration(new BigDecimal(division));
+                            Main.noteList.add(index, note);
+                            switch (i) {
+                                case 0: {
+                                    Tie tie = new Tie();
+                                    tie.setType(StartStop.START);
+                                    n.getTie().add(tie);
+                                } break;
+                                case 1: {
+                                    Tie tie = new Tie();
+                                    tie.setType(StartStop.STOP);
+                                    n.getTie().add(tie);
+                                } break;
+                            }
+                        }
                         TimeModification timeModification = new TimeModification();
                         timeModification.setActualNotes(BigInteger.valueOf(divisions + 1));
                         timeModification.setNormalNotes(BigInteger.valueOf(divisions));
@@ -97,8 +143,12 @@ public class TimeChar extends ByzChar{
                         if (divisions == 2)
                             newNoteType = "eighth";
                         n.getType().setValue(newNoteType);
+                        Optional<String> opt = Optional.ofNullable(noteTypeMap.inverse().get(addedTime));
+                        opt.ifPresent(type -> n.getDot().clear());
                         continue;
                     }
+                    Optional<String> opt = Optional.ofNullable(noteTypeMap.inverse().get(addedTime));
+                    opt.ifPresent(type -> n.getDot().clear());
                     // Get current NoteType
                     NoteType noteType = n.getType();
                     // Set the new NoteType
@@ -164,6 +214,17 @@ public class TimeChar extends ByzChar{
 
     private void changeDivision() {
         division *= divisions+1;
+        applyChanges();
+        System.out.println(Main.noteList);
+    }
+
+    private void changeDivision(int num) {
+        division *= num;
+        applyChanges();
+        System.out.println(Main.noteList);
+    }
+
+    private void applyChanges() {
         // reInsert the values in the map to add those supported by the new measure division
         mapValuesInsert();
         // change the duration of all notes according to the new corresponding to the new division value
@@ -172,7 +233,6 @@ public class TimeChar extends ByzChar{
             newValue *= divisions+1;
             N.setDuration(new BigDecimal(newValue));
         });
-        System.out.println(Main.noteList);
     }
 
     static int getIndex() {
@@ -202,10 +262,15 @@ public class TimeChar extends ByzChar{
         noteTypeMap.put("half", division * 2);
         noteTypeMap.put("quarter", division);
         if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
+        //else changeDivision(2);
         if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
+        //else changeDivision(2);
         if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
+        //else changeDivision(2);
         if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
+        //else changeDivision(2);
         if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
+        //else changeDivision(2);
         if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
         if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
         if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
