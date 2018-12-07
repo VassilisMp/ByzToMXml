@@ -6,7 +6,7 @@ import java.util.List;
 public class MixedChar extends ByzChar {
     private static final long serialVersionUID = -3903289443515625540L;
 
-    ByzChar[] chars;
+    private ByzChar[] chars;
 
     public MixedChar(int codePoint, String font, Byzantine.ByzClass byzClass, List<ByzChar> chars) {
         super(codePoint, font, byzClass);
