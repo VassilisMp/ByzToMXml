@@ -30,6 +30,19 @@ public class Main {
 
     public static void main(String[] args) {
 
+        List<UnicodeChar> charList;
+        try {
+            FileInputStream fileIn = new FileInputStream("lis.obj");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            charList = (List<UnicodeChar>) in.readObject();
+            in.close();
+            fileIn.close();
+        }catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+        //System.out.println(charList);
+
         noteList = new ArrayList<>();
 
         // Note 0 ---
@@ -58,15 +71,22 @@ public class Main {
         ));
         qChar.run();
 
-        System.out.println(noteList);
+        //System.out.println(noteList);
 
         Runnable tChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
         tChar.run();
 
-        System.out.println(noteList);
+        //System.out.println(noteList);
 
-        /*
-        XWPFDocument docx = new XWPFDocument(new FileInputStream("a.docx"));
+
+        XWPFDocument docx = null;
+        try {
+            docx = new XWPFDocument(new FileInputStream("a.docx"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Coudln't open document");
+            return;
+        }
         int pos = 0;
         for (XWPFParagraph paragraph : docx.getParagraphs()) {
             for (XWPFRun run : paragraph.getRuns()) {
@@ -77,12 +97,11 @@ public class Main {
                         charInt-=61440;
                     if(charInt<33 || charInt>255)
                         continue;
-                    //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName);
+                    System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName);
                     pos++;
                 }
             }
         }
-        */
 
         /*
         try {

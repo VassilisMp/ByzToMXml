@@ -33,7 +33,7 @@ public class CharsInput extends Application {
     private Stage primaryStage;
     private VBox parent;
     private TextField charCodeText;
-    private SetUniqueList<UnicodeChar> UniqueCharList;
+    private SetUniqueList<UnicodeChar> uniqueCharList;
 
     @Override
     public void start(Stage primaryStage) {
@@ -51,7 +51,7 @@ public class CharsInput extends Application {
         }
         System.out.println(charList);
 
-        UniqueCharList = SetUniqueList.setUniqueList(charList);
+        uniqueCharList = SetUniqueList.setUniqueList(charList);
 
         this.primaryStage.setTitle("JavaFX Welcome");
 
@@ -301,7 +301,7 @@ public class CharsInput extends Application {
     private void getButtonHandle(ActionEvent e) {
         String charCode = charCodeText.getText();
 
-        UnicodeChar unicodeChar = charList.stream().
+        UnicodeChar unicodeChar = uniqueCharList.stream().
                 filter(Char -> Objects.equals(((ByzChar) Char).getCodePointClass(), charCode)).
                 findAny().
                 orElseGet(() -> {
@@ -346,6 +346,7 @@ public class CharsInput extends Application {
         ((TextField) timesHBox.getChildren().get(1)).setText(unicodeChar.getDivisions() + "");
         // Set dotPlaceText
         ((TextField) timesHBox.getChildren().get(2)).setText(unicodeChar.getDotPlace() + "");
+        nodeList.getChildren().add(timesVBox);
     }
 
     private void caseQuantity(@NotNull QuantityChar unicodeChar) {
@@ -383,7 +384,7 @@ public class CharsInput extends Application {
 
         AtomicBoolean flag = new AtomicBoolean(false);
         // delete Character if already exists, to add the new one
-        charList.stream()
+        uniqueCharList.stream()
                 .filter(Char -> Objects.equals(((ByzChar) Char).getCodePointClass(), charCode))
                 .findAny()
                 .ifPresent(Char -> {
@@ -394,7 +395,7 @@ public class CharsInput extends Application {
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.isPresent()) {
                         if (result.get() == ButtonType.OK) {
-                            if (UniqueCharList.remove(Char))
+                            if (uniqueCharList.remove(Char))
                                 System.out.println("removed");
                         }
                         else flag.set(true);
@@ -409,17 +410,17 @@ public class CharsInput extends Application {
             if (Label.getText().equals("Quantity")) {
                 QuantityChar quantityChar = getQuantityChar(codePoint, byzClass, vBox);
                 if (quantityChar == null) return;
-                //System.out.println(UniqueCharList.get(UniqueCharList.size()-1).equals(quantityChar));
-                if (UniqueCharList.add(quantityChar)) {
+                //System.out.println(uniqueCharList.get(uniqueCharList.size()-1).equals(quantityChar));
+                if (uniqueCharList.add(quantityChar)) {
                     showAlertMessage("Successfully added: " + QuantityChar.class.toString());
                     System.out.println(charList);
                 } else
                     showAlertMessage("Already exists in the List");
-                //System.out.println(UniqueCharList.add(new QuantityChar(codePoint, "", byzClass, moves)))
+                //System.out.println(uniqueCharList.add(new QuantityChar(codePoint, "", byzClass, moves)))
             } else if (Label.getText().equals("Time")) {
                 TimeChar timeChar = getTimeChar(codePoint, byzClass, vBox);
                 if (timeChar == null) return;
-                if (UniqueCharList.add(timeChar)) {
+                if (uniqueCharList.add(timeChar)) {
                     showAlertMessage("Successfully added: " + TimeChar.class.toString());
                     System.out.println(charList);
                 } else
@@ -441,7 +442,7 @@ public class CharsInput extends Application {
                 }
             }
             MixedChar mixedChar = new MixedChar(codePoint, "", byzClass, byzChars);
-            if (UniqueCharList.add(mixedChar)) {
+            if (uniqueCharList.add(mixedChar)) {
                 showAlertMessage("Successfully added: " + MixedChar.class.toString());
                 System.out.println(charList);
             } else

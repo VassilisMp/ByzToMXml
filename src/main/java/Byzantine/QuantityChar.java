@@ -6,6 +6,7 @@ import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -26,9 +27,14 @@ public class QuantityChar extends ByzChar implements Comparable {
     //moves
     private Move[] moves;
 
-    public QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, List<Move> moves) {
+    public QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, @NotNull List<Move> moves) {
         super(codePoint, font, byzClass);
         this.moves = moves.toArray(new Move[0]);
+    }
+
+    public QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, Move... moves) {
+        super(codePoint, font, byzClass);
+        this.moves = moves;
     }
 
     public Move[] getMoves() {
@@ -41,6 +47,7 @@ public class QuantityChar extends ByzChar implements Comparable {
                 "moves=" + Arrays.toString(moves) +
                 ", ByzClass=" + ByzClass +
                 ", codePoint=" + codePoint +
+                ", font=" + font +
                 '}';
     }
 
@@ -50,7 +57,7 @@ public class QuantityChar extends ByzChar implements Comparable {
         if (!(o instanceof QuantityChar)) return false;
         if (!super.equals(o)) return false;
         QuantityChar that = (QuantityChar) o;
-        return Arrays.equals(moves, that.moves);
+        return Arrays.equals(moves, that.moves) && codePoint==that.codePoint && ByzClass==that.ByzClass;
     }
 
     @Override
@@ -81,6 +88,7 @@ public class QuantityChar extends ByzChar implements Comparable {
             int parsedInt = Integer.parseInt(strNum, 7);
 
             String newPitch = Integer.toString(parsedInt + move.getMove(), 7);
+            //System.out.println(newPitch);
 
             Main.noteList.add(note);
 

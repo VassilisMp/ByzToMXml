@@ -7,12 +7,20 @@ public class UnicodeChar implements Runnable, Serializable {
 
     private static final long serialVersionUID = 7662794995100881459L;
 
-    protected int codePoint;
+    int codePoint;
 
     protected String font;
 
     public UnicodeChar(int codePoint, String font) {
         this.codePoint = codePoint;
+        this.font = font;
+    }
+
+    public int getCodePoint() {
+        return codePoint;
+    }
+
+    public void setFont(String font) {
         this.font = font;
     }
 
