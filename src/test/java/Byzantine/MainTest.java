@@ -4,10 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.audiveris.proxymusic.Note;
-import org.audiveris.proxymusic.NoteType;
-import org.audiveris.proxymusic.Pitch;
-import org.audiveris.proxymusic.Step;
+import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
@@ -15,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.lang.String;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -25,7 +23,7 @@ class MainTest {
     private static List<Note> noteList;
 
     @Test
-    void QuantityCharTest() {
+    void QuantityCharTest() throws NotSupportedException {
         List<UnicodeChar> docChars = new ArrayList<>();
 
         Main.noteList = new ArrayList<>();
@@ -38,7 +36,7 @@ class MainTest {
         // Pitch
         Pitch pitch = new Pitch();
         note.setPitch(pitch);
-        pitch.setStep(Step.A);
+        pitch.setStep(Step.F);
         pitch.setOctave(4);
 
         // Duration
@@ -49,7 +47,7 @@ class MainTest {
         type.setValue("quarter");
         note.setType(type);
 
-        Map<String, Character> map = Collections.unmodifiableMap(getMap());
+        Map<String, ByzClass> map = Collections.unmodifiableMap(getMap());
 
         List<UnicodeChar> charList;
         try {
@@ -65,7 +63,7 @@ class MainTest {
 
         XWPFDocument docx = null;
         try {
-            docx = new XWPFDocument(new FileInputStream("elpiza.docx"));
+            docx = new XWPFDocument(new FileInputStream("b.docx"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Coudln't open document");
@@ -89,20 +87,22 @@ class MainTest {
                 for (char c : run.text().toCharArray()) {
                     String fontName = run.getFontName();
                     int charInt = (int)c;
-                    Character fontChar = map.get(fontName); // TODO replace fontName with ByzClass constant, like ByzClass.valueOf(fontName)
-                    if (fontChar != null) {                 // TODO also change Characters in map with ByzClass constants
+                    ByzClass byzClass = map.get(fontName);
+                    if (byzClass != null) {
+                        try {
+                            boolean annotationPresent = ByzClass.class.getField(byzClass.toString()).isAnnotationPresent(NotSupported.class);
+                            //System.out.println(byzClass + " annotation isPresent: " + annotationPresent);
+                            if (annotationPresent) {
+                                throw new NotSupportedException("document contains ByzClass." + byzClass + " character which is not supported");
+                            }
+                        } catch (NoSuchFieldException e) {
+                            e.printStackTrace();
+                        }
                         if(charInt>0xEFFF) // && <0xF8FF because Unicode Private Use Area is, U+E000 to U+F8FF
                             charInt-=0xF000;
                         if(charInt<33 || charInt>255)
                             continue;
                     } else {
-                        continue;
-                    }
-                    ByzClass byzClass;
-                    try {
-                        byzClass = ByzClass.valueOf(String.valueOf(fontChar));
-                    } catch (IllegalArgumentException ex) {
-                        //System.out.println(map.get(fontName) + " " + fontName);
                         continue;
                     }
                     int finalCharInt = charInt;
@@ -162,18 +162,18 @@ class MainTest {
     * maybe I'll have to make the matching*/
     @Contract(" -> new")
     @NotNull
-    private static Map<String, Character> getMap() {
-        Character B = 'B'; // Byzantine
-        Character F = 'F'; // Fthores
-        Character I = 'I'; // Ison
-        Character L = 'L'; // Loipa
-        Character P = 'P'; // Palaia
-        Character X = 'X'; // Xronos
-        Character A = 'A'; // Arxigramma
-        Character N = 'N'; // I don't remember, font with various chars..
-        Character T = 'T'; // Text fonts
+    private static Map<String, ByzClass> getMap() {
+        ByzClass B = ByzClass.B; // Byzantine
+        ByzClass F = ByzClass.F; // Fthores
+        ByzClass I = ByzClass.I; // Ison
+        ByzClass L = ByzClass.L; // Loipa
+        ByzClass P = ByzClass.P; // Palaia
+        ByzClass X = ByzClass.X; // Xronos
+        ByzClass A = ByzClass.A; // Arxigramma
+        ByzClass N = ByzClass.N; // I dont remember, font with various chars..
+        ByzClass T = ByzClass.T; // Text fonts
         // TODO test all fonts
-        return new HashMap<String, Character>(){
+        return new HashMap<String, ByzClass>(){
             {
                 put("PFKonstantinople", A); //T // TODO Run method for Arxigramma (probably same code with text fonts)
                 put("BZ Byzantina", B);
@@ -208,6 +208,11 @@ class MainTest {
                 put("MKXronos", X);
             }
         };
+    }
+
+    @Test
+    void toScorePartwise() { // TODO get notes produced from b.docx and create a score
+
     }
 
 }

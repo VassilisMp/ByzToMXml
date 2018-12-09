@@ -4,6 +4,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import org.apache.commons.lang3.SerializationUtils;
 import org.audiveris.proxymusic.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.String;
 import java.math.BigDecimal;
@@ -158,7 +159,8 @@ public class TimeChar extends ByzChar{
                 }
             }
             //System.out.println(Main.noteList);
-        } else if (argo) {
+            // TODO case of dotted TimeChar
+        } else if (argo) { // TODO case of argo in TimeChar
             int index = getIndex();
             List<Note> subList = Main.noteList.subList(index - 1, index + 1);
             //System.out.println(subList);
@@ -195,7 +197,7 @@ public class TimeChar extends ByzChar{
 
     }
 
-    private int getDuration(int addedTime, Note n) {
+    private int getDuration(int addedTime, @NotNull Note n) {
         int duration = n.getDuration().intValue();
         // subtract one time unit from duration
         duration -= division;

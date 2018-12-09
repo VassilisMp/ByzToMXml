@@ -220,7 +220,7 @@ class TimeCharTest {
     }
 
     @Test
-    void testDiGorgonXronosGorgon() {
+    void testDiGorgonXronosGorgon() { // TODO make testDiGorgonXronosGorgon() work
         TimeChar.division = 4;
         TimeChar.mapValuesInsert();
         noteList = new ArrayList<>();
