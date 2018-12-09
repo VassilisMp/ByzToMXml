@@ -100,14 +100,15 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
         //System.out.println(noteList);
+        TimeChar.division = 1;
         timeChar.run();
-        //System.out.println(noteList);
+        System.out.println(noteList);
         assertAll(
-                () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
-                () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals(2, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(1).getType().getValue()),
-                () -> assertEquals(1, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals(2, noteList.get(2).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(2).getType().getValue())
         );
     }
@@ -153,6 +154,63 @@ class TimeCharTest {
                 () -> assertEquals("16th", noteList.get(2).getType().getValue()),
                 () -> assertEquals(1, noteList.get(3).getDuration().intValue()),
                 () -> assertEquals("16th", noteList.get(3).getType().getValue())
+        );
+    }
+
+    @Test
+    void testXronosTriGorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 4; i++) {
+            // Note
+            Note note;
+            if (i == 1 || i==0)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            if (i==0) {
+                // Duration
+                note.setDuration(new BigDecimal(TimeChar.division*2));
+
+                // Type
+                NoteType type = new NoteType();
+                type.setValue("half");
+                note.setType(type);
+                continue;
+            }
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, 3, false);
+        System.out.println(noteList);
+        timeChar.run();
+        System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(5, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(1).getType().getValue()),
+                () -> assertEquals(1, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(2).getType().getValue()),
+                () -> assertEquals(1, noteList.get(3).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(3).getType().getValue()),
+                () -> assertEquals(1, noteList.get(4).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(4).getType().getValue())
         );
     }
 
