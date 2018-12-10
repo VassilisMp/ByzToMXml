@@ -9,9 +9,7 @@ import javax.annotation.CheckReturnValue;
 import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Optional;
+import java.util.*;
 
 public class TimeChar extends ByzChar{
     private static final long serialVersionUID = 6353312089523385239L;
@@ -74,7 +72,120 @@ public class TimeChar extends ByzChar{
     }
 
     @Override
-    public void run() throws NullPointerException {
+    public void run() {
+        if (divisions > 0 && !argo) { // TODO set NoteTypes
+            int index = getIndex();
+            List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
+            int addedTime;
+            if (division % (divisions + 1) == 0) addedTime = division / (divisions + 1);
+            else addedTime = getNewAddedTime();
+            if (dotPlace == 0) {
+                Note tieNote = null;
+                for (int i = 0; i < subList.size(); i++) {
+                    Note note = subList.get(i);
+                    int duration = note.getDuration().intValue();
+                    if (duration > division) {
+                        tieNote = getTieNote(subList, addedTime, tieNote, i, note, duration);
+                    } else {
+                        addedTime = division/(divisions+1);
+                        note.setDuration(new BigDecimal(addedTime));
+                        String noteType;
+                        if (divisions%2==0) {
+                            noteType = noteTypeMap.inverse().get(division/(divisions));
+                            if (noteType == null) {
+                                changeDivision(divisions);
+                                addedTime = division/(divisions+1);
+                                noteType = noteTypeMap.inverse().get(division/(divisions));
+                                if (noteType == null) {
+                                    throw new NullPointerException("String noteType doesn't exist");
+                                }
+                            }
+                            note.getType().setValue(noteType);
+                        } else {
+                            noteType = noteTypeMap.inverse().get(division/(divisions+1));
+                            note.getType().setValue(noteType);
+                        }
+                    }
+                }
+                if (tieNote != null) Main.noteList.add(index-1, tieNote);
+            }
+        }
+    }
+
+    private Note getTieNote(List<Note> subList, int addedTime, Note tieNote, int i, Note note, int duration) {
+        int x = (duration / division) * division;
+        int dotTarget = x + (x/2);
+        int doubleDotTarget = dotTarget + (x/4);
+        int producedDuration = (duration-division) + addedTime;
+        if (producedDuration == dotTarget) {
+            note.getDot().add(new EmptyPlacement());
+            note.setDuration(new BigDecimal(producedDuration));
+        } else if (producedDuration == doubleDotTarget) {
+            note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
+            note.setDuration(new BigDecimal(producedDuration));
+        } else {
+            note.setDuration(new BigDecimal(addedTime));
+            tieNote = (Note) ((ExtendedNote)note).clone();
+            int Tduration = ((duration/division) * division) - division;
+            tieNote.setDuration(new BigDecimal(Tduration));
+            tieNote.getType().setValue(noteTypeMap.inverse().get(Tduration));
+            Tie tie = new Tie();
+            tie.setType(StartStop.START);
+            tieNote.getTie().add(tie);
+            tie = new Tie();
+            tie.setType(StartStop.STOP);
+            note.getTie().add(tie);
+            String noteType;
+            if (divisions%2==0) {
+                addTuplet(subList, i, note);
+                note.getType().setValue(noteTypeMap.inverse().get(division/(divisions)));
+                noteType = noteTypeMap.inverse().get(division/(divisions));
+                if (noteType == null) {
+                    changeDivision(divisions);
+                    Tduration *= divisions;
+                    tieNote.setDuration(BigDecimal.valueOf(Tduration));
+                    noteType = noteTypeMap.inverse().get(division/(divisions));
+                    if (noteType == null) {
+                        throw new NullPointerException("String noteType doesn't exist");
+                    }
+                }
+                note.getType().setValue(noteType);
+            } else {
+                note.getType().setValue(noteTypeMap.inverse().get(division/(divisions+1)));
+            }
+        }
+        return tieNote;
+    }
+
+    private void addTuplet(List<Note> subList, int i, Note note) {
+        TimeModification timeModification = new TimeModification();
+        timeModification.setActualNotes(BigInteger.valueOf(divisions + 1));
+        timeModification.setNormalNotes(BigInteger.valueOf(divisions));
+        note.setTimeModification(timeModification);
+        if (i == 0) {
+            Tuplet tuplet = new Tuplet();
+            tuplet.setBracket(YesNo.YES);
+            tuplet.setNumber(++tupletNum);
+            tuplet.setPlacement(AboveBelow.ABOVE);
+            tuplet.setType(StartStop.START);
+            List<Notations> notationsList = note.getNotations();
+            Notations notations = new Notations();
+            notations.getTiedOrSlurOrTuplet().add(tuplet);
+            notationsList.add(notations);
+        }
+        if (i == subList.size() - 1) {
+            List<Notations> notationsList = note.getNotations();
+            Notations notations = new Notations();
+            Tuplet tuplet = new Tuplet();
+            tuplet.setNumber(tupletNum);
+            tuplet.setType(StartStop.STOP);
+            notations.getTiedOrSlurOrTuplet().add(tuplet);
+            notationsList.add(notations);
+        }
+    }
+
+    //@Override
+    public void run2() throws NullPointerException {
         if (divisions > 0 && !argo) {
             // get index of the last note that canGetTime
             int index = getIndex();
