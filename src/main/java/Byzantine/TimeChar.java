@@ -4,8 +4,8 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.CheckReturnValue;
 import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,7 +39,7 @@ public class TimeChar extends ByzChar{
     private int dotPlace;
     private int divisions;
     private Boolean argo;
-    private static Integer tupletNum = 0;
+    public static Integer tupletNum = 0;
 
     TimeChar(int codePoint, String font, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
         super(codePoint, font, byzClass);
@@ -85,12 +85,13 @@ public class TimeChar extends ByzChar{
                     Note note = subList.get(i);
                     int duration = note.getDuration().intValue();
                     if (duration > division) {
-                        tieNote = getTieNote(subList, addedTime, tieNote, i, note, duration);
+                        tieNote = getTieNote(addedTime, i, note, duration, subList.size());
                     } else {
                         addedTime = division/(divisions+1);
                         note.setDuration(new BigDecimal(addedTime));
                         String noteType;
                         if (divisions%2==0) {
+                            addTuplet(subList.size(), i, note);
                             noteType = noteTypeMap.inverse().get(division/(divisions));
                             if (noteType == null) {
                                 changeDivision(divisions);
@@ -112,20 +113,33 @@ public class TimeChar extends ByzChar{
         }
     }
 
-    private Note getTieNote(List<Note> subList, int addedTime, Note tieNote, int i, Note note, int duration) {
-        int x = (duration / division) * division;
-        int dotTarget = x + (x/2);
-        int doubleDotTarget = dotTarget + (x/4);
+    @Nullable
+    private Note getTieNote(int addedTime, int i, Note note, int duration, int subListSize) {
         int producedDuration = (duration-division) + addedTime;
+        int x = (producedDuration / division) * division;
+        int dotTarget = 0;//x + (x/2);
+        int doubleDotTarget = 0;//dotTarget + (x/4);
+        if (x%2 == 0) {
+            dotTarget = x + (x/2);
+            doubleDotTarget = dotTarget + (x/4);
+        }
         if (producedDuration == dotTarget) {
             note.getDot().add(new EmptyPlacement());
             note.setDuration(new BigDecimal(producedDuration));
+            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2));
+            if (noteType == null)
+                throw new NullPointerException("String noteType doesn't exist");
+            note.getType().setValue(noteType);
         } else if (producedDuration == doubleDotTarget) {
             note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
             note.setDuration(new BigDecimal(producedDuration));
+            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2)-(x/4));
+            if (noteType == null)
+                throw new NullPointerException("String noteType doesn't exist");
+            note.getType().setValue(noteType);
         } else {
             note.setDuration(new BigDecimal(addedTime));
-            tieNote = (Note) ((ExtendedNote)note).clone();
+            Note tieNote = (Note) ((ExtendedNote)note).clone();
             int Tduration = ((duration/division) * division) - division;
             tieNote.setDuration(new BigDecimal(Tduration));
             tieNote.getType().setValue(noteTypeMap.inverse().get(Tduration));
@@ -137,27 +151,25 @@ public class TimeChar extends ByzChar{
             note.getTie().add(tie);
             String noteType;
             if (divisions%2==0) {
-                addTuplet(subList, i, note);
-                note.getType().setValue(noteTypeMap.inverse().get(division/(divisions)));
+                addTuplet(subListSize, i, note);
                 noteType = noteTypeMap.inverse().get(division/(divisions));
                 if (noteType == null) {
                     changeDivision(divisions);
                     Tduration *= divisions;
                     tieNote.setDuration(BigDecimal.valueOf(Tduration));
                     noteType = noteTypeMap.inverse().get(division/(divisions));
-                    if (noteType == null) {
-                        throw new NullPointerException("String noteType doesn't exist");
-                    }
+                    if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
                 }
                 note.getType().setValue(noteType);
             } else {
                 note.getType().setValue(noteTypeMap.inverse().get(division/(divisions+1)));
             }
+            return tieNote;
         }
-        return tieNote;
+        return null;
     }
 
-    private void addTuplet(List<Note> subList, int i, Note note) {
+    private void addTuplet(int subListSize, int i, @NotNull Note note) {
         TimeModification timeModification = new TimeModification();
         timeModification.setActualNotes(BigInteger.valueOf(divisions + 1));
         timeModification.setNormalNotes(BigInteger.valueOf(divisions));
@@ -173,7 +185,7 @@ public class TimeChar extends ByzChar{
             notations.getTiedOrSlurOrTuplet().add(tuplet);
             notationsList.add(notations);
         }
-        if (i == subList.size() - 1) {
+        if (i == subListSize - 1) {
             List<Notations> notationsList = note.getNotations();
             Notations notations = new Notations();
             Tuplet tuplet = new Tuplet();
@@ -184,6 +196,7 @@ public class TimeChar extends ByzChar{
         }
     }
 
+    // Started a new one ^^^ to make it simpler, this one became too complex..
     //@Override
     public void run2() throws NullPointerException {
         if (divisions > 0 && !argo) {

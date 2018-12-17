@@ -22,6 +22,7 @@ class TimeCharTest {
     static void BeforeAll() {
         Main.noteList = null;
         TimeChar.division = 1;
+        TimeChar.tupletNum = 0;
     }
 
     @AfterEach
@@ -29,6 +30,7 @@ class TimeCharTest {
         Main.noteList = null;
         noteList = null;
         TimeChar.division = 1;
+        TimeChar.tupletNum = 0;
     }
     @Test
     void testGorgon() {
@@ -106,10 +108,12 @@ class TimeCharTest {
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
                 () -> assertEquals(2, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(1).getType().getValue()),
                 () -> assertEquals(2, noteList.get(2).getDuration().intValue()),
-                () -> assertEquals("eighth", noteList.get(2).getType().getValue())
+                () -> assertEquals("eighth", noteList.get(2).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(2).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
         );
     }
 
@@ -154,6 +158,103 @@ class TimeCharTest {
                 () -> assertEquals("16th", noteList.get(2).getType().getValue()),
                 () -> assertEquals(1, noteList.get(3).getDuration().intValue()),
                 () -> assertEquals("16th", noteList.get(3).getType().getValue())
+        );
+    }
+
+    @Test
+    void testTetraGorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 5; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, 4, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(1).getType().getValue()),
+                () -> assertEquals(4, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(2).getType().getValue()),
+                () -> assertEquals(4, noteList.get(3).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(3).getType().getValue()),
+                () -> assertEquals(4, noteList.get(4).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(4).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(4).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
+        );
+    }
+
+    @Test
+    void testXronosGorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            note = new ExtendedNote(true, true);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            if (i==0) {
+                // Duration
+                note.setDuration(new BigDecimal(TimeChar.division*2));
+
+                // Type
+                NoteType type = new NoteType();
+                type.setValue("half");
+                note.setType(type);
+                continue;
+            }
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
+        System.out.println(noteList);
+        timeChar.run();
+        System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(3, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertNotNull(noteList.get(0).getDot().get(0)),
+                () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(1).getType().getValue())
         );
     }
 
@@ -203,17 +304,21 @@ class TimeCharTest {
         assertAll(
                 () -> assertEquals(6, noteList.get(0).getDuration().intValue()),
                 () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, noteList.get(0).getTie().get(0).getType()),
                 () -> assertEquals(2, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(StartStop.STOP, noteList.get(1).getTie().get(0).getType()),
                 () -> assertEquals(2, noteList.get(2).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(2).getType().getValue()),
                 () -> assertEquals(2, noteList.get(3).getDuration().intValue()),
-                () -> assertEquals("eighth", noteList.get(3).getType().getValue())
+                () -> assertEquals("eighth", noteList.get(3).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(3).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
         );
     }
 
     @Test
-    void testXronosTriGorgon() { // TODO add check for Ties
+    void testXronosTriGorgon() {
         noteList = new ArrayList<>();
         Main.noteList = noteList;
 
@@ -258,14 +363,79 @@ class TimeCharTest {
         assertAll(
                 () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
                 () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, noteList.get(0).getTie().get(0).getType()),
                 () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("16th", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, noteList.get(1).getTie().get(0).getType()),
                 () -> assertEquals(1, noteList.get(2).getDuration().intValue()),
                 () -> assertEquals("16th", noteList.get(2).getType().getValue()),
                 () -> assertEquals(1, noteList.get(3).getDuration().intValue()),
                 () -> assertEquals("16th", noteList.get(3).getType().getValue()),
                 () -> assertEquals(1, noteList.get(4).getDuration().intValue()),
                 () -> assertEquals("16th", noteList.get(4).getType().getValue())
+        );
+    }
+
+    @Test
+    void testXronosTetraGorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 5; i++) {
+            // Note
+            Note note;
+            if (i == 1 || i==0)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            if (i==0) {
+                // Duration
+                note.setDuration(new BigDecimal(TimeChar.division*2));
+
+                // Type
+                NoteType type = new NoteType();
+                type.setValue("half");
+                note.setType(type);
+                continue;
+            }
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, 4, false);
+        System.out.println(noteList);
+        timeChar.run();
+        System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(20, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, noteList.get(0).getTie().get(0).getType()),
+                () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(StartStop.STOP, noteList.get(1).getTie().get(0).getType()),
+                () -> assertEquals(4, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(2).getType().getValue()),
+                () -> assertEquals(4, noteList.get(3).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(3).getType().getValue()),
+                () -> assertEquals(4, noteList.get(4).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(4).getType().getValue()),
+                () -> assertEquals(4, noteList.get(5).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(5).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(5).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
         );
     }
 
