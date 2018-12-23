@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 // B043 έμεινα εκεί στην εισαγωγή
+// TODO have to check chars with codePoint > F000 in the ttx files, because they are not the same with 33 - 255 range in matching
 public class CharsInput extends Application {
 
     private VBox nodeList = new VBox(8);

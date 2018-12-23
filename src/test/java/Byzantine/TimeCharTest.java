@@ -708,7 +708,7 @@ class TimeCharTest {
                 () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
                 () -> assertEquals(StartStop.STOP, noteList.get(1).getTie().get(0).getType()),
-                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(1)).getType()),
                 () -> assertEquals(2, noteList.get(2).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(2).getType().getValue()),
                 () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(2).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
@@ -761,7 +761,7 @@ class TimeCharTest {
                 () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
                 () -> assertEquals(2, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(1).getType().getValue()),
-                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(1)).getType()),
                 () -> assertEquals(StartStop.START, noteList.get(1).getTie().get(0).getType()),
                 () -> assertEquals(6, noteList.get(2).getDuration().intValue()),
                 () -> assertEquals("quarter", noteList.get(2).getType().getValue()),

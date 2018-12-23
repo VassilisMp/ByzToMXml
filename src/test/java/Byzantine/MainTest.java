@@ -71,10 +71,10 @@ class MainTest {
             return;
         }
         // 0 - 1264 chars using toCharArray
-        // TODO maybe case of surrogate pair chars
         int pos = 0;
         for (XWPFParagraph paragraph : docx.getParagraphs()) {
             for (XWPFRun run : paragraph.getRuns()) {
+                // TODO maybe case of surrogate pair chars
                 /*for (int i = 0; i < run.text().length(); i++) {
                     int codePoint = run.text().codePointAt(i);
                     System.out.println(codePoint + "  " + pos);
@@ -144,7 +144,7 @@ class MainTest {
                 }
             }
         }
-        // 81 ison before high Nh martyria
+        // TODO fix L116 char action when following two gorgon
         int thesi = 0;
         for (int i = 0; i < docChars.size(); i++) {
             UnicodeChar Char = docChars.get(i);
