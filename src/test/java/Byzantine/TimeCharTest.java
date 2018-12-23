@@ -31,6 +31,7 @@ class TimeCharTest {
         noteList = null;
         TimeChar.division = 1;
         TimeChar.tupletNum = 0;
+        TimeChar.mapValuesInsert();
     }
     @Test
     void testGorgon() {
@@ -210,7 +211,7 @@ class TimeCharTest {
     }
 
     @Test
-    void testXronosGorgon() {
+    void testXronos1Gorgon() {
         noteList = new ArrayList<>();
         Main.noteList = noteList;
 
@@ -259,7 +260,7 @@ class TimeCharTest {
     }
 
     @Test
-    void testXronosDiGorgon() {
+    void testXronos1DiGorgon() {
         noteList = new ArrayList<>();
         Main.noteList = noteList;
 
@@ -318,7 +319,7 @@ class TimeCharTest {
     }
 
     @Test
-    void testXronosTriGorgon() {
+    void testXronos1TriGorgon() {
         noteList = new ArrayList<>();
         Main.noteList = noteList;
 
@@ -377,7 +378,7 @@ class TimeCharTest {
     }
 
     @Test
-    void testXronosTetraGorgon() {
+    void testXronos1TetraGorgon() {
         noteList = new ArrayList<>();
         Main.noteList = noteList;
 
@@ -440,6 +441,335 @@ class TimeCharTest {
     }
 
     @Test
+    void testXronos2Gorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            note = new ExtendedNote(true, true);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            if (i==1) {
+                // Duration
+                note.setDuration(new BigDecimal(TimeChar.division*2));
+
+                // Type
+                NoteType type = new NoteType();
+                type.setValue("half");
+                note.setType(type);
+                continue;
+            }
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
+        System.out.println(noteList);
+        timeChar.run();
+        System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(3, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
+                () -> assertNotNull(noteList.get(1).getDot().get(0))
+        );
+    }
+
+    @Test
+    void testDot1Gorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(2, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
+        );
+    }
+
+    @Test
+    void testDot2Gorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 2, 1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
+        );
+    }
+
+    @Test
+    void testDot1DiGorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 3; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 1, 2, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(1).getType().getValue()),
+                () -> assertEquals(1, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(2).getType().getValue())
+        );
+    }
+
+    @Test
+    void testDot1TriGorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 4; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 1, 3, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(8, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(1).getType().getValue()),
+                () -> assertEquals(4, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(2).getType().getValue()),
+                () -> assertEquals(4, noteList.get(3).getDuration().intValue()),
+                () -> assertEquals("16th", noteList.get(3).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(3).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
+        );
+    }
+
+    @Test
+    void testXronos1Dot1Gorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            note = new ExtendedNote(true, true);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            if (i==0) {
+                // Duration
+                note.setDuration(new BigDecimal(TimeChar.division*2));
+
+                // Type
+                NoteType type = new NoteType();
+                type.setValue("half");
+                note.setType(type);
+                continue;
+            }
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(6, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, noteList.get(0).getTie().get(0).getType()),
+                () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, noteList.get(1).getTie().get(0).getType()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(2, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(2).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(2).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType())
+        );
+    }
+
+    @Test
+    void testXronos2Dot1Gorgon() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            note = new ExtendedNote(true, true);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            if (i==1) {
+                // Duration
+                note.setDuration(new BigDecimal(TimeChar.division*2));
+
+                // Type
+                NoteType type = new NoteType();
+                type.setValue("half");
+                note.setType(type);
+                continue;
+            }
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(StartStop.START, ((Tuplet)noteList.get(0).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(2, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(1).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, ((Tuplet)noteList.get(1).getNotations().get(0).getTiedOrSlurOrTuplet().get(0)).getType()),
+                () -> assertEquals(StartStop.START, noteList.get(1).getTie().get(0).getType()),
+                () -> assertEquals(6, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(2).getType().getValue()),
+                () -> assertEquals(StartStop.STOP, noteList.get(2).getTie().get(0).getType())
+        );
+    }
+
+    /*@Test
     void testGorgonXronosGorgon() {
         TimeChar.division = 4;
         TimeChar.mapValuesInsert();
@@ -562,6 +892,46 @@ class TimeCharTest {
                 () -> assertEquals("eighth", noteList.get(2).getType().getValue()),
                 () -> assertEquals(4, noteList.get(3).getDuration().intValue()),
                 () -> assertEquals("quarter", noteList.get(3).getType().getValue())
+        );
+    }*/
+
+    @Test // Tsakisma, apli, dipli..
+    void testXronos() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            if (i == 0)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, -1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("half", noteList.get(0).getType().getValue()),
+                () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(1).getType().getValue())
         );
     }
 

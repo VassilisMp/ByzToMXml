@@ -81,7 +81,7 @@ public class Main {
 
         XWPFDocument docx = null;
         try {
-            docx = new XWPFDocument(new FileInputStream("a.docx"));
+            docx = new XWPFDocument(new FileInputStream("b.docx"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Coudln't open document");
@@ -103,16 +103,16 @@ public class Main {
             }
         }
 
-        /*
-        try {
+
+        /*try {
             ScorePartwise scorePartwise = getScorePartwise();
             Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(scorePartwise, System.out);
         }catch (Exception ex) {
             ex.printStackTrace();
-        }
-        */
+        }*/
+
     }
 
     private static void insertChars() {

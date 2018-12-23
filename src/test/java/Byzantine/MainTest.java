@@ -9,13 +9,14 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import javax.xml.bind.Marshaller;
+import java.io.*;
 import java.lang.String;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
+import static org.audiveris.proxymusic.util.Marshalling.getContext;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
@@ -36,7 +37,7 @@ class MainTest {
         // Pitch
         Pitch pitch = new Pitch();
         note.setPitch(pitch);
-        pitch.setStep(Step.F);
+        pitch.setStep(Step.A);
         pitch.setOctave(4);
 
         // Duration
@@ -63,7 +64,7 @@ class MainTest {
 
         XWPFDocument docx = null;
         try {
-            docx = new XWPFDocument(new FileInputStream("b.docx"));
+            docx = new XWPFDocument(new FileInputStream("elpiza.docx"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Coudln't open document");
@@ -93,7 +94,8 @@ class MainTest {
                             boolean annotationPresent = ByzClass.class.getField(byzClass.toString()).isAnnotationPresent(NotSupported.class);
                             //System.out.println(byzClass + " annotation isPresent: " + annotationPresent);
                             if (annotationPresent) {
-                                throw new NotSupportedException("document contains ByzClass." + byzClass + " character which is not supported");
+                                continue;
+                                //throw new NotSupportedException("document contains ByzClass." + byzClass + " character which is not supported");
                             }
                         } catch (NoSuchFieldException e) {
                             e.printStackTrace();
@@ -110,7 +112,10 @@ class MainTest {
                             .filter(Char -> Char.codePoint == finalCharInt && ((ByzChar) Char).ByzClass == byzClass)
                             .findAny()
                             .orElse(null);
-                    if (unicodeChar == null) continue;
+                    if (unicodeChar == null) {
+                        System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + " " + unicodeChar);
+                        continue;
+                    }
                     unicodeChar.setFont(String.valueOf(c));
                     docChars.add(unicodeChar);
                     //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + " " + unicodeChar);
@@ -143,17 +148,33 @@ class MainTest {
         int thesi = 0;
         for (int i = 0; i < docChars.size(); i++) {
             UnicodeChar Char = docChars.get(i);
-            if (Char instanceof QuantityChar) {
                 System.out.println(thesi + " " + Char);
                 thesi++;
                 Char.run();
-            }
             //System.out.println(unicodeChar);
             //System.out.println(i + " " + Char);
         }
         for (int i = 0, noteListSize = noteList.size(); i < noteListSize; i++) {
             Note note1 = noteList.get(i);
             System.out.println(i + " " + note1);
+        }
+
+        noteList.remove(0);
+
+        FileOutputStream fileOutputStream;
+        try {
+            fileOutputStream = new FileOutputStream("test.xml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+        try {
+            ScorePartwise scorePartwise = toScorePartwise();
+            Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(scorePartwise, fileOutputStream);
+        }catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -211,8 +232,65 @@ class MainTest {
     }
 
     @Test
-    void toScorePartwise() { // TODO get notes produced from b.docx and create a score
+    private static ScorePartwise toScorePartwise() {
+        // Generated factory for all proxymusic elements
+        ObjectFactory factory = new ObjectFactory();
 
+        // Allocate the score partwise
+        ScorePartwise scorePartwise = factory.createScorePartwise();
+
+        // PartList
+        PartList partList = factory.createPartList();
+        scorePartwise.setPartList(partList);
+
+        // Scorepart in partList
+        ScorePart scorePart = factory.createScorePart();
+        partList.getPartGroupOrScorePart().add(scorePart);
+        scorePart.setId("P1");
+
+        PartName partName = factory.createPartName();
+        scorePart.setPartName(partName);
+        partName.setValue("Music");
+
+        // ScorePart in scorePartwise
+        ScorePartwise.Part part = factory.createScorePartwisePart();
+        scorePartwise.getPart().add(part);
+        part.setId(scorePart);
+
+        // Measure
+        ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
+        part.getMeasure().add(measure);
+        measure.setNumber("1");
+
+        // Attributes
+        Attributes attributes = factory.createAttributes();
+        measure.getNoteOrBackupOrForward().add(attributes);
+
+        // Divisions
+        attributes.setDivisions(new BigDecimal(TimeChar.division));
+
+        // Key
+        Key key = factory.createKey();
+        attributes.getKey().add(key);
+        key.setFifths(new BigInteger("0"));
+
+        // Time
+        Time time = factory.createTime();
+        attributes.getTime().add(time);
+        time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(noteList.size())));
+        time.getTimeSignature().add(factory.createTimeBeatType("4"));
+
+        // Clef
+        Clef clef = factory.createClef();
+        attributes.getClef().add(clef);
+        clef.setSign(ClefSign.G);
+        clef.setLine(new BigInteger("2"));
+
+        for (Note note : noteList) {
+            measure.getNoteOrBackupOrForward().add(note);
+        }
+
+        return scorePartwise;
     }
 
 }

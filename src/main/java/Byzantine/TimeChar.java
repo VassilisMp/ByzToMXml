@@ -77,9 +77,11 @@ public class TimeChar extends ByzChar{
             int index = getIndex();
             List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
             int addedTime;
-            if (division % (divisions + 1) == 0) addedTime = division / (divisions + 1);
-            else addedTime = getNewAddedTime();
             if (dotPlace == 0) {
+                if (division % (divisions + 1) == 0) addedTime = division / (divisions + 1);
+                else addedTime = getNewAddedTime();
+                if (division % (divisions + 1) == 0) addedTime = division / (divisions + 1);
+                else addedTime = getNewAddedTime();
                 Note tieNote = null;
                 for (int i = 0; i < subList.size(); i++) {
                     Note note = subList.get(i);
@@ -91,7 +93,7 @@ public class TimeChar extends ByzChar{
                         note.setDuration(new BigDecimal(addedTime));
                         String noteType;
                         if (divisions%2==0) {
-                            addTuplet(subList.size(), i, note);
+                            addTuplet(subList.size(), i, note, 1);
                             noteType = noteTypeMap.inverse().get(division/(divisions));
                             if (noteType == null) {
                                 changeDivision(divisions);
@@ -109,7 +111,65 @@ public class TimeChar extends ByzChar{
                     }
                 }
                 if (tieNote != null) Main.noteList.add(index-1, tieNote);
+            } else if (dotPlace > 0) { // TODO finish code, for the Note on the dot, and also the Test
+                if (division % (divisions + 2) == 0) addedTime = division / (divisions + 2);
+                else addedTime = getNewAddedTime(divisions + 2);
+                Note tieNote = null;
+                int tieNoteIndex = 0;
+                for (int i = 0; i < subList.size(); i++) {
+                    addedTime = division/(divisions+2);
+                    Note note = subList.get(i);
+                    int duration = note.getDuration().intValue();
+                    if (duration > division) {
+                        tieNote = DotgetTieNote(addedTime, i, note, duration, subList.size());
+                        tieNoteIndex = i;
+                    } else {
+                        addedTime = division/(divisions+2);
+                        if (i == dotPlace-1) addedTime *= 2;
+                        note.setDuration(new BigDecimal(addedTime));
+                        String noteType;
+                        int divideWith = divisions+1;
+                        if (divisions%2!=0) {
+                            addTuplet(subList.size(), i, note, 2);
+                            if (i == dotPlace-1) divideWith = divisions;
+                            noteType = noteTypeMap.inverse().get(division/divideWith);
+                            if (noteType == null) {
+                                changeDivision(divisions+1);
+                                if (tieNote != null) {
+                                    int tieNoteDur = tieNote.getDuration().intValue();
+                                    tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
+                                }
+                                addedTime = division/(divisions+2);
+                                divideWith = divisions+1;
+                                if (i == dotPlace-1) {
+                                    addedTime *= 2;
+                                    divideWith = divisions-1;
+                                }
+                                noteType = noteTypeMap.inverse().get(division/divideWith);
+                                if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
+                            }
+                            note.getType().setValue(noteType);
+                        } else {
+                            if (i == dotPlace-1) divideWith = divisions;
+                            noteType = noteTypeMap.inverse().get(division/divideWith);
+                            note.getType().setValue(noteType);
+                        }
+                    }
+                }
+                if (tieNote != null) {
+                    if (tieNoteIndex == 0) Main.noteList.add(index-1, tieNote);
+                    else Main.noteList.add(tieNote);
+                }
             }
+        } else if (divisions < 0) {
+            Note note = Main.noteList.get(getIndex());
+            int duration = note.getDuration().intValue();
+            duration += Math.abs(divisions) * division;
+            note.setDuration(BigDecimal.valueOf(duration));
+            NoteType noteType = new NoteType();
+            Map map = noteTypeMap;
+            noteType.setValue(noteTypeMap.inverse().get(duration));
+            note.setType(noteType);
         }
     }
 
@@ -151,7 +211,7 @@ public class TimeChar extends ByzChar{
             note.getTie().add(tie);
             String noteType;
             if (divisions%2==0) {
-                addTuplet(subListSize, i, note);
+                addTuplet(subListSize, i, note, 1);
                 noteType = noteTypeMap.inverse().get(division/(divisions));
                 if (noteType == null) {
                     changeDivision(divisions);
@@ -169,9 +229,81 @@ public class TimeChar extends ByzChar{
         return null;
     }
 
-    private void addTuplet(int subListSize, int i, @NotNull Note note) {
+    @Nullable
+    private Note DotgetTieNote(int addedTime, int i, Note note, int duration, int subListSize) {
+        int producedDuration = (duration-division) + addedTime;
+        int x = (producedDuration / division) * division;
+        int dotTarget = 0;//x + (x/2);
+        int doubleDotTarget = 0;//dotTarget + (x/4);
+        if (x%2 == 0) {
+            dotTarget = x + (x/2);
+            doubleDotTarget = dotTarget + (x/4);
+        }
+        if (producedDuration == dotTarget) {
+            note.getDot().add(new EmptyPlacement());
+            note.setDuration(new BigDecimal(producedDuration));
+            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2));
+            if (noteType == null)
+                throw new NullPointerException("String noteType doesn't exist");
+            note.getType().setValue(noteType);
+        } else if (producedDuration == doubleDotTarget) {
+            note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
+            note.setDuration(new BigDecimal(producedDuration));
+            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2)-(x/4));
+            if (noteType == null)
+                throw new NullPointerException("String noteType doesn't exist");
+            note.getType().setValue(noteType);
+        } else {
+            if (i == dotPlace-1) addedTime *= 2;
+            note.setDuration(new BigDecimal(addedTime));
+            Note tieNote = (Note) ((ExtendedNote)note).clone();
+            int Tduration = ((duration/division) * division) - division;
+            tieNote.setDuration(new BigDecimal(Tduration));
+            tieNote.getType().setValue(noteTypeMap.inverse().get(Tduration));
+            Tie tie = new Tie();
+            Tie tie2 = new Tie();
+            if(i == 0) {
+                tie.setType(StartStop.START);
+                tie2.setType(StartStop.STOP);
+            } else {
+                tie.setType(StartStop.STOP);
+                tie2.setType(StartStop.START);
+            }
+            tieNote.getTie().add(tie);
+            note.getTie().add(tie2);
+            String noteType;
+            int divideWith = divisions+1;
+            if (divisions%2!=0) {
+                addTuplet(subListSize, i, note, 2);
+                if (i == dotPlace-1) divideWith = divisions;
+                noteType = noteTypeMap.inverse().get(division/divideWith);
+                if (noteType == null) {
+                    changeDivision(divisions+1);
+                    int tieNoteDur = tieNote.getDuration().intValue();
+                    tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
+                    addedTime = division/(divisions+2);
+                    divideWith = divisions+1;
+                    if (i == dotPlace-1) {
+                        addedTime *= 2;
+                        divideWith = divisions-1;
+                    }
+                    noteType = noteTypeMap.inverse().get(division/divideWith);
+                    if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
+                }
+                note.getType().setValue(noteType);
+            } else {
+                if (i == dotPlace-1) divideWith = divisions;
+                noteType = noteTypeMap.inverse().get(division/divideWith);
+                note.getType().setValue(noteType);
+            }
+            return tieNote;
+        }
+        return null;
+    }
+
+    private void addTuplet(int subListSize, int i, @NotNull Note note, int num) {
         TimeModification timeModification = new TimeModification();
-        timeModification.setActualNotes(BigInteger.valueOf(divisions + 1));
+        timeModification.setActualNotes(BigInteger.valueOf(divisions + num));
         timeModification.setNormalNotes(BigInteger.valueOf(divisions));
         note.setTimeModification(timeModification);
         if (i == 0) {
@@ -351,6 +483,12 @@ public class TimeChar extends ByzChar{
         division *= divisions+1;
         applyChanges();
         System.out.println(Main.noteList);
+    }
+
+    private int getNewAddedTime(int num) {
+        changeDivision(num);
+        // the newAddedTime value is returned
+        return division/(num);
     }
 
     private void changeDivision(int num) {
