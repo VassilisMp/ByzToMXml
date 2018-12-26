@@ -62,7 +62,7 @@ class MainTest {
             return;
         }
 
-        XWPFDocument docx = null;
+        XWPFDocument docx;
         try {
             docx = new XWPFDocument(new FileInputStream("elpiza.docx"));
         } catch (IOException e) {
@@ -129,21 +129,7 @@ class MainTest {
                 }
             }
         }
-        // case ISON -> KENTIMA replace with one char
-        QuantityChar qCharKentima = new QuantityChar(67, "\uF061", ByzClass.B, new Move(2, false, false));
-        QuantityChar qCharOligon = new QuantityChar(115, "\uF073", ByzClass.B, new Move(1, true, true));
-        for (int i = 0, docCharsSize = docChars.size(); i < docCharsSize; i++) {
-            UnicodeChar docChar = docChars.get(i);
-            if (docChar.equals(qCharKentima)) {
-                /* TODO docChars.get(i-1) won't work when the list has all types of chars, need to find previous,
-                 * QuantityChar and then check if equals(qCharOligon)  */
-                if (docChars.get(i-1).equals(qCharOligon)) {
-                    docChars.set(i-1, new QuantityChar(100, "\uF064", ByzClass.B, new Move(2, true, true)));
-                    docChars.remove(i);
-                    docCharsSize = docChars.size();
-                }
-            }
-        }
+        IsonKentimaReplace(docChars);
         // TODO fix L116 char action when following two gorgon
         int thesi = 0;
         for (int i = 0; i < docChars.size(); i++) {
@@ -159,6 +145,7 @@ class MainTest {
             System.out.println(i + " " + note1);
         }
 
+        // remove first note which was auxiliary
         noteList.remove(0);
 
         FileOutputStream fileOutputStream;
@@ -175,6 +162,24 @@ class MainTest {
             marshaller.marshal(scorePartwise, fileOutputStream);
         }catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void IsonKentimaReplace(@NotNull List<UnicodeChar> docChars) {
+        // case ISON -> KENTIMA replace with one char
+        QuantityChar qCharKentima = new QuantityChar(67, "\uF061", ByzClass.B, new Move(2, false, false));
+        QuantityChar qCharOligon = new QuantityChar(115, "\uF073", ByzClass.B, new Move(1, true, true));
+        for (int i = 0, docCharsSize = docChars.size(); i < docCharsSize; i++) {
+            UnicodeChar docChar = docChars.get(i);
+            if (docChar.equals(qCharKentima)) {
+                /* TODO docChars.get(i-1) won't work when the list has all types of chars, need to find previous,
+                 * QuantityChar and then check if equals(qCharOligon)  */
+                if (docChars.get(i-1).equals(qCharOligon)) {
+                    docChars.set(i-1, new QuantityChar(100, "\uF064", ByzClass.B, new Move(2, true, true)));
+                    docChars.remove(i);
+                    docCharsSize = docChars.size();
+                }
+            }
         }
     }
 
