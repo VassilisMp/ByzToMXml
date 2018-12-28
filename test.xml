@@ -10,10 +10,10 @@
             <attributes>
                 <divisions>6</divisions>
                 <key>
-                    <fifths>0</fifths>
+                    <fifths>-1</fifths>
                 </key>
                 <time>
-                    <beats>201</beats>
+                    <beats>4</beats>
                     <beat-type>4</beat-type>
                 </time>
                 <clef>
@@ -83,6 +83,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -163,6 +165,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -212,6 +216,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>F</step>
@@ -311,6 +317,13 @@
                 <type>quarter</type>
             </note>
             <note>
+                <rest/>
+                <duration>6</duration>
+                <type>quarter</type>
+            </note>
+        </measure>
+        <measure>
+            <note>
                 <pitch>
                     <step>D</step>
                     <octave>4</octave>
@@ -358,6 +371,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>F</step>
@@ -414,6 +429,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -494,6 +511,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -535,6 +554,8 @@
                 <duration>6</duration>
                 <type>quarter</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -597,6 +618,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -661,6 +684,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -710,6 +735,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>F</step>
@@ -809,6 +836,13 @@
                 <type>quarter</type>
             </note>
             <note>
+                <rest/>
+                <duration>6</duration>
+                <type>quarter</type>
+            </note>
+        </measure>
+        <measure>
+            <note>
                 <pitch>
                     <step>D</step>
                     <octave>4</octave>
@@ -856,6 +890,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>F</step>
@@ -912,6 +948,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -992,6 +1030,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -1048,6 +1088,8 @@
                 <duration>6</duration>
                 <type>quarter</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>D</step>
@@ -1097,6 +1139,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>B</step>
@@ -1137,6 +1181,8 @@
                 <duration>12</duration>
                 <type>half</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>B</step>
@@ -1158,16 +1204,16 @@
                     <step>G</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
                     <step>A</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
@@ -1201,6 +1247,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -1222,16 +1270,16 @@
                     <step>F</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
                     <step>E</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
@@ -1241,6 +1289,8 @@
                 <duration>12</duration>
                 <type>half</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>D</step>
@@ -1289,6 +1339,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>F</step>
@@ -1345,6 +1397,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -1394,6 +1448,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>D</step>
@@ -1447,17 +1503,19 @@
                     <step>C</step>
                     <octave>5</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
                     <step>D</step>
                     <octave>5</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>D</step>
@@ -1507,6 +1565,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>B</step>
@@ -1547,6 +1607,8 @@
                 <duration>12</duration>
                 <type>half</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>B</step>
@@ -1584,16 +1646,16 @@
                     <step>A</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
                     <step>G</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
@@ -1611,6 +1673,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -1632,16 +1696,16 @@
                     <step>F</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
                     <step>E</step>
                     <octave>4</octave>
                 </pitch>
-                <duration>6</duration>
-                <type>quarter</type>
+                <duration>3</duration>
+                <type>eighth</type>
             </note>
             <note>
                 <pitch>
@@ -1651,6 +1715,8 @@
                 <duration>12</duration>
                 <type>half</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>D</step>
@@ -1699,6 +1765,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>F</step>
@@ -1755,6 +1823,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>A</step>
@@ -1804,6 +1874,8 @@
                 <duration>3</duration>
                 <type>eighth</type>
             </note>
+        </measure>
+        <measure>
             <note>
                 <pitch>
                     <step>D</step>
@@ -1811,6 +1883,11 @@
                 </pitch>
                 <duration>18</duration>
                 <type/>
+            </note>
+            <note>
+                <rest/>
+                <duration>6</duration>
+                <type>quarter</type>
             </note>
         </measure>
     </part>

@@ -1,6 +1,5 @@
 package Byzantine;
 
-import com.google.common.collect.ArrayListMultimap;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -17,36 +16,37 @@ import java.math.BigInteger;
 import java.util.*;
 
 import static org.audiveris.proxymusic.util.Marshalling.getContext;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
     private static List<Note> noteList;
+    List<UnicodeChar> docChars = new ArrayList<>();
 
     @Test
     void QuantityCharTest() throws NotSupportedException {
-        List<UnicodeChar> docChars = new ArrayList<>();
 
         Main.noteList = new ArrayList<>();
         noteList = Main.noteList;
 
-        // Note 0 ---
-        Note note = new ExtendedNote(true, true);
-        noteList.add(note);
+        {
+            // Note 0 ---
+            Note note = new ExtendedNote(true, true);
+            noteList.add(note);
 
-        // Pitch
-        Pitch pitch = new Pitch();
-        note.setPitch(pitch);
-        pitch.setStep(Step.A);
-        pitch.setOctave(4);
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.A);
+            pitch.setOctave(4);
 
-        // Duration
-        note.setDuration(new BigDecimal(TimeChar.division));
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
 
-        // Type
-        NoteType type = new NoteType();
-        type.setValue("quarter");
-        note.setType(type);
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
 
         Map<String, ByzClass> map = Collections.unmodifiableMap(getMap());
 
@@ -113,7 +113,7 @@ class MainTest {
                             .findAny()
                             .orElse(null);
                     if (unicodeChar == null) {
-                        System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + " " + unicodeChar);
+                        System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
                         continue;
                     }
                     unicodeChar.setFont(String.valueOf(c));
@@ -130,13 +130,11 @@ class MainTest {
             }
         }
         IsonKentimaReplace(docChars);
-        // TODO fix L116 char action when following two gorgon
-        int thesi = 0;
+        fixL116(docChars);
         for (int i = 0; i < docChars.size(); i++) {
             UnicodeChar Char = docChars.get(i);
-                System.out.println(thesi + " " + Char);
-                thesi++;
-                Char.run();
+            System.out.println(i + " " + Char);
+            Char.run();
             //System.out.println(unicodeChar);
             //System.out.println(i + " " + Char);
         }
@@ -165,6 +163,41 @@ class MainTest {
         }
     }
 
+    // replaces L116 followed of two gorga, with working sequence
+    private static void fixL116(@NotNull List<UnicodeChar> docChars) {
+        long start = System.nanoTime();
+        for (int i = 0; i < docChars.size(); i++) {
+            UnicodeChar Char = docChars.get(i);
+            if (UnicodeChars.equals(Char, 116, ByzClass.L)) {
+                UnicodeChar Char1 = docChars.get(i+1);
+                if (UnicodeChars.isGorgonOrArgo(Char1)) {
+                    UnicodeChar Char2 = docChars.get(i + 2);
+                    if (UnicodeChars.isGorgonOrArgo(Char2)) {
+                        for (int j = 0; j < 3; j++) {
+                            docChars.remove(i);
+                        }
+                        List<UnicodeChar> replace =
+                                Arrays.asList(
+                                        new QuantityChar(39, "", ByzClass.B,
+                                                new Move(-1, true, true),
+                                                new Move(-1, true, false)
+                                        ),
+                                        Char1,
+                                        new QuantityChar(120, "", ByzClass.B,
+                                                new Move(1, false, true)
+                                        ),
+                                        Char2
+                                );
+                        docChars.addAll(i, replace);
+                    }
+                }
+            }
+        }
+        long finish = System.nanoTime();
+        long timeElapsed = finish - start;
+        System.out.println("timeElapsed" + timeElapsed);
+    }
+
     private void IsonKentimaReplace(@NotNull List<UnicodeChar> docChars) {
         // case ISON -> KENTIMA replace with one char
         QuantityChar qCharKentima = new QuantityChar(67, "\uF061", ByzClass.B, new Move(2, false, false));
@@ -172,7 +205,7 @@ class MainTest {
         for (int i = 0, docCharsSize = docChars.size(); i < docCharsSize; i++) {
             UnicodeChar docChar = docChars.get(i);
             if (docChar.equals(qCharKentima)) {
-                /* TODO docChars.get(i-1) won't work when the list has all types of chars, need to find previous,
+                /* TODO docChars.get(i-1) might not work when the list has all types of chars, need to find previous,
                  * QuantityChar and then check if equals(qCharOligon)  */
                 if (docChars.get(i-1).equals(qCharOligon)) {
                     docChars.set(i-1, new QuantityChar(100, "\uF064", ByzClass.B, new Move(2, true, true)));
@@ -237,7 +270,7 @@ class MainTest {
     }
 
     @Test
-    private static ScorePartwise toScorePartwise() {
+    private static ScorePartwise toScorePartwise() throws Exception {
         // Generated factory for all proxymusic elements
         ObjectFactory factory = new ObjectFactory();
 
@@ -261,7 +294,14 @@ class MainTest {
         ScorePartwise.Part part = factory.createScorePartwisePart();
         scorePartwise.getPart().add(part);
         part.setId(scorePart);
+        //workingTest1Measure(factory, part);
 
+        addMeasures(factory, part);
+
+        return scorePartwise;
+    }
+
+    private static void workingTest1Measure(ObjectFactory factory, ScorePartwise.Part part) {
         // Measure
         ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
         part.getMeasure().add(measure);
@@ -294,8 +334,66 @@ class MainTest {
         for (Note note : noteList) {
             measure.getNoteOrBackupOrForward().add(note);
         }
+    }
 
-        return scorePartwise;
+    private static void addMeasures(ObjectFactory factory, ScorePartwise.Part part) throws Exception {
+        ArrayList<List<Note>> noteLists = new ArrayList<>();
+        for (int i = 0, noteListSize = noteList.size(), index = i, durations = 0; i < noteListSize; i++) {
+            //measure.getNoteOrBackupOrForward().add(note);
+            Note note = noteList.get(i);
+            durations += note.getDuration().intValue();
+            if (durations == (TimeChar.division * 4)) {
+                noteLists.add(noteList.subList(index, i+1));
+                index = i+1;
+                durations = 0;
+            }else if (durations > (TimeChar.division * 4)){
+                throw new Exception("error in noteLists");
+            }
+        }
+
+        ArrayList<ScorePartwise.Part.Measure> measures = new ArrayList<>(noteLists.size());
+        for (int i = 1, noteListsSize = noteLists.size(); i < noteListsSize; i++) {
+            List<Note> notesList = noteLists.get(i);
+            ScorePartwise.Part.Measure partMeasure = factory.createScorePartwisePartMeasure();
+            partMeasure.getNoteOrBackupOrForward().addAll(notesList);
+            measures.add(partMeasure);
+        }
+
+        addFirstMeasure(factory, part, noteLists.get(0));
+        part.getMeasure().addAll(measures);
+    }
+
+    private static void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) {
+        // Measure
+        ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
+        part.getMeasure().add(measure);
+        measure.setNumber("1");
+
+        // Attributes
+        Attributes attributes = factory.createAttributes();
+        measure.getNoteOrBackupOrForward().add(attributes);
+
+        // Divisions
+        attributes.setDivisions(new BigDecimal(TimeChar.division));
+
+        // Key
+        Key key = factory.createKey();
+        attributes.getKey().add(key);
+        key.setFifths(new BigInteger("-1"));
+
+        // Time
+        Time time = factory.createTime();
+        attributes.getTime().add(time);
+        time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(4)));
+        time.getTimeSignature().add(factory.createTimeBeatType("4"));
+
+        // Clef
+        Clef clef = factory.createClef();
+        attributes.getClef().add(clef);
+        clef.setSign(ClefSign.G);
+        clef.setLine(new BigInteger("2"));
+
+        measure.getNoteOrBackupOrForward().addAll(notes);
     }
 
 }

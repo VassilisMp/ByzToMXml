@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ListIterator;
 
 public class QuantityChar extends ByzChar implements Comparable {
     private final static BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
@@ -78,9 +79,7 @@ public class QuantityChar extends ByzChar implements Comparable {
         //System.out.println(Main.noteList.get(0));
         for (Move move : moves) {
             Note note = new ExtendedNote(move.getLyric(), move.getTime());
-
-            Note lastNote = Main.noteList.get(Main.noteList.size() - 1);
-            Pitch pitch = lastNote.getPitch();
+            Pitch pitch = getPitch();
             Step step = pitch.getStep();
             int octave = pitch.getOctave();
             int stepNum = stepMap.get(step);
@@ -110,6 +109,22 @@ public class QuantityChar extends ByzChar implements Comparable {
 
             //System.out.println(note);
         }
+    }
+
+    // this method was created to overpass previous notes that are rests
+    private static Pitch getPitch() {
+        ListIterator<Note> iterator = Main.noteList.listIterator(Main.noteList.size());
+        Pitch pitch = null;
+        while (iterator.hasPrevious()) {
+            ExtendedNote exNote = (ExtendedNote) iterator.previous();
+            pitch = exNote.getPitch();
+            if (pitch != null) {
+                break;
+            }
+        }
+        if (pitch == null)
+            throw new NullPointerException("Couldn't find a Note with pitch");
+        return pitch;
     }
 
 }

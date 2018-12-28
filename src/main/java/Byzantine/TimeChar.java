@@ -72,14 +72,23 @@ public class TimeChar extends ByzChar{
     }
 
     @Override
-    public void run() {
-        if (divisions > 0 && !argo) { // TODO argo, pause
+    public void run() {// TODO finish if statement code L124, it's dot after pause
+        // TODO L116 Gorgo Gorgo
+        //
+        if (getByzClass() == Byzantine.ByzClass.L && codePoint == 92) {
+            ExtendedNote note = new ExtendedNote(false, false);
+            note.setDuration(BigDecimal.valueOf(division));
+            NoteType noteType = new NoteType();
+            noteType.setValue("quarter");
+            note.setType(noteType);
+            note.setRest(new Rest());
+            Main.noteList.add(note);
+        } else
+        if (divisions > 0 && !argo) { // TODO argo
             int index = getIndex();
             List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
             int addedTime;
             if (dotPlace == 0) {
-                if (division % (divisions + 1) == 0) addedTime = division / (divisions + 1);
-                else addedTime = getNewAddedTime();
                 if (division % (divisions + 1) == 0) addedTime = division / (divisions + 1);
                 else addedTime = getNewAddedTime();
                 Note tieNote = null;
@@ -112,8 +121,7 @@ public class TimeChar extends ByzChar{
                 }
                 if (tieNote != null) Main.noteList.add(index-1, tieNote);
             } else if (dotPlace > 0) {
-                if (division % (divisions + 2) == 0) addedTime = division / (divisions + 2);
-                else addedTime = getNewAddedTime(divisions + 2);
+                if (division % (divisions + 2) != 0) changeDivision(divisions + 2);
                 Note tieNote = null;
                 int tieNoteIndex = 0;
                 for (int i = 0; i < subList.size(); i++) {
@@ -138,10 +146,8 @@ public class TimeChar extends ByzChar{
                                     int tieNoteDur = tieNote.getDuration().intValue();
                                     tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
                                 }
-                                addedTime = division/(divisions+2);
                                 divideWith = divisions+1;
                                 if (i == dotPlace-1) {
-                                    addedTime *= 2;
                                     divideWith = divisions-1;
                                 }
                                 noteType = noteTypeMap.inverse().get(division/divideWith);
@@ -167,7 +173,6 @@ public class TimeChar extends ByzChar{
             duration += Math.abs(divisions) * division;
             note.setDuration(BigDecimal.valueOf(duration));
             NoteType noteType = new NoteType();
-            Map map = noteTypeMap;
             noteType.setValue(noteTypeMap.inverse().get(duration));
             note.setType(noteType);
         }
@@ -288,10 +293,8 @@ public class TimeChar extends ByzChar{
                     changeDivision(divisions+1);
                     int tieNoteDur = tieNote.getDuration().intValue();
                     tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
-                    addedTime = division/(divisions+2);
                     divideWith = divisions+1;
                     if (i == dotPlace-1) {
-                        addedTime *= 2;
                         divideWith = divisions-1;
                     }
                     noteType = noteTypeMap.inverse().get(division/divideWith);
@@ -355,151 +358,6 @@ public class TimeChar extends ByzChar{
         }
     }
 
-    // Started a new one ^^^ to make it simpler, this one became too complex..
-    //@Override
-    public void run2() throws NullPointerException {
-        if (divisions > 0 && !argo) {
-            // get index of the last note that canGetTime
-            int index = getIndex();
-            List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
-            int addedTime;
-            // in this case it means the division being used in the measure isn't enough to describe smaller NoteTypes
-            // so variables are recalculated
-            if (division%(divisions+1) != 0)
-                addedTime = getNewAddedTime();
-            else
-                addedTime = division/(divisions+1);
-            // If division is even, it means there aren't dotted notes
-            // implementation for case of gorgon, trigorgon, pentagorgon...
-            Note tieNote = null;
-            if (dotPlace == 0) {
-                for (int i = 0; i < subList.size(); i++) {
-                    Note n = subList.get(i);
-                    // get and set duration
-                    int duration = setNewDuration(addedTime, n);
-                    if (duration > division) {
-                        tieNote = (Note) ((ExtendedNote)n).clone();
-                        int durat = (duration/division) * division;
-                        tieNote.setDuration(new BigDecimal(durat));
-                        tieNote.getType().setValue(noteTypeMap.inverse().get(durat));
-                        Tie tie = new Tie();
-                        tie.setType(StartStop.START);
-                        tieNote.getTie().add(tie);
-                        tie = new Tie();
-                        tie.setType(StartStop.STOP);
-                        subList.get(i+1).getTie().add(tie);
-                    }
-                    // in this case tuplets are used
-                    if (256 % (divisions + 1) != 0) {
-                        TimeModification timeModification = new TimeModification();
-                        timeModification.setActualNotes(BigInteger.valueOf(divisions + 1));
-                        timeModification.setNormalNotes(BigInteger.valueOf(divisions));
-                        n.setTimeModification(timeModification);
-                        if (i == 0) {
-                            Tuplet tuplet = new Tuplet();
-                            tuplet.setBracket(YesNo.YES);
-                            tuplet.setNumber(++tupletNum);
-                            tuplet.setPlacement(AboveBelow.ABOVE);
-                            tuplet.setType(StartStop.START);
-                            List<Notations> notationsList = n.getNotations();
-                            Notations notations = new Notations();
-                            notations.getTiedOrSlurOrTuplet().add(tuplet);
-                            notationsList.add(notations);
-                        }
-                        if (i == subList.size() - 1) {
-                            List<Notations> notationsList = n.getNotations();
-                            Notations notations = new Notations();
-                            Tuplet tuplet = new Tuplet();
-                            tuplet.setNumber(tupletNum);
-                            tuplet.setType(StartStop.STOP);
-                            notations.getTiedOrSlurOrTuplet().add(tuplet);
-                            notationsList.add(notations);
-                        }
-                        String newNoteType = null;
-                        /*BiMap<Integer, String> typeMapInverse = noteTypeMap.inverse();
-                        for (int j = 0; newNoteType == null; j++)
-                            newNoteType = typeMapInverse.get(duration - j);*/
-                        /*if (divisions == 2)
-                            newNoteType = "eighth";*/
-                        newNoteType = noteTypeMap.inverse().get(division/(divisions));
-                        if (newNoteType == null) {
-                            changeDivision(divisions);
-                            addedTime = division/(divisions+1);
-                            newNoteType = noteTypeMap.inverse().get(division/(divisions));
-                            if (newNoteType == null) {
-                                throw new NullPointerException("String noteType doesn't exist");
-                            }
-                        }
-                        n.getType().setValue(newNoteType);
-                        Optional<String> opt = Optional.ofNullable(noteTypeMap.inverse().get(addedTime));
-                        opt.ifPresent(type -> n.getDot().clear());
-                        continue;
-                    }
-                    Optional<String> opt = Optional.ofNullable(noteTypeMap.inverse().get(addedTime));
-                    opt.ifPresent(type -> n.getDot().clear());
-                    // Get current NoteType
-                    NoteType noteType = n.getType();
-                    // Set the new NoteType
-                    // get the type from the corresponding value of the inverse map given the duration
-                    String newNoteType = noteTypeMap.inverse().get(duration);
-                    noteType.setValue(newNoteType);
-                    //System.out.println(newNoteType);
-                }
-            }
-            if (tieNote != null) {
-                Main.noteList.add(index-1, tieNote);
-            }
-            //System.out.println(Main.noteList);
-            // TODO case of dotted TimeChar
-        } else if (argo) { // TODO case of argo in TimeChar
-            int index = getIndex();
-            List<Note> subList = Main.noteList.subList(index - 1, index + 1);
-            //System.out.println(subList);
-            Note note1 = subList.get(0);
-            int addedTime = division/2;
-            int duration = setNewDuration(addedTime, note1);
-            // Get current NoteType
-            NoteType noteType1 = note1.getType();
-            // Set the new NoteType
-            // get the type from the corresponding value of the inverse map given the duration
-            String newNoteType1 = noteTypeMap.inverse().get(duration);
-            noteType1.setValue(newNoteType1);
-
-            //note2
-            Note note2 = subList.get(1);
-            duration = note2.getDuration().intValue();
-            duration /= 2;
-            duration += divisions * division;
-            note2.setDuration(new BigDecimal(duration));
-            // Get current NoteType
-            NoteType noteType2 = note2.getType();
-            // Set the new NoteType
-            // get the type from the corresponding value of the inverse map given the duration
-            String newNoteType2 = noteTypeMap.inverse().get(duration);
-            if (newNoteType2 == null) {
-                for (int i = 1; newNoteType2 == null; i++) {
-                    newNoteType2 = noteTypeMap.inverse().get(duration - i);
-                }
-                if (note2.getDot().size() == 0)
-                    note2.getDot().add(new EmptyPlacement());
-            }
-            noteType2.setValue(newNoteType2);
-        }
-
-    }
-
-    // returns the new settled duration
-    private int setNewDuration(int addedTime, @NotNull Note n) {
-        int duration = n.getDuration().intValue();
-        // subtract one time unit from duration
-        duration -= division;
-        // and add the new addedTime instead
-        duration += addedTime;
-        // Set the new Duration
-        n.setDuration(new BigDecimal(duration));
-        return duration;
-    }
-
     private int getNewAddedTime() {
         changeDivision();
         // the newAddedTime value is returned
@@ -510,12 +368,6 @@ public class TimeChar extends ByzChar{
         division *= divisions+1;
         applyChanges();
         System.out.println(Main.noteList);
-    }
-
-    private int getNewAddedTime(int num) {
-        changeDivision(num);
-        // the newAddedTime value is returned
-        return division/(num);
     }
 
     private void changeDivision(int num) {

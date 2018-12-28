@@ -28,4 +28,9 @@ public class MixedChar extends ByzChar {
                 "chars=" + Arrays.toString(chars) +
                 '}';
     }
+
+    @Override
+    public void run() {
+        Arrays.stream(chars).forEach(UnicodeChar::run);
+    }
 }

@@ -769,6 +769,42 @@ class TimeCharTest {
         );
     }
 
+    @Test
+    void testVaria_Apli() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        Note note;
+        note = new ExtendedNote(true, true);
+        noteList.add(note);
+
+        // Pitch
+        Pitch pitch = new Pitch();
+        note.setPitch(pitch);
+        pitch.setStep(Step.C);
+        pitch.setOctave(4);
+
+        // Duration
+        note.setDuration(new BigDecimal(TimeChar.division));
+
+        // Type
+        NoteType type = new NoteType();
+        type.setValue("quarter");
+        note.setType(type);
+
+        timeChar = new TimeChar(92, "", ByzClass.L, 0, -1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        //System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(TimeChar.division, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(0).getType().getValue()),
+                () -> assertEquals(TimeChar.division, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
+                () -> assertNull(noteList.get(1).getPitch())
+        );
+    }
+
     /*@Test
     void testGorgonXronosGorgon() {
         TimeChar.division = 4;

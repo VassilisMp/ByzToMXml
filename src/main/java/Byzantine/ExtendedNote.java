@@ -29,7 +29,7 @@ public final class ExtendedNote extends Note implements Cloneable {
         return "ExtendedNote{" +
                 "lyric=" + lyric +
                 ", time=" + time +
-                ", pitch=" + pitch.getStep() + pitch.getOctave() +
+                ", pitch=" + (pitch!=null?pitch.getStep() + "" + pitch.getOctave():"null") +
                 ", duration=" + duration +
                 ", type=" + type.getValue() +
                 //", tie=" + ((getTie().size()>0)?getTie().get(0).getType():"null") +
