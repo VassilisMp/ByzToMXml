@@ -138,28 +138,21 @@ class MainTest {
             //System.out.println(unicodeChar);
             //System.out.println(i + " " + Char);
         }
+        // remove first note which was auxiliary
+        noteList.remove(0);
         for (int i = 0, noteListSize = noteList.size(); i < noteListSize; i++) {
             Note note1 = noteList.get(i);
             System.out.println(i + " " + note1);
         }
 
-        // remove first note which was auxiliary
-        noteList.remove(0);
 
-        FileOutputStream fileOutputStream;
-        try {
-            fileOutputStream = new FileOutputStream("test.xml");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
-        try {
+        try(FileOutputStream fileOutputStream = new FileOutputStream("test.xml")) {
             ScorePartwise scorePartwise = toScorePartwise();
             Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshaller.marshal(scorePartwise, fileOutputStream);
-        }catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -336,7 +329,7 @@ class MainTest {
         }
     }
 
-    private static void addMeasures(ObjectFactory factory, ScorePartwise.Part part) throws Exception {
+    private static void addMeasures(ObjectFactory factory, ScorePartwise.Part part/*, int timeBeats*/) throws Exception {
         ArrayList<List<Note>> noteLists = new ArrayList<>();
         for (int i = 0, noteListSize = noteList.size(), index = i, durations = 0; i < noteListSize; i++) {
             //measure.getNoteOrBackupOrForward().add(note);
@@ -355,6 +348,7 @@ class MainTest {
         for (int i = 1, noteListsSize = noteLists.size(); i < noteListsSize; i++) {
             List<Note> notesList = noteLists.get(i);
             ScorePartwise.Part.Measure partMeasure = factory.createScorePartwisePartMeasure();
+            partMeasure.setNumber(String.valueOf(i+1));
             partMeasure.getNoteOrBackupOrForward().addAll(notesList);
             measures.add(partMeasure);
         }

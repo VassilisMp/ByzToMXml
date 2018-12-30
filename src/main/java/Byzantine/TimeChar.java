@@ -39,7 +39,7 @@ public class TimeChar extends ByzChar{
     private int dotPlace;
     private int divisions;
     private Boolean argo;
-    public static Integer tupletNum = 0;
+    //public static Integer tupletNum = 0;
 
     TimeChar(int codePoint, String font, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
         super(codePoint, font, byzClass);
@@ -73,10 +73,9 @@ public class TimeChar extends ByzChar{
 
     @Override
     public void run() {// TODO finish if statement code L124, it's dot after pause
-        // TODO L116 Gorgo Gorgo
-        //
+        // varia-dot
         if (getByzClass() == Byzantine.ByzClass.L && codePoint == 92) {
-            ExtendedNote note = new ExtendedNote(false, false);
+            ExtendedNote note = new ExtendedNote(false, true);
             note.setDuration(BigDecimal.valueOf(division));
             NoteType noteType = new NoteType();
             noteType.setValue("quarter");
@@ -146,12 +145,7 @@ public class TimeChar extends ByzChar{
                                     int tieNoteDur = tieNote.getDuration().intValue();
                                     tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
                                 }
-                                divideWith = divisions+1;
-                                if (i == dotPlace-1) {
-                                    divideWith = divisions-1;
-                                }
-                                noteType = noteTypeMap.inverse().get(division/divideWith);
-                                if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
+                                noteType = getNoteType(i);
                             }
                             note.getType().setValue(noteType);
                             addTuplet(subList.size(), i, note, 2, noteType);
@@ -172,10 +166,40 @@ public class TimeChar extends ByzChar{
             int duration = note.getDuration().intValue();
             duration += Math.abs(divisions) * division;
             note.setDuration(BigDecimal.valueOf(duration));
+            int a = duration / division;
+            int x = a * division;
+            int dotTarget = 0;//x + (x/2);
+            int doubleDotTarget = 0;//dotTarget + (x/4);
             NoteType noteType = new NoteType();
-            noteType.setValue(noteTypeMap.inverse().get(duration));
+            if (a%2!=0) {
+                int b = (a-1)*division;
+                noteType.setValue(noteTypeMap.inverse().get(b));
+                if (noteType.getValue() == null)
+                    throw new NullPointerException("String noteType doesn't exist");
+                dotTarget = b + (b/2);
+                doubleDotTarget = dotTarget + (b/4);
+                if (duration == dotTarget) {
+                    note.getDot().add(new EmptyPlacement());
+                } else if (duration == doubleDotTarget) {
+                    note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
+                }
+            } else
+                noteType.setValue(noteTypeMap.inverse().get(duration));
             note.setType(noteType);
         }
+    }
+
+    @NotNull
+    private String getNoteType(int i) {
+        int divideWith;
+        String noteType;
+        divideWith = divisions+1;
+        if (i == dotPlace-1) {
+            divideWith = divisions-1;
+        }
+        noteType = noteTypeMap.inverse().get(division/divideWith);
+        if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
+        return noteType;
     }
 
     @Nullable
@@ -189,19 +213,9 @@ public class TimeChar extends ByzChar{
             doubleDotTarget = dotTarget + (x/4);
         }
         if (producedDuration == dotTarget) {
-            note.getDot().add(new EmptyPlacement());
-            note.setDuration(new BigDecimal(producedDuration));
-            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2));
-            if (noteType == null)
-                throw new NullPointerException("String noteType doesn't exist");
-            note.getType().setValue(noteType);
+            dotTargetIF(note, producedDuration, x, dotTarget);
         } else if (producedDuration == doubleDotTarget) {
-            note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
-            note.setDuration(new BigDecimal(producedDuration));
-            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2)-(x/4));
-            if (noteType == null)
-                throw new NullPointerException("String noteType doesn't exist");
-            note.getType().setValue(noteType);
+            doubleDotTarget(note, producedDuration, x, doubleDotTarget);
         } else {
             note.setDuration(new BigDecimal(addedTime));
             Note tieNote = (Note) ((ExtendedNote)note).clone();
@@ -245,19 +259,9 @@ public class TimeChar extends ByzChar{
             doubleDotTarget = dotTarget + (x/4);
         }
         if (producedDuration == dotTarget) {
-            note.getDot().add(new EmptyPlacement());
-            note.setDuration(new BigDecimal(producedDuration));
-            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2));
-            if (noteType == null)
-                throw new NullPointerException("String noteType doesn't exist");
-            note.getType().setValue(noteType);
+            dotTargetIF(note, producedDuration, x, dotTarget);
         } else if (producedDuration == doubleDotTarget) {
-            note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
-            note.setDuration(new BigDecimal(producedDuration));
-            String noteType = noteTypeMap.inverse().get(dotTarget-(x/2)-(x/4));
-            if (noteType == null)
-                throw new NullPointerException("String noteType doesn't exist");
-            note.getType().setValue(noteType);
+            doubleDotTarget(note, producedDuration, x, doubleDotTarget);
         } else {
             if (i == dotPlace-1) addedTime *= 2;
             note.setDuration(new BigDecimal(addedTime));
@@ -293,12 +297,7 @@ public class TimeChar extends ByzChar{
                     changeDivision(divisions+1);
                     int tieNoteDur = tieNote.getDuration().intValue();
                     tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
-                    divideWith = divisions+1;
-                    if (i == dotPlace-1) {
-                        divideWith = divisions-1;
-                    }
-                    noteType = noteTypeMap.inverse().get(division/divideWith);
-                    if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
+                    noteType = getNoteType(i);
                 }
                 note.getType().setValue(noteType);
                 addTuplet(subListSize, i, note, 2, noteType);
@@ -312,20 +311,32 @@ public class TimeChar extends ByzChar{
         return null;
     }
 
+    private void doubleDotTarget(Note note, int producedDuration, int x, int doubleDotTarget) {
+        note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
+        note.setDuration(new BigDecimal(producedDuration));
+        String noteType = noteTypeMap.inverse().get(doubleDotTarget-(x/2)-(x/4));
+        if (noteType == null)
+            throw new NullPointerException("String noteType doesn't exist");
+        note.getType().setValue(noteType);
+    }
+
+    private void dotTargetIF(Note note, int producedDuration, int x, int dotTarget) {
+        note.getDot().add(new EmptyPlacement());
+        note.setDuration(new BigDecimal(producedDuration));
+        String noteType = noteTypeMap.inverse().get(dotTarget-(x/2));
+        if (noteType == null)
+            throw new NullPointerException("String noteType doesn't exist");
+        note.getType().setValue(noteType);
+    }
+
     private void setTiedInNote(@NotNull Note note, StartStopContinue startStopContinue) {
-        Notations notations;
-        if(note.getNotations().size() > 0)
-            notations = note.getNotations().get(0);
-        else {
-            notations = new Notations();
-            note.getNotations().add(notations);
-        }
+        Notations notations = getNotations(note);
         Tied tied = new Tied();
         tied.setType(startStopContinue);
         notations.getTiedOrSlurOrTuplet().add(tied);
     }
 
-    private void setTupletInNote(@NotNull Note note, Tuplet tuplet) {
+    private Notations getNotations(@NotNull Note note) {
         Notations notations;
         if(note.getNotations().size() > 0)
             notations = note.getNotations().get(0);
@@ -333,6 +344,11 @@ public class TimeChar extends ByzChar{
             notations = new Notations();
             note.getNotations().add(notations);
         }
+        return notations;
+    }
+
+    private void setTupletInNote(@NotNull Note note, Tuplet tuplet) {
+        Notations notations = getNotations(note);
         notations.getTiedOrSlurOrTuplet().add(tuplet);
     }
 
@@ -345,14 +361,14 @@ public class TimeChar extends ByzChar{
         if (i == 0) {
             Tuplet tuplet = new Tuplet();
             tuplet.setBracket(YesNo.YES);
-            tuplet.setNumber(++tupletNum);
+            //tuplet.setNumber(++tupletNum);
             tuplet.setPlacement(AboveBelow.ABOVE);
             tuplet.setType(StartStop.START);
             setTupletInNote(note, tuplet);
         }
         if (i == subListSize - 1) {
             Tuplet tuplet = new Tuplet();
-            tuplet.setNumber(tupletNum);
+            //tuplet.setNumber(tupletNum);
             tuplet.setType(StartStop.STOP);
             setTupletInNote(note, tuplet);
         }

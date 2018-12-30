@@ -42,7 +42,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="1" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -60,7 +60,7 @@
                 </time-modification>
                 <notations>
                     <tied type="start"/>
-                    <tuplet type="stop" number="1"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -84,7 +84,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="2">
             <note>
                 <pitch>
                     <step>A</step>
@@ -98,7 +98,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="2" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -114,7 +114,7 @@
                     <normal-type>quarter</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="2"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -166,7 +166,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="3">
             <note>
                 <pitch>
                     <step>A</step>
@@ -217,7 +217,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="4">
             <note>
                 <pitch>
                     <step>F</step>
@@ -231,7 +231,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="3" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -260,7 +260,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="3"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -276,7 +276,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="4" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -305,7 +305,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="4"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -322,7 +322,7 @@
                 <type>quarter</type>
             </note>
         </measure>
-        <measure>
+        <measure number="5">
             <note>
                 <pitch>
                     <step>D</step>
@@ -372,7 +372,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="6">
             <note>
                 <pitch>
                     <step>F</step>
@@ -430,7 +430,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="7">
             <note>
                 <pitch>
                     <step>A</step>
@@ -444,7 +444,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="5" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -460,7 +460,7 @@
                     <normal-type>quarter</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="5"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -512,7 +512,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="8">
             <note>
                 <pitch>
                     <step>A</step>
@@ -555,7 +555,7 @@
                 <type>quarter</type>
             </note>
         </measure>
-        <measure>
+        <measure number="9">
             <note>
                 <pitch>
                     <step>A</step>
@@ -577,7 +577,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="6" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -595,7 +595,7 @@
                 </time-modification>
                 <notations>
                     <tied type="start"/>
-                    <tuplet type="stop" number="6"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -619,7 +619,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="10">
             <note>
                 <pitch>
                     <step>A</step>
@@ -685,7 +685,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="11">
             <note>
                 <pitch>
                     <step>A</step>
@@ -736,7 +736,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="12">
             <note>
                 <pitch>
                     <step>F</step>
@@ -750,7 +750,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="7" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -779,7 +779,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="7"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -795,7 +795,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="8" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -824,7 +824,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="8"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -841,7 +841,7 @@
                 <type>quarter</type>
             </note>
         </measure>
-        <measure>
+        <measure number="13">
             <note>
                 <pitch>
                     <step>D</step>
@@ -891,7 +891,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="14">
             <note>
                 <pitch>
                     <step>F</step>
@@ -949,7 +949,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="15">
             <note>
                 <pitch>
                     <step>A</step>
@@ -963,7 +963,7 @@
                     <normal-type>eighth</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="start" number="9" bracket="yes" placement="above"/>
+                    <tuplet type="start" bracket="yes" placement="above"/>
                 </notations>
             </note>
             <note>
@@ -979,7 +979,7 @@
                     <normal-type>quarter</normal-type>
                 </time-modification>
                 <notations>
-                    <tuplet type="stop" number="9"/>
+                    <tuplet type="stop"/>
                 </notations>
             </note>
             <note>
@@ -1031,7 +1031,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="16">
             <note>
                 <pitch>
                     <step>A</step>
@@ -1089,7 +1089,7 @@
                 <type>quarter</type>
             </note>
         </measure>
-        <measure>
+        <measure number="17">
             <note>
                 <pitch>
                     <step>D</step>
@@ -1140,7 +1140,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="18">
             <note>
                 <pitch>
                     <step>B</step>
@@ -1182,7 +1182,7 @@
                 <type>half</type>
             </note>
         </measure>
-        <measure>
+        <measure number="19">
             <note>
                 <pitch>
                     <step>B</step>
@@ -1248,7 +1248,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="20">
             <note>
                 <pitch>
                     <step>A</step>
@@ -1290,7 +1290,7 @@
                 <type>half</type>
             </note>
         </measure>
-        <measure>
+        <measure number="21">
             <note>
                 <pitch>
                     <step>D</step>
@@ -1340,7 +1340,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="22">
             <note>
                 <pitch>
                     <step>F</step>
@@ -1398,7 +1398,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="23">
             <note>
                 <pitch>
                     <step>A</step>
@@ -1449,7 +1449,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="24">
             <note>
                 <pitch>
                     <step>D</step>
@@ -1515,7 +1515,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="25">
             <note>
                 <pitch>
                     <step>D</step>
@@ -1566,7 +1566,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="26">
             <note>
                 <pitch>
                     <step>B</step>
@@ -1608,7 +1608,7 @@
                 <type>half</type>
             </note>
         </measure>
-        <measure>
+        <measure number="27">
             <note>
                 <pitch>
                     <step>B</step>
@@ -1674,7 +1674,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="28">
             <note>
                 <pitch>
                     <step>A</step>
@@ -1716,7 +1716,7 @@
                 <type>half</type>
             </note>
         </measure>
-        <measure>
+        <measure number="29">
             <note>
                 <pitch>
                     <step>D</step>
@@ -1766,7 +1766,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="30">
             <note>
                 <pitch>
                     <step>F</step>
@@ -1824,7 +1824,7 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="31">
             <note>
                 <pitch>
                     <step>A</step>
@@ -1875,14 +1875,15 @@
                 <type>eighth</type>
             </note>
         </measure>
-        <measure>
+        <measure number="32">
             <note>
                 <pitch>
                     <step>D</step>
                     <octave>4</octave>
                 </pitch>
                 <duration>18</duration>
-                <type/>
+                <type>half</type>
+                <dot/>
             </note>
             <note>
                 <rest/>

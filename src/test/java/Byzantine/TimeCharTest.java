@@ -22,7 +22,6 @@ class TimeCharTest {
     static void BeforeAll() {
         Main.noteList = null;
         TimeChar.division = 1;
-        TimeChar.tupletNum = 0;
     }
 
     @AfterEach
@@ -30,7 +29,6 @@ class TimeCharTest {
         Main.noteList = null;
         noteList = null;
         TimeChar.division = 1;
-        TimeChar.tupletNum = 0;
         TimeChar.mapValuesInsert();
     }
     @Test
@@ -931,6 +929,7 @@ class TimeCharTest {
         );
     }*/
 
+    // TODO test duration adds of Xronos after notes after digorgon or more compicated TimeChar, to get more complicated durations
     @Test // Tsakisma, apli, dipli..
     void testXronos() {
         noteList = new ArrayList<>();
