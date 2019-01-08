@@ -357,7 +357,7 @@ class MainTest {
         part.getMeasure().addAll(measures);
     }
 
-    private static void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) {
+    private static void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) throws Exception {
         // Measure
         ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
         part.getMeasure().add(measure);
@@ -370,10 +370,16 @@ class MainTest {
         // Divisions
         attributes.setDivisions(new BigDecimal(TimeChar.division));
 
-        // Key
+        /*// Key
         Key key = factory.createKey();
         attributes.getKey().add(key);
-        key.setFifths(new BigInteger("-1"));
+        //key.setFifths(new BigInteger("-1"));
+        key.getNonTraditionalKey().addAll(Arrays.asList(Step.B, BigDecimal.valueOf(-1), AccidentalValue.FLAT));*/
+
+        List<PitchEntry> thisC = PitchEntry.ListByStep(CircularLinkedListTest.C, Step.G);
+        PitchEntry.FthoraApply(thisC, CircularLinkedListTest.PaHardChromatic);
+        Key key = PitchEntry.KeyFromPitches(CircularLinkedListTest.C);
+        attributes.getKey().add(key);
 
         // Time
         Time time = factory.createTime();
