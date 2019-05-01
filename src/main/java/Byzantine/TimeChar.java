@@ -238,6 +238,7 @@ public class TimeChar extends ByzChar{
             int a = duration / division;
             NoteType noteType = new NoteType();
             if (a%2!=0) {
+                if (a == 1) a++;
                 int b = (a-1)*division;
                 noteType.setValue(noteTypeMap.inverse().get(b));
                 if (noteType.getValue() == null)

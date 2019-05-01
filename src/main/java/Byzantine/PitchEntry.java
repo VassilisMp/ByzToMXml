@@ -29,15 +29,21 @@ public class PitchEntry {
     int commas;
     Step step;
     int accidentalCommas;
+    FthoraChar.ByzStep byzStep;
 
-    public PitchEntry(int commas, Step step, int accidentalCommas) {
+    public PitchEntry(int commas, Step step, int accidentalCommas, FthoraChar.ByzStep byzStep) {
         this.commas = commas;
         this.step = step;
         this.accidentalCommas = accidentalCommas;
+        this.byzStep = byzStep;
     }
 
     public PitchEntry(int commas, Step step) {
-        this(commas, step, 0);
+        this(commas, step, 0, null);
+    }
+
+    public PitchEntry(int commas, Step step, FthoraChar.ByzStep byzStep) {
+        this(commas, step, 0, byzStep);
     }
 
     @Override
@@ -68,36 +74,11 @@ public class PitchEntry {
                 '}';
     }
 
-    static int indexOfStep(CircularLinkedList<PitchEntry> list, Step step) {
-        int index = 0;
-        CircularLinkedList.Node<PitchEntry> x = list.head;
-        while (!x.item.stepEquals(step)) {
-            x = x.next;
-            index++;
-            if (index>=list.size) {
-                return -1;
-            }
-        }
-        return index;
-    }
-
-    static CircularLinkedList<PitchEntry> ListOfStep(CircularLinkedList<PitchEntry> list, Step step) {
-        int index = 0;
-        CircularLinkedList.Node<PitchEntry> x = list.head;
-        while (!x.item.stepEquals(step)) {
-            x = x.next;
-            index++;
-            if (index>=list.size) {
-                return null;
-            }
-        }
-        return new CircularLinkedList<>(list.size, x);
-    }
-
-    static void FthoraApply(@NotNull List<PitchEntry> list, List<PitchEntry> fthora) {
+    static List<PitchEntry> FthoraApply(@NotNull List<PitchEntry> list, List<PitchEntry> fthora) {
         for (int i = 0, difference = 0; i < list.size(); i++) {
             PitchEntry a = list.get(i);
             PitchEntry b = fthora.get(i);
+            a.byzStep = b.byzStep;
             difference = a.commas-(b.commas-difference);
             a.commas = b.commas;
             if ((i+1) == list.size())
@@ -105,6 +86,7 @@ public class PitchEntry {
             else
                 list.get(i+1).accidentalCommas = -difference;
         }
+        return list;
     }
 
     static List<PitchEntry> ListByStep(@NotNull List<PitchEntry> list, Step step) throws Exception {

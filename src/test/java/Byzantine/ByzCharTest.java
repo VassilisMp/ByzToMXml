@@ -12,4 +12,10 @@ class ByzCharTest {
         System.out.println(test.getClass().getSimpleName());
         assertEquals("B080", test.getCodePointClass());
     }
+
+    @Test
+    void test() {
+        QuantityChar quantityChar = new QuantityChar(1, "", ByzClass.B);
+        System.out.print(quantityChar);
+    }
 }

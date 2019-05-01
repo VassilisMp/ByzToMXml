@@ -24,6 +24,10 @@ public final class ExtendedNote extends Note implements Cloneable {
         return time;
     }
 
+    public void setTime(boolean time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "ExtendedNote{" +

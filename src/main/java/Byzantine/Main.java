@@ -30,7 +30,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<UnicodeChar> charList;
+        insertChars();
+
+        /*List<UnicodeChar> charList;
         try {
             FileInputStream fileIn = new FileInputStream("lis.obj");
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -101,7 +103,7 @@ public class Main {
                     pos++;
                 }
             }
-        }
+        }*/
 
 
         /*try {

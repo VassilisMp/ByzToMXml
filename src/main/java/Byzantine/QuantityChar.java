@@ -2,19 +2,17 @@ package Byzantine;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
-import org.audiveris.proxymusic.Note;
-import org.audiveris.proxymusic.NoteType;
-import org.audiveris.proxymusic.Pitch;
-import org.audiveris.proxymusic.Step;
+import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.String;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
 public class QuantityChar extends ByzChar implements Comparable {
-    private final static BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
+    private static final BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
     static {
         stepMap.put(Step.C,0);
         stepMap.put(Step.D,1);
@@ -49,6 +47,7 @@ public class QuantityChar extends ByzChar implements Comparable {
                 ", ByzClass=" + ByzClass +
                 ", codePoint=" + codePoint +
                 ", font=" + font +
+                ", text=" + (text != null ? text.toString() : "") +
                 '}';
     }
 
@@ -109,10 +108,19 @@ public class QuantityChar extends ByzChar implements Comparable {
 
             //System.out.println(note);
         }
+        if (text != null && !text.equals("")) {
+            Note fNote = Main.noteList.get(Main.noteList.size() - moves.length);
+            Lyric lyric = new Lyric();
+            lyric.getElisionAndSyllabicAndText().add(Syllabic.SINGLE);
+            TextElementData textElementData = new TextElementData();
+            textElementData.setValue(text);
+            lyric.getElisionAndSyllabicAndText().add(textElementData);
+            fNote.getLyric().add(lyric);
+        }
     }
 
     // this method was created to overpass previous notes that are rests
-    private static Pitch getPitch() {
+    static Pitch getPitch() {
         ListIterator<Note> iterator = Main.noteList.listIterator(Main.noteList.size());
         Pitch pitch = null;
         while (iterator.hasPrevious()) {

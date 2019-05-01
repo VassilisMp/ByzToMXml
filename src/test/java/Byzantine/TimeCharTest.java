@@ -822,7 +822,7 @@ class TimeCharTest {
             // Pitch
             Pitch pitch = new Pitch();
             note.setPitch(pitch);
-            pitch.setStep(Step.C);
+            pitch.setStep(Step.HARD_DIATONIC);
             pitch.setOctave(4);
 
             if (i == 0) {
@@ -885,7 +885,7 @@ class TimeCharTest {
             // Pitch
             Pitch pitch = new Pitch();
             note.setPitch(pitch);
-            pitch.setStep(Step.C);
+            pitch.setStep(Step.HARD_DIATONIC);
             pitch.setOctave(4);
 
             if (i == 0) {
@@ -967,6 +967,50 @@ class TimeCharTest {
                 () -> assertEquals("half", noteList.get(0).getType().getValue()),
                 () -> assertEquals(1, noteList.get(1).getDuration().intValue()),
                 () -> assertEquals("quarter", noteList.get(1).getType().getValue())
+        );
+    }
+
+    @Test
+    void testGorgonXronos() {
+        noteList = new ArrayList<>();
+        Main.noteList = noteList;
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(235, "", ByzClass.B, 0, 1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        timeChar = new TimeChar(234, "", ByzClass.B, 0, -1, false);
+        //System.out.println(noteList);
+        timeChar.run();
+        System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(3, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
+                () -> assertEquals(1, noteList.get(1).getDot().size())
         );
     }
 

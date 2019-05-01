@@ -1,5 +1,6 @@
 package Byzantine;
 
+import com.google.common.collect.Lists;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -14,7 +15,10 @@ import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import static Byzantine.FthoraChar.HARD_DIATONIC;
+import static Byzantine.FthoraChar.HARD_CHROMATIC;
 import static org.audiveris.proxymusic.util.Marshalling.getContext;
 
 class MainTest {
@@ -64,7 +68,7 @@ class MainTest {
 
         XWPFDocument docx;
         try {
-            docx = new XWPFDocument(new FileInputStream("elpiza.docx"));
+            docx = new XWPFDocument(new FileInputStream("a.docx"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Coudln't open document");
@@ -72,23 +76,42 @@ class MainTest {
         }
         // 0 - 1264 chars using toCharArray
         int pos = 0;
+        // if there is lyric char before Quantity Char but belongs to that
+        boolean qCharAdded = false;
+        boolean mCharAdded = false;
+        StringBuilder sb = new StringBuilder();
         for (XWPFParagraph paragraph : docx.getParagraphs()) {
             for (XWPFRun run : paragraph.getRuns()) {
-                // TODO maybe case of surrogate pair chars
-                /*for (int i = 0; i < run.text().length(); i++) {
-                    int codePoint = run.text().codePointAt(i);
-                    System.out.println(codePoint + "  " + pos);
-                    if (codePoint > 0xFFFF) {
-                        System.out.println("surrogate");
-                        ++i;
-                        return;
-                    }
-                    pos++;
-                }*/
                 for (char c : run.text().toCharArray()) {
+                    pos++;
                     String fontName = run.getFontName();
-                    int charInt = (int)c;
                     ByzClass byzClass = map.get(fontName);
+                    if(c>0xEFFF) // && <0xF8FF because Unicode Private Use Area is, U+E000 to U+F8FF
+                        c-=0xF000;
+                    System.out.println(String.format("%5d", (int)c) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
+                    if (c>=0x0370 && c<=0x03FF) {
+                        sb.append(c);
+                        continue;
+                    }
+                    if (sb.length() > 0 && (qCharAdded || mCharAdded)) {
+                        Class clas = qCharAdded ? QuantityChar.class : MixedChar.class;
+                        qCharAdded = mCharAdded = false;
+                        Lists.reverse(docChars).stream()
+                                .filter(clas::isInstance)
+                                .findFirst()
+                                .ifPresent(Char -> {
+                                    if (clas == MixedChar.class) {
+                                        ByzChar[] chars = ((MixedChar) Char).getChars();
+                                        for (int i = chars.length - 1; i >= 0; i--)
+                                            if (chars[i] instanceof QuantityChar) {
+                                                Char = chars[i];
+                                                break;
+                                            }
+                                    }
+                                    Char.text = sb.toString();
+                                });
+                        sb.setLength(0);
+                    }
                     if (byzClass != null) {
                         try {
                             boolean annotationPresent = ByzClass.class.getField(byzClass.toString()).isAnnotationPresent(NotSupported.class);
@@ -97,42 +120,63 @@ class MainTest {
                                 continue;
                                 //throw new NotSupportedException("document contains ByzClass." + byzClass + " character which is not supported");
                             }
-                        } catch (NoSuchFieldException e) {
-                            e.printStackTrace();
-                        }
-                        if(charInt>0xEFFF) // && <0xF8FF because Unicode Private Use Area is, U+E000 to U+F8FF
-                            charInt-=0xF000;
-                        if(charInt<33 || charInt>255)
-                            continue;
-                    } else {
-                        continue;
-                    }
-                    int finalCharInt = charInt;
+                        } catch (NoSuchFieldException e) { e.printStackTrace(); }
+                        if(c<33 || c>255) continue;
+                    } else continue;
+                    final char finalChar = c;
                     UnicodeChar unicodeChar = charList.stream()
-                            .filter(Char -> Char.codePoint == finalCharInt && ((ByzChar) Char).ByzClass == byzClass)
+                            .filter(Char -> Char.codePoint == finalChar && ((ByzChar) Char).ByzClass == byzClass)
                             .findAny()
                             .orElse(null);
-                    if (unicodeChar == null) {
-                        System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
-                        continue;
-                    }
-                    unicodeChar.setFont(String.valueOf(c));
-                    docChars.add(unicodeChar);
-                    //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + " " + unicodeChar);
-                    /*if (unicodeChar instanceof QuantityChar) {
-                        unicodeChar.run();
-                        //System.out.println(unicodeChar);
-                    }*/
-                    //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName);
-                    //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + unicodeChar);
-                    pos++;
+                    //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
+                    if (unicodeChar == null) continue;
+                    UnicodeChar clone = Cloner.deepClone(unicodeChar);
+                    clone.font = fontName;
+                    docChars.add(clone);
+                    if (unicodeChar instanceof QuantityChar) qCharAdded = true;
+                    else if (unicodeChar instanceof MixedChar)
+                        mCharAdded =  Arrays.stream(((MixedChar) unicodeChar).getChars())
+                                .anyMatch(Char -> Char instanceof QuantityChar);
                 }
             }
         }
         IsonKentimaReplace(docChars);
         fixL116(docChars);
+        TimeChar tChar = null;
+        // if TimeChar divisions is biger than one which means that next QuantityChar must be added before running this TimeChar
+        boolean isTcharDiv2p = false;
         for (int i = 0; i < docChars.size(); i++) {
+            if (i == 192) {
+                System.out.println("check");
+            }
             UnicodeChar Char = docChars.get(i);
+            if (Char instanceof TimeChar) {
+                tChar = (TimeChar) Char;
+                if (tChar.getDivisions()>1) {
+                    while(!(Char instanceof QuantityChar)) {
+                        i++;
+                        Char = docChars.get(i);
+                        if (Char instanceof QuantityChar) {
+                            QuantityChar qChar = (QuantityChar) Char;
+                            System.out.println(i + " " + Char);
+                            Move[] movesClone = Cloner.deepClone(qChar.getMoves());
+                            Arrays.stream(qChar.getMoves()).forEach(move -> move.setTime(false));
+                            qChar.run();
+                            tChar.run();
+                            List<Note> notes = noteList.subList(noteList.size() - movesClone.length, noteList.size());
+                            for (int i1 = 0; i1 < notes.size(); i1++) {
+                                Note note = notes.get(i1);
+                                if (note instanceof ExtendedNote) {
+                                    ExtendedNote exNote = (ExtendedNote) note;
+                                    exNote.setTime(movesClone[i1].getTime());
+                                }
+                            }
+                            continue;
+                        }
+                        Char.run();
+                    }
+                }
+            }
             System.out.println(i + " " + Char);
             Char.run();
             //System.out.println(unicodeChar);
@@ -215,15 +259,15 @@ class MainTest {
     @Contract(" -> new")
     @NotNull
     private static Map<String, ByzClass> getMap() {
-        ByzClass B = ByzClass.B; // Byzantine
-        ByzClass F = ByzClass.F; // Fthores
-        ByzClass I = ByzClass.I; // Ison
-        ByzClass L = ByzClass.L; // Loipa
-        ByzClass P = ByzClass.P; // Palaia
-        ByzClass X = ByzClass.X; // Xronos
-        ByzClass A = ByzClass.A; // Arxigramma
-        ByzClass N = ByzClass.N; // I dont remember, font with various chars..
-        ByzClass T = ByzClass.T; // Text fonts
+        final ByzClass B = ByzClass.B; // Byzantine
+        final ByzClass F = ByzClass.F; // Fthores
+        final ByzClass I = ByzClass.I; // Ison
+        final ByzClass L = ByzClass.L; // Loipa
+        final ByzClass P = ByzClass.P; // Palaia
+        final ByzClass X = ByzClass.X; // Xronos
+        final ByzClass A = ByzClass.A; // Arxigramma
+        final ByzClass N = ByzClass.N; // I dont remember, font with various chars..
+        final ByzClass T = ByzClass.T; // Text fonts
         // TODO test all fonts
         return new HashMap<String, ByzClass>(){
             {
@@ -310,7 +354,8 @@ class MainTest {
         // Key
         Key key = factory.createKey();
         attributes.getKey().add(key);
-        key.setFifths(new BigInteger("0"));
+        key.setFifths(new BigInteger("-1"));
+        key.setMode("minor");
 
         // Time
         Time time = factory.createTime();
@@ -340,7 +385,7 @@ class MainTest {
                 index = i+1;
                 durations = 0;
             }else if (durations > (TimeChar.division * 4)){
-                throw new Exception("error in noteLists");
+                //throw new Exception("error in noteLists");
             }
         }
 
@@ -376,9 +421,9 @@ class MainTest {
         //key.setFifths(new BigInteger("-1"));
         key.getNonTraditionalKey().addAll(Arrays.asList(Step.B, BigDecimal.valueOf(-1), AccidentalValue.FLAT));*/
 
-        List<PitchEntry> thisC = PitchEntry.ListByStep(CircularLinkedListTest.C, Step.G);
-        PitchEntry.FthoraApply(thisC, CircularLinkedListTest.PaHardChromatic);
-        Key key = PitchEntry.KeyFromPitches(CircularLinkedListTest.C);
+        List<PitchEntry> thisC = PitchEntry.ListByStep(HARD_DIATONIC, Step.A);
+        PitchEntry.FthoraApply(thisC, HARD_CHROMATIC);
+        Key key = PitchEntry.KeyFromPitches(HARD_DIATONIC);
         attributes.getKey().add(key);
 
         // Time

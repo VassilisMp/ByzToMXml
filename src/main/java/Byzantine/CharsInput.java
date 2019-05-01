@@ -87,6 +87,13 @@ public class CharsInput extends Application {
             this.primaryStage.sizeToScene();
         });
 
+        Button addFthora = new Button("Add Fthora");
+        buttonsBox.getChildren().add(addFthora);
+        addFthora.setOnAction(e -> {
+            nodeList.getChildren().add(FthoraVBox());
+            this.primaryStage.sizeToScene();
+        });
+
         Button clearButton = new Button("Clear");
         buttonsBox.getChildren().add(clearButton);
         clearButton.setOnAction(e -> deletePrevious());
@@ -169,10 +176,72 @@ public class CharsInput extends Application {
         return new QuantityChar(codePoint, "", byzClass, moves);
     }
 
+    @Nullable
+    private FthoraChar getFthoraChar(int codePoint, ByzClass byzClass, @NotNull VBox vBox) {
+        HBox FthoraHBox = (HBox) vBox.getChildren().get(1);
+
+        ChoiceBox<FthoraChar.Type> typeBox = (ChoiceBox<FthoraChar.Type>) FthoraHBox.getChildren().get(1);
+        ChoiceBox<FthoraChar.ByzStep> stepBox = (ChoiceBox<FthoraChar.ByzStep>) FthoraHBox.getChildren().get(3);
+        TextField commasText = (TextField) FthoraHBox.getChildren().get(5);
+
+        FthoraChar.Type type = typeBox.getSelectionModel().getSelectedItem();
+        FthoraChar.ByzStep step = stepBox.getSelectionModel().getSelectedItem();
+        int commas;
+
+        try {
+            commas = Integer.valueOf(commasText.getText());
+        } catch (NumberFormatException ne) {
+            showAlertMessage("Error in commas\ncommas must be number!");
+            return null;
+        }
+
+        return new FthoraChar(codePoint, "", byzClass, type, step, commas);
+    }
+
     private void deletePrevious() {
         // delete nodes used in previous choice
         nodeList.getChildren().clear();
         primaryStage.sizeToScene();
+    }
+
+    private VBox FthoraVBox() {
+        VBox FthoraVBox = new VBox(8);
+        FthoraVBox.setPadding(new Insets(10));
+        // HBox containing moves number selection ChoiceBox
+        HBox FthoraHBox = new HBox(8);
+        //movesHBox.setFillHeight(false);
+        FthoraHBox.setPadding(new Insets(10));
+
+        ChoiceBox<FthoraChar.Type> type = new ChoiceBox<>();
+        type.setItems(FXCollections.observableArrayList(FthoraChar.Type.values()));
+        type.getSelectionModel().selectFirst();
+
+        ChoiceBox<FthoraChar.ByzStep> step = new ChoiceBox<>();
+        step.setItems(FXCollections.observableArrayList(FthoraChar.ByzStep.values()));
+        step.getSelectionModel().selectFirst();
+
+        TextField commasText = new TextField();
+        commasText.setText("0");
+        commasText.setPrefWidth(80);
+        commasText.setMaxWidth(80);
+
+        FthoraHBox.getChildren().addAll(
+                new Label("Type"),
+                type,
+                new Label("Step"),
+                step,
+                new Label("commas"),
+                commasText
+        );
+
+        FthoraVBox.getChildren().addAll(
+                new Label("Fthora")
+                ,FthoraHBox
+        );
+
+        //parent.getChildren().add(timesVBox);
+        //primaryStage.sizeToScene();
+        return FthoraVBox;
     }
 
     private VBox timesVBox() {
@@ -321,6 +390,11 @@ public class CharsInput extends Application {
                     caseTime((TimeChar) unicodeChar);
                     this.primaryStage.sizeToScene();
                 } break;
+                case "FthoraChar": {
+                    deletePrevious();
+                    caseFthora((FthoraChar) unicodeChar);
+                    this.primaryStage.sizeToScene();
+                } break;
                 case "MixedChar": {
                     MixedChar mixedChar = (MixedChar) unicodeChar;
                     ByzChar[] byzChars = mixedChar.getChars();
@@ -348,6 +422,20 @@ public class CharsInput extends Application {
         // Set dotPlaceText
         ((TextField) timesHBox.getChildren().get(2)).setText(unicodeChar.getDotPlace() + "");
         nodeList.getChildren().add(timesVBox);
+    }
+
+    private void caseFthora(@NotNull FthoraChar unicodeChar) {
+        VBox FthoraVBox = FthoraVBox();
+        HBox FthoraHBox = (HBox) FthoraVBox.getChildren().get(1);
+
+        ChoiceBox<FthoraChar.Type> typeBox = (ChoiceBox<FthoraChar.Type>) FthoraHBox.getChildren().get(1);
+        ChoiceBox<FthoraChar.ByzStep> stepBox = (ChoiceBox<FthoraChar.ByzStep>) FthoraHBox.getChildren().get(3);
+        TextField commasText = (TextField) FthoraHBox.getChildren().get(5);
+
+        typeBox.getSelectionModel().select(unicodeChar.type);
+        stepBox.getSelectionModel().select(unicodeChar.step);
+        commasText.setText(String.valueOf(unicodeChar.commas));
+        nodeList.getChildren().add(FthoraVBox);
     }
 
     private void caseQuantity(@NotNull QuantityChar unicodeChar) {
@@ -423,6 +511,14 @@ public class CharsInput extends Application {
                 if (timeChar == null) return;
                 if (uniqueCharList.add(timeChar)) {
                     showAlertMessage("Successfully added: " + TimeChar.class.toString());
+                    System.out.println(charList);
+                } else
+                    showAlertMessage("Already exists in the List");
+            } else if (Label.getText().equals("Fthora")) {
+                FthoraChar fthoraChar = getFthoraChar(codePoint, byzClass, vBox);
+                if (fthoraChar == null) return;
+                if (uniqueCharList.add(fthoraChar)) {
+                    showAlertMessage("Successfully added: " + FthoraChar.class.toString());
                     System.out.println(charList);
                 } else
                     showAlertMessage("Already exists in the List");

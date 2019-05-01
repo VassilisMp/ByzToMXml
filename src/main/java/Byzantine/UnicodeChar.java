@@ -11,6 +11,8 @@ public class UnicodeChar implements Runnable, Serializable {
 
     protected String font;
 
+    String text;
+
     public UnicodeChar(int codePoint, String font) {
         this.codePoint = codePoint;
         this.font = font;
