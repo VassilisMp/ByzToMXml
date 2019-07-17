@@ -20,13 +20,11 @@ class TimeCharTest {
 
     @BeforeAll
     static void BeforeAll() {
-        Main.noteList = null;
         TimeChar.division = 1;
     }
 
     @AfterEach
     void TearDown() {
-        Main.noteList = null;
         noteList = null;
         TimeChar.division = 1;
         TimeChar.mapValuesInsert();
@@ -34,7 +32,6 @@ class TimeCharTest {
     @Test
     void testGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -61,7 +58,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
@@ -74,7 +71,7 @@ class TimeCharTest {
     @Test
     void testDiGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 3; i++) {
             // Note
@@ -102,7 +99,7 @@ class TimeCharTest {
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
         //System.out.println(noteList);
         TimeChar.division = 1;
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
@@ -119,7 +116,7 @@ class TimeCharTest {
     @Test
     void testTriGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 4; i++) {
             // Note
@@ -146,7 +143,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 3, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
@@ -163,7 +160,7 @@ class TimeCharTest {
     @Test
     void testTetraGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 5; i++) {
             // Note
@@ -190,7 +187,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 4, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
@@ -211,7 +208,7 @@ class TimeCharTest {
     @Test
     void testXronos1Gorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -246,7 +243,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
         System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(3, noteList.get(0).getDuration().intValue()),
@@ -260,7 +257,7 @@ class TimeCharTest {
     @Test
     void testXronos1DiGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 3; i++) {
             // Note
@@ -298,7 +295,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
         System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(6, noteList.get(0).getDuration().intValue()),
@@ -319,7 +316,7 @@ class TimeCharTest {
     @Test
     void testXronos1TriGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 4; i++) {
             // Note
@@ -357,7 +354,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 3, false);
         System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
@@ -378,7 +375,7 @@ class TimeCharTest {
     @Test
     void testXronos1TetraGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 5; i++) {
             // Note
@@ -416,7 +413,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 4, false);
         System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(20, noteList.get(0).getDuration().intValue()),
@@ -441,7 +438,7 @@ class TimeCharTest {
     @Test
     void testXronos2Gorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -476,7 +473,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
         System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
@@ -490,7 +487,7 @@ class TimeCharTest {
     @Test
     void testDot1Gorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -517,7 +514,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
@@ -532,7 +529,7 @@ class TimeCharTest {
     @Test
     void testDot2Gorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -559,7 +556,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 2, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
@@ -574,7 +571,7 @@ class TimeCharTest {
     @Test
     void testDot1DiGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 3; i++) {
             // Note
@@ -601,7 +598,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 1, 2, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
@@ -616,7 +613,7 @@ class TimeCharTest {
     @Test
     void testDot1TriGorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 4; i++) {
             // Note
@@ -643,7 +640,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 1, 3, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(8, noteList.get(0).getDuration().intValue()),
@@ -662,7 +659,7 @@ class TimeCharTest {
     @Test
     void testXronos1Dot1Gorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -697,7 +694,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(6, noteList.get(0).getDuration().intValue()),
@@ -716,7 +713,7 @@ class TimeCharTest {
     @Test
     void testXronos2Dot1Gorgon() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -751,7 +748,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(4, noteList.get(0).getDuration().intValue()),
@@ -770,7 +767,7 @@ class TimeCharTest {
     @Test
     void testVaria_Apli() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         Note note;
         note = new ExtendedNote(true, true);
@@ -792,7 +789,7 @@ class TimeCharTest {
 
         timeChar = new TimeChar(92, "", ByzClass.L, 0, -1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(TimeChar.division, noteList.get(0).getDuration().intValue()),
@@ -851,7 +848,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
@@ -914,7 +911,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
@@ -933,7 +930,7 @@ class TimeCharTest {
     @Test // Tsakisma, apli, dipli..
     void testXronos() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -960,7 +957,7 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(234, "", ByzClass.B, 0, -1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         //System.out.println(noteList);
         assertAll(
                 () -> assertEquals(2, noteList.get(0).getDuration().intValue()),
@@ -973,7 +970,7 @@ class TimeCharTest {
     @Test
     void testGorgonXronos() {
         noteList = new ArrayList<>();
-        Main.noteList = noteList;
+
 
         for (int i = 0; i < 2; i++) {
             // Note
@@ -1000,17 +997,62 @@ class TimeCharTest {
         }
         timeChar = new TimeChar(235, "", ByzClass.B, 0, 1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         timeChar = new TimeChar(234, "", ByzClass.B, 0, -1, false);
         //System.out.println(noteList);
-        timeChar.run();
+        timeChar.accept(noteList);
         System.out.println(noteList);
         assertAll(
                 () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
                 () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
                 () -> assertEquals(3, noteList.get(1).getDuration().intValue()),
-                () -> assertEquals("quarter", noteList.get(1).getType().getValue()),
+                () -> assertEquals("quarter.", noteList.get(1).getType().getValue()),
                 () -> assertEquals(1, noteList.get(1).getDot().size())
+        );
+    }
+
+    @Test
+    void testGorgonXronos2() {
+        noteList = new ArrayList<>();
+
+
+        for (int i = 0; i < 2; i++) {
+            // Note
+            Note note;
+            if (i == 1)
+                note = new ExtendedNote(true, true);
+            else
+                note = new ExtendedNote(true, false);
+            noteList.add(note);
+
+            // Pitch
+            Pitch pitch = new Pitch();
+            note.setPitch(pitch);
+            pitch.setStep(Step.C);
+            pitch.setOctave(4);
+
+            // Duration
+            note.setDuration(new BigDecimal(TimeChar.division));
+
+            // Type
+            NoteType type = new NoteType();
+            type.setValue("quarter");
+            note.setType(type);
+        }
+        timeChar = new TimeChar(235, "", ByzClass.B, 0, 1, false);
+        //System.out.println(noteList);
+        timeChar.accept(noteList);
+        timeChar = new TimeChar(57, "", ByzClass.B, 0, -2, false);
+        //System.out.println(noteList);
+        timeChar.accept(noteList);
+        System.out.println(noteList);
+        assertAll(
+                () -> assertEquals(1, noteList.get(0).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(0).getType().getValue()),
+                () -> assertEquals(4, noteList.get(1).getDuration().intValue()),
+                () -> assertEquals("half", noteList.get(1).getType().getValue()),
+                () -> assertEquals(1, noteList.get(2).getDuration().intValue()),
+                () -> assertEquals("eighth", noteList.get(2).getType().getValue())
         );
     }
 

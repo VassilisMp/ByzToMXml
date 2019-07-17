@@ -1,8 +1,12 @@
 package Byzantine;
 
 import com.google.common.base.Objects;
+import org.audiveris.proxymusic.Note;
 
-public class ByzChar extends UnicodeChar {
+import java.util.List;
+import java.util.function.Consumer;
+
+public class ByzChar extends UnicodeChar implements Consumer<List<Note>> {
 
     private static final long serialVersionUID = 7706296349475294817L;
 
@@ -28,5 +32,10 @@ public class ByzChar extends UnicodeChar {
 
     public String getCodePointClass() {
         return ByzClass + String.format("%03d", codePoint);
+    }
+
+    @Override
+    public void accept(List<Note> notes) {
+
     }
 }

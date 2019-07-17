@@ -50,7 +50,6 @@ class ByzClassTest {
     @Test
     void ArrayListTest() {
         List<Note> noteList = new ArrayList<>();
-        Main.noteList = noteList;
 
         for (int i = 0; i < 4; i++) {
             // Note
@@ -89,7 +88,7 @@ class ByzClassTest {
         System.out.println(noteList);
         Note note = new Note();
         note.setDuration(new BigDecimal(division));
-        Main.noteList.add(0, note);
+        noteList.add(0, note);
         System.out.println(noteList);
     }
 }

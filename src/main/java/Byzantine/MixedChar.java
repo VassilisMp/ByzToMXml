@@ -1,5 +1,7 @@
 package Byzantine;
 
+import org.audiveris.proxymusic.Note;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class MixedChar extends ByzChar {
     }
 
     @Override
-    public void run() {
-        Arrays.stream(chars).forEach(UnicodeChar::run);
+    public void accept(List<Note> notes) {
+        Arrays.stream(chars).forEach(uChar -> uChar.accept(notes));
     }
 }

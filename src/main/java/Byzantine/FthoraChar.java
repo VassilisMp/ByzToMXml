@@ -1,5 +1,6 @@
 package Byzantine;
 
+import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.Step;
 
 import java.util.*;
@@ -140,13 +141,13 @@ class FthoraChar extends ByzChar {
     }
 
     @Override
-    public void run() {
+    public void accept(List<Note> notes) {
         List<PitchEntry> fthora;
         if (type == Type.S_D) {
             try {
                 fthora = PitchEntry.ListByStep(SOFT_DIATONIC, STEPS_MAP.get(step));
                 // gets Pitch of the last note, in which Fthora is applied
-                Step step = QuantityChar.getPitch().getStep();
+                Step step = QuantityChar.getPitch(notes).getStep();
                 List<PitchEntry> currentByStep = PitchEntry.ListByStep(current, step);
                 PitchEntry.FthoraApply(currentByStep, fthora);
             } catch (Exception e) {

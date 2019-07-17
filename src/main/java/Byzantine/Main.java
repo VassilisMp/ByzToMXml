@@ -26,7 +26,7 @@ import javax.xml.bind.Marshaller;
 
 
 public class Main {
-    static List<Note> noteList;
+    //static List<Note> noteList;
 
     public static void main(String[] args) {
 

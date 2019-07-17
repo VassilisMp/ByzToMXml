@@ -47,7 +47,7 @@ public class QuantityChar extends ByzChar implements Comparable {
                 ", ByzClass=" + ByzClass +
                 ", codePoint=" + codePoint +
                 ", font=" + font +
-                ", text=" + (text != null ? text.toString() : "") +
+                ", text=" + (text != null ? text : "") +
                 '}';
     }
 
@@ -73,12 +73,11 @@ public class QuantityChar extends ByzChar implements Comparable {
         return 0;
     }
 
-    @Override
-    public void run() {
+    public void accept(List<Note> notes) {
         //System.out.println(Main.noteList.get(0));
         for (Move move : moves) {
             Note note = new ExtendedNote(move.getLyric(), move.getTime());
-            Pitch pitch = getPitch();
+            Pitch pitch = getPitch(notes);
             Step step = pitch.getStep();
             int octave = pitch.getOctave();
             int stepNum = stepMap.get(step);
@@ -88,7 +87,7 @@ public class QuantityChar extends ByzChar implements Comparable {
             String newPitch = Integer.toString(parsedInt + move.getMove(), 7);
             //System.out.println(newPitch);
 
-            Main.noteList.add(note);
+            notes.add(note);
 
             // Pitch
             Pitch thisPitch = new Pitch();
@@ -109,7 +108,7 @@ public class QuantityChar extends ByzChar implements Comparable {
             //System.out.println(note);
         }
         if (text != null && !text.equals("")) {
-            Note fNote = Main.noteList.get(Main.noteList.size() - moves.length);
+            Note fNote = notes.get(notes.size() - moves.length);
             Lyric lyric = new Lyric();
             lyric.getElisionAndSyllabicAndText().add(Syllabic.SINGLE);
             TextElementData textElementData = new TextElementData();
@@ -120,8 +119,8 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
 
     // this method was created to overpass previous notes that are rests
-    static Pitch getPitch() {
-        ListIterator<Note> iterator = Main.noteList.listIterator(Main.noteList.size());
+    static Pitch getPitch(List<Note> notes) {
+        ListIterator<Note> iterator = notes.listIterator(notes.size());
         Pitch pitch = null;
         while (iterator.hasPrevious()) {
             ExtendedNote exNote = (ExtendedNote) iterator.previous();

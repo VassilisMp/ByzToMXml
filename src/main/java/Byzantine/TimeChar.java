@@ -16,7 +16,7 @@ public class TimeChar extends ByzChar{
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     static int division = 1;
-    private final static BiMap<String, Integer> noteTypeMap = HashBiMap.create(14);
+    final static BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     static {
         noteTypeMap.clear();
         // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
@@ -72,7 +72,12 @@ public class TimeChar extends ByzChar{
     }
 
     @Override
-    public void run() {// TODO finish if statement code L124, it's dot after pause
+    public void accept(List<Note> notes) {// TODO finish if statement code L124, it's dot after pause
+        int argoDivs = 0;
+        if (argo) {
+            argoDivs = -divisions;
+            divisions = 1;
+        }
         // varia-dot
         if (getByzClass() == Byzantine.ByzClass.L && codePoint == 92) {
             ExtendedNote note = new ExtendedNote(false, true);
@@ -81,25 +86,20 @@ public class TimeChar extends ByzChar{
             noteType.setValue("quarter");
             note.setType(noteType);
             note.setRest(new Rest());
-            Main.noteList.add(note);
-        } else
-        if (divisions > 0 && !argo) { // TODO argo
-            int index = getIndex();
-            List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
+            notes.add(note);
+            return;
+        }
+        if (divisions > 0) { // TODO argo
+            int index = getIndex(notes);
+            List<Note> subList = notes.subList(index - 1, index + divisions);
             int addedTime;
             if (dotPlace == 0) {
-                if (division % (divisions + 1) != 0) changeDivision(divisions + 1);
-            } else {
-                if (division % (divisions + 2) != 0) changeDivision(divisions + 2);
-            }
+                if (division % (divisions + 1) != 0) changeDivision(divisions + 1, notes);
+            } else if (division % (divisions + 2) != 0) changeDivision(divisions + 2, notes);
             Note tieNote = null;
             int tieNoteIndex = 0;
             for (int i = 0; i < subList.size(); i++) {
-                if (dotPlace == 0) {
-                    addedTime = division / (divisions + 1);
-                } else {
-                    addedTime = division/(divisions+2);
-                }
+                addedTime = dotPlace == 0 ? division / (divisions + 1) : division / (divisions + 2);
                 Note note = subList.get(i);
                 int duration = note.getDuration().intValue();
                 String noteType;
@@ -140,7 +140,7 @@ public class TimeChar extends ByzChar{
                             if (divisions % 2 == 0) {
                                 noteType = noteTypeMap.inverse().get(division / divisions);
                                 if (noteType == null) {
-                                    changeDivision(divisions);
+                                    changeDivision(divisions, notes);
                                     Tduration *= divisions;
                                     noteType = noteTypeMap.inverse().get(division / divisions);
                                     if (noteType == null) throw new NullPointerException("String noteType doesn't exist");
@@ -171,7 +171,7 @@ public class TimeChar extends ByzChar{
                             noteType = noteTypeMap.inverse().get(division / divideWith);
                             if (divisions % 2 != 0) {
                                 if (noteType == null) {
-                                    changeDivision(divisions + 1);
+                                    changeDivision(divisions + 1, notes);
                                     Tduration *= (divisions + 1);
                                     noteType = getNoteType(i);
                                 }
@@ -191,7 +191,7 @@ public class TimeChar extends ByzChar{
                         if (divisions%2==0) {
                             noteType = noteTypeMap.inverse().get(division/(divisions));
                             if (noteType == null) {
-                                changeDivision(divisions);
+                                changeDivision(divisions, notes);
                                 noteType = noteTypeMap.inverse().get(division/(divisions));
                             }
                             addTuplet(subList.size(), i, note, 1, noteType);
@@ -209,7 +209,7 @@ public class TimeChar extends ByzChar{
                         if (divisions%2!=0) {
                             noteType = noteTypeMap.inverse().get(division/divideWith);
                             if (noteType == null) {
-                                changeDivision(divisions+1);
+                                changeDivision(divisions+1, notes);
                                 if (tieNote != null) {
                                     int tieNoteDur = tieNote.getDuration().intValue();
                                     tieNote.setDuration(BigDecimal.valueOf(tieNoteDur*(divisions+1)));
@@ -227,31 +227,52 @@ public class TimeChar extends ByzChar{
             }
             if (tieNote != null) {
                 if (tieNoteIndex == 0 || dotPlace == 0) {
-                    Main.noteList.add(index-1, tieNote);
+                    notes.add(index-1, tieNote);
                 } else {
-                    Main.noteList.add(tieNote);
+                    notes.add(tieNote);
                 }
             }
-        } else if (divisions < 0) {
-            Note note = Main.noteList.get(getIndex());
+        }
+        if (argo) {
+            divisions = argoDivs;
+        }
+        if (divisions < 0) {
+            Note note = notes.get(getIndex(notes));
             int duration = note.getDuration().intValue() + (Math.abs(divisions) * division);
             int a = duration / division;
             NoteType noteType = new NoteType();
-            if (a%2!=0) {
-                if (a == 1) a++;
-                int b = (a-1)*division;
-                noteType.setValue(noteTypeMap.inverse().get(b));
-                if (noteType.getValue() == null)
-                    throw new NullPointerException("String noteType doesn't exist");
+            //if (a%2!=0) {
+                //if (a == 1) a++;
+                int b = a*division;
+                //noteType.setValue(noteTypeMap.inverse().get(b));
+                //if (noteType.getValue() == null)
+                //    throw new NullPointerException("String noteType doesn't exist");
                 int dotTarget = b + (b/2);
                 int doubleDotTarget = dotTarget + (b/4);
+                String notetype = noteTypeMap.inverse().get(duration);
+                if (notetype != null) {
+                    noteType.setValue(notetype);
+                }
                 if (duration == dotTarget) {
+                    //noteType.setValue(noteTypeMap.inverse().get(b));
                     note.getDot().add(new EmptyPlacement());
                 } else if (duration == doubleDotTarget) {
+                    //noteType.setValue(noteTypeMap.inverse().get(b));
                     note.getDot().addAll(Arrays.asList(new EmptyPlacement(), new EmptyPlacement()));
+                } else {
+                    Note newNote = Cloner.deepClone(note);
+                    String newNotetype = noteTypeMap.inverse().get(b);
+                    if (newNotetype == null) throw new NullPointerException("String noteType doesn't exist");
+                    newNote.setDuration(BigDecimal.valueOf(b));
+                    NoteType newNoteType = new NoteType();
+                    newNoteType.setValue(newNotetype);
+                    newNote.setType(newNoteType);
+                    setTiedInNote(newNote, StartStopContinue.START);
+                    setTiedInNote(note, StartStopContinue.STOP);
+                    notes.add(notes.indexOf(note), newNote);
+                    return;
                 }
-            } else
-                noteType.setValue(noteTypeMap.inverse().get(duration));
+            //} else
             note.setDuration(BigDecimal.valueOf(duration));
             note.setType(noteType);
         }
@@ -315,21 +336,21 @@ public class TimeChar extends ByzChar{
 
 
 
-    private void changeDivision(int num) {
+    public static void changeDivision(int num, List<Note> notes) {
         division *= num;
         // reInsert the values in the map to add those supported by the new measure division
         mapValuesInsert();
         // change the duration of all notes according to the new corresponding to the new division value
-        Main.noteList.forEach(N -> {
+        notes.forEach(N -> {
             int newValue = N.getDuration().intValue();
             newValue *= num;
             N.setDuration(new BigDecimal(newValue));
         });
-        System.out.println(Main.noteList);
+        //System.out.println(notes);
     }
 
-    static int getIndex() {
-        ListIterator<Note> it = Main.noteList.listIterator(Main.noteList.size());
+    static int getIndex(List<Note> notes) {
+        ListIterator<Note> it = notes.listIterator(notes.size());
         while (it.hasPrevious())
             if (((ExtendedNote) it.previous()).canGetTime())
                 return it.nextIndex();
@@ -339,28 +360,58 @@ public class TimeChar extends ByzChar{
     static void mapValuesInsert() {
         noteTypeMap.clear();
         // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
+        noteTypeMap.put("maxima..", division * 49);
+        noteTypeMap.put("maxima.", division * 42);
         noteTypeMap.put("maxima", division * 28);
+        //noteTypeMap.put("long..", division * 28);
+        noteTypeMap.put("long.", division * 24);
         noteTypeMap.put("long", division * 16);
+        noteTypeMap.put("breve..", division * 14);
+        noteTypeMap.put("breve.", division * 12);
         noteTypeMap.put("breve", division * 8);
+        noteTypeMap.put("whole..", division * 7);
+        noteTypeMap.put("whole.", division * 6);
         noteTypeMap.put("whole", division * 4);
+        if ((division * 2) % 4 == 0)
+            noteTypeMap.put("half..", (int) (3.5*division));
+        noteTypeMap.put("half.", division * 3);
         noteTypeMap.put("half", division * 2);
         noteTypeMap.put("quarter", division);
-        if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
-        //else changeDivision(2);
-        if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
-        //else changeDivision(2);
-        if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
-        //else changeDivision(2);
-        if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
-        //else changeDivision(2);
-        if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
-        //else changeDivision(2);
-        if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
-        if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
+        if (division % 2 == 0) {
+            noteTypeMap.put("quarter.", (int) (division * 1.5));
+            noteTypeMap.put("eighth", division / 2);
+        }
+        if (division % 4 == 0) {
+            noteTypeMap.put("quarter..", (int) (division * 1.75));
+            noteTypeMap.put("eighth.", (int) (division * 0.75));
+            noteTypeMap.put("16th", division / 4);
+        }
+        if (division % 8 == 0) {
+            noteTypeMap.put("eighth..", (int) (division * 0.875));
+            noteTypeMap.put("16th.", (int) (division * 0.375));
+            noteTypeMap.put("32nd", division / 8);
+        }
+        if (division % 16 == 0) {
+            noteTypeMap.put("16th..", (int) (division * 0.4375));
+            noteTypeMap.put("32nd.", (int) (division * 0.1875));
+            noteTypeMap.put("64th", division / 16);
+        }
+        if (division % 32 == 0) {
+            noteTypeMap.put("32nd..", (int) (division * 0.21875));
+            noteTypeMap.put("64th.", (int) (division * 0.09375));
+            noteTypeMap.put("128th", division / 32); // TODO continue to 128 dotted
+        }
+        if (division % 64 == 0) {
+            noteTypeMap.put("64th..", (int) (division * 0.109375));
+            noteTypeMap.put("256th", division / 64);
+        }
+        if (division % 128 == 0) {
+            noteTypeMap.put("512th", division / 128);
+        }
         if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
     }
 
-    public void run1() {// TODO finish if statement code L124, it's dot after pause
+    public void run1(List<Note> notes) {// TODO finish if statement code L124, it's dot after pause
         // varia-dot
         if (getByzClass() == Byzantine.ByzClass.L && codePoint == 92) {
             ExtendedNote note = new ExtendedNote(false, true);
@@ -369,11 +420,11 @@ public class TimeChar extends ByzChar{
             noteType.setValue("quarter");
             note.setType(noteType);
             note.setRest(new Rest());
-            Main.noteList.add(note);
+            notes.add(note);
         } else
         if (divisions > 0 && !argo) { // TODO argo
-            int index = getIndex();
-            List<Note> subList = Main.noteList.subList(index - 1, index + divisions);
+            int index = getIndex(notes);
+            List<Note> subList = notes.subList(index - 1, index + divisions);
             // auxiliary variables
             int localDivisions = dotPlace > 0?divisions+2:divisions+1;
             int preDivision= division;
@@ -386,7 +437,7 @@ public class TimeChar extends ByzChar{
                     throw new NullPointerException("error");
                 int factor = division / preDivision;
                 // change the duration of all notes according to the new corresponding to the new division value
-                Main.noteList.forEach(N -> {
+                notes.forEach(N -> {
                     int newValue = N.getDuration().intValue();
                     newValue *= factor;
                     N.setDuration(new BigDecimal(newValue));
@@ -407,7 +458,7 @@ public class TimeChar extends ByzChar{
                 note.setDuration(BigDecimal.valueOf((duration-division)+addedTime));
             }
         } else if (divisions < 0) {
-            Note note = Main.noteList.get(getIndex());
+            Note note = notes.get(getIndex(notes));
             int duration = note.getDuration().intValue() + (Math.abs(divisions) * division);
             int a = duration / division;
             NoteType noteType = new NoteType();

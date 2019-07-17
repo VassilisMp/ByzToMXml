@@ -25,8 +25,7 @@ class QuantityCharTest {
 
     @BeforeAll
     static void setUpBeforeAll() throws Exception {
-        Main.noteList = new ArrayList<>();
-        noteList = Main.noteList;
+        noteList = new ArrayList<>();
         Note note = new ExtendedNote(true, false);
         noteList.add(note);
 
@@ -56,7 +55,7 @@ class QuantityCharTest {
         qChar = new QuantityChar(225, "", ByzClass.B, Collections.singletonList(
                 new Move(2, false, true)
         ));
-        qChar.run();
+        qChar.accept(noteList);
         ExtendedNote note = (ExtendedNote) noteList.get(1);
         Pitch pitch = note.getPitch();
         int octave = pitch.getOctave();

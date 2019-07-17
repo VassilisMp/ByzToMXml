@@ -1,21 +1,29 @@
 package Byzantine;
 
-import java.io.Serializable;
-import java.util.Objects;
+import org.audiveris.proxymusic.Note;
 
-public class UnicodeChar implements Runnable, Serializable {
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+public class UnicodeChar implements Serializable, Consumer<List<Note>> {
 
     private static final long serialVersionUID = 7662794995100881459L;
 
     int codePoint;
-
     protected String font;
-
     String text;
+    protected Engine engine;
 
     public UnicodeChar(int codePoint, String font) {
         this.codePoint = codePoint;
         this.font = font;
+    }
+
+    public UnicodeChar(int codePoint, String font, Engine engine) {
+        this(codePoint, font);
+        this.engine = engine;
     }
 
     public int getCodePoint() {
@@ -24,10 +32,6 @@ public class UnicodeChar implements Runnable, Serializable {
 
     public void setFont(String font) {
         this.font = font;
-    }
-
-    public void run() {
-
     }
 
     @Override
@@ -43,5 +47,10 @@ public class UnicodeChar implements Runnable, Serializable {
     public int hashCode() {
 
         return Objects.hash(codePoint, font);
+    }
+
+    @Override
+    public void accept(List<Note> notes) {
+
     }
 }
