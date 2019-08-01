@@ -37,6 +37,7 @@ public class CharsInput extends Application {
     private SetUniqueList<UnicodeChar> uniqueCharList;
 
     @Override
+    @SuppressWarnings("unchecked")
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
@@ -114,8 +115,9 @@ public class CharsInput extends Application {
         // Show window
         Scene scene = new Scene(parent);
         this.primaryStage.setScene(scene);
-        this.primaryStage.setResizable(false);
+        this.primaryStage.setResizable(true);
         this.primaryStage.setTitle("ByzChars");
+        this.primaryStage.sizeToScene();
         this.primaryStage.show();
     }
 
@@ -131,7 +133,7 @@ public class CharsInput extends Application {
 
         int divisions;
         try {
-            divisions = Integer.valueOf(divisionsText.getText());
+            divisions = Integer.parseInt(divisionsText.getText());
         } catch (NumberFormatException ne) {
             showAlertMessage("Division must be a number");
             return null;
@@ -139,7 +141,7 @@ public class CharsInput extends Application {
 
         int dotPlace;
         try {
-            dotPlace = Integer.valueOf(dotPlaceText.getText());
+            dotPlace = Integer.parseInt(dotPlaceText.getText());
         } catch (NumberFormatException ne) {
             showAlertMessage("dotPlace must be a number");
             return null;
@@ -161,7 +163,7 @@ public class CharsInput extends Application {
 
             int move;
             try {
-                move = Integer.valueOf(MoveText.getText());
+                move = Integer.parseInt(MoveText.getText());
             } catch (NumberFormatException ne) {
                 showAlertMessage("Error in move: " + (i+1) + "\nMove must be number!");
                 return null;
@@ -177,6 +179,7 @@ public class CharsInput extends Application {
     }
 
     @Nullable
+    @SuppressWarnings("unchecked")
     private FthoraChar getFthoraChar(int codePoint, ByzClass byzClass, @NotNull VBox vBox) {
         HBox FthoraHBox = (HBox) vBox.getChildren().get(1);
 
@@ -189,7 +192,7 @@ public class CharsInput extends Application {
         int commas;
 
         try {
-            commas = Integer.valueOf(commasText.getText());
+            commas = Integer.parseInt(commasText.getText());
         } catch (NumberFormatException ne) {
             showAlertMessage("Error in commas\ncommas must be number!");
             return null;
@@ -424,6 +427,7 @@ public class CharsInput extends Application {
         nodeList.getChildren().add(timesVBox);
     }
 
+    @SuppressWarnings("unchecked")
     private void caseFthora(@NotNull FthoraChar unicodeChar) {
         VBox FthoraVBox = FthoraVBox();
         HBox FthoraHBox = (HBox) FthoraVBox.getChildren().get(1);
@@ -438,6 +442,7 @@ public class CharsInput extends Application {
         nodeList.getChildren().add(FthoraVBox);
     }
 
+    @SuppressWarnings("unchecked")
     private void caseQuantity(@NotNull QuantityChar unicodeChar) {
         Move[] moves = unicodeChar.getMoves();
         VBox movesVBox = MovesVBox();
@@ -496,32 +501,36 @@ public class CharsInput extends Application {
         if (nodeListSize == 1) {
             VBox vBox = ((VBox) nodeList.getChildren().get(0));
             Label Label = (javafx.scene.control.Label) vBox.getChildren().get(0);
-            if (Label.getText().equals("Quantity")) {
-                QuantityChar quantityChar = getQuantityChar(codePoint, byzClass, vBox);
-                if (quantityChar == null) return;
-                //System.out.println(uniqueCharList.get(uniqueCharList.size()-1).equals(quantityChar));
-                if (uniqueCharList.add(quantityChar)) {
-                    showAlertMessage("Successfully added: " + QuantityChar.class.toString());
-                    System.out.println(charList);
-                } else
-                    showAlertMessage("Already exists in the List");
-                //System.out.println(uniqueCharList.add(new QuantityChar(codePoint, "", byzClass, moves)))
-            } else if (Label.getText().equals("Time")) {
-                TimeChar timeChar = getTimeChar(codePoint, byzClass, vBox);
-                if (timeChar == null) return;
-                if (uniqueCharList.add(timeChar)) {
-                    showAlertMessage("Successfully added: " + TimeChar.class.toString());
-                    System.out.println(charList);
-                } else
-                    showAlertMessage("Already exists in the List");
-            } else if (Label.getText().equals("Fthora")) {
-                FthoraChar fthoraChar = getFthoraChar(codePoint, byzClass, vBox);
-                if (fthoraChar == null) return;
-                if (uniqueCharList.add(fthoraChar)) {
-                    showAlertMessage("Successfully added: " + FthoraChar.class.toString());
-                    System.out.println(charList);
-                } else
-                    showAlertMessage("Already exists in the List");
+            switch (Label.getText()) {
+                case "Quantity":
+                    QuantityChar quantityChar = getQuantityChar(codePoint, byzClass, vBox);
+                    if (quantityChar == null) return;
+                    //System.out.println(uniqueCharList.get(uniqueCharList.size()-1).equals(quantityChar));
+                    if (uniqueCharList.add(quantityChar)) {
+                        showAlertMessage("Successfully added: " + QuantityChar.class.toString());
+                        System.out.println(charList);
+                    } else
+                        showAlertMessage("Already exists in the List");
+                    //System.out.println(uniqueCharList.add(new QuantityChar(codePoint, "", byzClass, moves)))
+                    break;
+                case "Time":
+                    TimeChar timeChar = getTimeChar(codePoint, byzClass, vBox);
+                    if (timeChar == null) return;
+                    if (uniqueCharList.add(timeChar)) {
+                        showAlertMessage("Successfully added: " + TimeChar.class.toString());
+                        System.out.println(charList);
+                    } else
+                        showAlertMessage("Already exists in the List");
+                    break;
+                case "Fthora":
+                    FthoraChar fthoraChar = getFthoraChar(codePoint, byzClass, vBox);
+                    if (fthoraChar == null) return;
+                    if (uniqueCharList.add(fthoraChar)) {
+                        showAlertMessage("Successfully added: " + FthoraChar.class.toString());
+                        System.out.println(charList);
+                    } else
+                        showAlertMessage("Already exists in the List");
+                    break;
             }
         } else if (nodeListSize > 1) { // MixedChar case
             List<ByzChar> byzChars = new ArrayList<>(nodeListSize);

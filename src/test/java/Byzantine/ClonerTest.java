@@ -22,7 +22,7 @@ class ClonerTest {
         pitch.setOctave(4);
 
         // Duration
-        note.setDuration(new BigDecimal(TimeChar.division));
+        note.setDuration(new BigDecimal(1));
 
         // Type
         NoteType type = new NoteType();

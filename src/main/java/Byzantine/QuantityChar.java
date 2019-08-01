@@ -26,17 +26,17 @@ public class QuantityChar extends ByzChar implements Comparable {
     //moves
     private Move[] moves;
 
-    public QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, @NotNull List<Move> moves) {
+    QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, @NotNull List<Move> moves) {
         super(codePoint, font, byzClass);
         this.moves = moves.toArray(new Move[0]);
     }
 
-    public QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, Move... moves) {
+    QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, Move... moves) {
         super(codePoint, font, byzClass);
         this.moves = moves;
     }
 
-    public Move[] getMoves() {
+    Move[] getMoves() {
         return moves;
     }
 
@@ -69,15 +69,14 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(@NotNull Object o) {
         return 0;
     }
 
-    public void accept(List<Note> notes) {
-        //System.out.println(Main.noteList.get(0));
+    public void accept(Engine engine) {
         for (Move move : moves) {
             Note note = new ExtendedNote(move.getLyric(), move.getTime());
-            Pitch pitch = getPitch(notes);
+            Pitch pitch = getPitch(engine.noteList);
             Step step = pitch.getStep();
             int octave = pitch.getOctave();
             int stepNum = stepMap.get(step);
@@ -85,9 +84,7 @@ public class QuantityChar extends ByzChar implements Comparable {
             int parsedInt = Integer.parseInt(strNum, 7);
 
             String newPitch = Integer.toString(parsedInt + move.getMove(), 7);
-            //System.out.println(newPitch);
-
-            notes.add(note);
+            engine.noteList.add(note);
 
             // Pitch
             Pitch thisPitch = new Pitch();
@@ -98,17 +95,15 @@ public class QuantityChar extends ByzChar implements Comparable {
             thisPitch.setOctave(thisOctave);
 
             // Duration
-            note.setDuration(new BigDecimal(TimeChar.division));
+            note.setDuration(new BigDecimal(engine.division));
 
             // Type
             NoteType type = new NoteType();
             type.setValue("quarter");
             note.setType(type);
-
-            //System.out.println(note);
         }
         if (text != null && !text.equals("")) {
-            Note fNote = notes.get(notes.size() - moves.length);
+            Note fNote = engine.noteList.get(engine.noteList.size() - moves.length);
             Lyric lyric = new Lyric();
             lyric.getElisionAndSyllabicAndText().add(Syllabic.SINGLE);
             TextElementData textElementData = new TextElementData();
@@ -119,7 +114,8 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
 
     // this method was created to overpass previous notes that are rests
-    static Pitch getPitch(List<Note> notes) {
+    @NotNull
+    static Pitch getPitch(@NotNull List<Note> notes) {
         ListIterator<Note> iterator = notes.listIterator(notes.size());
         Pitch pitch = null;
         while (iterator.hasPrevious()) {

@@ -11,7 +11,7 @@ class FthoraChar extends ByzChar {
         NH, PA, BOU, GA, DI, KE, ZW
     }
     //static final ByzStep DEFAULT_STEP = ByzStep.NH;
-    static final Map<ByzStep, Step> STEPS_MAP = new HashMap<>();
+    private static final Map<ByzStep, Step> STEPS_MAP = new HashMap<>();
     static {
         STEPS_MAP.put(ByzStep.NH, Step.C);
         STEPS_MAP.put(ByzStep.PA, Step.D);
@@ -21,7 +21,7 @@ class FthoraChar extends ByzChar {
         STEPS_MAP.put(ByzStep.KE, Step.A);
         STEPS_MAP.put(ByzStep.ZW, Step.B);
     }
-    static final List<PitchEntry> SOFT_DIATONIC = Arrays.asList(
+    private static final List<PitchEntry> SOFT_DIATONIC = Arrays.asList(
             new PitchEntry(9, Step.C, ByzStep.NH),
             new PitchEntry(8, Step.D, ByzStep.PA),
             new PitchEntry(5, Step.E, ByzStep.BOU),
@@ -141,13 +141,13 @@ class FthoraChar extends ByzChar {
     }
 
     @Override
-    public void accept(List<Note> notes) {
+    public void accept(Engine engine) {
         List<PitchEntry> fthora;
         if (type == Type.S_D) {
             try {
                 fthora = PitchEntry.ListByStep(SOFT_DIATONIC, STEPS_MAP.get(step));
                 // gets Pitch of the last note, in which Fthora is applied
-                Step step = QuantityChar.getPitch(notes).getStep();
+                Step step = QuantityChar.getPitch(engine.noteList).getStep();
                 List<PitchEntry> currentByStep = PitchEntry.ListByStep(current, step);
                 PitchEntry.FthoraApply(currentByStep, fthora);
             } catch (Exception e) {
@@ -166,7 +166,7 @@ class FthoraChar extends ByzChar {
        //put(Type.S_C, SOFT_CHROMATIC);
     //}});
     static {
-        Map<Type, List<PitchEntry>> map = new EnumMap<Type, List<PitchEntry>>(Type.class);
+        Map<Type, List<PitchEntry>> map = new EnumMap<>(Type.class);
         map.put(Type.S_D, SOFT_DIATONIC);
         map.put(Type.H_C, HARD_CHROMATIC);
         map.put(Type.S_C, SOFT_CHROMATIC);

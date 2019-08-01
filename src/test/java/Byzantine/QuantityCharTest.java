@@ -19,13 +19,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class QuantityCharTest {
 
+    private static Engine engine;
     private static List<Note> noteList;
     private static QuantityChar qChar;
 
 
     @BeforeAll
-    static void setUpBeforeAll() throws Exception {
-        noteList = new ArrayList<>();
+    static void setUpBeforeAll() {
+        engine = new Engine(1);
+        engine.noteList = noteList = new ArrayList<>();
         Note note = new ExtendedNote(true, false);
         noteList.add(note);
 
@@ -36,7 +38,7 @@ class QuantityCharTest {
         pitch.setOctave(4);
 
         // Duration
-        note.setDuration(new BigDecimal(TimeChar.division));
+        note.setDuration(new BigDecimal(1));
 
         // Type
         NoteType type = new NoteType();
@@ -44,7 +46,7 @@ class QuantityCharTest {
         note.setType(type);
     }
     @AfterAll
-    static void tearDownAfterAll() throws Exception {
+    static void tearDownAfterAll() {
 
         noteList.clear();
         qChar = null;
@@ -55,7 +57,7 @@ class QuantityCharTest {
         qChar = new QuantityChar(225, "", ByzClass.B, Collections.singletonList(
                 new Move(2, false, true)
         ));
-        qChar.accept(noteList);
+        qChar.accept(engine);
         ExtendedNote note = (ExtendedNote) noteList.get(1);
         Pitch pitch = note.getPitch();
         int octave = pitch.getOctave();

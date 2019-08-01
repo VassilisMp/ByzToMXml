@@ -10,7 +10,7 @@ public class MixedChar extends ByzChar {
 
     private ByzChar[] chars;
 
-    public MixedChar(int codePoint, String font, Byzantine.ByzClass byzClass, List<ByzChar> chars) {
+    MixedChar(int codePoint, String font, Byzantine.ByzClass byzClass, List<ByzChar> chars) {
         super(codePoint, font, byzClass);
         this.chars = chars.toArray(new ByzChar[0]);
     }
@@ -20,7 +20,7 @@ public class MixedChar extends ByzChar {
         this.chars = chars;
     }
 
-    public ByzChar[] getChars() {
+    ByzChar[] getChars() {
         return chars;
     }
 
@@ -32,7 +32,7 @@ public class MixedChar extends ByzChar {
     }
 
     @Override
-    public void accept(List<Note> notes) {
-        Arrays.stream(chars).forEach(uChar -> uChar.accept(notes));
+    public void accept(Engine engine) {
+        Arrays.stream(chars).forEach(uChar -> uChar.accept(engine));
     }
 }

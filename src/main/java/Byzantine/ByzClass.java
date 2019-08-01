@@ -1,7 +1,7 @@
 package Byzantine;
 
 public enum ByzClass {
-    B, F, I, L, @NotSupported P, X, A, N, T; // added A, N, T
+    B, F, I, L, P, X, A, N, T; // added A, N, T
     /*B -> Byzantine
     * F -> Fthores
     * I -> Ison

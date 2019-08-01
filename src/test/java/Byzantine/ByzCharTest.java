@@ -1,8 +1,11 @@
 package Byzantine;
 
+import org.audiveris.proxymusic.NoteType;
+import org.audiveris.proxymusic.StartStop;
+import org.audiveris.proxymusic.StartStopContinue;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ByzCharTest {
 
@@ -16,6 +19,8 @@ class ByzCharTest {
     @Test
     void test() {
         QuantityChar quantityChar = new QuantityChar(1, "", ByzClass.B);
-        System.out.print(quantityChar);
+        System.out.println(quantityChar);
+        NoteType noteType = new NoteType();
+        System.out.println(noteType.getValue());
     }
 }

@@ -6,7 +6,7 @@ import org.audiveris.proxymusic.Note;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class ByzChar extends UnicodeChar implements Consumer<List<Note>> {
+public class ByzChar extends UnicodeChar implements Consumer<Engine> {
 
     private static final long serialVersionUID = 7706296349475294817L;
 
@@ -17,7 +17,7 @@ public class ByzChar extends UnicodeChar implements Consumer<List<Note>> {
         ByzClass = byzClass;
     }
 
-    public Byzantine.ByzClass getByzClass() {
+    Byzantine.ByzClass getByzClass() {
         return ByzClass;
     }
 
@@ -30,12 +30,12 @@ public class ByzChar extends UnicodeChar implements Consumer<List<Note>> {
         return ByzClass == byzChar.ByzClass && codePoint == byzChar.codePoint;
     }
 
-    public String getCodePointClass() {
+    String getCodePointClass() {
         return ByzClass + String.format("%03d", codePoint);
     }
 
     @Override
-    public void accept(List<Note> notes) {
+    public void accept(Engine engine) {
 
     }
 }

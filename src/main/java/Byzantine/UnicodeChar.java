@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class UnicodeChar implements Serializable, Consumer<List<Note>> {
+public class UnicodeChar implements Serializable, Consumer<Engine> {
 
     private static final long serialVersionUID = 7662794995100881459L;
 
     int codePoint;
-    protected String font;
+    String font;
     String text;
     protected Engine engine;
 
-    public UnicodeChar(int codePoint, String font) {
+    UnicodeChar(int codePoint, String font) {
         this.codePoint = codePoint;
         this.font = font;
     }
@@ -49,8 +49,12 @@ public class UnicodeChar implements Serializable, Consumer<List<Note>> {
         return Objects.hash(codePoint, font);
     }
 
+    boolean exactEquals(UnicodeChar o) {
+        return this == o;
+    }
+
     @Override
-    public void accept(List<Note> notes) {
+    public void accept(Engine engine) {
 
     }
 }

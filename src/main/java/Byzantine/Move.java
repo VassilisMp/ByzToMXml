@@ -10,7 +10,7 @@ public class Move implements Serializable {
     private Boolean lyric;
     private Boolean time;
 
-    public Move(int move, Boolean lyric, Boolean time) {
+    Move(int move, Boolean lyric, Boolean time) {
         this.move = move;
         this.lyric = lyric;
         this.time = time;
@@ -22,20 +22,24 @@ public class Move implements Serializable {
         this.time = move.time;
     }
 
-    public int getMove() {
+    int getMove() {
         return move;
     }
 
-    public Boolean getLyric() {
+    Boolean getLyric() {
         return lyric;
     }
 
-    public Boolean getTime() {
+    Boolean getTime() {
         return time;
     }
 
-    public void setTime(Boolean time) {
+    void setTime(Boolean time) {
         this.time = time;
+    }
+
+    public void setLyric(boolean lyric) {
+        this.lyric = lyric;
     }
 
     @Override
