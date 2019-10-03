@@ -111,7 +111,7 @@ class FthoraChar extends ByzChar {
             new PitchEntry(11, Step.A, ByzStep.KE),
             new PitchEntry(5, Step.B, ByzStep.ZW)
     );
-    static List<PitchEntry> current = PitchEntry.FthoraApply(Cloner.deepClone(HARD_DIATONIC), SOFT_DIATONIC);
+    static List<PitchEntry> current = PitchEntry.FthoraApply(PitchEntry.cloneScale(HARD_DIATONIC), SOFT_DIATONIC);
     static Type currentGenos = Type.S_D;
     static Map<PitchEntry, Boolean> pitchToBooleanMap = new HashMap<>();
     static {
@@ -127,17 +127,6 @@ class FthoraChar extends ByzChar {
         this.type = type;
         this.step = step;
         this.commas = commas;
-    }
-
-    @Override
-    public String toString() {
-        return "FthoraChar{" +
-                "type=" + type +
-                ", step=" + step +
-                ", commas=" + commas +
-                ", ByzClass=" + ByzClass +
-                ", codePoint=" + codePoint +
-                '}';
     }
 
     @Override
@@ -161,9 +150,9 @@ class FthoraChar extends ByzChar {
     }
 
     private static final Map<Type, List<PitchEntry>> TYPE_MAP;// = Collections.unmodifiableMap(new EnumMap<Type, List<PitchEntry>>(Type.class){{
-       //put(Type.S_D, SOFT_DIATONIC);
-       //put(Type.H_C, HARD_CHROMATIC);
-       //put(Type.S_C, SOFT_CHROMATIC);
+    //put(Type.S_D, SOFT_DIATONIC);
+    //put(Type.H_C, HARD_CHROMATIC);
+    //put(Type.S_C, SOFT_CHROMATIC);
     //}});
     static {
         Map<Type, List<PitchEntry>> map = new EnumMap<>(Type.class);
@@ -171,5 +160,16 @@ class FthoraChar extends ByzChar {
         map.put(Type.H_C, HARD_CHROMATIC);
         map.put(Type.S_C, SOFT_CHROMATIC);
         TYPE_MAP = Collections.unmodifiableMap(map);
+    }
+
+    @Override
+    public String toString() {
+        return "FthoraChar{" +
+                "type=" + type +
+                ", step=" + step +
+                ", commas=" + commas +
+                ", ByzClass=" + ByzClass +
+                ", codePoint=" + codePoint +
+                '}';
     }
 }

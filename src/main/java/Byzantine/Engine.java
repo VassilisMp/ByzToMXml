@@ -16,13 +16,15 @@ import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 import static Byzantine.FthoraChar.HARD_CHROMATIC;
 import static Byzantine.FthoraChar.HARD_DIATONIC;
 import static org.audiveris.proxymusic.util.Marshalling.getContext;
 
-final class Engine {
+public final class Engine {
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     int division;
@@ -32,6 +34,7 @@ final class Engine {
     List<Note> noteList;
     private List<UnicodeChar> docChars;
     private final XWPFDocument docx;
+    private final String fileName;
     private static final List<UnicodeChar> charList = getCharList();
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
@@ -41,9 +44,14 @@ final class Engine {
         mapValuesInsert();
         noteList = new ArrayList<>();
         this.docx = null;
+        fileName = null;
     }
 
     public Engine(String filePath, Step initialStep, int division) throws IOException {
+        Matcher matcher = Pattern.compile("(.*/)*(.*)(\\.docx?)").matcher(filePath);
+        if (matcher.find())
+            this.fileName = matcher.group(2);
+        else this.fileName = null;
         this.division = division;
         noteTypeMap.clear();
         // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
@@ -84,7 +92,7 @@ final class Engine {
         note.setType(type);
     }
 
-    Engine setTimeBeats(int timeBeats) {
+    public Engine setTimeBeats(int timeBeats) {
         this.timeBeats = timeBeats;
         return this;
     }
@@ -94,7 +102,7 @@ final class Engine {
         mapValuesInsert();
     }
 
-    void run() throws Exception {
+    public void run() throws Exception {
         long start = System.nanoTime();
         // 0 - 1264 chars using toCharArray
         int pos = 0;
@@ -261,7 +269,7 @@ final class Engine {
             if (value != null && value.charAt(value.length()-1) == '.')
                 note.getType().setValue(value.replace(".", ""));
         });
-        try(FileOutputStream fileOutputStream = new FileOutputStream("test.xml")) {
+        try(FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
             ScorePartwise scorePartwise = toScorePartwise();
             Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -472,9 +480,9 @@ final class Engine {
         //key.setFifths(new BigInteger("-1"));
         key.getNonTraditionalKey().addAll(Arrays.asList(Step.B, BigDecimal.valueOf(-1), AccidentalValue.FLAT));*/
 
-        List<PitchEntry> thisC = PitchEntry.ListByStep(HARD_DIATONIC, Step.A);
+        List<PitchEntry> thisC = PitchEntry.cloneScale(PitchEntry.ListByStep(HARD_DIATONIC, Step.A));
         PitchEntry.FthoraApply(thisC, HARD_CHROMATIC);
-        Key key = PitchEntry.KeyFromPitches(HARD_DIATONIC);
+        Key key = PitchEntry.KeyFromPitches(thisC);
         attributes.getKey().add(key);
 
         // Time

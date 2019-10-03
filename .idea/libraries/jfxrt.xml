@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="jfxrt">
     <CLASSES>
-      <root url="jar:///opt/SceneBuilder/runtime/lib/ext/jfxrt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jfxrt.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

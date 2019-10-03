@@ -1,7 +1,5 @@
 package Byzantine;
 
-import org.audiveris.proxymusic.Note;
-
 import java.util.Arrays;
 import java.util.List;
 

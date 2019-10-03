@@ -5,10 +5,12 @@ import org.audiveris.proxymusic.Key;
 import org.audiveris.proxymusic.ObjectFactory;
 import org.audiveris.proxymusic.Step;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PitchEntry {
     final static Map<Integer, AccidentalValue> ACCIDENTALS_MAP = new HashMap<>();
@@ -38,12 +40,23 @@ public class PitchEntry {
         this.byzStep = byzStep;
     }
 
+    public PitchEntry(PitchEntry pitchEntry) {
+        this.commas = pitchEntry.commas;
+        this.step = pitchEntry.step;
+        this.accidentalCommas = pitchEntry.accidentalCommas;
+        this.byzStep = pitchEntry.byzStep;
+    }
+
     public PitchEntry(int commas, Step step) {
         this(commas, step, 0, null);
     }
 
     public PitchEntry(int commas, Step step, FthoraChar.ByzStep byzStep) {
         this(commas, step, 0, byzStep);
+    }
+
+    public static List<PitchEntry> cloneScale(List<PitchEntry> scale) {
+        return scale.stream().map(PitchEntry::new).collect(Collectors.toList());
     }
 
     @Override
@@ -89,14 +102,15 @@ public class PitchEntry {
         return list;
     }
 
-    static List<PitchEntry> ListByStep(@NotNull List<PitchEntry> list, Step step) throws Exception {
+    @Nullable
+    static List<PitchEntry> ListByStep(@NotNull List<PitchEntry> list, Step step) {
         int wanted = -1;
         for (int i = 0; i < list.size(); i++) {
             if(list.get(i).stepEquals(step))
                 wanted = i;
         }
         if (wanted == -1)
-            throw new Exception("error in finding Step in List");
+            return null;
         if (wanted == 0)
             return list;
         List<PitchEntry> newList = new ArrayList<>(list.size());

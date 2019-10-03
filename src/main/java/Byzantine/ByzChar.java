@@ -1,9 +1,5 @@
 package Byzantine;
 
-import com.google.common.base.Objects;
-import org.audiveris.proxymusic.Note;
-
-import java.util.List;
 import java.util.function.Consumer;
 
 public class ByzChar extends UnicodeChar implements Consumer<Engine> {
