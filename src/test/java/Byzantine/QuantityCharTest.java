@@ -54,7 +54,7 @@ class QuantityCharTest {
 
     @Test
     void run() {
-        qChar = new QuantityChar(225, "", ByzClass.B, Collections.singletonList(
+        qChar = new QuantityChar(225, ByzClass.B, Collections.singletonList(
                 new Move(2, false, true)
         ));
         qChar.accept(engine);

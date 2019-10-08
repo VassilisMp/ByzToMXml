@@ -46,7 +46,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -86,7 +86,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 2, false);
         //System.out.println(engine.noteList);
         engine.division = 1;
         timeChar.accept(engine);
@@ -131,7 +131,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 3, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 3, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -175,7 +175,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 4, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 4, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -231,7 +231,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 1, false);
         System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);
@@ -283,7 +283,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 2, false);
         System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);
@@ -342,7 +342,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 3, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 3, false);
         System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);
@@ -401,7 +401,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 4, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 4, false);
         System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);
@@ -461,7 +461,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 1, false);
         System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);
@@ -502,7 +502,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 1, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -544,7 +544,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 2, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 2, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -586,7 +586,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 1, 2, false);
+        timeChar = new TimeChar(234, ByzClass.B, 1, 2, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -628,7 +628,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 1, 3, false);
+        timeChar = new TimeChar(234, ByzClass.B, 1, 3, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -682,7 +682,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 1, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -736,7 +736,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 1, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 1, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -777,7 +777,7 @@ class TimeCharTest {
         type.setValue("quarter");
         note.setType(type);
 
-        timeChar = new TimeChar(92, "", ByzClass.L, 0, -1, false);
+        timeChar = new TimeChar(92, ByzClass.L, 0, -1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -833,7 +833,7 @@ class TimeCharTest {
                 note.setType(type);
             }
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -893,7 +893,7 @@ class TimeCharTest {
                 note.setType(type);
             }
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, 2, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, 2, false);
         timeChar.accept(engine);
 
         assertAll(
@@ -942,7 +942,7 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, -1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, -1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         //System.out.println(engine.noteList);
@@ -979,10 +979,10 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(235, "", ByzClass.B, 0, 1, false);
+        timeChar = new TimeChar(235, ByzClass.B, 0, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
-        timeChar = new TimeChar(234, "", ByzClass.B, 0, -1, false);
+        timeChar = new TimeChar(234, ByzClass.B, 0, -1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);
@@ -1020,10 +1020,10 @@ class TimeCharTest {
             type.setValue("quarter");
             note.setType(type);
         }
-        timeChar = new TimeChar(235, "", ByzClass.B, 0, 1, false);
+        timeChar = new TimeChar(235, ByzClass.B, 0, 1, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
-        timeChar = new TimeChar(57, "", ByzClass.B, 0, -2, false);
+        timeChar = new TimeChar(57, ByzClass.B, 0, -2, false);
         //System.out.println(engine.noteList);
         timeChar.accept(engine);
         System.out.println(engine.noteList);

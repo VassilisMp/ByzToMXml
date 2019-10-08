@@ -295,11 +295,11 @@ public final class Engine {
                     UnicodeChar Char2 = docChars.get(++i);
                     if (Char2 instanceof FthoraChar) Char2 = docChars.get(++i);
                     if (UnicodeChars.isGorgonOrArgo(Char2)) {
-                        UnicodeChar q1 = new QuantityChar(39, "", ByzClass.B,
+                        UnicodeChar q1 = new QuantityChar(39, ByzClass.B,
                                 new Move(-1, true, true),
                                 new Move(-1, true, false)
                         );
-                        UnicodeChar q2 = new QuantityChar(120, "", ByzClass.B,
+                        UnicodeChar q2 = new QuantityChar(120, ByzClass.B,
                                 new Move(1, false, true)
                         );
                         docChars.remove(index);

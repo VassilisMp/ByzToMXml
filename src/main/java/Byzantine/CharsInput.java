@@ -146,7 +146,7 @@ public class CharsInput extends Application {
             showAlertMessage("dotPlace must be a number");
             return null;
         }
-        return new TimeChar(codePoint, "", byzClass, dotPlace, divisions, argo);
+        return new TimeChar(codePoint, byzClass, dotPlace, divisions, argo);
     }
 
     @Nullable
@@ -174,8 +174,8 @@ public class CharsInput extends Application {
             //System.out.println(mov);
             moves.add(mov);
         }
-        //System.out.println(new QuantityChar(codePoint, "", byzClass, moves));
-        return new QuantityChar(codePoint, "", byzClass, moves);
+        //System.out.println(new QuantityChar(codePoint, byzClass, moves));
+        return new QuantityChar(codePoint, byzClass, moves);
     }
 
     @Nullable
@@ -198,7 +198,7 @@ public class CharsInput extends Application {
             return null;
         }
 
-        return new FthoraChar(codePoint, "", byzClass, type, step, commas);
+        return new FthoraChar(codePoint, byzClass, type, step, commas);
     }
 
     private void deletePrevious() {
@@ -511,7 +511,7 @@ public class CharsInput extends Application {
                         System.out.println(charList);
                     } else
                         showAlertMessage("Already exists in the List");
-                    //System.out.println(uniqueCharList.add(new QuantityChar(codePoint, "", byzClass, moves)))
+                    //System.out.println(uniqueCharList.add(new QuantityChar(codePoint, byzClass, moves)))
                     break;
                 case "Time":
                     TimeChar timeChar = getTimeChar(codePoint, byzClass, vBox);
@@ -547,7 +547,7 @@ public class CharsInput extends Application {
                     byzChars.add(timeChar);
                 }
             }
-            MixedChar mixedChar = new MixedChar(codePoint, "", byzClass, byzChars);
+            MixedChar mixedChar = new MixedChar(codePoint, byzClass, byzChars);
             if (uniqueCharList.add(mixedChar)) {
                 showAlertMessage("Successfully added: " + MixedChar.class.toString());
                 System.out.println(charList);

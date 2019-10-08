@@ -11,14 +11,14 @@ class ByzCharTest {
 
     @Test
     void getCodePointClass() {
-        ByzChar test = new ByzChar(80, "", ByzClass.B);
+        ByzChar test = new ByzChar(80, ByzClass.B);
         System.out.println(test.getClass().getSimpleName());
         assertEquals("B080", test.getCodePointClass());
     }
 
     @Test
     void test() {
-        QuantityChar quantityChar = new QuantityChar(1, "", ByzClass.B);
+        QuantityChar quantityChar = new QuantityChar(1, ByzClass.B);
         System.out.println(quantityChar);
         NoteType noteType = new NoteType();
         System.out.println(noteType.getValue());

@@ -1,5 +1,6 @@
 package Byzantine;
 
+import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,16 +20,20 @@ public class TimeChar extends ByzChar{
         tieStop.setType(StartStop.STOP);
     }
 
+    @Expose
     private int dotPlace;
+    @Expose
     private int divisions;
+    @Expose
     private Boolean argo;
     //public static Integer tupletNum = 0;
 
-    TimeChar(int codePoint, String font, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
-        super(codePoint, font, byzClass);
+    TimeChar(int codePoint, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
+        super(codePoint, byzClass);
         this.dotPlace = dotPlace;
         this.divisions = divisions;
         this.argo = argo;
+        this.classType = this.getClass().getSimpleName();
     }
 
     int getDotPlace() {

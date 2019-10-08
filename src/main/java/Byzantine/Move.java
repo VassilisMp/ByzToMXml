@@ -1,5 +1,7 @@
 package Byzantine;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
@@ -7,8 +9,11 @@ import java.util.Objects;
 public class Move implements Serializable {
     private static final long serialVersionUID = 4704489479038189979L;
 
+    @Expose
     private int move;
+    @Expose
     private Boolean lyric;
+    @Expose
     private Boolean time;
 
     Move(int move, Boolean lyric, Boolean time) {

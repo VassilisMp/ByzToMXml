@@ -1,6 +1,6 @@
 package Byzantine;
 
-import org.audiveris.proxymusic.Note;
+import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.Step;
 
 import java.util.*;
@@ -33,15 +33,19 @@ class FthoraChar extends ByzChar {
         //current.forEach(pitchEntry -> pitchToBooleanMap.put(pitchEntry, false));
     }
 
+    @Expose
     Type type;
+    @Expose
     ByzStep step;
+    @Expose
     int commas;
 
-    FthoraChar(int codePoint, String font, Byzantine.ByzClass byzClass, Type type, ByzStep step, int commas) {
-        super(codePoint, font, byzClass);
+    FthoraChar(int codePoint, Byzantine.ByzClass byzClass, Type type, ByzStep step, int commas) {
+        super(codePoint, byzClass);
         this.type = type;
         this.step = step;
         this.commas = commas;
+        classType = this.getClass().getSimpleName();
     }
 
     @Override

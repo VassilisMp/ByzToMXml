@@ -1,5 +1,6 @@
 package Byzantine;
 
+import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.Note;
 
 import java.io.Serializable;
@@ -7,31 +8,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class UnicodeChar implements Serializable, Consumer<Engine> {
+public abstract class UnicodeChar implements Serializable, Consumer<Engine> {
 
     private static final long serialVersionUID = 7662794995100881459L;
 
+    @Expose
     int codePoint;
+    @Expose(serialize = false, deserialize = false)
     String font;
+    @Expose(serialize = false, deserialize = false)
     String text;
-    protected Engine engine;
+    @Expose
+    protected String classType = this.getClass().getSimpleName();
 
-    UnicodeChar(int codePoint, String font) {
+    UnicodeChar(int codePoint) {
         this.codePoint = codePoint;
-        this.font = font;
-    }
-
-    public UnicodeChar(int codePoint, String font, Engine engine) {
-        this(codePoint, font);
-        this.engine = engine;
-    }
-
-    public int getCodePoint() {
-        return codePoint;
-    }
-
-    public void setFont(String font) {
-        this.font = font;
     }
 
     @Override
@@ -45,12 +36,20 @@ public class UnicodeChar implements Serializable, Consumer<Engine> {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(codePoint, font);
     }
 
     boolean exactEquals(UnicodeChar o) {
         return this == o;
+    }
+
+    @Override
+    public String toString() {
+        return "UnicodeChar{" +
+                "codePoint=" + codePoint +
+                ", font='" + font + '\'' +
+                ", text='" + text + '\'' +
+                '}';
     }
 
     @Override

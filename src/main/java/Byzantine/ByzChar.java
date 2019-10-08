@@ -1,16 +1,18 @@
 package Byzantine;
 
-import java.util.function.Consumer;
+import com.google.gson.annotations.Expose;
 
-public class ByzChar extends UnicodeChar implements Consumer<Engine> {
+public class ByzChar extends UnicodeChar {
 
     private static final long serialVersionUID = 7706296349475294817L;
 
+    @Expose
     protected ByzClass ByzClass;
 
-    public ByzChar(int codePoint, String font, Byzantine.ByzClass byzClass) {
-        super(codePoint, font);
+    public ByzChar(int codePoint, Byzantine.ByzClass byzClass) {
+        super(codePoint);
         ByzClass = byzClass;
+        classType = this.getClass().getSimpleName();
     }
 
     Byzantine.ByzClass getByzClass() {
@@ -31,7 +33,5 @@ public class ByzChar extends UnicodeChar implements Consumer<Engine> {
     }
 
     @Override
-    public void accept(Engine engine) {
-
-    }
+    public void accept(Engine engine) {}
 }

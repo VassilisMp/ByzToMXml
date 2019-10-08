@@ -2,6 +2,7 @@ package Byzantine;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
+import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,16 +25,19 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
     private static final long serialVersionUID = 976878594555516894L;
     //moves
+    @Expose
     private Move[] moves;
 
-    QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, @NotNull List<Move> moves) {
-        super(codePoint, font, byzClass);
+    QuantityChar(int codePoint, Byzantine.ByzClass byzClass, @NotNull List<Move> moves) {
+        super(codePoint, byzClass);
         this.moves = moves.toArray(new Move[0]);
+        this.classType = this.getClass().getSimpleName();
     }
 
-    QuantityChar(int codePoint, String font, Byzantine.ByzClass byzClass, Move... moves) {
-        super(codePoint, font, byzClass);
+    QuantityChar(int codePoint, Byzantine.ByzClass byzClass, Move... moves) {
+        super(codePoint, byzClass);
         this.moves = moves;
+        this.classType = this.getClass().getSimpleName();
     }
 
     Move[] getMoves() {
