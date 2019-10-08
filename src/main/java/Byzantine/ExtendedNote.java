@@ -11,7 +11,7 @@ public final class ExtendedNote extends Note implements Cloneable {
     private boolean lyric;
     private boolean time;
 
-    public ExtendedNote(Boolean lyric, Boolean time) {
+    public ExtendedNote(boolean lyric, boolean time) {
         this.lyric = lyric;
         this.time = time;
     }

@@ -55,10 +55,6 @@ public class PitchEntry {
         this(commas, step, 0, byzStep);
     }
 
-    public static List<PitchEntry> cloneScale(List<PitchEntry> scale) {
-        return scale.stream().map(PitchEntry::new).collect(Collectors.toList());
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,6 +74,10 @@ public class PitchEntry {
         return this.step == step;
     }
 
+    public boolean byzStepEquals(FthoraChar.ByzStep step) {
+        return this.byzStep == step;
+    }
+
     @Override
     public String toString() {
         return "PitchEntry{" +
@@ -85,66 +85,5 @@ public class PitchEntry {
                 ", step=" + step +
                 ", accidentalCommas=" + accidentalCommas +
                 '}';
-    }
-
-    static List<PitchEntry> FthoraApply(@NotNull List<PitchEntry> list, List<PitchEntry> fthora) {
-        for (int i = 0, difference = 0; i < list.size(); i++) {
-            PitchEntry a = list.get(i);
-            PitchEntry b = fthora.get(i);
-            a.byzStep = b.byzStep;
-            difference = a.commas-(b.commas-difference);
-            a.commas = b.commas;
-            if ((i+1) == list.size())
-                list.get(0).accidentalCommas = -difference;
-            else
-                list.get(i+1).accidentalCommas = -difference;
-        }
-        return list;
-    }
-
-    @Nullable
-    static List<PitchEntry> ListByStep(@NotNull List<PitchEntry> list, Step step) {
-        int wanted = -1;
-        for (int i = 0; i < list.size(); i++) {
-            if(list.get(i).stepEquals(step))
-                wanted = i;
-        }
-        if (wanted == -1)
-            return null;
-        if (wanted == 0)
-            return list;
-        List<PitchEntry> newList = new ArrayList<>(list.size());
-        newList.addAll(list.subList(wanted, list.size()));
-        newList.addAll(list.subList(0, wanted));
-        return newList;
-    }
-
-    static Key KeyFromPitches(List<PitchEntry> list) {
-        Key key = new ObjectFactory().createKey();
-        List<Object> nonTraditionalKey = key.getNonTraditionalKey();
-        for (Step step :
-                FLATS_FOURTHS) {
-            list.stream()
-                    .filter(pitchEntry -> pitchEntry.stepEquals(step) && pitchEntry.accidentalCommas<0)
-                    .findAny()
-                    .ifPresent(pitchEntry -> Collections.addAll(nonTraditionalKey
-                            , step
-                            , BigDecimal.valueOf(pitchEntry.accidentalCommas * 2.0 / 9).setScale(2, RoundingMode.HALF_EVEN)
-                            , ACCIDENTALS_MAP.get(pitchEntry.accidentalCommas)
-                    ));
-        }
-        for (Step step :
-                SHARP_FIFTHS) {
-            list.stream()
-                    .filter(pitchEntry -> pitchEntry.stepEquals(step) && pitchEntry.accidentalCommas>0)
-                    .findAny()
-                    .ifPresent(pitchEntry -> Collections.addAll(nonTraditionalKey
-                            , step
-                            , BigDecimal.valueOf(pitchEntry.accidentalCommas * 2.0 / 9).setScale(2, RoundingMode.HALF_EVEN)
-                            , ACCIDENTALS_MAP.get(pitchEntry.accidentalCommas)
-                    ));
-        }
-
-        return key;
     }
 }

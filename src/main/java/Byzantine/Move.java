@@ -1,6 +1,7 @@
 package Byzantine;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Move implements Serializable {
@@ -18,8 +19,8 @@ public class Move implements Serializable {
 
     public Move(Move move) {
         this.move = move.move;
-        this.lyric = move.lyric;
-        this.time = move.time;
+        this.lyric = move.lyric.booleanValue();
+        this.time = move.time.booleanValue();
     }
 
     int getMove() {

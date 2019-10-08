@@ -20,8 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
-import static Byzantine.FthoraChar.HARD_CHROMATIC;
-import static Byzantine.FthoraChar.HARD_DIATONIC;
+import static Byzantine.Scale.KeyFromPitches;
 import static org.audiveris.proxymusic.util.Marshalling.getContext;
 
 public final class Engine {
@@ -38,6 +37,7 @@ public final class Engine {
     private static final List<UnicodeChar> charList = getCharList();
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
+    Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
 
     public Engine(int division) {
         this.division = division;
@@ -223,7 +223,7 @@ public final class Engine {
                             System.out.println(i + " " + Char);
                             // clone qChar moves to save Time value
                             // and reset after running tChar
-                            Move[] movesClone = Cloner.deepClone(qChar.getMoves());
+                            Move[] movesClone = Arrays.stream(qChar.getMoves()).map(Move::new).toArray(Move[]::new);//Cloner.deepClone(qChar.getMoves());
                             Collections.addAll(moves, movesClone);
                             // set qChar Time values to false, so getIndex method can work properly
                             Arrays.stream(qChar.getMoves()).forEach(move -> move.setTime(false));
@@ -480,9 +480,10 @@ public final class Engine {
         //key.setFifths(new BigInteger("-1"));
         key.getNonTraditionalKey().addAll(Arrays.asList(Step.B, BigDecimal.valueOf(-1), AccidentalValue.FLAT));*/
 
-        List<PitchEntry> thisC = PitchEntry.cloneScale(PitchEntry.ListByStep(HARD_DIATONIC, Step.A));
-        PitchEntry.FthoraApply(thisC, HARD_CHROMATIC);
-        Key key = PitchEntry.KeyFromPitches(thisC);
+        scale.applyFthora(Scale.HARD_CHROMATIC);
+        //List<PitchEntry> thisC = PitchEntry.cloneScale(PitchEntry.ListByStep(HARD_DIATONIC, Step.A));
+        //PitchEntry.FthoraApply(thisC, HARD_CHROMATIC);
+        Key key = KeyFromPitches(scale.scale);
         attributes.getKey().add(key);
 
         // Time
