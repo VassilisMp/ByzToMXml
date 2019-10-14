@@ -1,7 +1,6 @@
 package GUI;
 
-import Byzantine.ByzantineException;
-import Byzantine.NotSupportedException;
+import Byzantine.Exceptions.ByzantineException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,10 +13,8 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.audiveris.proxymusic.Step;
 
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.PropertyException;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 

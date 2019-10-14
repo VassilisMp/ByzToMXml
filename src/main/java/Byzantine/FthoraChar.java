@@ -2,6 +2,7 @@ package Byzantine;
 
 import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.Step;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -40,7 +41,7 @@ class FthoraChar extends ByzChar {
     @Expose
     int commas;
 
-    FthoraChar(int codePoint, Byzantine.ByzClass byzClass, Type type, ByzStep step, int commas) {
+    FthoraChar(int codePoint, @NotNull Byzantine.ByzClass byzClass, @NotNull Type type, @NotNull ByzStep step, int commas) {
         super(codePoint, byzClass);
         this.type = type;
         this.step = step;
@@ -73,6 +74,30 @@ class FthoraChar extends ByzChar {
         map.put(Type.H_C, HARD_CHROMATIC);
         map.put(Type.S_C, SOFT_CHROMATIC);
         TYPE_MAP = Collections.unmodifiableMap(map);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FthoraChar)) return false;
+        if (!super.equals(o)) return false;
+
+        FthoraChar that = (FthoraChar) o;
+
+        if (codePoint != that.codePoint) return false;
+        if (ByzClass != that.ByzClass) return false;
+        if (commas != that.commas) return false;
+        if (type != that.type) return false;
+        return step == that.step;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + step.hashCode();
+        result = 31 * result + commas;
+        return result;
     }
 
     @Override

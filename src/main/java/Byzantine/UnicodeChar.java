@@ -29,14 +29,15 @@ public abstract class UnicodeChar implements Serializable, Consumer<Engine> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UnicodeChar)) return false;
+
         UnicodeChar that = (UnicodeChar) o;
-        return codePoint == that.codePoint &&
-                Objects.equals(font, that.font);
+
+        return codePoint == that.codePoint;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codePoint, font);
+        return codePoint;
     }
 
     boolean exactEquals(UnicodeChar o) {
@@ -47,13 +48,6 @@ public abstract class UnicodeChar implements Serializable, Consumer<Engine> {
     public String toString() {
         return "UnicodeChar{" +
                 "codePoint=" + codePoint +
-                ", font='" + font + '\'' +
-                ", text='" + text + '\'' +
                 '}';
-    }
-
-    @Override
-    public void accept(Engine engine) {
-
     }
 }

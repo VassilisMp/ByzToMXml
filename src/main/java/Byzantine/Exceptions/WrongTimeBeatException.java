@@ -1,4 +1,6 @@
-package Byzantine;
+package Byzantine.Exceptions;
+
+import Byzantine.Exceptions.ByzantineException;
 
 public class WrongTimeBeatException extends ByzantineException {
 

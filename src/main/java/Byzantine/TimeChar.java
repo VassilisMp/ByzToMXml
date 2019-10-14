@@ -49,6 +49,30 @@ public class TimeChar extends ByzChar{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TimeChar)) return false;
+        if (!super.equals(o)) return false;
+
+        TimeChar timeChar = (TimeChar) o;
+
+        if (codePoint != timeChar.codePoint) return false;
+        if (ByzClass != timeChar.ByzClass) return false;
+        if (dotPlace != timeChar.dotPlace) return false;
+        if (divisions != timeChar.divisions) return false;
+        return argo.equals(timeChar.argo);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + dotPlace;
+        result = 31 * result + divisions;
+        result = 31 * result + argo.hashCode();
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "TimeChar{" +
                 "dotPlace=" + dotPlace +

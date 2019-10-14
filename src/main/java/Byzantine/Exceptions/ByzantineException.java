@@ -1,4 +1,4 @@
-package Byzantine;
+package Byzantine.Exceptions;
 
 public class ByzantineException extends Exception {
     public ByzantineException() {

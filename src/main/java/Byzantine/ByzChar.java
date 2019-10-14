@@ -15,7 +15,7 @@ public class ByzChar extends UnicodeChar {
         classType = this.getClass().getSimpleName();
     }
 
-    Byzantine.ByzClass getByzClass() {
+    ByzClass getByzClass() {
         return ByzClass;
     }
 
@@ -24,8 +24,25 @@ public class ByzChar extends UnicodeChar {
         if (this == o) return true;
         if (!(o instanceof ByzChar)) return false;
         if (!super.equals(o)) return false;
+
         ByzChar byzChar = (ByzChar) o;
+
         return ByzClass == byzChar.ByzClass && codePoint == byzChar.codePoint;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (ByzClass != null ? ByzClass.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ByzChar{" +
+                "ByzClass=" + ByzClass +
+                ", codePoint=" + codePoint +
+                '}';
     }
 
     String getCodePointClass() {

@@ -11,7 +11,7 @@ class ByzCharTest {
 
     @Test
     void getCodePointClass() {
-        ByzChar test = new ByzChar(80, ByzClass.B);
+        ByzChar test = new TimeChar(80, ByzClass.B, 0, 1, false);
         System.out.println(test.getClass().getSimpleName());
         assertEquals("B080", test.getCodePointClass());
     }

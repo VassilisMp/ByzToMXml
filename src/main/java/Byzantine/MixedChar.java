@@ -27,6 +27,30 @@ public class MixedChar extends ByzChar {
         return chars;
     }
 
+    void setChars(ByzChar[] chars) {
+        this.chars = chars;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MixedChar)) return false;
+        if (!super.equals(o)) return false;
+
+        MixedChar mixedChar = (MixedChar) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(chars, mixedChar.chars);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + Arrays.hashCode(chars);
+        return result;
+    }
+
+
     @Override
     public String toString() {
         return "MixedChar{" +
