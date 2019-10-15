@@ -34,7 +34,7 @@ public class MixedChar extends ByzChar {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MixedChar)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
         MixedChar mixedChar = (MixedChar) o;
@@ -50,12 +50,11 @@ public class MixedChar extends ByzChar {
         return result;
     }
 
-
     @Override
     public String toString() {
         return "MixedChar{" +
                 "chars=" + Arrays.toString(chars) +
-                '}';
+                "} " + super.toString();
     }
 
     @Override

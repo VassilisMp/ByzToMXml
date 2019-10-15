@@ -79,13 +79,11 @@ class FthoraChar extends ByzChar {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof FthoraChar)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
         FthoraChar that = (FthoraChar) o;
 
-        if (codePoint != that.codePoint) return false;
-        if (ByzClass != that.ByzClass) return false;
         if (commas != that.commas) return false;
         if (type != that.type) return false;
         return step == that.step;
@@ -106,8 +104,6 @@ class FthoraChar extends ByzChar {
                 "type=" + type +
                 ", step=" + step +
                 ", commas=" + commas +
-                ", ByzClass=" + ByzClass +
-                ", codePoint=" + codePoint +
-                '}';
+                "} " + super.toString();
     }
 }

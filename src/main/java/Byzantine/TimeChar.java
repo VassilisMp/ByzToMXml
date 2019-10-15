@@ -25,10 +25,10 @@ public class TimeChar extends ByzChar{
     @Expose
     private int divisions;
     @Expose
-    private Boolean argo;
+    private boolean argo;
     //public static Integer tupletNum = 0;
 
-    TimeChar(int codePoint, Byzantine.ByzClass byzClass, int dotPlace, int divisions, Boolean argo) {
+    TimeChar(int codePoint, Byzantine.ByzClass byzClass, int dotPlace, int divisions, boolean argo) {
         super(codePoint, byzClass);
         this.dotPlace = dotPlace;
         this.divisions = divisions;
@@ -44,23 +44,21 @@ public class TimeChar extends ByzChar{
         return divisions;
     }
 
-    Boolean getArgo() {
+    boolean getArgo() {
         return argo;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TimeChar)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
         TimeChar timeChar = (TimeChar) o;
 
-        if (codePoint != timeChar.codePoint) return false;
-        if (ByzClass != timeChar.ByzClass) return false;
         if (dotPlace != timeChar.dotPlace) return false;
         if (divisions != timeChar.divisions) return false;
-        return argo.equals(timeChar.argo);
+        return argo == timeChar.argo;
     }
 
     @Override
@@ -68,7 +66,7 @@ public class TimeChar extends ByzChar{
         int result = super.hashCode();
         result = 31 * result + dotPlace;
         result = 31 * result + divisions;
-        result = 31 * result + argo.hashCode();
+        result = 31 * result + (argo ? 1 : 0);
         return result;
     }
 
@@ -78,9 +76,7 @@ public class TimeChar extends ByzChar{
                 "dotPlace=" + dotPlace +
                 ", divisions=" + divisions +
                 ", argo=" + argo +
-                ", ByzClass=" + ByzClass +
-                ", codePoint=" + codePoint +
-                '}';
+                "} " + super.toString();
     }
 
     @Override
@@ -92,7 +88,7 @@ public class TimeChar extends ByzChar{
             divisions = 1;
         }
         // varia-dot
-        if (getByzClass() == Byzantine.ByzClass.L && codePoint == 92) {
+        if (this.getByzClass() == Byzantine.ByzClass.L && this.getCodePoint() == 92) {
             ExtendedNote note = new ExtendedNote(false, true);
             note.setDuration(BigDecimal.valueOf(engine.division));
             NoteType noteType = new NoteType();

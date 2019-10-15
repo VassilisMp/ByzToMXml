@@ -45,37 +45,48 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
 
     @Override
-    public String toString() {
-        return "QuantityChar{" +
-                "moves=" + Arrays.toString(moves) +
-                ", ByzClass=" + ByzClass +
-                ", codePoint=" + codePoint +
-                ", font=" + font +
-                ", text=" + (text != null ? text : "") +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof QuantityChar)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
+
         QuantityChar that = (QuantityChar) o;
-        return Arrays.equals(moves, that.moves) && codePoint==that.codePoint && ByzClass==that.ByzClass;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(moves, that.moves);
     }
 
     @Override
     public int hashCode() {
-
         int result = super.hashCode();
         result = 31 * result + Arrays.hashCode(moves);
         return result;
     }
 
     @Override
+    public String toString() {
+        return "QuantityChar{" +
+                "moves=" + Arrays.toString(moves) +
+                "} " + super.toString();
+    }
+
+    @Override
     public int compareTo(@NotNull Object o) {
         return 0;
     }
+
+    /*@Override
+    protected Object clone() {
+        QuantityChar clone;
+        try {
+            clone = (QuantityChar) super.clone();
+            clone.moves = Arrays.stream(moves).map(Move::new).toArray(Move[]::new);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            clone = new QuantityChar(codePoint)
+        }
+        return clone;
+    }*/
 
     public void accept(Engine engine) {
         for (Move move : moves) {
@@ -106,12 +117,12 @@ public class QuantityChar extends ByzChar implements Comparable {
             type.setValue("quarter");
             note.setType(type);
         }
-        if (text != null && !text.equals("")) {
+        if (this.getText() != null && !this.getText().equals("")) {
             Note fNote = engine.noteList.get(engine.noteList.size() - moves.length);
             Lyric lyric = new Lyric();
             lyric.getElisionAndSyllabicAndText().add(Syllabic.SINGLE);
             TextElementData textElementData = new TextElementData();
-            textElementData.setValue(text);
+            textElementData.setValue(this.getText());
             lyric.getElisionAndSyllabicAndText().add(textElementData);
             fNote.getLyric().add(lyric);
         }

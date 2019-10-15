@@ -1,5 +1,8 @@
 package Byzantine;
 
+import com.google.common.base.Charsets;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.commons.collections4.list.SetUniqueList;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.CharSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,27 +35,18 @@ public class CharsInput extends Application {
 
     private VBox nodeList = new VBox(8);
     private static final String codePattern = "([BFILPX])((0[4-9][0-9])|(0[3-9][3-9])|(1[0-9][0-9])|(2[0-4][0-9])|(250))";
-    private List<UnicodeChar> charList;
+    private List<ByzChar> charList;
     private Stage primaryStage;
     private VBox parent;
     private TextField charCodeText;
-    private SetUniqueList<UnicodeChar> uniqueCharList;
+    private SetUniqueList<ByzChar> uniqueCharList;
 
     @Override
     @SuppressWarnings("unchecked")
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
-        try {
-            FileInputStream fileIn = new FileInputStream("lis.obj");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            charList = (List<UnicodeChar>) in.readObject();
-            in.close();
-            fileIn.close();
-        }catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return;
-        }
+        charList = Engine.getCharList();
         System.out.println(charList);
 
         uniqueCharList = SetUniqueList.setUniqueList(charList);
@@ -360,10 +356,13 @@ public class CharsInput extends Application {
     }
 
     private void saveHandle(ActionEvent e) {
+        String json = new GsonBuilder()
+                .setPrettyPrinting()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create()
+                .toJson(charList);
         try {
-            FileOutputStream fileOut = new FileOutputStream("lis.obj");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(charList);
+            FileUtils.writeStringToFile(new File(Engine.JSON_CHARS_FILE), json, Charsets.UTF_8);
             showAlertMessage("Successfuly Saved(Serialized) list");
         } catch (IOException ex) {
             showAlertMessage("Couldn't Save(Serialize) list");
@@ -374,32 +373,32 @@ public class CharsInput extends Application {
     private void getButtonHandle(ActionEvent e) {
         String charCode = charCodeText.getText();
 
-        UnicodeChar unicodeChar = uniqueCharList.stream().
-                filter(Char -> Objects.equals(((ByzChar) Char).getCodePointClass(), charCode)).
+        ByzChar byzChar1 = uniqueCharList.stream().
+                filter(Char -> Objects.equals(Char.getCodePointClass(), charCode)).
                 findAny().
                 orElseGet(() -> {
                     showAlertMessage("there in no such Character in the list");
                     return null;
                 });
-        if (unicodeChar != null) {
-            switch (unicodeChar.getClass().getSimpleName()) {
+        if (byzChar1 != null) {
+            switch (byzChar1.getClass().getSimpleName()) {
                 case "QuantityChar": {
                     deletePrevious();
-                    caseQuantity((QuantityChar) unicodeChar);
+                    caseQuantity((QuantityChar) byzChar1);
                     this.primaryStage.sizeToScene();
                 } break;
                 case "TimeChar": {
                     deletePrevious();
-                    caseTime((TimeChar) unicodeChar);
+                    caseTime((TimeChar) byzChar1);
                     this.primaryStage.sizeToScene();
                 } break;
                 case "FthoraChar": {
                     deletePrevious();
-                    caseFthora((FthoraChar) unicodeChar);
+                    caseFthora((FthoraChar) byzChar1);
                     this.primaryStage.sizeToScene();
                 } break;
                 case "MixedChar": {
-                    MixedChar mixedChar = (MixedChar) unicodeChar;
+                    MixedChar mixedChar = (MixedChar) byzChar1;
                     ByzChar[] byzChars = mixedChar.getChars();
                     deletePrevious();
                     for (ByzChar byzChar : byzChars) {
@@ -479,7 +478,7 @@ public class CharsInput extends Application {
         AtomicBoolean flag = new AtomicBoolean(false);
         // delete Character if already exists, to add the new one
         uniqueCharList.stream()
-                .filter(Char -> Objects.equals(((ByzChar) Char).getCodePointClass(), charCode))
+                .filter(Char -> Objects.equals(Char.getCodePointClass(), charCode))
                 .findAny()
                 .ifPresent(Char -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

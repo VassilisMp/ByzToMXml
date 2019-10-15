@@ -1,54 +1,112 @@
 package Byzantine;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.jetbrains.annotations.Contract;
 
-public class ByzChar extends UnicodeChar {
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.function.Consumer;
+
+public abstract class ByzChar implements Consumer<Engine>, Cloneable {
 
     private static final long serialVersionUID = 7706296349475294817L;
 
     @Expose
-    protected ByzClass ByzClass;
+    private int codePoint;
+    @Expose(serialize = false, deserialize = false)
+    private String font;
+    @Expose(serialize = false, deserialize = false)
+    private String text;
+    @Expose
+    protected String classType = this.getClass().getSimpleName();
+    @Expose
+    private ByzClass byzClass;
 
-    public ByzChar(int codePoint, Byzantine.ByzClass byzClass) {
-        super(codePoint);
-        ByzClass = byzClass;
-        classType = this.getClass().getSimpleName();
+    ByzChar(int codePoint, Byzantine.ByzClass byzClass) {
+        this.codePoint = codePoint;
+        this.byzClass = byzClass;
     }
 
-    ByzClass getByzClass() {
-        return ByzClass;
+    public int getCodePoint() {
+        return codePoint;
+    }
+
+    public String getFont() {
+        return font;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public ByzClass getByzClass() {
+        return byzClass;
+    }
+
+    public void setCodePoint(int codePoint) {
+        this.codePoint = codePoint;
+    }
+
+    public void setFont(String font) {
+        this.font = font;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setByzClass(ByzClass byzClass) {
+        this.byzClass = byzClass;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ByzChar)) return false;
-        if (!super.equals(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         ByzChar byzChar = (ByzChar) o;
 
-        return ByzClass == byzChar.ByzClass && codePoint == byzChar.codePoint;
+        if (codePoint != byzChar.codePoint) return false;
+        if (!Objects.equals(font, byzChar.font)) return false;
+        if (!Objects.equals(text, byzChar.text)) return false;
+        return byzClass == byzChar.byzClass;
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (ByzClass != null ? ByzClass.hashCode() : 0);
+        int result = codePoint;
+        result = 31 * result + (font != null ? font.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + byzClass.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
         return "ByzChar{" +
-                "ByzClass=" + ByzClass +
-                ", codePoint=" + codePoint +
+                "codePoint=" + codePoint +
+                ", font='" + font + '\'' +
+                ", text='" + text + '\'' +
+                ", byzClass=" + byzClass +
                 '}';
     }
 
     String getCodePointClass() {
-        return ByzClass + String.format("%03d", codePoint);
+        return byzClass + String.format("%03d", codePoint);
     }
 
-    @Override
-    public void accept(Engine engine) {}
+    @Contract("null -> false")
+    static boolean isGorgonOrArgo(ByzChar Char) {
+        if (Char instanceof TimeChar) {
+            TimeChar tChar = (TimeChar) Char;
+            return tChar.getDivisions()>0;
+        }
+        return false;
+    }
+
+    boolean equals(int codePoint, ByzClass byzClass) {
+        return this.codePoint == codePoint && this.byzClass == byzClass;
+    }
+
 }

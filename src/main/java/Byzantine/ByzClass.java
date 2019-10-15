@@ -1,6 +1,6 @@
 package Byzantine;
 
-public enum ByzClass {
+enum ByzClass {
     B, F, I, L, P, X, A, N, T; // added A, N, T
     /*B -> Byzantine
      * F -> Fthores

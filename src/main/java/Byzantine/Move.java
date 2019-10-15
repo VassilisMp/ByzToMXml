@@ -12,20 +12,20 @@ public class Move implements Serializable {
     @Expose
     private int move;
     @Expose
-    private Boolean lyric;
+    private boolean lyric;
     @Expose
-    private Boolean time;
+    private boolean time;
 
-    Move(int move, Boolean lyric, Boolean time) {
+    Move(int move, boolean lyric, boolean time) {
         this.move = move;
         this.lyric = lyric;
         this.time = time;
     }
 
-    public Move(Move move) {
+    Move(Move move) {
         this.move = move.move;
-        this.lyric = move.lyric.booleanValue();
-        this.time = move.time.booleanValue();
+        this.lyric = move.lyric;
+        this.time = move.time;
     }
 
     int getMove() {

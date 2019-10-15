@@ -2,9 +2,11 @@ package Byzantine;
 
 import Byzantine.Annotations.NotSupported;
 import Byzantine.Exceptions.NotSupportedException;
+import com.google.common.base.Charsets;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -26,6 +28,7 @@ import static Byzantine.Scale.KeyFromPitches;
 import static org.audiveris.proxymusic.util.Marshalling.getContext;
 
 public final class Engine {
+    static final String JSON_CHARS_FILE = "chars.json";
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     int division;
@@ -33,10 +36,10 @@ public final class Engine {
     private BigDecimal durationSum;
     private int timeBeats;
     List<Note> noteList;
-    private List<UnicodeChar> docChars;
+    private List<ByzChar> docChars;
     private final XWPFDocument docx;
     private final String fileName;
-    private static final List<UnicodeChar> charList = getCharList();
+    private static final List<ByzChar> charList = Collections.unmodifiableList(getCharList());
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
@@ -145,7 +148,7 @@ public final class Engine {
                                             }
                                     }
                                     // set last Char lyrics
-                                    character.text = sb.toString();
+                                    character.setText(sb.toString());
                                 });
                         // delete the StringBuilder's contents
                         sb.setLength(0);
@@ -168,33 +171,33 @@ public final class Engine {
                     if (c == 162 && byzClass == ByzClass.B) c = 100;
                     final char finalChar = c;
                     // check if current Char is in the ByzCharList
-                    UnicodeChar unicodeChar = charList.stream()
-                            .filter(character -> character.codePoint == finalChar && ((ByzChar) character).ByzClass == byzClass)
+                    ByzChar byzChar = charList.stream()
+                            .filter(character -> character.getCodePoint() == finalChar && character.getByzClass() == byzClass)
                             .findAny()
                             .orElse(null);
                     //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
                     // if doesn't exist continue to next
-                    if (unicodeChar == null) continue;
-                    if (unicodeChar.codePoint == 67 && ((ByzChar) unicodeChar).ByzClass == ByzClass.B) {
-                        UnicodeChar prev = docChars.get(docChars.size()-1);
-                        if (prev.codePoint == 115 && ((ByzChar) prev).ByzClass == ByzClass.B) {
-                            unicodeChar = charList.stream()
-                                    .filter(character -> character.codePoint == 100 && ((ByzChar) character).ByzClass == ByzClass.B)
+                    if (byzChar == null) continue;
+                    if (byzChar.getCodePoint() == 67 && byzChar.getByzClass() == ByzClass.B) {
+                        ByzChar prev = docChars.get(docChars.size()-1);
+                        if (prev.getCodePoint() == 115 && prev.getByzClass() == ByzClass.B) {
+                            byzChar = charList.stream()
+                                    .filter(character -> character.getCodePoint() == 100 && character.getByzClass() == ByzClass.B)
                                     .findAny()
                                     .orElse(null);
-                            UnicodeChar clone = Cloner.deepClone(unicodeChar);
-                            clone.text = prev.text;
+                            ByzChar clone = Cloner.deepClone(byzChar);
+                            clone.setText(prev.getText());
                             docChars.set(docChars.size()-1, clone);
                             continue;
                         }
                     }
                     // else clone and add in the docChars
-                    UnicodeChar clone = Cloner.deepClone(unicodeChar);
-                    clone.font = fontName;
+                    ByzChar clone = Cloner.deepClone(byzChar);
+                    clone.setFont(fontName);
                     docChars.add(clone);
-                    if (unicodeChar instanceof QuantityChar) qCharAdded = true;
-                    else if (unicodeChar instanceof MixedChar)
-                        mCharAdded =  Arrays.stream(((MixedChar) unicodeChar).getChars())
+                    if (byzChar instanceof QuantityChar) qCharAdded = true;
+                    else if (byzChar instanceof MixedChar)
+                        mCharAdded =  Arrays.stream(((MixedChar) byzChar).getChars())
                                 .anyMatch(Char -> Char instanceof QuantityChar);
                 }
             }
@@ -206,7 +209,7 @@ public final class Engine {
             if (i == 195) {
                 System.out.println("check");
             }
-            UnicodeChar Char = docChars.get(i);
+            ByzChar Char = docChars.get(i);
             if (Char instanceof TimeChar) {
                 tChar = (TimeChar) Char;
                 List<Move> moves = null;
@@ -288,20 +291,20 @@ public final class Engine {
     private void fixL116() {
         long start = System.nanoTime();
         for (int i = 0; i < docChars.size(); i++) {
-            UnicodeChar Char = docChars.get(i);
+            ByzChar Char = docChars.get(i);
             int index = i;
-            if (UnicodeChars.equals(Char, 116, ByzClass.L)) {
-                UnicodeChar Char1 = docChars.get(++i);
+            if (Char.equals(116, ByzClass.L)) {
+                ByzChar Char1 = docChars.get(++i);
                 if (Char1 instanceof FthoraChar) Char1 = docChars.get(++i);
-                if (UnicodeChars.isGorgonOrArgo(Char1)) {
-                    UnicodeChar Char2 = docChars.get(++i);
+                if (ByzChar.isGorgonOrArgo(Char1)) {
+                    ByzChar Char2 = docChars.get(++i);
                     if (Char2 instanceof FthoraChar) Char2 = docChars.get(++i);
-                    if (UnicodeChars.isGorgonOrArgo(Char2)) {
-                        UnicodeChar q1 = new QuantityChar(39, ByzClass.B,
+                    if (ByzChar.isGorgonOrArgo(Char2)) {
+                        ByzChar q1 = new QuantityChar(39, ByzClass.B,
                                 new Move(-1, true, true),
                                 new Move(-1, true, false)
                         );
-                        UnicodeChar q2 = new QuantityChar(120, ByzClass.B,
+                        ByzChar q2 = new QuantityChar(120, ByzClass.B,
                                 new Move(1, false, true)
                         );
                         docChars.remove(index);
@@ -318,8 +321,8 @@ public final class Engine {
         System.out.println("timeElapsed" + timeElapsed);
     }
 
-    private static int getExactIndexOf(UnicodeChar char1, List<UnicodeChar> docChars) {
-        return IntStream.range(0, docChars.size()).filter(i1 -> docChars.get(i1).exactEquals(char1)).findFirst().orElse(-1);
+    private static int getExactIndexOf(ByzChar char1, List<ByzChar> docChars) {
+        return IntStream.range(0, docChars.size()).filter(i1 -> docChars.get(i1) == char1).findFirst().orElse(-1);
     }
 
     BigDecimal getDurationSum() {
@@ -619,15 +622,21 @@ public final class Engine {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<UnicodeChar> getCharList() {
-        try (FileInputStream fileIn = new FileInputStream("lis.obj");
-             ObjectInputStream in = new ObjectInputStream(fileIn)){
-            return Collections.unmodifiableList((List<UnicodeChar>) in.readObject());
-        }catch (IOException | ClassNotFoundException e) {
+    static List<ByzChar> getCharList() {
+        // deserialize chars.json to List<ByzChar>
+        String json;
+        try {
+            json = FileUtils.readFileToString(new File(Engine.JSON_CHARS_FILE), Charsets.UTF_8);
+        } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("error in reading " + Engine.JSON_CHARS_FILE);
+            //showAlertMessage("error in reading " + Engine.JSON_CHARS_FILE);
             System.exit(-1);
             return null;
         }
+        //System.out.println(json);
+        ByzCharDeserializer deserializer = new ByzCharDeserializer();
+        return deserializer.fromJson(json);
     }
 
     @Nullable Step getLastNoteStep() {
