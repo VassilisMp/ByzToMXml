@@ -1,10 +1,8 @@
 package Byzantine;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.Contract;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -80,17 +78,11 @@ public abstract class ByzChar implements Consumer<Engine>, Cloneable {
 
     @Override
     public String toString() {
-        return "ByzChar{" +
-                "codePoint=" + codePoint +
+        return "codePoint=" + codePoint +
                 ", font='" + font + '\'' +
                 ", text='" + text + '\'' +
                 ", byzClass=" + byzClass +
-                '}';
-    }
-
-    @Override
-    protected ByzChar clone() throws CloneNotSupportedException {
-        return (ByzChar) super.clone();
+                ", ";
     }
 
     String getCodePointClass() {
@@ -110,4 +102,13 @@ public abstract class ByzChar implements Consumer<Engine>, Cloneable {
         return this.codePoint == codePoint && this.byzClass == byzClass;
     }
 
+    @Override
+    protected ByzChar clone() {
+        try {
+            return (ByzChar) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

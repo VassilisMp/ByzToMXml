@@ -21,7 +21,7 @@ public class Move implements Cloneable {
         this.time = time;
     }
 
-    Move(Move move) {
+    private Move(Move move) {
         this.move = move.move;
         this.lyric = move.lyric;
         this.time = move.time;
@@ -76,5 +76,9 @@ public class Move implements Cloneable {
             e.printStackTrace();
             return new Move(this);
         }
+    }
+
+    static Move[] movesClone(Move[] moves) {
+        return Arrays.stream(moves).map(Move::clone).toArray(Move[]::new);
     }
 }

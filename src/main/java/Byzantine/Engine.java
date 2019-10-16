@@ -185,14 +185,16 @@ public final class Engine {
                                     .filter(character -> character.getCodePoint() == 100 && character.getByzClass() == ByzClass.B)
                                     .findAny()
                                     .orElse(null);
-                            ByzChar clone = Cloner.deepClone(byzChar);
+                            Objects.requireNonNull(byzChar);
+                            ByzChar clone = byzChar.clone();//Cloner.deepClone(byzChar);
                             clone.setText(prev.getText());
                             docChars.set(docChars.size()-1, clone);
                             continue;
                         }
                     }
                     // else clone and add in the docChars
-                    ByzChar clone = Cloner.deepClone(byzChar);
+                    Objects.requireNonNull(byzChar);
+                    ByzChar clone = Objects.requireNonNull(byzChar.clone());
                     clone.setFont(fontName);
                     docChars.add(clone);
                     if (byzChar instanceof QuantityChar) qCharAdded = true;
@@ -228,7 +230,7 @@ public final class Engine {
                             System.out.println(i + " " + Char);
                             // clone qChar moves to save Time value
                             // and reset after running tChar
-                            Move[] movesClone = Arrays.stream(qChar.getMoves()).map(Move::new).toArray(Move[]::new);//Cloner.deepClone(qChar.getMoves());
+                            Move[] movesClone = Move.movesClone(qChar.getMoves());//Cloner.deepClone(qChar.getMoves());
                             Collections.addAll(moves, movesClone);
                             // set qChar Time values to false, so getIndex method can work properly
                             Arrays.stream(qChar.getMoves()).forEach(move -> move.setTime(false));

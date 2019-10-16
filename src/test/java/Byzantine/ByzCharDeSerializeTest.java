@@ -18,6 +18,7 @@ class ByzCharDeSerializeTest {
 
         ByzCharDeSerialize inOut= new ByzCharDeSerialize();
         List<ByzChar> charList = inOut.fromJson(json);
+        assertNotNull(charList);
     }
 
     @Test
@@ -26,5 +27,7 @@ class ByzCharDeSerializeTest {
 
         ByzCharDeSerialize inOut= new ByzCharDeSerialize();
         List<ByzChar> charList = inOut.fromJson(json);
+        String json1 = inOut.toJson(charList);
+        assertNotNull(json1);
     }
 }

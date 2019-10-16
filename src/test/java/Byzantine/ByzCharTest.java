@@ -3,22 +3,36 @@ package Byzantine;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.StartStop;
 import org.audiveris.proxymusic.StartStopContinue;
+import org.audiveris.proxymusic.Step;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ByzCharTest {
 
     @Test
     void testClone() throws CloneNotSupportedException {
+        FthoraChar fthoraChar = new FthoraChar(121, ByzClass.B, FthoraChar.Type.S_D, FthoraChar.ByzStep.DI, 0);
+        TimeChar timeChar = new TimeChar(80, ByzClass.B, 0, 1, false);
+        QuantityChar quantityChar = new QuantityChar(1, ByzClass.B, new Move(1, false, true));
         MixedChar mixedChar = new MixedChar(110, ByzClass.B, Arrays.asList(
-                new TimeChar(80, ByzClass.B, 0, 1, false),
-                new QuantityChar(1, ByzClass.B, new Move(1, false, true))
-        ));
-        MixedChar clone = (MixedChar) mixedChar.clone();
-        System.out.println(clone);
+                timeChar,
+                quantityChar)
+        );
+        MixedChar mClone = (MixedChar) mixedChar.clone();
+        TimeChar tClone = (TimeChar) timeChar.clone();
+        System.out.println(tClone);
+        QuantityChar qClone = (QuantityChar) quantityChar.clone();
+        FthoraChar fClone = (FthoraChar) fthoraChar.clone();
+        assertAll(
+                () -> assertNotSame(fthoraChar, fClone),
+                () -> assertNotSame(timeChar, tClone),
+                () -> assertNotSame(quantityChar, qClone),
+                () -> assertNotSame(mixedChar, mClone),
+                () -> assertNotSame(mixedChar.getChars(), mClone.getChars())
+        );
     }
 
     @Test

@@ -100,9 +100,15 @@ class FthoraChar extends ByzChar {
     @Override
     public String toString() {
         return "FthoraChar{" +
+                super.toString() +
                 "type=" + type +
                 ", step=" + step +
                 ", commas=" + commas +
-                "} " + super.toString();
+                "} ";
+    }
+
+    @Override
+    protected ByzChar clone() {
+        return super.clone();
     }
 }

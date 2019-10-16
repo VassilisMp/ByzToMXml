@@ -63,14 +63,15 @@ public class QuantityChar extends ByzChar implements Comparable {
     @Override
     public String toString() {
         return "QuantityChar{" +
+                super.toString() +
                 "moves=" + Arrays.toString(moves) +
-                "} " + super.toString();
+                "} ";
     }
 
     @Override
-    protected ByzChar clone() throws CloneNotSupportedException {
+    protected ByzChar clone() {
         QuantityChar clone = (QuantityChar) super.clone();
-        clone.moves = Arrays.stream(this.moves).map(Move::clone).toArray(Move[]::new);
+        clone.moves = Move.movesClone(this.moves);
         return clone;
     }
 

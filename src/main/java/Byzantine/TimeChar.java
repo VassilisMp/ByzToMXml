@@ -1,5 +1,6 @@
 package Byzantine;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
@@ -71,10 +72,16 @@ public class TimeChar extends ByzChar{
     @Override
     public String toString() {
         return "TimeChar{" +
+                super.toString() +
                 "dotPlace=" + dotPlace +
                 ", divisions=" + divisions +
                 ", argo=" + argo +
-                "} " + super.toString();
+                "} ";
+    }
+
+    @Override
+    protected ByzChar clone() {
+        return super.clone();
     }
 
     @Override

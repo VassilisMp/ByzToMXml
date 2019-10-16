@@ -50,22 +50,16 @@ public class MixedChar extends ByzChar {
     @Override
     public String toString() {
         return "MixedChar{" +
+                super.toString() +
                 "chars=" + Arrays.toString(chars) +
-                "} " + super.toString();
+                "} ";
     }
 
     @Override
-    protected ByzChar clone() throws CloneNotSupportedException {
-        MixedChar clone = (MixedChar)super.clone();
-        clone.chars = (ByzChar[]) Arrays.stream(this.chars)
-                .map((ByzChar c) -> {
-                    try {
-                        return c.clone();
-                    } catch (CloneNotSupportedException e) {
-                        e.printStackTrace();
-                        return null;
-                    }
-                }).toArray(ByzChar[]::new);
+    protected ByzChar clone() {
+        MixedChar clone = (MixedChar) super.clone();
+        clone.chars = Arrays.stream(this.chars)
+                .map(ByzChar::clone).toArray(ByzChar[]::new);
         return clone;
     }
 

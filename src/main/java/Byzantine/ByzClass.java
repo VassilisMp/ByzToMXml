@@ -11,5 +11,4 @@ enum ByzClass {
      * A -> Arxigramma
      * N -> I don't remember, font with various chars..
      * T -> Text fonts*/
-    private static final long serialVersionUID = 0L;
 }
