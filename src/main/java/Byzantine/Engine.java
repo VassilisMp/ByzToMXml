@@ -621,7 +621,6 @@ public final class Engine {
         return Collections.unmodifiableMap(map);
     }
 
-    @SuppressWarnings("unchecked")
     static List<ByzChar> getCharList() {
         // deserialize chars.json to List<ByzChar>
         String json;
@@ -635,8 +634,8 @@ public final class Engine {
             return null;
         }
         //System.out.println(json);
-        ByzCharDeserializer deserializer = new ByzCharDeserializer();
-        return deserializer.fromJson(json);
+        //ByzCharDeserializer deserializer = new ByzCharDeserializer();
+        return new ByzCharDeSerialize().fromJson(json);
     }
 
     @Nullable Step getLastNoteStep() {

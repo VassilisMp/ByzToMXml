@@ -10,16 +10,21 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ByzCharDeserializerTest {
+class ByzCharDeSerializeTest {
 
     @Test
     void fromJson() throws IOException {
         String json = FileUtils.readFileToString(new File(Engine.JSON_CHARS_FILE), Charsets.UTF_8);
-        //System.out.println(json);
-        ByzCharDeserializer deserializer = new ByzCharDeserializer();
 
-        List<ByzChar> charList = deserializer.fromJson(json);
-        System.out.println(charList);
-        System.out.println(charList.size());
+        ByzCharDeSerialize inOut= new ByzCharDeSerialize();
+        List<ByzChar> charList = inOut.fromJson(json);
+    }
+
+    @Test
+    void toJson() throws IOException {
+        String json = FileUtils.readFileToString(new File(Engine.JSON_CHARS_FILE), Charsets.UTF_8);
+
+        ByzCharDeSerialize inOut= new ByzCharDeSerialize();
+        List<ByzChar> charList = inOut.fromJson(json);
     }
 }

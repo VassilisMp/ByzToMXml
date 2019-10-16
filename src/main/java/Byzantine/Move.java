@@ -6,8 +6,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Move implements Serializable {
-    private static final long serialVersionUID = 4704489479038189979L;
+public class Move implements Cloneable {
 
     @Expose
     private int move;
@@ -67,5 +66,15 @@ public class Move implements Serializable {
     public int hashCode() {
 
         return Objects.hash(move, lyric, time);
+    }
+
+    @Override
+    protected Move clone() {
+        try {
+            return (Move)super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return new Move(this);
+        }
     }
 }

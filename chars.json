@@ -1,0 +1,2196 @@
+[
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 115,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 83,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 120,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 2,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 67,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 2,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 68,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 2,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 100,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 118,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 216,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 228,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 2,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 63,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "chars": [
+      {
+        "moves": [
+          {
+            "move": 2,
+            "lyric": true,
+            "time": true
+          }
+        ],
+        "codePoint": 90,
+        "byzClass": "B",
+        "class": "Byzantine.QuantityChar"
+      },
+      {
+        "dotPlace": 0,
+        "divisions": -1,
+        "argo": false,
+        "codePoint": 90,
+        "byzClass": "B",
+        "class": "Byzantine.TimeChar"
+      }
+    ],
+    "codePoint": 90,
+    "byzClass": "B",
+    "class": "Byzantine.MixedChar"
+  },
+  {
+    "chars": [
+      {
+        "moves": [
+          {
+            "move": 1,
+            "lyric": false,
+            "time": false
+          },
+          {
+            "move": 1,
+            "lyric": true,
+            "time": true
+          }
+        ],
+        "codePoint": 122,
+        "byzClass": "B",
+        "class": "Byzantine.QuantityChar"
+      },
+      {
+        "dotPlace": 0,
+        "divisions": -1,
+        "argo": false,
+        "codePoint": 122,
+        "byzClass": "B",
+        "class": "Byzantine.TimeChar"
+      }
+    ],
+    "codePoint": 122,
+    "byzClass": "B",
+    "class": "Byzantine.MixedChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 3,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 102,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 3,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 70,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 4,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 103,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 4,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 71,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 5,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 115,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 5,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 83,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 4,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 97,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 5,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 65,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 6,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 100,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 6,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 68,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 7,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 102,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 7,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 70,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 8,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 103,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 8,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 71,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 9,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 104,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 9,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 72,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 11,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 107,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 10,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 74,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 12,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 108,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 12,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 76,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 106,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -2,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 107,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -4,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 59,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 13,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 59,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 13,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 58,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 14,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 39,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -3,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 108,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -5,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 120,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -6,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 99,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -7,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 118,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 74,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": false,
+        "time": true
+      },
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 72,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -2,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 75,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -3,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 76,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 208,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 170,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 2,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 172,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 165,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 167,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 168,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 166,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": -1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 61,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -3,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 61,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -4,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 43,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      },
+      {
+        "move": -1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 95,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      },
+      {
+        "move": -1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 34,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -8,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 98,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -4,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 90,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -5,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 88,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -6,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 67,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -7,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 86,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -8,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 66,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -9,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 110,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -9,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 78,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -10,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 109,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -11,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 44,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -12,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 46,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 0,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 97,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 0,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 65,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 0,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 48,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 0,
+        "lyric": true,
+        "time": true
+      },
+      {
+        "move": -1,
+        "lyric": true,
+        "time": false
+      }
+    ],
+    "codePoint": 43,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 45,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 0,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 95,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -2,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 112,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "chars": [
+      {
+        "moves": [
+          {
+            "move": -1,
+            "lyric": false,
+            "time": true
+          }
+        ],
+        "codePoint": 80,
+        "byzClass": "L",
+        "class": "Byzantine.QuantityChar"
+      },
+      {
+        "dotPlace": 0,
+        "divisions": 1,
+        "argo": false,
+        "codePoint": 80,
+        "byzClass": "L",
+        "class": "Byzantine.TimeChar"
+      },
+      {
+        "moves": [
+          {
+            "move": -1,
+            "lyric": true,
+            "time": false
+          },
+          {
+            "move": 1,
+            "lyric": false,
+            "time": true
+          }
+        ],
+        "codePoint": 80,
+        "byzClass": "L",
+        "class": "Byzantine.QuantityChar"
+      }
+    ],
+    "codePoint": 80,
+    "byzClass": "L",
+    "class": "Byzantine.MixedChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -3,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 91,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -4,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 123,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      },
+      {
+        "move": -1,
+        "lyric": false,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 116,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 171,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 163,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 162,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 161,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 35,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 3,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 37,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 38,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 4,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 40,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 101,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 114,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 69,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 82,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 96,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 126,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 2,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 49,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 2,
+    "divisions": 1,
+    "argo": false,
+    "codePoint": 33,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 50,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 64,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 51,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 2,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 52,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 2,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 36,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 3,
+    "divisions": 2,
+    "argo": false,
+    "codePoint": 53,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 54,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 94,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 1,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 55,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 3,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 56,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 3,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 42,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 4,
+    "divisions": 3,
+    "argo": false,
+    "codePoint": 57,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 1,
+    "argo": true,
+    "codePoint": 119,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 2,
+    "argo": true,
+    "codePoint": 87,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": 3,
+    "argo": true,
+    "codePoint": 113,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 117,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 105,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 85,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 73,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 56,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 42,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -2,
+    "argo": false,
+    "codePoint": 57,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -2,
+    "argo": false,
+    "codePoint": 40,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -3,
+    "argo": false,
+    "codePoint": 48,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 41,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -3,
+    "argo": false,
+    "codePoint": 41,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 145,
+    "byzClass": "B",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -1,
+        "lyric": true,
+        "time": true
+      },
+      {
+        "move": -1,
+        "lyric": true,
+        "time": false
+      }
+    ],
+    "codePoint": 39,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 99,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": false
+      }
+    ],
+    "codePoint": 206,
+    "byzClass": "B",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 92,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "dotPlace": 0,
+    "divisions": -1,
+    "argo": false,
+    "codePoint": 124,
+    "byzClass": "L",
+    "class": "Byzantine.TimeChar"
+  },
+  {
+    "chars": [
+      {
+        "moves": [
+          {
+            "move": -1,
+            "lyric": false,
+            "time": true
+          }
+        ],
+        "codePoint": 104,
+        "byzClass": "B",
+        "class": "Byzantine.QuantityChar"
+      },
+      {
+        "dotPlace": 0,
+        "divisions": 1,
+        "argo": false,
+        "codePoint": 104,
+        "byzClass": "B",
+        "class": "Byzantine.TimeChar"
+      },
+      {
+        "moves": [
+          {
+            "move": -1,
+            "lyric": true,
+            "time": true
+          }
+        ],
+        "codePoint": 104,
+        "byzClass": "B",
+        "class": "Byzantine.QuantityChar"
+      }
+    ],
+    "codePoint": 104,
+    "byzClass": "B",
+    "class": "Byzantine.MixedChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 1,
+    "codePoint": 116,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 1,
+    "codePoint": 121,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 4,
+    "codePoint": 84,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 4,
+    "codePoint": 89,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 5,
+    "codePoint": 116,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 5,
+    "codePoint": 121,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "FLAT",
+    "step": "NH",
+    "commas": 8,
+    "codePoint": 84,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 1,
+    "codePoint": 98,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 1,
+    "codePoint": 110,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 4,
+    "codePoint": 98,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 4,
+    "codePoint": 110,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 5,
+    "codePoint": 66,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 5,
+    "codePoint": 78,
+    "byzClass": "B",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SHARP",
+    "step": "NH",
+    "commas": 8,
+    "codePoint": 66,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 33,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 49,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 81,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 113,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 64,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 50,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 87,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 119,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 35,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 69,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_C",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 101,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 36,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 82,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "H_C",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 114,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_FLAT",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 42,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_FLAT",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 85,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_FLAT",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 117,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "ZYGOS",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 40,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "ZYGOS",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 57,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "ZYGOS",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 73,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "ZYGOS",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 105,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "HENARMONIC",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 41,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "HENARMONIC",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 48,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "HENARMONIC",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 79,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "HENARMONIC",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 111,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "KLITON",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 95,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "KLITON",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 45,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "KLITON",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 80,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "KLITON",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 112,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_SHARP",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 43,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_SHARP",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 61,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_SHARP",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 123,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "PERMANENT_SHARP",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 91,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 68,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 100,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 67,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 99,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 70,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 102,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 86,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "PA",
+    "commas": 0,
+    "codePoint": 118,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 74,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 106,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 77,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "DI",
+    "commas": 0,
+    "codePoint": 109,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 75,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 107,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 60,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 44,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 58,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 59,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 63,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "NH",
+    "commas": 0,
+    "codePoint": 47,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "BOU",
+    "commas": 0,
+    "codePoint": 71,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "BOU",
+    "commas": 0,
+    "codePoint": 103,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "ZW",
+    "commas": 0,
+    "codePoint": 76,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "ZW",
+    "commas": 0,
+    "codePoint": 108,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SPATHI",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 126,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SPATHI",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 96,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SPATHI",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 125,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "SPATHI",
+    "step": "KE",
+    "commas": 0,
+    "codePoint": 93,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 72,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "type": "S_D",
+    "step": "GA",
+    "commas": 0,
+    "codePoint": 104,
+    "byzClass": "F",
+    "class": "Byzantine.FthoraChar"
+  },
+  {
+    "moves": [
+      {
+        "move": -2,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 45,
+    "byzClass": "L",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 118,
+    "byzClass": "P",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 1,
+        "lyric": true,
+        "time": true
+      }
+    ],
+    "codePoint": 115,
+    "byzClass": "P",
+    "class": "Byzantine.QuantityChar"
+  },
+  {
+    "moves": [
+      {
+        "move": 0,
+        "lyric": true,
+        "time": false
+      },
+      {
+        "move": 1,
+        "lyric": false,
+        "time": true
+      }
+    ],
+    "codePoint": 65,
+    "byzClass": "P",
+    "class": "Byzantine.QuantityChar"
+  }
+]

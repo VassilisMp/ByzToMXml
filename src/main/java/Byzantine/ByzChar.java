@@ -10,16 +10,12 @@ import java.util.function.Consumer;
 
 public abstract class ByzChar implements Consumer<Engine>, Cloneable {
 
-    private static final long serialVersionUID = 7706296349475294817L;
-
     @Expose
     private int codePoint;
     @Expose(serialize = false, deserialize = false)
     private String font;
     @Expose(serialize = false, deserialize = false)
     private String text;
-    @Expose
-    protected String classType = this.getClass().getSimpleName();
     @Expose
     private ByzClass byzClass;
 
@@ -90,6 +86,11 @@ public abstract class ByzChar implements Consumer<Engine>, Cloneable {
                 ", text='" + text + '\'' +
                 ", byzClass=" + byzClass +
                 '}';
+    }
+
+    @Override
+    protected ByzChar clone() throws CloneNotSupportedException {
+        return (ByzChar) super.clone();
     }
 
     String getCodePointClass() {

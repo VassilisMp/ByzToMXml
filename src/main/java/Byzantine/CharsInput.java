@@ -356,11 +356,7 @@ public class CharsInput extends Application {
     }
 
     private void saveHandle(ActionEvent e) {
-        String json = new GsonBuilder()
-                .setPrettyPrinting()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create()
-                .toJson(charList);
+        String json = new ByzCharDeSerialize().toJson(charList);
         try {
             FileUtils.writeStringToFile(new File(Engine.JSON_CHARS_FILE), json, Charsets.UTF_8);
             showAlertMessage("Successfuly Saved(Serialized) list");

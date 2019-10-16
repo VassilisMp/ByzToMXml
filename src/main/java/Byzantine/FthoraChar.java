@@ -9,7 +9,7 @@ import java.util.*;
 import static Byzantine.Scale.*;
 
 class FthoraChar extends ByzChar {
-    private static final long serialVersionUID = -6546627387935545846L;
+
     enum ByzStep {
         NH, PA, BOU, GA, DI, KE, ZW
     }
@@ -46,7 +46,6 @@ class FthoraChar extends ByzChar {
         this.type = type;
         this.step = step;
         this.commas = commas;
-        classType = this.getClass().getSimpleName();
     }
 
     @Override

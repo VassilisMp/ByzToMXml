@@ -23,7 +23,6 @@ public class QuantityChar extends ByzChar implements Comparable {
         stepMap.put(Step.A,5);
         stepMap.put(Step.B,6);
     }
-    private static final long serialVersionUID = 976878594555516894L;
     //moves
     @Expose
     private Move[] moves;
@@ -31,13 +30,11 @@ public class QuantityChar extends ByzChar implements Comparable {
     QuantityChar(int codePoint, Byzantine.ByzClass byzClass, @NotNull List<Move> moves) {
         super(codePoint, byzClass);
         this.moves = moves.toArray(new Move[0]);
-        this.classType = this.getClass().getSimpleName();
     }
 
     QuantityChar(int codePoint, Byzantine.ByzClass byzClass, Move... moves) {
         super(codePoint, byzClass);
         this.moves = moves;
-        this.classType = this.getClass().getSimpleName();
     }
 
     Move[] getMoves() {
@@ -68,6 +65,13 @@ public class QuantityChar extends ByzChar implements Comparable {
         return "QuantityChar{" +
                 "moves=" + Arrays.toString(moves) +
                 "} " + super.toString();
+    }
+
+    @Override
+    protected ByzChar clone() throws CloneNotSupportedException {
+        QuantityChar clone = (QuantityChar) super.clone();
+        clone.moves = Arrays.stream(this.moves).map(Move::clone).toArray(Move[]::new);
+        return clone;
     }
 
     @Override

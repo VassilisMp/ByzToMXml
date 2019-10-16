@@ -10,7 +10,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 public class TimeChar extends ByzChar{
-    private static final long serialVersionUID = 6353312089523385239L;
     // using static dot object to use it every time, to not create more objects
     private static EmptyPlacement dot = new EmptyPlacement();
     private static Tie tieStart = new Tie();
@@ -33,7 +32,6 @@ public class TimeChar extends ByzChar{
         this.dotPlace = dotPlace;
         this.divisions = divisions;
         this.argo = argo;
-        this.classType = this.getClass().getSimpleName();
     }
 
     int getDotPlace() {

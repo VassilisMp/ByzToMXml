@@ -35,4 +35,12 @@ class ClonerTest {
 
         System.out.println(note + "\n" + cloneNote);
     }
+
+    @Test
+    void test() throws ClassNotFoundException {
+        Class<ByzChar> byzCharClass = ByzChar.class;
+        Class<ByzChar> byzCharClass2 = ByzChar.class;
+        System.out.println(byzCharClass.getName());
+        System.out.println(Class.forName(QuantityChar.class.getName()));
+    }
 }
