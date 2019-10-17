@@ -43,6 +43,7 @@ public final class Engine {
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
+    private final Map<ByzStep, Step> STEPS_MAP = new HashMap<>();
 
     public Engine(int division) {
         this.division = division;
@@ -95,6 +96,14 @@ public final class Engine {
         NoteType type = new NoteType();
         type.setValue("quarter");
         note.setType(type);
+
+        STEPS_MAP.put(ByzStep.NH, Step.C);
+        STEPS_MAP.put(ByzStep.PA, Step.D);
+        STEPS_MAP.put(ByzStep.BOU, Step.E);
+        STEPS_MAP.put(ByzStep.GA, Step.F);
+        STEPS_MAP.put(ByzStep.DI, Step.G);
+        STEPS_MAP.put(ByzStep.KE, Step.A);
+        STEPS_MAP.put(ByzStep.ZW, Step.B);
     }
 
     public Engine setTimeBeats(int timeBeats) {
@@ -140,10 +149,9 @@ public final class Engine {
                                 .ifPresent(character -> {
                                     // if MixedChar then find the last QChar in the MixedChar
                                     if (clas == MixedChar.class) {
-                                        ByzChar[] chars = ((MixedChar) character).getChars();
-                                        for (int i = chars.length - 1; i >= 0; i--)
-                                            if (chars[i] instanceof QuantityChar) {
-                                                character = chars[i];
+                                        for (ByzChar m : ((MixedChar) character))
+                                            if (m instanceof QuantityChar) {
+                                                character = m;
                                                 break;
                                             }
                                     }
@@ -230,10 +238,9 @@ public final class Engine {
                             System.out.println(i + " " + Char);
                             // clone qChar moves to save Time value
                             // and reset after running tChar
-                            Move[] movesClone = Move.movesClone(qChar.getMoves());//Cloner.deepClone(qChar.getMoves());
-                            Collections.addAll(moves, movesClone);
+                            Collections.addAll(moves, qChar.getMovesClone());
                             // set qChar Time values to false, so getIndex method can work properly
-                            Arrays.stream(qChar.getMoves()).forEach(move -> move.setTime(false));
+                            qChar.forEach(move -> move.setTime(false));
                             qChar.accept(this);
                             notesD = noteList.size() - index + 1;
                             continue;
@@ -323,7 +330,7 @@ public final class Engine {
         System.out.println("timeElapsed" + timeElapsed);
     }
 
-    private static int getExactIndexOf(ByzChar char1, List<ByzChar> docChars) {
+    private int getExactIndexOf(ByzChar char1, List<ByzChar> docChars) {
         return IntStream.range(0, docChars.size()).filter(i1 -> docChars.get(i1) == char1).findFirst().orElse(-1);
     }
 

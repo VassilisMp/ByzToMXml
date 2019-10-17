@@ -12,20 +12,20 @@ import java.util.List;
 
 public class TimeChar extends ByzChar{
     // using static dot object to use it every time, to not create more objects
-    private static EmptyPlacement dot = new EmptyPlacement();
-    private static Tie tieStart = new Tie();
-    private static Tie tieStop = new Tie();
+    private static final EmptyPlacement dot = new EmptyPlacement();
+    private static final Tie tieStart = new Tie();
+    private static final Tie tieStop = new Tie();
     static {
         tieStart.setType(StartStop.START);
         tieStop.setType(StartStop.STOP);
     }
 
     @Expose
-    private int dotPlace;
+    private final int dotPlace;
     @Expose
     private int divisions;
     @Expose
-    private boolean argo;
+    private final boolean argo;
     //public static Integer tupletNum = 0;
 
     TimeChar(int codePoint, Byzantine.ByzClass byzClass, int dotPlace, int divisions, boolean argo) {
@@ -45,28 +45,6 @@ public class TimeChar extends ByzChar{
 
     boolean getArgo() {
         return argo;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        TimeChar timeChar = (TimeChar) o;
-
-        if (dotPlace != timeChar.dotPlace) return false;
-        if (divisions != timeChar.divisions) return false;
-        return argo == timeChar.argo;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + dotPlace;
-        result = 31 * result + divisions;
-        result = 31 * result + (argo ? 1 : 0);
-        return result;
     }
 
     @Override

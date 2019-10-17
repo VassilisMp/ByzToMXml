@@ -1,8 +1,6 @@
 package Byzantine;
 
 import com.google.common.base.Charsets;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,15 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.commons.collections4.list.SetUniqueList;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.CharSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -179,12 +173,12 @@ public class CharsInput extends Application {
     private FthoraChar getFthoraChar(int codePoint, ByzClass byzClass, @NotNull VBox vBox) {
         HBox FthoraHBox = (HBox) vBox.getChildren().get(1);
 
-        ChoiceBox<FthoraChar.Type> typeBox = (ChoiceBox<FthoraChar.Type>) FthoraHBox.getChildren().get(1);
-        ChoiceBox<FthoraChar.ByzStep> stepBox = (ChoiceBox<FthoraChar.ByzStep>) FthoraHBox.getChildren().get(3);
+        ChoiceBox<Type> typeBox = (ChoiceBox<Type>) FthoraHBox.getChildren().get(1);
+        ChoiceBox<ByzStep> stepBox = (ChoiceBox<ByzStep>) FthoraHBox.getChildren().get(3);
         TextField commasText = (TextField) FthoraHBox.getChildren().get(5);
 
-        FthoraChar.Type type = typeBox.getSelectionModel().getSelectedItem();
-        FthoraChar.ByzStep step = stepBox.getSelectionModel().getSelectedItem();
+        Type type = typeBox.getSelectionModel().getSelectedItem();
+        ByzStep step = stepBox.getSelectionModel().getSelectedItem();
         int commas;
 
         try {
@@ -211,12 +205,12 @@ public class CharsInput extends Application {
         //movesHBox.setFillHeight(false);
         FthoraHBox.setPadding(new Insets(10));
 
-        ChoiceBox<FthoraChar.Type> type = new ChoiceBox<>();
-        type.setItems(FXCollections.observableArrayList(FthoraChar.Type.values()));
+        ChoiceBox<Type> type = new ChoiceBox<>();
+        type.setItems(FXCollections.observableArrayList(Type.values()));
         type.getSelectionModel().selectFirst();
 
-        ChoiceBox<FthoraChar.ByzStep> step = new ChoiceBox<>();
-        step.setItems(FXCollections.observableArrayList(FthoraChar.ByzStep.values()));
+        ChoiceBox<ByzStep> step = new ChoiceBox<>();
+        step.setItems(FXCollections.observableArrayList(ByzStep.values()));
         step.getSelectionModel().selectFirst();
 
         TextField commasText = new TextField();
@@ -395,15 +389,14 @@ public class CharsInput extends Application {
                 } break;
                 case "MixedChar": {
                     MixedChar mixedChar = (MixedChar) byzChar1;
-                    ByzChar[] byzChars = mixedChar.getChars();
                     deletePrevious();
-                    for (ByzChar byzChar : byzChars) {
+                    mixedChar.forEach(byzChar -> {
                         if (byzChar.getClass().getSimpleName().equals("QuantityChar")) {
                             caseQuantity((QuantityChar) byzChar);
                         } else if (byzChar.getClass().getSimpleName().equals("TimeChar")) {
                             caseTime((TimeChar) byzChar);
                         }
-                    }
+                    });
                     this.primaryStage.sizeToScene();
                 } break;
             }
@@ -427,8 +420,8 @@ public class CharsInput extends Application {
         VBox FthoraVBox = FthoraVBox();
         HBox FthoraHBox = (HBox) FthoraVBox.getChildren().get(1);
 
-        ChoiceBox<FthoraChar.Type> typeBox = (ChoiceBox<FthoraChar.Type>) FthoraHBox.getChildren().get(1);
-        ChoiceBox<FthoraChar.ByzStep> stepBox = (ChoiceBox<FthoraChar.ByzStep>) FthoraHBox.getChildren().get(3);
+        ChoiceBox<Type> typeBox = (ChoiceBox<Type>) FthoraHBox.getChildren().get(1);
+        ChoiceBox<ByzStep> stepBox = (ChoiceBox<ByzStep>) FthoraHBox.getChildren().get(3);
         TextField commasText = (TextField) FthoraHBox.getChildren().get(5);
 
         typeBox.getSelectionModel().select(unicodeChar.type);
@@ -438,15 +431,14 @@ public class CharsInput extends Application {
     }
 
     @SuppressWarnings("unchecked")
-    private void caseQuantity(@NotNull QuantityChar unicodeChar) {
-        Move[] moves = unicodeChar.getMoves();
+    private void caseQuantity(@NotNull QuantityChar quantityChar) {
         VBox movesVBox = MovesVBox();
         ChoiceBox<Integer> movesNum = (ChoiceBox<Integer>) ((HBox) movesVBox.getChildren().get(1)).getChildren().get(1);
         VBox movesBox = (VBox) movesVBox.getChildren().get(2);
         nodeList.getChildren().add(movesVBox);
-        movesNum.getSelectionModel().select(moves.length - 1);
+        movesNum.getSelectionModel().select(quantityChar.getMovesLength() - 1);
         movesBox.getChildren().clear();
-        for (Move move : moves) {
+        quantityChar.forEach(move -> {
             CheckBox lyricCheckBoxl = new CheckBox("lyric");
             lyricCheckBoxl.setSelected(move.getLyric());
             CheckBox timeCheckBoxl = new CheckBox("time");
@@ -455,7 +447,7 @@ public class CharsInput extends Application {
             textFieldl.setPrefWidth(40);
             textFieldl.setText(move.getMove() + "");
             movesBox.getChildren().add(new HBox(textFieldl, lyricCheckBoxl, timeCheckBoxl));
-        }
+        });
     }
 
     private void addButtonHandle(ActionEvent e) {

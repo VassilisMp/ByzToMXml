@@ -6,12 +6,12 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Move implements Cloneable {
+class Move implements Cloneable {
 
     @Expose
-    private int move;
+    private final int move;
     @Expose
-    private boolean lyric;
+    private final boolean lyric;
     @Expose
     private boolean time;
 
@@ -31,20 +31,16 @@ public class Move implements Cloneable {
         return move;
     }
 
-    Boolean getLyric() {
+    boolean getLyric() {
         return lyric;
     }
 
-    Boolean getTime() {
+    boolean getTime() {
         return time;
     }
 
-    void setTime(Boolean time) {
+    void setTime(boolean time) {
         this.time = time;
-    }
-
-    public void setLyric(boolean lyric) {
-        this.lyric = lyric;
     }
 
     @Override
@@ -64,7 +60,6 @@ public class Move implements Cloneable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(move, lyric, time);
     }
 

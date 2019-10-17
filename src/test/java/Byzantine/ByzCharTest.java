@@ -1,9 +1,6 @@
 package Byzantine;
 
 import org.audiveris.proxymusic.NoteType;
-import org.audiveris.proxymusic.StartStop;
-import org.audiveris.proxymusic.StartStopContinue;
-import org.audiveris.proxymusic.Step;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -14,7 +11,7 @@ class ByzCharTest {
 
     @Test
     void testClone() throws CloneNotSupportedException {
-        FthoraChar fthoraChar = new FthoraChar(121, ByzClass.B, FthoraChar.Type.S_D, FthoraChar.ByzStep.DI, 0);
+        FthoraChar fthoraChar = new FthoraChar(121, ByzClass.B, Type.S_D, ByzStep.DI, 0);
         TimeChar timeChar = new TimeChar(80, ByzClass.B, 0, 1, false);
         QuantityChar quantityChar = new QuantityChar(1, ByzClass.B, new Move(1, false, true));
         MixedChar mixedChar = new MixedChar(110, ByzClass.B, Arrays.asList(

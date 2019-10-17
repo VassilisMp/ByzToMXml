@@ -9,10 +9,12 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.String;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Consumer;
 
-public class QuantityChar extends ByzChar implements Comparable {
+public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> {
     private static final BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
     static {
         stepMap.put(Step.C,0);
@@ -37,27 +39,12 @@ public class QuantityChar extends ByzChar implements Comparable {
         this.moves = moves;
     }
 
-    Move[] getMoves() {
-        return moves;
+    Move[] getMovesClone() {
+        return Move.movesClone(moves);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        QuantityChar that = (QuantityChar) o;
-
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(moves, that.moves);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + Arrays.hashCode(moves);
-        return result;
+    int getMovesLength() {
+        return moves.length;
     }
 
     @Override
@@ -96,7 +83,7 @@ public class QuantityChar extends ByzChar implements Comparable {
     public void accept(Engine engine) {
         for (Move move : moves) {
             Note note = new ExtendedNote(move.getLyric(), move.getTime());
-            Pitch pitch = getPitch(engine.noteList);
+            Pitch pitch = getLastPitch(engine.noteList);
             Step step = pitch.getStep();
             int octave = pitch.getOctave();
             int stepNum = stepMap.get(step);
@@ -134,8 +121,9 @@ public class QuantityChar extends ByzChar implements Comparable {
     }
 
     // this method was created to overpass previous notes that are rests
+    // return last non null Pitch in noteList
     @NotNull
-    static Pitch getPitch(@NotNull List<Note> notes) {
+    static Pitch getLastPitch(@NotNull List<Note> notes) {
         ListIterator<Note> iterator = notes.listIterator(notes.size());
         Pitch pitch = null;
         while (iterator.hasPrevious()) {
@@ -150,4 +138,14 @@ public class QuantityChar extends ByzChar implements Comparable {
         return pitch;
     }
 
+    @NotNull
+    @Override
+    public Iterator<Move> iterator() {
+        return Arrays.stream(moves).iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super Move> consumer) {
+        Arrays.stream(moves).forEach(consumer);
+    }
 }

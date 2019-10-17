@@ -1,11 +1,14 @@
 package Byzantine;
 
 import com.google.gson.annotations.Expose;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class MixedChar extends ByzChar {
+public class MixedChar extends ByzChar implements Iterable<ByzChar> {
 
     @Expose
     private ByzChar[] chars;
@@ -15,36 +18,8 @@ public class MixedChar extends ByzChar {
         this.chars = chars.toArray(new ByzChar[0]);
     }
 
-    public MixedChar(int codePoint, Byzantine.ByzClass byzClass, ByzChar ... chars) {
-        super(codePoint, byzClass);
-        this.chars = chars;
-    }
-
     ByzChar[] getChars() {
         return chars;
-    }
-
-    void setChars(ByzChar[] chars) {
-        this.chars = chars;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-
-        MixedChar mixedChar = (MixedChar) o;
-
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(chars, mixedChar.chars);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + Arrays.hashCode(chars);
-        return result;
     }
 
     @Override
@@ -66,5 +41,16 @@ public class MixedChar extends ByzChar {
     @Override
     public void accept(Engine engine) {
         Arrays.stream(chars).forEach(uChar -> uChar.accept(engine));
+    }
+
+    @NotNull
+    @Override
+    public Iterator<ByzChar> iterator() {
+        return Arrays.stream(chars).iterator();
+    }
+
+    @Override
+    public void forEach(Consumer<? super ByzChar> consumer) {
+        Arrays.stream(chars).forEach(consumer);
     }
 }

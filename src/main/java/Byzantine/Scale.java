@@ -19,97 +19,97 @@ import static Byzantine.PitchEntry.*;
 public class Scale {
     List<PitchEntry> scale;
     // TODO include type in Constructor
-    FthoraChar.Type type;
+    Type type;
 
     static final Scale SOFT_DIATONIC = new Scale(Arrays.asList(
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.NH),
-            new PitchEntry(8, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(5, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(9, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(9, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(8, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(5, Step.B, FthoraChar.ByzStep.ZW)
+            new PitchEntry(9, Step.C, ByzStep.NH),
+            new PitchEntry(8, Step.D, ByzStep.PA),
+            new PitchEntry(5, Step.E, ByzStep.BOU),
+            new PitchEntry(9, Step.F, ByzStep.GA),
+            new PitchEntry(9, Step.G, ByzStep.DI),
+            new PitchEntry(8, Step.A, ByzStep.KE),
+            new PitchEntry(5, Step.B, ByzStep.ZW)
     ));
     static final Scale HARD_DIATONIC = new Scale(Arrays.asList(
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.ZW),
-            new PitchEntry(9, Step.D, FthoraChar.ByzStep.NH),
-            new PitchEntry(4, Step.E, FthoraChar.ByzStep.PA),
-            new PitchEntry(9, Step.F, FthoraChar.ByzStep.BOU),
-            new PitchEntry(9, Step.G, FthoraChar.ByzStep.GA),
-            new PitchEntry(9, Step.A, FthoraChar.ByzStep.DI),
-            new PitchEntry(4, Step.B, FthoraChar.ByzStep.KE)
+            new PitchEntry(9, Step.C, ByzStep.ZW),
+            new PitchEntry(9, Step.D, ByzStep.NH),
+            new PitchEntry(4, Step.E, ByzStep.PA),
+            new PitchEntry(9, Step.F, ByzStep.BOU),
+            new PitchEntry(9, Step.G, ByzStep.GA),
+            new PitchEntry(9, Step.A, ByzStep.DI),
+            new PitchEntry(4, Step.B, ByzStep.KE)
     ));
     static final Scale HARD_DIATONIC_GA = new Scale(Arrays.asList(
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.NH),
-            new PitchEntry(9, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(4, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(9, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(9, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(8, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(5, Step.B, FthoraChar.ByzStep.ZW)
+            new PitchEntry(9, Step.C, ByzStep.NH),
+            new PitchEntry(9, Step.D, ByzStep.PA),
+            new PitchEntry(4, Step.E, ByzStep.BOU),
+            new PitchEntry(9, Step.F, ByzStep.GA),
+            new PitchEntry(9, Step.G, ByzStep.DI),
+            new PitchEntry(8, Step.A, ByzStep.KE),
+            new PitchEntry(5, Step.B, ByzStep.ZW)
     ));
     static final Scale HARD_DIATONIC_BOU = new Scale(Arrays.asList(
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.NH),
-            new PitchEntry(4, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(9, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(9, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(9, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(8, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(5, Step.B, FthoraChar.ByzStep.ZW)
+            new PitchEntry(9, Step.C, ByzStep.NH),
+            new PitchEntry(4, Step.D, ByzStep.PA),
+            new PitchEntry(9, Step.E, ByzStep.BOU),
+            new PitchEntry(9, Step.F, ByzStep.GA),
+            new PitchEntry(9, Step.G, ByzStep.DI),
+            new PitchEntry(8, Step.A, ByzStep.KE),
+            new PitchEntry(5, Step.B, ByzStep.ZW)
     ));
     static final Scale HARD_DIATONIC_ZW = new Scale(Arrays.asList(
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.NH),
-            new PitchEntry(8, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(5, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(9, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(9, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(4, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(9, Step.B, FthoraChar.ByzStep.ZW)
+            new PitchEntry(9, Step.C, ByzStep.NH),
+            new PitchEntry(8, Step.D, ByzStep.PA),
+            new PitchEntry(5, Step.E, ByzStep.BOU),
+            new PitchEntry(9, Step.F, ByzStep.GA),
+            new PitchEntry(9, Step.G, ByzStep.DI),
+            new PitchEntry(4, Step.A, ByzStep.KE),
+            new PitchEntry(9, Step.B, ByzStep.ZW)
     ));
     static final Scale SPATHI_KE = new Scale(Arrays.asList(
-            new PitchEntry(8, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(5, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(13, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(5, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(4, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(9, Step.B, FthoraChar.ByzStep.ZW),
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.NH)
+            new PitchEntry(8, Step.D, ByzStep.PA),
+            new PitchEntry(5, Step.E, ByzStep.BOU),
+            new PitchEntry(13, Step.F, ByzStep.GA),
+            new PitchEntry(5, Step.G, ByzStep.DI),
+            new PitchEntry(4, Step.A, ByzStep.KE),
+            new PitchEntry(9, Step.B, ByzStep.ZW),
+            new PitchEntry(9, Step.C, ByzStep.NH)
     ));
     static final Scale SPATHI_GA = new Scale(Arrays.asList(
-            new PitchEntry(8, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(5, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(5, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(13, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(4, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(9, Step.B, FthoraChar.ByzStep.ZW),
-            new PitchEntry(9, Step.C, FthoraChar.ByzStep.NH)
+            new PitchEntry(8, Step.D, ByzStep.PA),
+            new PitchEntry(5, Step.E, ByzStep.BOU),
+            new PitchEntry(5, Step.F, ByzStep.GA),
+            new PitchEntry(13, Step.G, ByzStep.DI),
+            new PitchEntry(4, Step.A, ByzStep.KE),
+            new PitchEntry(9, Step.B, ByzStep.ZW),
+            new PitchEntry(9, Step.C, ByzStep.NH)
     ));
     static final Scale ZYGOS = new Scale(Arrays.asList(
-            new PitchEntry(13, Step.C, FthoraChar.ByzStep.NH),
-            new PitchEntry(4, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(9, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(5, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(8, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(9, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(5, Step.B, FthoraChar.ByzStep.ZW)
+            new PitchEntry(13, Step.C, ByzStep.NH),
+            new PitchEntry(4, Step.D, ByzStep.PA),
+            new PitchEntry(9, Step.E, ByzStep.BOU),
+            new PitchEntry(5, Step.F, ByzStep.GA),
+            new PitchEntry(8, Step.G, ByzStep.DI),
+            new PitchEntry(9, Step.A, ByzStep.KE),
+            new PitchEntry(5, Step.B, ByzStep.ZW)
     ));
     static final Scale HARD_CHROMATIC = new Scale(Arrays.asList(
-            new PitchEntry(5, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(12, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(5, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(9, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(5, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(12, Step.B, FthoraChar.ByzStep.ZW),
-            new PitchEntry(5, Step.C, FthoraChar.ByzStep.NH)
+            new PitchEntry(5, Step.D, ByzStep.PA),
+            new PitchEntry(12, Step.E, ByzStep.BOU),
+            new PitchEntry(5, Step.F, ByzStep.GA),
+            new PitchEntry(9, Step.G, ByzStep.DI),
+            new PitchEntry(5, Step.A, ByzStep.KE),
+            new PitchEntry(12, Step.B, ByzStep.ZW),
+            new PitchEntry(5, Step.C, ByzStep.NH)
     ));
     static final Scale SOFT_CHROMATIC = new Scale(Arrays.asList(
-            new PitchEntry(6, Step.C, FthoraChar.ByzStep.NH),
-            new PitchEntry(11, Step.D, FthoraChar.ByzStep.PA),
-            new PitchEntry(5, Step.E, FthoraChar.ByzStep.BOU),
-            new PitchEntry(9, Step.F, FthoraChar.ByzStep.GA),
-            new PitchEntry(6, Step.G, FthoraChar.ByzStep.DI),
-            new PitchEntry(11, Step.A, FthoraChar.ByzStep.KE),
-            new PitchEntry(5, Step.B, FthoraChar.ByzStep.ZW)
+            new PitchEntry(6, Step.C, ByzStep.NH),
+            new PitchEntry(11, Step.D, ByzStep.PA),
+            new PitchEntry(5, Step.E, ByzStep.BOU),
+            new PitchEntry(9, Step.F, ByzStep.GA),
+            new PitchEntry(6, Step.G, ByzStep.DI),
+            new PitchEntry(11, Step.A, ByzStep.KE),
+            new PitchEntry(5, Step.B, ByzStep.ZW)
     ));
 
     public Scale(List<PitchEntry> scale) {
@@ -124,7 +124,7 @@ public class Scale {
         return new Scale(this);
     }
 
-    Scale applyFthora(/*Genos*/ FthoraChar.Type type, /*Fthoggos*/ FthoraChar.ByzStep byzStep, /*note*/ Step step) {
+    Scale applyFthora(/*Genos*/ Type type, /*Fthoggos*/ ByzStep byzStep, /*note*/ Step step) {
         new Scale(FthoraChar.TYPE_MAP.get(type)).byStep(step);
         return this;
     }
@@ -161,7 +161,7 @@ public class Scale {
         return this;
     }
 
-    Scale byByzStep(FthoraChar.ByzStep step) {
+    Scale byByzStep(ByzStep step) {
         int wanted = -1;
         for (int i = 0; i < scale.size(); i++) {
             if(scale.get(i).byzStepEquals(step))

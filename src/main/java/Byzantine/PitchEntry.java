@@ -1,19 +1,12 @@
 package Byzantine;
 
 import org.audiveris.proxymusic.AccidentalValue;
-import org.audiveris.proxymusic.Key;
-import org.audiveris.proxymusic.ObjectFactory;
 import org.audiveris.proxymusic.Step;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PitchEntry {
-    final static Map<Integer, AccidentalValue> ACCIDENTALS_MAP = new HashMap<>();
+    static final Map<Integer, AccidentalValue> ACCIDENTALS_MAP = new HashMap<>();
     static {
         ACCIDENTALS_MAP.put(1, AccidentalValue.QUARTER_SHARP);
         ACCIDENTALS_MAP.put(4, AccidentalValue.SHARP);
@@ -31,9 +24,9 @@ public class PitchEntry {
     int commas;
     Step step;
     int accidentalCommas;
-    FthoraChar.ByzStep byzStep;
+    ByzStep byzStep;
 
-    public PitchEntry(int commas, Step step, int accidentalCommas, FthoraChar.ByzStep byzStep) {
+    public PitchEntry(int commas, Step step, int accidentalCommas, ByzStep byzStep) {
         this.commas = commas;
         this.step = step;
         this.accidentalCommas = accidentalCommas;
@@ -51,7 +44,7 @@ public class PitchEntry {
         this(commas, step, 0, null);
     }
 
-    public PitchEntry(int commas, Step step, FthoraChar.ByzStep byzStep) {
+    public PitchEntry(int commas, Step step, ByzStep byzStep) {
         this(commas, step, 0, byzStep);
     }
 
@@ -74,7 +67,7 @@ public class PitchEntry {
         return this.step == step;
     }
 
-    public boolean byzStepEquals(FthoraChar.ByzStep step) {
+    public boolean byzStepEquals(ByzStep step) {
         return this.byzStep == step;
     }
 

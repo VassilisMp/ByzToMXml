@@ -9,25 +9,30 @@ import java.util.function.Consumer;
 public abstract class ByzChar implements Consumer<Engine>, Cloneable {
 
     @Expose
-    private int codePoint;
+    private final int codePoint;
     @Expose(serialize = false, deserialize = false)
     private String font;
     @Expose(serialize = false, deserialize = false)
     private String text;
     @Expose
-    private ByzClass byzClass;
+    private final ByzClass byzClass;
 
-    ByzChar(int codePoint, Byzantine.ByzClass byzClass) {
+    /**
+     * Constructs a new ByzChar Object, with the given values
+     * @param  codePoint the <a href="Character.html#unicode">Unicode code point</a> of this Byzantine Character
+     * @param  byzClass the Byzantine Class of this Byzantine Character
+     * @see    ByzClass
+     */
+    ByzChar(int codePoint, ByzClass byzClass) {
         this.codePoint = codePoint;
         this.byzClass = byzClass;
     }
 
+    /**
+     * Returns this codePoint value
+     */
     public int getCodePoint() {
         return codePoint;
-    }
-
-    public String getFont() {
-        return font;
     }
 
     public String getText() {
@@ -38,20 +43,12 @@ public abstract class ByzChar implements Consumer<Engine>, Cloneable {
         return byzClass;
     }
 
-    public void setCodePoint(int codePoint) {
-        this.codePoint = codePoint;
-    }
-
     public void setFont(String font) {
         this.font = font;
     }
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public void setByzClass(ByzClass byzClass) {
-        this.byzClass = byzClass;
     }
 
     @Override
@@ -98,10 +95,15 @@ public abstract class ByzChar implements Consumer<Engine>, Cloneable {
         return false;
     }
 
+
     boolean equals(int codePoint, ByzClass byzClass) {
         return this.codePoint == codePoint && this.byzClass == byzClass;
     }
 
+    /**
+     * Creates and returns a deep copy of this object, or null instead of throwing an Exception.
+     * @return a deep clone of this instance.
+     */
     @Override
     protected ByzChar clone() {
         try {
