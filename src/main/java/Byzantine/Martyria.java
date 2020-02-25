@@ -39,4 +39,16 @@ public class Martyria {
         this.startOfTetrachord = martyria.startOfTetrachord;
         this.endOfTetrachord = martyria.endOfTetrachord;
     }
+
+    @Override
+    public String toString() {
+        return "Martyria{" +
+                "octave=" + octave +
+                ", step=" + step +
+                ", simio=" + simio +
+                ", absolPos=" + absolPos +
+                ", commasToNext=" + commasToNext +
+                ", commasToPrev=" + commasToPrev +
+                '}';
+    }
 }
