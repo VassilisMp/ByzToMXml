@@ -1,6 +1,7 @@
 package Byzantine;
 
 import com.google.gson.annotations.Expose;
+import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +45,21 @@ final class FthoraChar extends ByzChar {
 
     @Override
     public void accept(Engine engine) {
+        // get relative Byzantne step from Step
+        /*Pitch lastPitch = QuantityChar.getLastPitch(engine.noteList);
+        Step step = lastPitch.getStep();
+        ByzStep byzStep = engine.STEPS_MAP.inverse().get(step);
+        // get relative byzantine octave
+        int octave = lastPitch.getOctave();
+        int byzOctave = octave - 7;
+        ByzScale byzScale = null;
+        switch (type) {
+            case S_D:
+                byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
+
+        }
+        ByzScale scale = ByzScale.getByStep(engine.getByzScale(), byzStep, byzOctave);
+        scale.applyFthoraDiatonic(byzScale);*/
         /*Scale fthora = Objects.requireNonNull(TYPE_MAP.get(type)).byByzStep(step);
         if (type == Type.S_D) {
             fthora = SOFT_DIATONIC.byByzStep(step);//, STEPS_MAP.get(step));

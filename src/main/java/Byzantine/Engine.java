@@ -43,7 +43,8 @@ public final class Engine {
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
-    private final Map<ByzStep, Step> STEPS_MAP = new HashMap<>();
+    final BiMap<ByzStep, Step> STEPS_MAP = HashBiMap.create(7);
+    private ByzScale byzScale = ByzScale.get2OctavesScale();
 
     public Engine(int division) {
         this.division = division;
@@ -97,13 +98,13 @@ public final class Engine {
         type.setValue("quarter");
         note.setType(type);
 
-        STEPS_MAP.put(ByzStep.NH, Step.C);
-        STEPS_MAP.put(ByzStep.PA, Step.D);
-        STEPS_MAP.put(ByzStep.BOU, Step.E);
-        STEPS_MAP.put(ByzStep.GA, Step.F);
-        STEPS_MAP.put(ByzStep.DI, Step.G);
-        STEPS_MAP.put(ByzStep.KE, Step.A);
-        STEPS_MAP.put(ByzStep.ZW, Step.B);
+        STEPS_MAP.put(ByzStep.NH, Step.G);
+        STEPS_MAP.put(ByzStep.PA, Step.A);
+        STEPS_MAP.put(ByzStep.BOU, Step.B);
+        STEPS_MAP.put(ByzStep.GA, Step.C);
+        STEPS_MAP.put(ByzStep.DI, Step.D);
+        STEPS_MAP.put(ByzStep.KE, Step.E);
+        STEPS_MAP.put(ByzStep.ZW, Step.F);
     }
 
     public Engine setTimeBeats(int timeBeats) {
@@ -116,8 +117,105 @@ public final class Engine {
         mapValuesInsert();
     }
 
+    public ByzScale getByzScale() {
+        return byzScale;
+    }
+
     public void run() throws Exception {
-        long start = System.nanoTime();
+        parseChars();
+        fixL116();
+//        this.docChars.forEach(System.out::println);
+        createNotelist();
+        // remove first note which was auxiliary
+        noteList.remove(0);
+        // DEBUG
+        // calc duration sum
+        for (int i = 0, noteListSize = noteList.size(); i < noteListSize; i++) {
+            Note note1 = noteList.get(i);
+            durationSum = note1.getDuration().add(durationSum);
+            System.out.println(i + " " + note1);
+        }
+        noteList.forEach(note -> {
+            String value = note.getType().getValue();
+            if (value != null && value.charAt(value.length()-1) == '.')
+                note.getType().setValue(value.replace(".", ""));
+        });
+        try(FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
+            ScorePartwise scorePartwise = toScorePartwise();
+            Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(scorePartwise, fileOutputStream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // DEBUG
+//        this.noteTypeMap.forEach((str, integer) -> System.out.println(str + " : " + integer));
+    }
+
+    private void createNotelist() throws Exception {
+        TimeChar tChar;
+        // if TimeChar divisions is bigger than one which means that next QuantityChar must be added before running this TimeChar
+        for (int i = 0; i < docChars.size(); i++) {
+            if (i == 195) {
+                System.out.println("check");
+            }
+            ByzChar Char = docChars.get(i);
+            if (Char instanceof TimeChar) {
+                tChar = (TimeChar) Char;
+                List<Move> moves = null;
+                if (tChar.getDivisions()>1 && !tChar.getArgo()) {
+                    int index = getIndex();
+                    // notes that can be divided
+                    int notesD = noteList.size() - index + 1;
+                    moves = new ArrayList<>();
+                    while(notesD < tChar.getDivisions()+1) {
+                        i++;
+                        Char = docChars.get(i);
+                        if (Char instanceof TimeChar)
+                            throw new Exception("TimeChar before running previous TimeChar, i=" + i);
+                        if (Char instanceof QuantityChar) {
+                            QuantityChar qChar = (QuantityChar) Char;
+                            System.out.println(i + " " + Char);
+                            // clone qChar moves to save Time value
+                            // and reset after running tChar
+                            Collections.addAll(moves, qChar.getMovesClone());
+                            // set qChar Time values to false, so getIndex method can work properly
+                            qChar.forEach(move -> move.setTime(false));
+                            qChar.accept(this);
+                            notesD = noteList.size() - index + 1;
+                            continue;
+                        }
+                        Char.accept(this);
+                        notesD = noteList.size() - index + 1;
+                    }
+                }
+                System.out.println(i + " " + Char);
+                tChar.accept(this);
+                if (moves != null) {
+                    // reset Time values on the notes
+                    List<Note> notes = noteList.subList(noteList.size() - moves.size(), noteList.size());
+                    for (int i1 = 0; i1 < notes.size(); i1++) {
+                        Note note = notes.get(i1);
+                        if (note instanceof ExtendedNote) {
+                            ExtendedNote exNote = (ExtendedNote) note;
+                            exNote.setTime(moves.get(i1).getTime());
+                        }
+                    }
+                }
+                continue;
+            }
+            if (Char instanceof FthoraChar) {
+                FthoraChar fthoraChar = (FthoraChar) Char;
+
+            }
+            System.out.println(i + " " + Char);
+            Char.accept(this);
+            //System.out.println(unicodeChar);
+            //System.out.println(i + " " + Char);
+        }
+    }
+
+    private void parseChars() throws NotSupportedException {
         // 0 - 1264 chars using toCharArray
         int pos = 0;
         // if there is lyric char before Quantity Char but belongs to that
@@ -177,6 +275,7 @@ public final class Engine {
                         if(c<33 || c>255) continue;
                     } else continue;
                     if (c == 162 && byzClass == ByzClass.B) c = 100;
+                    if (c == 52 && byzClass == ByzClass.F) c = 36;
                     final char finalChar = c;
                     // check if current Char is in the ByzCharList
                     ByzChar byzChar = charList.stream()
@@ -212,88 +311,6 @@ public final class Engine {
                 }
             }
         }
-        fixL116();
-        TimeChar tChar;
-        // if TimeChar divisions is bigger than one which means that next QuantityChar must be added before running this TimeChar
-        for (int i = 0; i < docChars.size(); i++) {
-            if (i == 195) {
-                System.out.println("check");
-            }
-            ByzChar Char = docChars.get(i);
-            if (Char instanceof TimeChar) {
-                tChar = (TimeChar) Char;
-                List<Move> moves = null;
-                if (tChar.getDivisions()>1 && !tChar.getArgo()) {
-                    int index = getIndex();
-                    // notes that can be divided
-                    int notesD = noteList.size() - index + 1;
-                    moves = new ArrayList<>();
-                    while(notesD < tChar.getDivisions()+1) {
-                        i++;
-                        Char = docChars.get(i);
-                        if (Char instanceof TimeChar)
-                            throw new Exception("TimeChar before running previous TimeChar, i=" + i);
-                        if (Char instanceof QuantityChar) {
-                            QuantityChar qChar = (QuantityChar) Char;
-                            System.out.println(i + " " + Char);
-                            // clone qChar moves to save Time value
-                            // and reset after running tChar
-                            Collections.addAll(moves, qChar.getMovesClone());
-                            // set qChar Time values to false, so getIndex method can work properly
-                            qChar.forEach(move -> move.setTime(false));
-                            qChar.accept(this);
-                            notesD = noteList.size() - index + 1;
-                            continue;
-                        }
-                        Char.accept(this);
-                        notesD = noteList.size() - index + 1;
-                    }
-                }
-                System.out.println(i + " " + Char);
-                tChar.accept(this);
-                if (moves != null) {
-                    // reset Time values on the notes
-                    List<Note> notes = noteList.subList(noteList.size() - moves.size(), noteList.size());
-                    for (int i1 = 0; i1 < notes.size(); i1++) {
-                        Note note = notes.get(i1);
-                        if (note instanceof ExtendedNote) {
-                            ExtendedNote exNote = (ExtendedNote) note;
-                            exNote.setTime(moves.get(i1).getTime());
-                        }
-                    }
-                }
-                continue;
-            }
-            System.out.println(i + " " + Char);
-            Char.accept(this);
-            //System.out.println(unicodeChar);
-            //System.out.println(i + " " + Char);
-        }
-        // remove first note which was auxiliary
-        noteList.remove(0);
-        for (int i = 0, noteListSize = noteList.size(); i < noteListSize; i++) {
-            Note note1 = noteList.get(i);
-            durationSum = note1.getDuration().add(durationSum);
-            System.out.println(i + " " + note1);
-        }
-
-
-        noteList.forEach(note -> {
-            String value = note.getType().getValue();
-            if (value != null && value.charAt(value.length()-1) == '.')
-                note.getType().setValue(value.replace(".", ""));
-        });
-        try(FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
-            ScorePartwise scorePartwise = toScorePartwise();
-            Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(scorePartwise, fileOutputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.noteTypeMap.forEach((str, integer) -> System.out.println(str + " : " + integer));
-        long stop = System.nanoTime();
-
     }
 
     // replaces L116 followed of two gorga, with working sequence
@@ -304,7 +321,12 @@ public final class Engine {
             int index = i;
             if (Char.equals(116, ByzClass.L)) {
                 ByzChar Char1 = docChars.get(++i);
-                if (Char1 instanceof FthoraChar) Char1 = docChars.get(++i);
+                FthoraChar fthoraChar = null;
+                if (Char1 instanceof FthoraChar) {
+                    fthoraChar = (FthoraChar) Char1;
+                    docChars.remove(i);
+                    Char1 = docChars.get(i);
+                }
                 if (ByzChar.isGorgonOrArgo(Char1)) {
                     ByzChar Char2 = docChars.get(++i);
                     if (Char2 instanceof FthoraChar) Char2 = docChars.get(++i);
@@ -321,6 +343,7 @@ public final class Engine {
                         docChars.add(indexOf, q1);
                         indexOf = getExactIndexOf(Char2, docChars);
                         docChars.add(indexOf, q2);
+                        if (fthoraChar != null) docChars.add(indexOf + 2, fthoraChar);
                     }
                 }
             }
