@@ -44,7 +44,7 @@ public final class Engine {
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
     final BiMap<ByzStep, Step> STEPS_MAP = HashBiMap.create(7);
-    private ByzScale byzScale = ByzScale.get2OctavesScale();
+    private final ByzScale byzScale = ByzScale.get2OctavesScale();
 
     public Engine(int division) {
         this.division = division;
@@ -204,10 +204,6 @@ public final class Engine {
                 }
                 continue;
             }
-            if (Char instanceof FthoraChar) {
-                FthoraChar fthoraChar = (FthoraChar) Char;
-
-            }
             System.out.println(i + " " + Char);
             Char.accept(this);
             //System.out.println(unicodeChar);
@@ -238,6 +234,7 @@ public final class Engine {
                     }
                     // if there is lyrics in the StringBuilder and a QuantityChar was added then add the lyrics in the last QChar
                     if (sb.length() > 0 && (qCharAdded || mCharAdded)) {
+                        @SuppressWarnings("rawtypes")
                         Class clas = qCharAdded ? QuantityChar.class : MixedChar.class;
                         qCharAdded = mCharAdded = false;
                         // find the last QChar which may also be in a MixedChar
@@ -392,7 +389,7 @@ public final class Engine {
         return scorePartwise;
     }
 
-    private void workingTest1Measure(ObjectFactory factory, ScorePartwise.Part part) {
+    /*private void workingTest1Measure(ObjectFactory factory, ScorePartwise.Part part) {
         // Measure
         ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
         part.getMeasure().add(measure);
@@ -426,7 +423,7 @@ public final class Engine {
         for (Note note : noteList) {
             measure.getNoteOrBackupOrForward().add(note);
         }
-    }
+    }*/
 
     private void addMeasures(ObjectFactory factory, ScorePartwise.Part part, int timeBeats) throws Exception {
         // make lists of Notes according to the given timeBeats
@@ -498,7 +495,7 @@ public final class Engine {
         part.getMeasure().addAll(measures);
     }
 
-    private void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) throws Exception {
+    private void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) {
         // Measure
         ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
         part.getMeasure().add(measure);
