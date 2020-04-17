@@ -218,6 +218,8 @@ public final class Engine {
         boolean qCharAdded = false;
         boolean mCharAdded = false;
         StringBuilder sb = new StringBuilder();
+        FthoraChar lastFthora = null;
+        int lastFthoraIndex = -1;
         for (XWPFParagraph paragraph : docx.getParagraphs()) {
             for (XWPFRun run : paragraph.getRuns()) {
                 for (char c : run.text().toCharArray()) {
@@ -272,7 +274,17 @@ public final class Engine {
                         if(c<33 || c>255) continue;
                     } else continue;
                     if (c == 162 && byzClass == ByzClass.B) c = 100;
-                    if (c == 52 && byzClass == ByzClass.F) c = 36;
+                    if (c == 52 && byzClass == ByzClass.F) {
+                        c = 36;
+                        if (lastFthora != null)
+                            if (lastFthora.getCodePoint() == 36) {
+                                if (lastFthoraIndex != -1) {
+                                    int counter = (int) docChars.subList(lastFthoraIndex, docChars.size())
+                                            .stream().filter(byzChar -> byzChar instanceof QuantityChar).count();
+                                    if (counter < 2) docChars.remove(lastFthoraIndex);
+                                }
+                            }
+                    }
                     final char finalChar = c;
                     // check if current Char is in the ByzCharList
                     ByzChar byzChar = charList.stream()
@@ -282,6 +294,10 @@ public final class Engine {
                     //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
                     // if doesn't exist continue to next
                     if (byzChar == null) continue;
+                    else if (byzChar instanceof FthoraChar) {
+                        lastFthora = (FthoraChar) byzChar;
+                        lastFthoraIndex = docChars.size();
+                    }
                     if (byzChar.getCodePoint() == 67 && byzChar.getByzClass() == ByzClass.B) {
                         ByzChar prev = docChars.get(docChars.size()-1);
                         if (prev.getCodePoint() == 115 && prev.getByzClass() == ByzClass.B) {
