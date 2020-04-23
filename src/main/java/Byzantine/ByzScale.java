@@ -46,12 +46,13 @@ public final class ByzScale implements CircularList<Martyria> {
      * cursor current position
      */
     private int cursorPos = 0;
+    // TODO write code for fthorikoSimio in FthoraChar
     /**the last fthora that was applied*/
     private FthorikoSimio fthorikoSimio;
     /**martyria on which the last fthora was applied*/
     private Martyria fthoraHolder;
     /**list holding martyrias*/
-    private List<Martyria> scale;
+    private final List<Martyria> scale;
 
     /*public ByzScale(List<Martyria> list, FthorikoSimio fthorikoSimio, ByzStep step, int octave*//*, Martyria fthoraHolder*//*) {
         this.list = list;
@@ -181,7 +182,7 @@ public final class ByzScale implements CircularList<Martyria> {
         return diatonicByzScale;
     }
 
-    public static ByzScale getByStep(ByzScale byzScale, ByzStep step, int octave) {
+    public static ByzScale getByStep(@NotNull ByzScale byzScale, ByzStep step, int octave) {
         byte minOctave = byzScale.scale.get(0).octave;
         byte maxOctave = byzScale.scale.get(byzScale.scale.size()-1).octave;
         final Martyria[] martyria = new Martyria[1];
@@ -199,7 +200,7 @@ public final class ByzScale implements CircularList<Martyria> {
         return byzScale;
     }
 
-    ByzScale applyFthora(ByzScale fthora) {
+    void applyFthora(ByzScale fthora) {
         if (fthora != null) {
             // save cursor position for both scales
             int fthoraCursorPos = fthora.cursorPos;
@@ -232,6 +233,5 @@ public final class ByzScale implements CircularList<Martyria> {
             }
             this.calcAbsPos();
         }
-        return this;
     }
 }
