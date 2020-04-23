@@ -44,35 +44,22 @@ final class FthoraChar extends ByzChar {
     }
 
     @Override
-    public void accept(Engine engine) {
-        // get relative Byzantne step from Step
-        /*Pitch lastPitch = QuantityChar.getLastPitch(engine.noteList);
+    public void accept(@NotNull Engine engine) {
+        // get relative Byzantine step from Step
+        Pitch lastPitch = QuantityChar.getLastPitch(engine.noteList);
         Step step = lastPitch.getStep();
         ByzStep byzStep = engine.STEPS_MAP.inverse().get(step);
         // get relative byzantine octave
         int octave = lastPitch.getOctave();
-        int byzOctave = octave - 7;
+        int byzOctave = octave - 5;
         ByzScale byzScale = null;
         switch (type) {
-            case S_D:
-                byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
-
+            case S_D: byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
         }
-        ByzScale scale = ByzScale.getByStep(engine.getByzScale(), byzStep, byzOctave);
-        scale.applyFthoraDiatonic(byzScale);*/
-        /*Scale fthora = Objects.requireNonNull(TYPE_MAP.get(type)).byByzStep(step);
-        if (type == Type.S_D) {
-            fthora = SOFT_DIATONIC.byByzStep(step);//, STEPS_MAP.get(step));
-            // gets Pitch of the last note, in which Fthora is applied
-            Step step = QuantityChar.getLastPitch(engine.noteList).getStep();
-            engine.scale.
-                    byStep(step).
-                    applyFthora(fthora);
-                    //applyFthora(TYPE_MAP.get(type));
-            //List<PitchEntry> currentByStep = Scale.ListByStep(engine.scale.scale, step);
-            //engine.scale.applyFthora(new Scale(Objects.requireNonNull(fthora)));
-            //Scale.FthoraApply(currentByStep, fthora);
-        }*/
+        if (byzScale != null) {
+            ByzScale scale = ByzScale.getByStep(engine.getByzScale(), byzStep, byzOctave);
+            scale.applyFthora(byzScale);
+        }
     }
 
     @Override

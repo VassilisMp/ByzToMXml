@@ -20,8 +20,8 @@ public class Martyria {
     boolean startOfTetrachord;
     boolean endOfTetrachord;
 
-    public Martyria(byte octave, ByzStep step, MartirikoSimio simio, int commasToNext) {
-        this.octave = octave;
+    public Martyria(int octave, ByzStep step, MartirikoSimio simio, int commasToNext) {
+        this.octave = (byte) octave;
         this.step = step;
         this.simio = simio;
         this.commasToNext = commasToNext;

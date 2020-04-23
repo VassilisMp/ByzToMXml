@@ -8,25 +8,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public final class ByzScale implements CircularList<Martyria> {
-    static final ByzScale SOFT_DIATONIC = new ByzScale(null, null, null, 0);
+    static ByzScale SOFT_DIATONIC = new ByzScale(null, null, null, 0);
+//    static final ByzScale NEXEANES = new ByzScale(null, null, null, 0);
     static {
-        List<Martyria> martyrias = Arrays.asList(
-                new Martyria((byte) -1, ByzStep.DI, MartirikoSimio.AGIA, 9),
-                new Martyria((byte) -1, ByzStep.KE, MartirikoSimio.ANANES, 8),
-                new Martyria((byte) 0, ByzStep.ZW, MartirikoSimio.AANES, 5),
-                new Martyria((byte) 0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
-                new Martyria((byte) 0, ByzStep.PA, MartirikoSimio.ANEANES, 8),
-                new Martyria((byte) 0, ByzStep.BOU, MartirikoSimio.NEHEANES, 5),
-                new Martyria((byte) 0, ByzStep.GA, MartirikoSimio.NANA, 9)
+        /*List<Martyria> martyrias = Arrays.asList(
+                *//*new Martyria(-1, ByzStep.DI, MartirikoSimio.AGIA, 9),
+                new Martyria(-1, ByzStep.KE, MartirikoSimio.ANANES, 8),*//*
+                new Martyria(0, ByzStep.ZW, MartirikoSimio.AANES, 5),
+                new Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
+                new Martyria(0, ByzStep.PA, MartirikoSimio.ANEANES, 8),
+                new Martyria(0, ByzStep.BOU, MartirikoSimio.NEHEANES, 5),
+                new Martyria(0, ByzStep.GA, MartirikoSimio.NANA, 9),
+                new Martyria(0, ByzStep.DI, MartirikoSimio.AGIA, 9),
+                new Martyria(0, ByzStep.KE, MartirikoSimio.ANANES, 8),
         );
         SOFT_DIATONIC.scale.addAll(martyrias);
         // go two positions to left, to call getNext().commasToNext on the previous martyria
         SOFT_DIATONIC.getItemToLeft(2);
         // set commasToPrev using commasToNext value of the previous martyria
-        SOFT_DIATONIC.scale.forEach(martyria -> martyria.commasToPrev = SOFT_DIATONIC.getNext().commasToNext);
+        SOFT_DIATONIC.scale.forEach(martyria -> martyria.commasToPrev = SOFT_DIATONIC.getNext().commasToNext);*/
+        SOFT_DIATONIC = ByzScale.get2OctavesScale();
+
+        /*martyrias = Arrays.asList(
+                new Martyria(0, ByzStep.PA, MartirikoSimio.NEXEANESx, 5),
+                new Martyria(0, ByzStep.BOU, MartirikoSimio.NENANO, 12),
+                new Martyria(0, ByzStep.GA, MartirikoSimio.NEXEANESx, 5),
+                new Martyria(0, ByzStep.DI, MartirikoSimio.NENANO, 9),
+                new Martyria(0, ByzStep.KE, MartirikoSimio.NEXEANESx, 5)
+        );*/
     }
 
     /**
@@ -88,13 +101,15 @@ public final class ByzScale implements CircularList<Martyria> {
         return getItemToLeft(1);
     }
 
+    // TODO use cursorPos as one Element array parameter to be able to iterate static fthora scales on many threads
     public Martyria getItemToRight(int num) {
         cursorPos = (cursorPos+num)%this.scale.size();
         return this.scale.get(cursorPos);
     }
 
     public Martyria getItemToLeft(int num) {
-        cursorPos = this.scale.size()-((cursorPos+num)%this.scale.size());
+        cursorPos = (cursorPos-num)%this.scale.size();
+        if (cursorPos < 0) cursorPos = this.scale.size() + cursorPos;
         return this.scale.get(cursorPos);
     }
 
@@ -167,9 +182,16 @@ public final class ByzScale implements CircularList<Martyria> {
     }
 
     public static ByzScale getByStep(ByzScale byzScale, ByzStep step, int octave) {
+        byte minOctave = byzScale.scale.get(0).octave;
+        byte maxOctave = byzScale.scale.get(byzScale.scale.size()-1).octave;
+        final Martyria[] martyria = new Martyria[1];
+        Supplier<Boolean> booleanSupplier;
+        if (octave >= minOctave && octave <= maxOctave)
+            booleanSupplier = () -> martyria[0].step == step && martyria[0].octave == octave;
+        else booleanSupplier = () -> martyria[0].step == step;
         for (int i = 0; i < byzScale.scale.size(); i++) {
-            Martyria martyria = byzScale.scale.get(i);
-            if (martyria.step == step && martyria.octave == octave) {
+            martyria[0] = byzScale.scale.get(i);
+            if (booleanSupplier.get()) {
                 byzScale.cursorPos = i;
                 return byzScale;
             }
@@ -177,21 +199,38 @@ public final class ByzScale implements CircularList<Martyria> {
         return byzScale;
     }
 
-    // TODO perform the right iteration
-    ByzScale applyFthoraDiatonic(ByzScale fthora) {
+    ByzScale applyFthora(ByzScale fthora) {
         if (fthora != null) {
+            // save cursor position for both scales
             int fthoraCursorPos = fthora.cursorPos;
             int cursorPos = this.cursorPos;
-            ++fthora.cursorPos;
-            ++this.cursorPos;
-            Martyria martyria = this.getPrevIfExists();
-            Martyria prev = fthora.getPrev();
+            this.fthoraHolder = this.scale.get(cursorPos);
+            // iterate scale to left first
+            Martyria martyria = this.scale.get(this.cursorPos);
+            Martyria fthoraMart = fthora.scale.get(fthora.cursorPos);
+            System.out.println(String.format("%s, %s", martyria, fthoraMart));
             while (martyria != null) {
-                martyria.commasToNext = prev.commasToNext;
-                martyria.commasToPrev = prev.commasToPrev;
+                martyria.commasToNext = fthoraMart.commasToNext;
+                martyria.commasToPrev = fthoraMart.commasToPrev;
+                martyria.simio = fthoraMart.simio;
                 martyria = this.getPrevIfExists();
-                prev = fthora.getPrev();
+                fthoraMart = fthora.getPrev();
+                System.out.println(String.format("%s, %s", martyria, fthoraMart));
             }
+            // reset cursor positions
+            fthora.cursorPos = fthoraCursorPos;
+            this.cursorPos = cursorPos;
+            // iterate scale to right
+            martyria = this.getNextIfExists();
+            fthoraMart = fthora.getNext();
+            while (martyria != null) {
+                martyria.commasToNext = fthoraMart.commasToNext;
+                martyria.commasToPrev = fthoraMart.commasToPrev;
+                martyria.simio = fthoraMart.simio;
+                martyria = this.getNextIfExists();
+                fthoraMart = fthora.getNext();
+            }
+            this.calcAbsPos();
         }
         return this;
     }
