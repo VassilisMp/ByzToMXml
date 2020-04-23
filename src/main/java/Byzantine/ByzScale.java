@@ -68,11 +68,11 @@ public final class ByzScale implements CircularList<Martyria> {
         this.fthoraHolder = this.getMartyria(step, octave);
     }
 
-    private ByzScale(@NotNull ByzScale byzScale) {
+    ByzScale(@NotNull ByzScale byzScale) {
         this.scale = byzScale.scale.stream()
                 .map(Martyria::new)
                 .collect(Collectors.toList());
-        this.cursorPos = 0;
+        this.cursorPos = byzScale.cursorPos;
         this.fthorikoSimio = byzScale.fthorikoSimio;
         int index = byzScale.scale.indexOf(byzScale.fthoraHolder);
         this.fthoraHolder = this.scale.get(index);

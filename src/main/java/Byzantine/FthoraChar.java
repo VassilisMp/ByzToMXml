@@ -5,7 +5,10 @@ import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import static Byzantine.Scale.*;
 
@@ -57,9 +60,11 @@ final class FthoraChar extends ByzChar {
             case S_D: byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
         }
         if (byzScale != null) {
-            ByzScale scale = ByzScale.getByStep(engine.getByzScale(), byzStep, byzOctave);
+            ByzScale scale = ByzScale.getByStep(engine.getCurrentByzScale(), byzStep, byzOctave);
             scale.applyFthora(byzScale);
+            engine.putFthoraScale(new ByzScale(scale), engine.getNoteListSize());
         }
+
     }
 
     @Override

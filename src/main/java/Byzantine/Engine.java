@@ -13,9 +13,13 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import javax.xml.bind.Marshaller;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -44,7 +48,10 @@ public final class Engine {
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
     final BiMap<ByzStep, Step> STEPS_MAP = HashBiMap.create(7);
-    private final ByzScale byzScale = ByzScale.get2OctavesScale();
+    private final ByzScale currentByzScale = ByzScale.get2OctavesScale();
+    /**
+    * Map that holds fthoras as keys mapping to positions in the <code>noteList</code> */
+    private final Map<ByzScale, Integer> fthoraScalesMap = new LinkedHashMap<>();
 
     public Engine(int division) {
         this.division = division;
@@ -117,8 +124,8 @@ public final class Engine {
         mapValuesInsert();
     }
 
-    public ByzScale getByzScale() {
-        return byzScale;
+    public ByzScale getCurrentByzScale() {
+        return currentByzScale;
     }
 
     public void run() throws Exception {
@@ -626,7 +633,7 @@ public final class Engine {
     }
 
     @NotNull
-    private static Map<String, ByzClass> getByzClassMap() {
+    private static @UnmodifiableView Map<String, ByzClass> getByzClassMap() {
         /* TODO Palaia fonts not supported
          * because of different character matching to Byzantine fonts
          * maybe I'll have to make the matching*/
@@ -697,5 +704,13 @@ public final class Engine {
 
     Step getInitialStep() {
         return initialStep;
+    }
+
+    Integer putFthoraScale(ByzScale k, Integer v) {
+        return fthoraScalesMap.put(k, v);
+    }
+
+    int getNoteListSize() {
+        return noteList.size();
     }
 }
