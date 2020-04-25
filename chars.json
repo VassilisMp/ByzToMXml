@@ -1898,7 +1898,7 @@
   {
     "type": "S_D",
     "step": "NH",
-    "commas": 0,
+    "commas": 53,
     "codePoint": 68,
     "byzClass": "F",
     "class": "Byzantine.FthoraChar"
@@ -1906,7 +1906,7 @@
   {
     "type": "S_D",
     "step": "NH",
-    "commas": 0,
+    "commas": 53,
     "codePoint": 100,
     "byzClass": "F",
     "class": "Byzantine.FthoraChar"
@@ -1914,7 +1914,7 @@
   {
     "type": "S_D",
     "step": "NH",
-    "commas": 0,
+    "commas": 53,
     "codePoint": 67,
     "byzClass": "F",
     "class": "Byzantine.FthoraChar"
@@ -1922,7 +1922,7 @@
   {
     "type": "S_D",
     "step": "NH",
-    "commas": 0,
+    "commas": 53,
     "codePoint": 99,
     "byzClass": "F",
     "class": "Byzantine.FthoraChar"

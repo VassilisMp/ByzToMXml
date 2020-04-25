@@ -18,6 +18,8 @@ final class FthoraChar extends ByzChar {
      * Map to match Type to Scale
      */
     static final Map<Type, Scale> TYPE_MAP;
+    static Map<PitchEntry, Boolean> pitchToBooleanMap = new HashMap<>();
+
     // TODO insert all scales
     static {
         Map<Type, Scale> map = new EnumMap<>(Type.class);
@@ -27,7 +29,6 @@ final class FthoraChar extends ByzChar {
         TYPE_MAP = Collections.unmodifiableMap(map);
     }
 
-    static Map<PitchEntry, Boolean> pitchToBooleanMap = new HashMap<>();
     static {
         //current.forEach(pitchEntry -> pitchToBooleanMap.put(pitchEntry, false));
     }
@@ -57,14 +58,18 @@ final class FthoraChar extends ByzChar {
         int byzOctave = octave - 5;
         ByzScale byzScale = null;
         switch (type) {
-            case S_D: byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
+            case S_D:
+                if (this.step == ByzStep.NH && commas == 53) byzOctave = 1;
+                byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
+                break;
+            case H_C:
+                byzScale = ByzScale.getByStep(ByzScale.NEXEANES, this.step, null);
         }
         if (byzScale != null) {
             ByzScale scale = ByzScale.getByStep(engine.getCurrentByzScale(), byzStep, byzOctave);
             scale.applyFthora(byzScale);
             engine.putFthoraScale(new ByzScale(scale), engine.getNoteListSize());
         }
-
     }
 
     @Override

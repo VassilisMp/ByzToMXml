@@ -105,6 +105,10 @@ public final class Engine {
         type.setValue("quarter");
         note.setType(type);
 
+        getDefaultStepsMap();
+    }
+
+    private void getDefaultStepsMap() {
         STEPS_MAP.put(ByzStep.NH, Step.G);
         STEPS_MAP.put(ByzStep.PA, Step.A);
         STEPS_MAP.put(ByzStep.BOU, Step.B);
@@ -146,6 +150,11 @@ public final class Engine {
             String value = note.getType().getValue();
             if (value != null && value.charAt(value.length()-1) == '.')
                 note.getType().setValue(value.replace(".", ""));
+        });
+//        System.out.println(fthoraScalesMap);
+        fthoraScalesMap.forEach((k, v) -> {
+            System.out.println(k);
+            System.out.println(v);
         });
         try(FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
             ScorePartwise scorePartwise = toScorePartwise();
@@ -625,10 +634,10 @@ public final class Engine {
     }
 
     int getIndex() {
-        ListIterator<Note> it = noteList.listIterator(noteList.size());
-        while (it.hasPrevious())
-            if (((ExtendedNote) it.previous()).canGetTime())
-                return it.nextIndex();
+        ListIterator<Note> iterator = noteList.listIterator(noteList.size());
+        while (iterator.hasPrevious())
+            if (((ExtendedNote) iterator.previous()).canGetTime())
+                return iterator.nextIndex();
         throw new NullPointerException("Couldn't find a Note that canGetTime()");
     }
 
