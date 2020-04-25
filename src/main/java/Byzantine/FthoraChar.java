@@ -52,7 +52,7 @@ final class FthoraChar extends ByzChar {
         // get relative Byzantine step from Step
         Pitch lastPitch = QuantityChar.getLastPitch(engine.noteList);
         Step step = lastPitch.getStep();
-        ByzStep byzStep = engine.STEPS_MAP.inverse().get(step);
+        ByzStep byzStep = engine.stepToByzStep(step);
         // get relative byzantine octave
         int octave = lastPitch.getOctave();
         int byzOctave = octave - 5;
