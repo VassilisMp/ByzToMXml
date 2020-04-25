@@ -64,6 +64,10 @@ final class FthoraChar extends ByzChar {
                 break;
             case H_C:
                 byzScale = ByzScale.getByStep(ByzScale.NEXEANES, this.step, null);
+                break;
+            case S_C:
+                byzScale = ByzScale.getByStep(ByzScale.NEANES, this.step, null);
+                break;
         }
         if (byzScale != null) {
             ByzScale scale = ByzScale.getByStep(engine.getCurrentByzScale(), byzStep, byzOctave);

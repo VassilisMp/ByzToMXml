@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public final class ByzScale implements CircularList<Martyria> {
     static ByzScale SOFT_DIATONIC;
     static final ByzScale NEXEANES = new ByzScale(null, null, null, 0);
+    static final ByzScale NEANES = new ByzScale(null, null, null, 0);
     static {
         /*List<Martyria> martyrias = Arrays.asList(
                 *//*new Martyria(-1, ByzStep.DI, MartirikoSimio.AGIA, 9),
@@ -32,18 +33,29 @@ public final class ByzScale implements CircularList<Martyria> {
         // set commasToPrev using commasToNext value of the previous martyria
         SOFT_DIATONIC.scale.forEach(martyria -> martyria.commasToPrev = SOFT_DIATONIC.getNext().commasToNext);*/
         SOFT_DIATONIC = ByzScale.get2OctavesScale();
-
-        List<Martyria> martyrias = Arrays.asList(
+        // Create hard chromatic scale
+        createScale(Arrays.asList(
                 new Martyria(0, ByzStep.PA, MartirikoSimio.NEXEANESx, 5),
                 new Martyria(0, ByzStep.BOU, MartirikoSimio.NENANO, 12),
                 new Martyria(0, ByzStep.GA, MartirikoSimio.NEXEANESx, 5),
                 new Martyria(0, ByzStep.DI, MartirikoSimio.NENANO, 9)
-        );
-        NEXEANES.scale.addAll(martyrias);
-        NEXEANES.getItemToLeft(2);
+        ), NEXEANES);
+        // Create soft chromatic scale
+        createScale(Arrays.asList(
+                new Martyria(0, ByzStep.DI, MartirikoSimio.NEANES, 6),
+                new Martyria(0, ByzStep.KE, MartirikoSimio.NEANES2, 11),
+                new Martyria(1, ByzStep.ZW, MartirikoSimio.NEANES, 5),
+                new Martyria(1, ByzStep.NH, MartirikoSimio.NEANES2, 9)
+        ), NEANES);
+    }
+
+    private static void createScale(List<Martyria> martyrias, @NotNull ByzScale byzScale) {
+        byzScale.scale.addAll(martyrias);
+        byzScale.getItemToLeft(2);
         // set commasToPrev using commasToNext value of the previous martyria
-        NEXEANES.scale.forEach(martyria -> martyria.commasToPrev = NEXEANES.getNext().commasToNext);
-        NEXEANES.calcAbsPos();
+        byzScale.scale.forEach(martyria -> martyria.commasToPrev = byzScale.getNext().commasToNext);
+        byzScale.calcAbsPos();
+        byzScale.resetCursor();
     }
 
     /**
