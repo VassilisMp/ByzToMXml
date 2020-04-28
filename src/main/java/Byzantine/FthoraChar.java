@@ -60,17 +60,17 @@ final class FthoraChar extends ByzChar {
         switch (type) {
             case S_D:
                 if (this.step == ByzStep.NH && commas == 53) byzOctave = 1;
-                byzScale = ByzScale.getByStep(ByzScale.SOFT_DIATONIC, this.step, byzOctave);
+                byzScale = ByzScale.SOFT_DIATONIC.getByStep(this.step, byzOctave);
                 break;
             case H_C:
-                byzScale = ByzScale.getByStep(ByzScale.NEXEANES, this.step, null);
+                byzScale = ByzScale.NEXEANES.getByStep(this.step, null);
                 break;
             case S_C:
-                byzScale = ByzScale.getByStep(ByzScale.NEANES, this.step, null);
+                byzScale = ByzScale.NEANES.getByStep(this.step, null);
                 break;
         }
         if (byzScale != null) {
-            ByzScale scale = ByzScale.getByStep(engine.getCurrentByzScale(), byzStep, byzOctave);
+            ByzScale scale = engine.getCurrentByzScale().getByStep(byzStep, byzOctave);
             scale.applyFthora(byzScale);
             engine.putFthoraScale(new ByzScale(scale), engine.getNoteListSize());
         }

@@ -16,10 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import javax.xml.bind.Marshaller;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.String;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -35,6 +32,10 @@ public final class Engine {
     static final String JSON_CHARS_FILE = "chars.json";
     private static final List<ByzChar> charList = Collections.unmodifiableList(getCharList());
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
+    /**
+     * The best mapping from European to Byzantine hard-diatonic scale, without the need of turkish accidentals
+     */
+    private static final Map<Step, ByzStep> STANDARD_MAP = getEuropeanToByzantineMap();
     private final BiMap<ByzStep, Step> STEPS_MAP = HashBiMap.create(7);
     private final XWPFDocument docx;
     private final String fileName;
@@ -43,70 +44,68 @@ public final class Engine {
      * Map that holds fthoras as keys mapping to positions in the <code>noteList</code>
      */
     private final Map<ByzScale, Integer> fthoraScalesMap = new LinkedHashMap<>();
+    private final Step initialStep;
+    private final List<ByzChar> docChars;
+    private final ByzStep relativeStandardStep;
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     int division;
     List<Note> noteList;
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
-    private Step initialStep;
     private BigDecimal durationSum;
     private int timeBeats;
-    private List<ByzChar> docChars;
 
+    // instances of Engine are immutable
     public Engine(int division) {
         this.division = division;
         mapValuesInsert();
         noteList = new ArrayList<>();
         this.docx = null;
         fileName = null;
+        initialStep = Step.C;
+        docChars = null;
+        relativeStandardStep = null;
     }
 
     public Engine(String filePath, Step initialStep, int division) throws IOException {
         Matcher matcher = Pattern.compile("(.*/)*(.*)(\\.docx?)").matcher(filePath);
         if (matcher.find())
             this.fileName = matcher.group(2);
-        else this.fileName = null;
+        else throw new FileNotFoundException("couldn't match filename");
         this.division = division;
+        this.initialStep = initialStep;
         noteTypeMap.clear();
-        // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
-        noteTypeMap.put("maxima", division * 28);
-        noteTypeMap.put("long", division * 16);
-        noteTypeMap.put("breve", division * 8);
-        noteTypeMap.put("whole", division * 4);
-        noteTypeMap.put("half", division * 2);
-        noteTypeMap.put("quarter", division);
-        if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
-        if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
-        if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
-        if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
-        if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
-        if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
-        if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
-        if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
+        initializeNoteTypeMap();
         this.durationSum = BigDecimal.ZERO;
         this.docx = new XWPFDocument(new FileInputStream(filePath));
         this.noteList = new ArrayList<>();
         this.docChars = new ArrayList<>();
         // Note 0 ---
-        Note note = new ExtendedNote(true, true);
+        Note note = new ExtendedNote(true, true, this.initialStep, 4,
+                division, ExtendedNote.NoteTypeEnum.QUARTER.noteType);
         noteList.add(note);
 
-        // Pitch
-        Pitch pitch = new Pitch();
-        note.setPitch(pitch);
-        pitch.setStep(this.initialStep = initialStep);
-        pitch.setOctave(4);
-
-        // Duration
-        note.setDuration(new BigDecimal(division));
-
-        // Type
-        NoteType type = new NoteType();
-        type.setValue("quarter");
-        note.setType(type);
-
         getDefaultStepsMap();
+
+        relativeStandardStep = STANDARD_MAP.get(byzStepToStep(ByzStep.NH));
+        initAccidentalCommas();
+        this.putFthoraScale(new ByzScale(this.currentByzScale), 0);
+    }
+
+    /**
+     * @return the Map to initialize STANDARD_MAP
+     */
+    private static @NotNull @UnmodifiableView Map<Step, ByzStep> getEuropeanToByzantineMap() {
+        HashMap<Step, ByzStep> stepMap = new HashMap<>();
+        stepMap.put(Step.C, ByzStep.NH);
+        stepMap.put(Step.D, ByzStep.PA);
+        stepMap.put(Step.E, ByzStep.BOU);
+        stepMap.put(Step.F, ByzStep.GA);
+        stepMap.put(Step.G, ByzStep.DI);
+        stepMap.put(Step.A, ByzStep.KE);
+        stepMap.put(Step.B, ByzStep.ZW);
+        return Collections.unmodifiableMap(stepMap);
     }
 
     @NotNull
@@ -167,6 +166,47 @@ public final class Engine {
         return new ByzCharDeSerialize().fromJson(json);
     }
 
+    private void initAccidentalCommas() {
+        final ByzScale HARD_DIATONIC = ByzScale.HARD_DIATONIC.getByStep(relativeStandardStep, null);
+        int HARD_DIATONIC_cursorPos = HARD_DIATONIC.getCursorPos();
+        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos - 1);
+        currentByzScale.getByStep(ByzStep.NH, null);
+        final int currentByzScaleCursorPos = currentByzScale.getCursorPos();
+        for (int i = currentByzScaleCursorPos, difference = 0; i < currentByzScale.size(); i++) {
+            final Martyria a = currentByzScale.get(i);
+            final Martyria b = HARD_DIATONIC.getNext();
+            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
+            final int setIndex = (i + 1) == currentByzScale.size() ? 0 : i + 1;
+            currentByzScale.get(setIndex).setAccidentalCommas(difference);
+        }
+        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos);
+        for (int i = currentByzScaleCursorPos - 1, difference = 0; i >= 0; i--) {
+            final Martyria a = currentByzScale.get(i);
+            final Martyria b = HARD_DIATONIC.getPrev();
+            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
+            a.setAccidentalCommas(-difference);
+        }
+        currentByzScale.resetCursor();
+    }
+
+    private void initializeNoteTypeMap() {
+        // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
+        noteTypeMap.put("maxima", division * 28);
+        noteTypeMap.put("long", division * 16);
+        noteTypeMap.put("breve", division * 8);
+        noteTypeMap.put("whole", division * 4);
+        noteTypeMap.put("half", division * 2);
+        noteTypeMap.put("quarter", division);
+        if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
+        if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
+        if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
+        if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
+        if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
+        if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
+        if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
+        if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
+    }
+
     private void getDefaultStepsMap() {
         STEPS_MAP.put(ByzStep.NH, Step.G);
         STEPS_MAP.put(ByzStep.PA, Step.A);
@@ -195,6 +235,19 @@ public final class Engine {
         return STEPS_MAP.inverse().get(step);
     }
 
+    Step byzStepToStep(ByzStep byzStep) {
+        return STEPS_MAP.get(byzStep);
+    }
+
+    /**
+     * @return the relative European step for Byzantine step NH of this engine converted to byzStep again,
+     * via use of STEPS_MAP and STANDARD_MAP, use of STANDARD_MAP is required because everything is calculated using ByzScales.
+     * e.g. STEPS_MAP: NH->G, STANDARD_MAP: G->DI
+     */
+    ByzStep getRelativeStandardStep() {
+        return relativeStandardStep;
+    }
+
     public void run() throws Exception {
         parseChars();
         fixL116();
@@ -204,17 +257,15 @@ public final class Engine {
         noteList.remove(0);
         // DEBUG
         // calc duration sum
-        for (int i = 0, noteListSize = noteList.size(); i < noteListSize; i++) {
-            Note note1 = noteList.get(i);
-            durationSum = note1.getDuration().add(durationSum);
-            System.out.println(i + " " + note1);
-        }
-        noteList.forEach(note -> {
-            String value = note.getType().getValue();
-            if (value != null && value.charAt(value.length() - 1) == '.')
-                note.getType().setValue(value.replace(".", ""));
-        });
-//        System.out.println(fthoraScalesMap);
+        durationSum = noteList.parallelStream()
+                .map(note -> {
+                    // replace dots in noteType String
+                    String value = note.getType().getValue();
+                    if (value != null && value.charAt(value.length() - 1) == '.')
+                        note.getType().setValue(value.replace(".", ""));
+                    return note.getDuration();
+                })
+                .reduce(durationSum, BigDecimal::add);
         fthoraScalesMap.forEach((k, v) -> {
             System.out.println(k);
             System.out.println(v);
