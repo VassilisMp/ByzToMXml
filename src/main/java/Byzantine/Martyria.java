@@ -9,14 +9,16 @@ import java.util.*;
 
 public class Martyria {
     static final Map<Integer, AccidentalValue> ACCIDENTALS_MAP = getAccidentalsMap();
-    static final List<Step> FLATS_FOURTHS = Arrays.asList(Step.B, Step.E, Step.A, Step.D, Step.G, Step.C, Step.F);
-    static final List<Step> SHARP_FIFTHS = Arrays.asList(Step.F, Step.C, Step.G, Step.D, Step.A, Step.E, Step.B);
+    static final List<Step> FLATS_FOURTHS = Collections.unmodifiableList(
+            Arrays.asList(Step.B, Step.E, Step.A, Step.D, Step.G, Step.C, Step.F));
+    static final List<Step> SHARP_FIFTHS = Collections.unmodifiableList(
+            Arrays.asList(Step.F, Step.C, Step.G, Step.D, Step.A, Step.E, Step.B));
     final ByzStep step;
     /**
      * octave number in the byzantine perspective, meaning count of tonoi(´) on a note,
-     * new ´ adds after Zw note, backwards are used negative numbers which aren't shown in fact
+     * new ´ adds after Zw note, backwards are used negative numbers which aren't shown in fact.
+     * Humans can hear up to 10 octaves
      */
-    // humans can hear up to 10 octaves
     byte octave;
     MartirikoSimio simio;
     /**
@@ -31,11 +33,15 @@ public class Martyria {
      * commas to the previous note
      */
     int commasToPrev;
-    boolean startOfPentachord;
+    /*boolean startOfPentachord;
     boolean endOfPentachord;
     boolean startOfTetrachord;
-    boolean endOfTetrachord;
+    boolean endOfTetrachord;*/
+    /**
+     * accidental commas for European notes
+     */
     private int accidentalCommas = 0;
+
     public Martyria(int octave, ByzStep step, MartirikoSimio simio, int commasToNext) {
         this.octave = (byte) octave;
         this.step = step;
@@ -50,10 +56,10 @@ public class Martyria {
         this.absolPos = martyria.absolPos;
         this.commasToNext = martyria.commasToNext;
         this.commasToPrev = martyria.commasToPrev;
-        this.startOfPentachord = martyria.startOfPentachord;
+        /*this.startOfPentachord = martyria.startOfPentachord;
         this.endOfPentachord = martyria.endOfPentachord;
         this.startOfTetrachord = martyria.startOfTetrachord;
-        this.endOfTetrachord = martyria.endOfTetrachord;
+        this.endOfTetrachord = martyria.endOfTetrachord;*/
         this.accidentalCommas = martyria.accidentalCommas;
     }
 

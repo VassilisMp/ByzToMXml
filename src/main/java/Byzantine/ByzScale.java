@@ -23,8 +23,15 @@ public final class ByzScale implements CircularList<Martyria> {
             new Martyria(1, ByzStep.ZW, MartirikoSimio.NEANES, 5),
             new Martyria(1, ByzStep.NH, MartirikoSimio.NEANES2, 9)
     ));
-    // TODO use one octave because it causes errors on fthora apply, when try to cycle through the scale
-    static final ByzScale SOFT_DIATONIC = ByzScale.get2OctavesScale();
+    static final ByzScale SOFT_DIATONIC = createScale(Arrays.asList(
+            new Martyria((byte) -1, ByzStep.DI, MartirikoSimio.AGIA, 9),
+            new Martyria((byte) -1, ByzStep.KE, MartirikoSimio.ANANES, 8),
+            new Martyria((byte) 0, ByzStep.ZW, MartirikoSimio.AANES, 5),
+            new Martyria((byte) 0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
+            new Martyria((byte) 0, ByzStep.PA, MartirikoSimio.ANEANES, 8),
+            new Martyria((byte) 0, ByzStep.BOU, MartirikoSimio.NEHEANES, 5),
+            new Martyria((byte) 0, ByzStep.GA, MartirikoSimio.NANA, 9)
+    ));
     static final ByzScale HARD_DIATONIC = createScale(Arrays.asList(
             new Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
             new Martyria(0, ByzStep.PA, MartirikoSimio.ANEANES, 9),
@@ -246,15 +253,9 @@ public final class ByzScale implements CircularList<Martyria> {
             int fthoraCursorPos = fthora.cursorPos;
             int cursorPos = this.cursorPos;
             this.fthoraHolder = this.scale.get(cursorPos);
-            Martyria a = this.get(cursorPos);
-            Martyria b = fthora.get(fthora.cursorPos);
-            { // set for martyria that stays constant
-                a.setCommasToNext(b.commasToNext);
-                a.commasToPrev = b.commasToPrev;
-                a.simio = b.simio;
-            }
-            a = this.getPrevIfExists();
-            b = fthora.getPrev();
+
+            Martyria a = this.getPrevIfExists();
+            Martyria b = fthora.getPrev();
             // iterate scale to left first
             int diff = 0;
             while (a != null) {
@@ -272,7 +273,7 @@ public final class ByzScale implements CircularList<Martyria> {
             this.cursorPos = cursorPos;
             // iterate scale to right
             diff = 0;
-            for (a = this.getNextIfExists(), b = fthora.getNext(); a != null; a = this.getNextIfExists(),
+            for (a = this.get(this.cursorPos), b = fthora.get(fthora.cursorPos); a != null; a = this.getNextIfExists(),
                     b = fthora.getNext()) {
                 a.addAccidentalCommas(diff);
                 diff = b.getCommasToNext() + diff - a.getCommasToNext();

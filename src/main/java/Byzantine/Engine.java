@@ -166,7 +166,12 @@ public final class Engine {
         return new ByzCharDeSerialize().fromJson(json);
     }
 
-    private void initAccidentalCommas() {
+    void initAccidentalCommas() {
+        initAccidentalCommas(currentByzScale, relativeStandardStep);
+    }
+
+    // TODO this method should be moved to ByzScale class probably
+    static void initAccidentalCommas(@NotNull ByzScale currentByzScale, ByzStep relativeStandardStep) {
         final ByzScale HARD_DIATONIC = ByzScale.HARD_DIATONIC.getByStep(relativeStandardStep, null);
         int HARD_DIATONIC_cursorPos = HARD_DIATONIC.getCursorPos();
         HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos - 1);
