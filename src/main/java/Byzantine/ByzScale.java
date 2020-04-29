@@ -285,10 +285,6 @@ public final class ByzScale implements CircularList<Martyria> {
         }
     }
 
-    private void calcAccidentalCommas(ByzScale relativeScale) {
-        // TODO implement
-    }
-
     Martyria get(int i) {
         return scale.get(i);
     }
