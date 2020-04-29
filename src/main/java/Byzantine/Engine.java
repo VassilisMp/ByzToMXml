@@ -655,7 +655,7 @@ public final class Engine {
         part.getMeasure().addAll(measures);
     }
 
-    private void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) {
+    private void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) throws Exception {
         // Measure
         ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
         part.getMeasure().add(measure);
@@ -684,7 +684,15 @@ public final class Engine {
         // Time
         Time time = factory.createTime();
         attributes.getTime().add(time);
-        time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(4)));
+
+        if (timeBeats > 0)
+            time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(timeBeats)));
+        else {
+            Integer reduce = notes.stream().map(note -> note.getDuration().intValue()).reduce(0, Integer::sum);
+            if (reduce % division != 0)
+                throw new Exception("wrong measure size, i=" + 0 + ", " + reduce + "/" + division);
+            time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(reduce / division)));
+        }
         time.getTimeSignature().add(factory.createTimeBeatType("4"));
 
         // Clef
