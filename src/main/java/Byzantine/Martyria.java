@@ -8,6 +8,7 @@ import org.jetbrains.annotations.UnmodifiableView;
 import java.util.*;
 
 public class Martyria {
+
     static final Map<Integer, AccidentalValue> ACCIDENTALS_MAP = getAccidentalsMap();
     static final List<Step> FLATS_FOURTHS = Collections.unmodifiableList(
             Arrays.asList(Step.B, Step.E, Step.A, Step.D, Step.G, Step.C, Step.F));

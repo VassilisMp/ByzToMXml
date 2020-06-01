@@ -8,11 +8,15 @@ import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static Byzantine.PitchEntry.*;
 
+@Deprecated
 public class Scale {
     List<PitchEntry> scale;
     // TODO include type in Constructor
@@ -121,10 +125,10 @@ public class Scale {
         return new Scale(this);
     }
 
-    Scale applyFthora(/*Genos*/ Type type, /*Fthoggos*/ ByzStep byzStep, /*note*/ Step step) {
+    /*Scale applyFthora(*//*Genos*//* Type type, *//*Fthoggos*//* ByzStep byzStep, *//*note*//* Step step) {
         new Scale(FthoraChar.TYPE_MAP.get(type)).byStep(step);
         return this;
-    }
+    }*/
 
     Scale applyFthora(Scale fthora) {
         for (int i = 0, difference = 0; i < scale.size(); i++) {

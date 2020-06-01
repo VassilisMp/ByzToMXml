@@ -25,7 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
-import static Byzantine.Scale.KeyFromPitches;
 import static org.audiveris.proxymusic.util.Marshalling.getContext;
 
 public final class Engine {
@@ -52,7 +51,6 @@ public final class Engine {
     int division;
     List<Note> noteList;
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
-    Scale scale = Scale.HARD_DIATONIC.byStep(Step.A);
     private BigDecimal durationSum;
     private int timeBeats;
 
@@ -86,7 +84,7 @@ public final class Engine {
                 division, ExtendedNote.NoteTypeEnum.QUARTER.noteType);
         noteList.add(note);
 
-        getDefaultStepsMap();
+        setDefaultStepsMap(STEPS_MAP);
 
         relativeStandardStep = STANDARD_MAP.get(byzStepToStep(ByzStep.NH));
         initAccidentalCommas();
@@ -167,31 +165,7 @@ public final class Engine {
     }
 
     void initAccidentalCommas() {
-        initAccidentalCommas(currentByzScale, relativeStandardStep);
-    }
-
-    // TODO this method should be moved to ByzScale class probably
-    static void initAccidentalCommas(@NotNull ByzScale currentByzScale, ByzStep relativeStandardStep) {
-        final ByzScale HARD_DIATONIC = ByzScale.HARD_DIATONIC.getByStep(relativeStandardStep, null);
-        int HARD_DIATONIC_cursorPos = HARD_DIATONIC.getCursorPos();
-        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos - 1);
-        currentByzScale.getByStep(ByzStep.NH, null);
-        final int currentByzScaleCursorPos = currentByzScale.getCursorPos();
-        for (int i = currentByzScaleCursorPos, difference = 0; i < currentByzScale.size(); i++) {
-            final Martyria a = currentByzScale.get(i);
-            final Martyria b = HARD_DIATONIC.getNext();
-            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
-            final int setIndex = (i + 1) == currentByzScale.size() ? 0 : i + 1;
-            currentByzScale.get(setIndex).setAccidentalCommas(difference);
-        }
-        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos);
-        for (int i = currentByzScaleCursorPos - 1, difference = 0; i >= 0; i--) {
-            final Martyria a = currentByzScale.get(i);
-            final Martyria b = HARD_DIATONIC.getPrev();
-            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
-            a.setAccidentalCommas(-difference);
-        }
-        currentByzScale.resetCursor();
+        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep);
     }
 
     private void initializeNoteTypeMap() {
@@ -212,7 +186,7 @@ public final class Engine {
         if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
     }
 
-    private void getDefaultStepsMap() {
+    static void setDefaultStepsMap(@NotNull Map<ByzStep, Step> STEPS_MAP) {
         STEPS_MAP.put(ByzStep.NH, Step.G);
         STEPS_MAP.put(ByzStep.PA, Step.A);
         STEPS_MAP.put(ByzStep.BOU, Step.B);
@@ -668,17 +642,9 @@ public final class Engine {
         // Divisions
         attributes.setDivisions(new BigDecimal(division));
 
-        /*// Key
-        Key key = factory.createKey();
-        attributes.getKey().add(key);
-        //key.setFifths(new BigInteger("-1"));
-        key.getNonTraditionalKey().addAll(Arrays.asList(Step.B, BigDecimal.valueOf(-1), AccidentalValue.FLAT));*/
-
-        // TODO use ByzScale to create score key
-        scale.applyFthora(Scale.HARD_CHROMATIC);
-        //List<PitchEntry> thisC = PitchEntry.cloneScale(PitchEntry.ListByStep(HARD_DIATONIC, Step.A));
-        //PitchEntry.FthoraApply(thisC, HARD_CHROMATIC);
-        Key key = KeyFromPitches(scale.scale);
+        // add starting Key
+        final ByzScale firstScale = (ByzScale) fthoraScalesMap.keySet().toArray()[0];
+        Key key = firstScale.getKey(STEPS_MAP, ByzStep.DI, null);
         attributes.getKey().add(key);
 
         // Time

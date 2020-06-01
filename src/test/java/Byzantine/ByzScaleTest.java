@@ -1,8 +1,15 @@
 package Byzantine;
 
+import org.audiveris.proxymusic.AccidentalValue;
+import org.audiveris.proxymusic.Key;
+import org.audiveris.proxymusic.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static Byzantine.ByzScale.SOFT_DIATONIC;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +20,7 @@ class ByzScaleTest {
     @BeforeEach
     void beforeEach() {
         disDiapaswn = ByzScale.get2OctavesScale();
-        Engine.initAccidentalCommas(disDiapaswn, ByzStep.DI);
+        ByzScale.initAccidentalCommas(disDiapaswn, ByzStep.DI);
     }
 
     @Test
@@ -63,7 +70,7 @@ class ByzScaleTest {
     @Test
     void applyAnanesToAgia() {
         disDiapaswn.getByStep(ByzStep.DI, 0);
-        disDiapaswn.applyFthora(ByzScale.SOFT_DIATONIC.getByStep(ByzStep.KE, null));
+        disDiapaswn.applyFthora(SOFT_DIATONIC.getByStep(ByzStep.KE, null));
         assertAll(
                 () -> assertEquals( 0, disDiapaswn.get(0).getAccidentalCommas()), // DI
                 () -> assertEquals(-1, disDiapaswn.get(1).getAccidentalCommas()), // KE
@@ -80,6 +87,27 @@ class ByzScaleTest {
                 () -> assertEquals(-5, disDiapaswn.get(12).getAccidentalCommas()), // BOU
                 () -> assertEquals( 0, disDiapaswn.get(13).getAccidentalCommas()), // GA
                 () -> assertEquals( 0, disDiapaswn.get(14).getAccidentalCommas()) // DI
+        );
+    }
+
+    @Test
+    void getKey() {
+        final Map<ByzStep, Step> STEPS_MAP = new HashMap<>(7);
+        Engine.setDefaultStepsMap(STEPS_MAP);
+        final ByzScale byzScale = new ByzScale(SOFT_DIATONIC);
+        ByzScale.initAccidentalCommas(disDiapaswn, ByzStep.DI);
+        final Key key = disDiapaswn.getKey(STEPS_MAP, ByzStep.DI, null);
+        // simpler way to assert using String
+        /*final String result = key.getNonTraditionalKey().stream()
+                .map(Object::toString).collect(Collectors.joining("\n"));
+        String expected = "B\n-0.22\nQUARTER_FLAT\nF\n0.89\nSHARP";
+        assertEquals(expected, result);*/
+        assertAll(
+                () -> assertEquals(6, key.getNonTraditionalKey().size()),
+                () -> assertEquals(Step.B, key.getNonTraditionalKey().get(0)),
+                () -> assertEquals(AccidentalValue.QUARTER_FLAT, key.getNonTraditionalKey().get(2)),
+                () -> assertEquals(Step.F, key.getNonTraditionalKey().get(3)),
+                () -> assertEquals(AccidentalValue.SHARP, key.getNonTraditionalKey().get(5))
         );
     }
 }
