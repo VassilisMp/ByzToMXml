@@ -19,7 +19,6 @@ import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.lang.String;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,9 +39,9 @@ public final class Engine {
     private final String fileName;
     private final ByzScale currentByzScale = ByzScale.get2OctavesScale();
     /**
-     * Map that holds fthoras as keys mapping to positions in the <code>noteList</code>
+     * Queue that holds fthoras as keys mapping to positions in the <code>noteList</code>
      */
-    private final Map<ByzScale, Integer> fthoraScalesMap = new LinkedHashMap<>();
+    private final Queue<AbstractMap.SimpleImmutableEntry<ByzScale, Integer>> fthoraScalesQueue = new LinkedList<>();
     private final Step initialStep;
     private final List<ByzChar> docChars;
     private final ByzStep relativeStandardStep;
@@ -245,9 +244,9 @@ public final class Engine {
                     return note.getDuration();
                 })
                 .reduce(durationSum, BigDecimal::add);
-        fthoraScalesMap.forEach((k, v) -> {
-            System.out.println(k);
-            System.out.println(v);
+        fthoraScalesQueue.forEach(k -> {
+            System.out.println(k.getKey());
+            System.out.println(k.getValue());
         });
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
             ScorePartwise scorePartwise = toScorePartwise();
@@ -482,192 +481,20 @@ public final class Engine {
         return IntStream.range(0, docChars.size()).filter(i1 -> docChars.get(i1) == char1).findFirst().orElse(-1);
     }
 
-    /*private void workingTest1Measure(ObjectFactory factory, ScorePartwise.Part part) {
-        // Measure
-        ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
-        part.getMeasure().add(measure);
-        measure.setNumber("1");
-
-        // Attributes
-        Attributes attributes = factory.createAttributes();
-        measure.getNoteOrBackupOrForward().add(attributes);
-
-        // Divisions
-        attributes.setDivisions(new BigDecimal(division));
-
-        // Key
-        Key key = factory.createKey();
-        attributes.getKey().add(key);
-        key.setFifths(new BigInteger("-1"));
-        key.setMode("minor");
-
-        // Time
-        Time time = factory.createTime();
-        attributes.getTime().add(time);
-        time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(noteList.size())));
-        time.getTimeSignature().add(factory.createTimeBeatType("4"));
-
-        // Clef
-        Clef clef = factory.createClef();
-        attributes.getClef().add(clef);
-        clef.setSign(ClefSign.G);
-        clef.setLine(new BigInteger("2"));
-
-        for (Note note : noteList) {
-            measure.getNoteOrBackupOrForward().add(note);
-        }
-    }*/
-
     BigDecimal getDurationSum() {
         return new BigDecimal(String.valueOf(durationSum));
     }
 
     private ScorePartwise toScorePartwise() throws Exception {
-        // Generated factory for all proxymusic elements
-        ObjectFactory factory = new ObjectFactory();
-
-        // Allocate the score partwise
-        ScorePartwise scorePartwise = factory.createScorePartwise();
-
-        // PartList
-        PartList partList = factory.createPartList();
-        scorePartwise.setPartList(partList);
-
-        // Scorepart in partList
-        ScorePart scorePart = factory.createScorePart();
-        partList.getPartGroupOrScorePart().add(scorePart);
-        scorePart.setId("P1");
-
-        PartName partName = factory.createPartName();
-        scorePart.setPartName(partName);
-        partName.setValue("Music");
-
         // ScorePart in scorePartwise
-        ScorePartwise.Part part = factory.createScorePartwisePart();
-        scorePartwise.getPart().add(part);
-        part.setId(scorePart);
-        //workingTest1Measure(factory, part);
-
-        addMeasures(factory, part, timeBeats);
-
-        return scorePartwise;
-    }
-
-    private void addMeasures(ObjectFactory factory, ScorePartwise.Part part, int timeBeats) throws Exception {
+        final Mxml.Part part = new Mxml.Part.Builder(noteList, division, timeBeats)
+                .build();
+        return new Mxml.ScorePartwise.Builder()
+                .setPart(part, "P1", "Music")
+                .build();
         /*
          * TODO use byzantine measure splitters to calculate, if they exist.
          *  must create ByzChar subclass first*/
-        // make lists of Notes according to the given timeBeats
-        ArrayList<List<Note>> noteLists = new ArrayList<>();
-        if (timeBeats > 0)
-            for (int i = 0, noteListSize = noteList.size(), index = i, durations = 0; i < noteListSize; i++) {
-                //measure.getNoteOrBackupOrForward().add(note);
-                Note note = noteList.get(i);
-                durations += note.getDuration().intValue();
-                if (durations == (division * timeBeats)) {
-                    noteLists.add(noteList.subList(index, i + 1));
-                    index = i + 1;
-                    durations = 0;
-                } else if (durations > (division * timeBeats)) {
-                    throw new Exception("error in noteLists");
-                }
-            }
-        else { // TODO finish this, find the right notetypes
-            for (int i = 0, noteListSize = noteList.size(), index = i, durations = 0; i < noteListSize; i++) {
-                if (i == 200)
-                    System.out.println();
-                Note note = noteList.get(i);
-                durations += note.getDuration().intValue();
-                for (int j = 2; j <= 12; j++) {
-                    if (durations == (division * j)) {
-                        noteLists.add(noteList.subList(index, i + 1));
-                        index = i + 1;
-                        durations = 0;
-                        break;
-                    }
-                }
-                /*if (durations == (TimeChar.division * 2) ||
-                        durations == (TimeChar.division * 3) ||
-                        durations == (TimeChar.division * 4) ||
-                        durations == (TimeChar.division * 5) ||
-                        durations == (TimeChar.division * 6) ||
-                        durations == (TimeChar.division * 7) ||
-                        durations == (TimeChar.division * 8) ) {
-                    noteLists.add(noteList.subList(index, i+1));
-                    index = i+1;
-                    durations = 0;
-                } else */
-                if (durations > (division * 12)) {
-                    throw new Exception("error in dividing measures, i=" + i + ", durations=" + durations);
-                }
-            }
-        }
-
-        // TODO use accidentals from fthoraScalesMap while inserting in measures
-        ArrayList<ScorePartwise.Part.Measure> measures = new ArrayList<>(noteLists.size());
-        for (int i = 1, noteListsSize = noteLists.size(); i < noteListsSize; i++) {
-            List<Note> notesList = noteLists.get(i);
-            ScorePartwise.Part.Measure partMeasure = factory.createScorePartwisePartMeasure();
-            partMeasure.setNumber(String.valueOf(i + 1));
-
-            Attributes attributes = factory.createAttributes();
-            partMeasure.getNoteOrBackupOrForward().add(attributes);
-            Integer reduce = notesList.stream().map(note -> note.getDuration().intValue()).reduce(0, Integer::sum);
-            // Time
-            Time time = factory.createTime();
-            attributes.getTime().add(time);
-            if (reduce % division != 0)
-                throw new Exception("wrong measure size, i=" + i + ", " + reduce + "/" + division);
-            time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(reduce / division)));
-            time.getTimeSignature().add(factory.createTimeBeatType("4"));
-
-            partMeasure.getNoteOrBackupOrForward().addAll(notesList);
-            measures.add(partMeasure);
-        }
-
-        addFirstMeasure(factory, part, noteLists.get(0));
-        part.getMeasure().addAll(measures);
-    }
-
-    private void addFirstMeasure(ObjectFactory factory, ScorePartwise.Part part, List<Note> notes) throws Exception {
-        // Measure
-        ScorePartwise.Part.Measure measure = factory.createScorePartwisePartMeasure();
-        part.getMeasure().add(measure);
-        measure.setNumber("1");
-
-        // Attributes
-        Attributes attributes = factory.createAttributes();
-        measure.getNoteOrBackupOrForward().add(attributes);
-
-        // Divisions
-        attributes.setDivisions(new BigDecimal(division));
-
-        // add starting Key
-        final ByzScale firstScale = (ByzScale) fthoraScalesMap.keySet().toArray()[0];
-        Key key = firstScale.getKey(STEPS_MAP, ByzStep.DI, null);
-        attributes.getKey().add(key);
-
-        // Time
-        Time time = factory.createTime();
-        attributes.getTime().add(time);
-
-        if (timeBeats > 0)
-            time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(timeBeats)));
-        else {
-            Integer reduce = notes.stream().map(note -> note.getDuration().intValue()).reduce(0, Integer::sum);
-            if (reduce % division != 0)
-                throw new Exception("wrong measure size, i=" + 0 + ", " + reduce + "/" + division);
-            time.getTimeSignature().add(factory.createTimeBeats(String.valueOf(reduce / division)));
-        }
-        time.getTimeSignature().add(factory.createTimeBeatType("4"));
-
-        // Clef
-        Clef clef = factory.createClef();
-        attributes.getClef().add(clef);
-        clef.setSign(ClefSign.G);
-        clef.setLine(new BigInteger("2"));
-
-        measure.getNoteOrBackupOrForward().addAll(notes);
     }
 
     private void mapValuesInsert() {
@@ -760,11 +587,39 @@ public final class Engine {
         return initialStep;
     }
 
-    Integer putFthoraScale(ByzScale k, Integer v) {
-        return fthoraScalesMap.put(k, v);
+    boolean putFthoraScale(ByzScale k, Integer v) {
+        return fthoraScalesQueue.add(new AbstractMap.SimpleImmutableEntry<>(k, v));
     }
 
     int getNoteListSize() {
         return noteList.size();
+    }
+
+    private ByzStep toByzStep(@NotNull Note note) {
+        final Step step = note.getPitch().getStep();
+        return STEPS_MAP.inverse().get(step);
+    }
+
+    private @Nullable Accidental commasToAccidental(int commas) {
+        final AccidentalValue accidentalValue = Martyria.ACCIDENTALS_MAP.get(commas);
+        if (accidentalValue == null) return null;
+        final Accidental accidental = new Accidental();
+        accidental.setValue(accidentalValue);
+        return accidental;
+    }
+
+    private @NotNull Map<Step, AccidentalValue> keyToMap(@NotNull Key key) {
+        // create Step to AccidentalValue map
+        final Map<Step, AccidentalValue> stepToAccidental = new HashMap<>(7);
+        // put all Steps as keys in map
+        Arrays.stream(Step.values()).forEach(step -> stepToAccidental.put(step, null));
+        // get
+        List<Object> nonTraditionalKey = key.getNonTraditionalKey();
+        for (int i = 0; i < nonTraditionalKey.size(); i+=3) {
+            Step step = (Step) nonTraditionalKey.get(i);
+            AccidentalValue accidentalValue = (AccidentalValue) nonTraditionalKey.get(i + 2);
+            stepToAccidental.put(step, accidentalValue);
+        }
+        return stepToAccidental;
     }
 }

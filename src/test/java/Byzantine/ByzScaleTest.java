@@ -6,8 +6,7 @@ import org.audiveris.proxymusic.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static Byzantine.ByzScale.SOFT_DIATONIC;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -109,5 +108,15 @@ class ByzScaleTest {
                 () -> assertEquals(Step.F, key.getNonTraditionalKey().get(3)),
                 () -> assertEquals(AccidentalValue.SHARP, key.getNonTraditionalKey().get(5))
         );
+    }
+
+    @Test
+    void general() {
+        final Queue<AbstractMap.SimpleImmutableEntry<Integer, String>> queue = new LinkedList<>();
+        for (int i = 0; i < 10; i++) {
+            final AbstractMap.SimpleImmutableEntry<Integer, String> entry =
+                    new AbstractMap.SimpleImmutableEntry<>(i, String.format("%d", i));
+            queue.add(entry);
+        }
     }
 }
