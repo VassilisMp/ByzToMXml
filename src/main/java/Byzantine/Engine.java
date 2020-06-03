@@ -48,7 +48,7 @@ public final class Engine {
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     int division;
-    List<Note> noteList;
+    List<Mxml.Note> noteList;
     BiMap<String, Integer> noteTypeMap = HashBiMap.create();
     private BigDecimal durationSum;
     private int timeBeats;
@@ -79,7 +79,7 @@ public final class Engine {
         this.noteList = new ArrayList<>();
         this.docChars = new ArrayList<>();
         // Note 0 ---
-        org.audiveris.proxymusic.Note note = new Mxml.Note(true, true, this.initialStep, 4,
+        Mxml.Note note = new Mxml.Note(true, true, this.initialStep, 4,
                 division, Mxml.Note.NoteTypeEnum.QUARTER.noteType);
         noteList.add(note);
 
@@ -301,13 +301,10 @@ public final class Engine {
                 tChar.accept(this);
                 if (moves != null) {
                     // reset Time values on the notes
-                    List<org.audiveris.proxymusic.Note> notes = noteList.subList(noteList.size() - moves.size(), noteList.size());
+                    List<Mxml.Note> notes = noteList.subList(noteList.size() - moves.size(), noteList.size());
                     for (int i1 = 0; i1 < notes.size(); i1++) {
-                        org.audiveris.proxymusic.Note note = notes.get(i1);
-                        if (note instanceof Mxml.Note) {
-                            Mxml.Note exNote = (Mxml.Note) note;
-                            exNote.setTime(moves.get(i1).getTime());
-                        }
+                        Mxml.Note note = notes.get(i1);
+                        note.setTime(moves.get(i1).getTime());
                     }
                 }
                 continue;
@@ -564,7 +561,7 @@ public final class Engine {
     }
 
     int getIndex() {
-        ListIterator<org.audiveris.proxymusic.Note> iterator = noteList.listIterator(noteList.size());
+        ListIterator<Mxml.Note> iterator = noteList.listIterator(noteList.size());
         while (iterator.hasPrevious())
             if (((Mxml.Note) iterator.previous()).canGetTime())
                 return iterator.nextIndex();
@@ -573,7 +570,7 @@ public final class Engine {
 
     @Nullable Step getLastNoteStep() {
         if (noteList.size() < 1) return null;
-        ListIterator<org.audiveris.proxymusic.Note> noteListIterator = noteList.listIterator(noteList.size());
+        ListIterator<Mxml.Note> noteListIterator = noteList.listIterator(noteList.size());
         while (noteListIterator.hasPrevious()) {
             org.audiveris.proxymusic.Note note = noteListIterator.previous();
             if (note.getPitch() != null)

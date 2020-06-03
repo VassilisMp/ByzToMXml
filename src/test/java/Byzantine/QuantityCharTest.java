@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class QuantityCharTest {
 
     private static Engine engine;
-    private static List<org.audiveris.proxymusic.Note> noteList;
+    private static List<Mxml.Note> noteList;
     private static QuantityChar qChar;
 
 
@@ -26,7 +26,7 @@ class QuantityCharTest {
     static void setUpBeforeAll() {
         engine = new Engine(1);
         engine.noteList = noteList = new ArrayList<>();
-        org.audiveris.proxymusic.Note note = new Note(true, false);
+        Mxml.Note note = new Note(true, false);
         noteList.add(note);
 
         // Pitch

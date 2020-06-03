@@ -54,7 +54,7 @@ public class Measure extends Part.Measure {
             return this;
         }
 
-        public Builder setNotes(List<Note> noteList) {
+        public Builder setNotes(List<Mxml.Note> noteList) {
             this.noteList = noteList;
             return this;
         }

@@ -63,7 +63,7 @@ public class TimeChar extends ByzChar{
 
     @Override
     public void accept(Engine engine) {// TODO finish if statement code L124, it's dot after pause
-        List<org.audiveris.proxymusic.Note> notes = engine.noteList;
+        List<Mxml.Note> notes = engine.noteList;
         int argoDivs = 0;
         if (argo) {
             argoDivs = -divisions;
@@ -82,12 +82,12 @@ public class TimeChar extends ByzChar{
         }
         if (divisions > 0) {
             int index = engine.getIndex();
-            List<org.audiveris.proxymusic.Note> subList = notes.subList(index - 1, index + divisions);
+            List<Mxml.Note> subList = notes.subList(index - 1, index + divisions);
             int addedTime;
             if (dotPlace == 0) {
                 if (engine.division % (divisions + 1) != 0) engine.changeDivision(divisions + 1);
             } else if (engine.division % (divisions + 2) != 0) engine.changeDivision(divisions + 2);
-            org.audiveris.proxymusic.Note tieNote = null;
+            Mxml.Note tieNote = null;
             int tieNoteIndex = 0;
             for (int i = 0; i < subList.size(); i++) {
                 addedTime = dotPlace == 0 ? engine.division / (divisions + 1) : engine.division / (divisions + 2);
@@ -203,7 +203,7 @@ public class TimeChar extends ByzChar{
             divisions = argoDivs;
         }
         if (divisions < 0) {
-            org.audiveris.proxymusic.Note note = argo ? notes.get(engine.getIndex() + 1) : notes.get(engine.getIndex());
+            Mxml.Note note = argo ? notes.get(engine.getIndex() + 1) : notes.get(engine.getIndex());
             int duration = note.getDuration().intValue() + (Math.abs(divisions) * engine.division);
             String noteTypeS = engine.noteTypeMap.inverse().get(duration);
             if (noteTypeS != null) {
@@ -211,7 +211,7 @@ public class TimeChar extends ByzChar{
                 checkDots(note);
             } else {
                 int b = (duration / engine.division) *engine.division;
-                org.audiveris.proxymusic.Note newNote = Cloner.deepClone(note);
+                Mxml.Note newNote = Cloner.deepClone(note);
                 noteTypeS = engine.noteTypeMap.inverse().get(b);
                 if (noteTypeS == null) throw new NullPointerException("String noteType doesn't exist");
                 setDurAndType(newNote, b, noteTypeS);

@@ -82,7 +82,7 @@ public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> 
 
     public void accept(Engine engine) {
         for (Move move : moves) {
-            org.audiveris.proxymusic.Note note = new Mxml.Note(move.getLyric(), move.getTime());
+            Mxml.Note note = new Mxml.Note(move.getLyric(), move.getTime());
             Pitch pitch = getLastPitch(engine.noteList);
             Step step = pitch.getStep();
             int octave = pitch.getOctave();
@@ -123,8 +123,8 @@ public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> 
     // this method was created to overpass previous notes that are rests
     // return last non null Pitch in noteList
     @NotNull
-    static Pitch getLastPitch(@NotNull List<org.audiveris.proxymusic.Note> notes) {
-        ListIterator<org.audiveris.proxymusic.Note> iterator = notes.listIterator(notes.size());
+    static Pitch getLastPitch(@NotNull List<Mxml.Note> notes) {
+        ListIterator<Mxml.Note> iterator = notes.listIterator(notes.size());
         Pitch pitch = null;
         while (iterator.hasPrevious()) {
             Mxml.Note exNote = (Mxml.Note) iterator.previous();

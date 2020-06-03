@@ -1,6 +1,5 @@
 package Mxml;
 
-import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.ScorePartwise;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,7 +22,7 @@ public class Part extends ScorePartwise.Part {
         private final Integer division;
         private final Integer timeBeats;
 
-        public Builder(List<Note> notes, Integer division, Integer timeBeats) {
+        public Builder(List<Mxml.Note> notes, Integer division, Integer timeBeats) {
             this.notes = notes;
             this.division = division;
             this.timeBeats = timeBeats;
@@ -44,7 +43,7 @@ public class Part extends ScorePartwise.Part {
             ArrayList<Measure> measures = new ArrayList<>(lists.size());
             // iterate noteLists to create measures
             for (int i = 0, noteListsSize = lists.size(); i < noteListsSize; i++) {
-                List<Note> notesList = lists.get(i);
+                List<Mxml.Note> notesList = lists.get(i);
                 // create measure
                 Measure partMeasure = new Mxml.Measure.Builder(i + 1, division)
                         .setTimeSignature(timeBeats, 4)
