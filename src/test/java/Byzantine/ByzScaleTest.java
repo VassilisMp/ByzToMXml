@@ -6,7 +6,10 @@ import org.audiveris.proxymusic.Step;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 
 import static Byzantine.ByzScale.SOFT_DIATONIC;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -91,8 +94,7 @@ class ByzScaleTest {
 
     @Test
     void getKey() {
-        final Map<ByzStep, Step> STEPS_MAP = new HashMap<>(7);
-        Engine.setDefaultStepsMap(STEPS_MAP);
+        final Map<ByzStep, Step> STEPS_MAP = Engine.STEPS_MAP;
         final ByzScale byzScale = new ByzScale(SOFT_DIATONIC);
         ByzScale.initAccidentalCommas(disDiapaswn, ByzStep.DI);
         final Key key = disDiapaswn.getKey(STEPS_MAP, ByzStep.DI, null);

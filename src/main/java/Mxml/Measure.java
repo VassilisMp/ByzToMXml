@@ -15,7 +15,7 @@ public class Measure extends Part.Measure {
     public static class Builder {
 
         private final int measureNumber;
-        private Integer division;
+        private final Integer division;
         private Key key = null;
         private Integer numerator = null;
         private Integer denominator = null;
@@ -24,7 +24,7 @@ public class Measure extends Part.Measure {
         private BigInteger clefLine = null;
         private List<Note> noteList = null;
 
-        private ObjectFactory factory = new ObjectFactory();
+        private final ObjectFactory factory = new ObjectFactory();
 
         public Builder(int measureNumber, int division) {
             this.measureNumber = measureNumber;

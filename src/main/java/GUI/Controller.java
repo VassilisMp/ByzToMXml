@@ -39,7 +39,7 @@ public class Controller implements Initializable {
     @FXML
     void startButtonOnAction(ActionEvent event) {
         try {
-            Byzantine.Engine engine = new Byzantine.Engine(selectedFile.getPath(), Step.A, 1).setTimeBeats(4);
+            Byzantine.Engine engine = new Byzantine.Engine(selectedFile.getPath(), Step.A).setTimeBeats(4);
             engine.run();
         } catch (JAXBException | IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TimeCharTest {
-    private Engine engine = new Engine(1);
+    private Engine engine = new Engine();
     private TimeChar timeChar;
 
     @AfterEach

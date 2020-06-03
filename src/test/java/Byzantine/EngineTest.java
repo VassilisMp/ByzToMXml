@@ -13,7 +13,7 @@ class EngineTest {
 
     @Test
     void runA() throws Exception {
-        engine = new Engine("a.docx", Step.G, 1).setTimeBeats(0);
+        engine = new Engine("a.docx", Step.G).setTimeBeats(0);
         engine.run();
         System.out.println(engine.getDurationSum());
         assertAll(
@@ -24,7 +24,7 @@ class EngineTest {
 
     @Test
     void runElpiza() throws Exception {
-        engine = new Engine("elpiza.docx", Step.A, 1).setTimeBeats(4);
+        engine = new Engine("elpiza.docx", Step.A).setTimeBeats(4);
         engine.run();
         System.out.println(engine.getDurationSum());
         assertAll(
@@ -35,7 +35,7 @@ class EngineTest {
 
     @Test
     void runDynamis() throws Exception {
-        engine = new Engine("dynamis_k_ioannidh.docx", Step.A, 1).setTimeBeats(0);
+        engine = new Engine("dynamis_k_ioannidh.docx", Step.A).setTimeBeats(0);
         engine.run();
         System.out.println(engine.getDurationSum());
         assertAll(
@@ -46,7 +46,7 @@ class EngineTest {
 
     @Test
     void runMakarios() throws Exception {
-        engine = new Engine("makarios_anir_syntoma_fokaeos.docx", Step.G, 1).setTimeBeats(0);
+        engine = new Engine("makarios_anir_syntoma_fokaeos.docx", Step.G).setTimeBeats(0);
         engine.run();
         System.out.println(engine.getDurationSum());
         assertAll(

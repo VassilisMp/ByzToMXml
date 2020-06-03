@@ -24,7 +24,7 @@ class QuantityCharTest {
 
     @BeforeAll
     static void setUpBeforeAll() {
-        engine = new Engine(1);
+        engine = new Engine();
         engine.noteList = noteList = new ArrayList<>();
         Mxml.Note note = new Note(true, false);
         noteList.add(note);

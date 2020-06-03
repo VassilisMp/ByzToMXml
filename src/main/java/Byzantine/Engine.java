@@ -3,9 +3,7 @@ package Byzantine;
 import Byzantine.Annotations.NotSupported;
 import Byzantine.Exceptions.NotSupportedException;
 import com.google.common.base.Charsets;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Lists;
+import com.google.common.collect.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -19,6 +17,7 @@ import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.lang.String;
 import java.math.BigDecimal;
+import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,64 +27,58 @@ import static org.audiveris.proxymusic.util.Marshalling.getContext;
 
 public final class Engine {
     static final String JSON_CHARS_FILE = "chars.json";
+    @UnmodifiableView
+    static final ImmutableBiMap<ByzStep, Step> STEPS_MAP = getDefaultStepsMap();
+    @UnmodifiableView
     private static final List<ByzChar> charList = Collections.unmodifiableList(getCharList());
+    @UnmodifiableView
     private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     /**
      * The best mapping from European to Byzantine hard-diatonic scale, without the need of turkish accidentals
      */
-    private static final Map<Step, ByzStep> STANDARD_MAP = getEuropeanToByzantineMap();
-    private final BiMap<ByzStep, Step> STEPS_MAP = HashBiMap.create(7);
+    @UnmodifiableView
+    private static final ImmutableMap<Step, ByzStep> STANDARD_MAP = getEuropeanToByzantineMap();
+    /**
+     * The relative European step for Byzantine step NH of this engine converted to byzStep again,
+     * via use of STEPS_MAP and STANDARD_MAP, use of STANDARD_MAP is required because everything is calculated using ByzScales.
+     * e.g. STEPS_MAP: NH->G, STANDARD_MAP: G->DI
+     */
+    private static final ByzStep relativeStandardStep = STANDARD_MAP.get(byzStepToStep(ByzStep.NH));
     private final XWPFDocument docx;
     private final String fileName;
     private final ByzScale currentByzScale = ByzScale.get2OctavesScale();
     /**
      * Queue that holds fthoras as keys mapping to positions in the <code>noteList</code>
      */
-    private final Queue<AbstractMap.SimpleImmutableEntry<ByzScale, Integer>> fthoraScalesQueue = new LinkedList<>();
+    private final Queue<SimpleImmutableEntry<ByzScale, Integer>> fthoraScalesQueue = new LinkedList<>();
     private final Step initialStep;
-    private final List<ByzChar> docChars;
-    private final ByzStep relativeStandardStep;
+    private final List<ByzChar> docChars = new ArrayList<>();
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
-    int division;
-    List<Mxml.Note> noteList;
-    BiMap<String, Integer> noteTypeMap = HashBiMap.create();
-    private BigDecimal durationSum;
-    private int timeBeats;
+    int division = 1;
+    List<Mxml.Note> noteList = new ArrayList<>();
+    BiMap<String, Integer> noteTypeMap = initializeNoteTypeMap();
+    private BigDecimal durationSum = BigDecimal.ZERO;
+    private Integer timeBeats = null;
 
     // instances of Engine are immutable
-    public Engine(int division) {
-        this.division = division;
-        mapValuesInsert();
-        noteList = new ArrayList<>();
+    public Engine() {
         this.docx = null;
         fileName = null;
         initialStep = Step.C;
-        docChars = null;
-        relativeStandardStep = null;
     }
 
-    public Engine(String filePath, Step initialStep, int division) throws IOException {
+    public Engine(String filePath, Step initialStep) throws IOException {
         Matcher matcher = Pattern.compile("(.*/)*(.*)(\\.docx?)").matcher(filePath);
         if (matcher.find())
             this.fileName = matcher.group(2);
         else throw new FileNotFoundException("couldn't match filename");
-        this.division = division;
         this.initialStep = initialStep;
-        noteTypeMap.clear();
-        initializeNoteTypeMap();
-        this.durationSum = BigDecimal.ZERO;
         this.docx = new XWPFDocument(new FileInputStream(filePath));
-        this.noteList = new ArrayList<>();
-        this.docChars = new ArrayList<>();
         // Note 0 ---
         Mxml.Note note = new Mxml.Note(true, true, this.initialStep, 4,
                 division, Mxml.Note.NoteTypeEnum.QUARTER.noteType);
         noteList.add(note);
-
-        setDefaultStepsMap(STEPS_MAP);
-
-        relativeStandardStep = STANDARD_MAP.get(byzStepToStep(ByzStep.NH));
         initAccidentalCommas();
         this.putFthoraScale(new ByzScale(this.currentByzScale), 0);
     }
@@ -93,20 +86,19 @@ public final class Engine {
     /**
      * @return the Map to initialize STANDARD_MAP
      */
-    private static @NotNull @UnmodifiableView Map<Step, ByzStep> getEuropeanToByzantineMap() {
-        HashMap<Step, ByzStep> stepMap = new HashMap<>();
-        stepMap.put(Step.C, ByzStep.NH);
-        stepMap.put(Step.D, ByzStep.PA);
-        stepMap.put(Step.E, ByzStep.BOU);
-        stepMap.put(Step.F, ByzStep.GA);
-        stepMap.put(Step.G, ByzStep.DI);
-        stepMap.put(Step.A, ByzStep.KE);
-        stepMap.put(Step.B, ByzStep.ZW);
-        return Collections.unmodifiableMap(stepMap);
+    private static @NotNull @UnmodifiableView ImmutableMap<Step, ByzStep> getEuropeanToByzantineMap() {
+        return new ImmutableMap.Builder<Step, ByzStep>()
+                .put(Step.C, ByzStep.NH)
+                .put(Step.D, ByzStep.PA)
+                .put(Step.E, ByzStep.BOU)
+                .put(Step.F, ByzStep.GA)
+                .put(Step.G, ByzStep.DI)
+                .put(Step.A, ByzStep.KE)
+                .put(Step.B, ByzStep.ZW)
+                .build();
     }
 
-    @NotNull
-    private static @UnmodifiableView Map<String, ByzClass> getByzClassMap() {
+    private static @NotNull @UnmodifiableView Map<String, ByzClass> getByzClassMap() {
         /* TODO Palaia fonts not supported
          * because of different character matching to Byzantine fonts
          * maybe I'll have to make the matching*/
@@ -163,36 +155,44 @@ public final class Engine {
         return new ByzCharDeSerialize().fromJson(json);
     }
 
-    void initAccidentalCommas() {
-        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep);
-    }
-
-    private void initializeNoteTypeMap() {
+    private static @NotNull HashBiMap<String, Integer> initializeNoteTypeMap() {
         // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
-        noteTypeMap.put("maxima", division * 28);
-        noteTypeMap.put("long", division * 16);
-        noteTypeMap.put("breve", division * 8);
-        noteTypeMap.put("whole", division * 4);
-        noteTypeMap.put("half", division * 2);
-        noteTypeMap.put("quarter", division);
-        if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
+        final HashBiMap<String, Integer> noteTypeMap = HashBiMap.create();
+        noteTypeMap.put("maxima", /*division * */28);
+        noteTypeMap.put("long", /*division * */16);
+        noteTypeMap.put("breve", /*division * */8);
+        noteTypeMap.put("whole", /*division * */4);
+        noteTypeMap.put("half", /*division * */2);
+        noteTypeMap.put("quarter", /*division*/1);
+        /*if (division % 2 == 0) noteTypeMap.put("eighth", division / 2);
         if (division % 4 == 0) noteTypeMap.put("16th", division / 4);
         if (division % 8 == 0) noteTypeMap.put("32nd", division / 8);
         if (division % 16 == 0) noteTypeMap.put("64th", division / 16);
         if (division % 32 == 0) noteTypeMap.put("128th", division / 32);
         if (division % 64 == 0) noteTypeMap.put("256th", division / 64);
         if (division % 128 == 0) noteTypeMap.put("512th", division / 128);
-        if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
+        if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);*/
+        return noteTypeMap;
     }
 
-    static void setDefaultStepsMap(@NotNull Map<ByzStep, Step> STEPS_MAP) {
-        STEPS_MAP.put(ByzStep.NH, Step.G);
-        STEPS_MAP.put(ByzStep.PA, Step.A);
-        STEPS_MAP.put(ByzStep.BOU, Step.B);
-        STEPS_MAP.put(ByzStep.GA, Step.C);
-        STEPS_MAP.put(ByzStep.DI, Step.D);
-        STEPS_MAP.put(ByzStep.KE, Step.E);
-        STEPS_MAP.put(ByzStep.ZW, Step.F);
+    private static @NotNull @UnmodifiableView ImmutableBiMap<ByzStep, Step> getDefaultStepsMap() {
+        return new ImmutableBiMap.Builder<ByzStep, Step>()
+                .put(ByzStep.NH, Step.G)
+                .put(ByzStep.PA, Step.A)
+                .put(ByzStep.BOU, Step.B)
+                .put(ByzStep.GA, Step.C)
+                .put(ByzStep.DI, Step.D)
+                .put(ByzStep.KE, Step.E)
+                .put(ByzStep.ZW, Step.F)
+                .build();
+    }
+
+    static Step byzStepToStep(ByzStep byzStep) {
+        return STEPS_MAP.get(byzStep);
+    }
+
+    void initAccidentalCommas() {
+        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep);
     }
 
     public Engine setTimeBeats(int timeBeats) {
@@ -202,7 +202,7 @@ public final class Engine {
 
     void setDivision(int division) {
         this.division = division;
-        mapValuesInsert();
+        mapValuesUpdate();
     }
 
     public ByzScale getCurrentByzScale() {
@@ -211,19 +211,6 @@ public final class Engine {
 
     ByzStep stepToByzStep(Step step) {
         return STEPS_MAP.inverse().get(step);
-    }
-
-    Step byzStepToStep(ByzStep byzStep) {
-        return STEPS_MAP.get(byzStep);
-    }
-
-    /**
-     * @return the relative European step for Byzantine step NH of this engine converted to byzStep again,
-     * via use of STEPS_MAP and STANDARD_MAP, use of STANDARD_MAP is required because everything is calculated using ByzScales.
-     * e.g. STEPS_MAP: NH->G, STANDARD_MAP: G->DI
-     */
-    ByzStep getRelativeStandardStep() {
-        return relativeStandardStep;
     }
 
     public void run() throws Exception {
@@ -248,6 +235,16 @@ public final class Engine {
             System.out.println(k.getKey());
             System.out.println(k.getValue());
         });
+        /*SimpleImmutableEntry<ByzScale, Integer> curScale = fthoraScalesQueue.poll();
+        for (int i = 0; i < noteList.size(); i++) {
+            Mxml.Note note = noteList.get(i);
+            if (curScale.getValue() == i) curScale = fthoraScalesQueue.poll();
+            final ByzStep byzStep = toByzStep(note);
+            final int byzOctave = note.getByzOctave();
+            final Martyria martyria = curScale.getKey()
+                    .getMartyria(byzStep, byzOctave);
+            note.setAccidentalCommmas(martyria.getAccidentalCommas());
+        }*/
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
             ScorePartwise scorePartwise = toScorePartwise();
             Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
@@ -343,15 +340,15 @@ public final class Engine {
                     // if there is lyrics in the StringBuilder and a QuantityChar was added then add the lyrics in the last QChar
                     if (sb.length() > 0 && (qCharAdded || mCharAdded)) {
                         @SuppressWarnings("rawtypes")
-                        Class clas = qCharAdded ? QuantityChar.class : MixedChar.class;
+                        Class clazz = qCharAdded ? QuantityChar.class : MixedChar.class;
                         qCharAdded = mCharAdded = false;
                         // find the last QChar which may also be in a MixedChar
                         Lists.reverse(docChars).stream()
-                                .filter(clas::isInstance)
+                                .filter(clazz::isInstance)
                                 .findFirst()
                                 .ifPresent(character -> {
                                     // if MixedChar then find the last QChar in the MixedChar
-                                    if (clas == MixedChar.class) {
+                                    if (clazz == MixedChar.class) {
                                         for (ByzChar m : ((MixedChar) character))
                                             if (m instanceof QuantityChar) {
                                                 character = m;
@@ -494,8 +491,8 @@ public final class Engine {
          *  must create ByzChar subclass first*/
     }
 
-    private void mapValuesInsert() {
-        noteTypeMap.clear();
+    private void mapValuesUpdate() {
+//        noteTypeMap.clear();
         // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
         noteTypeMap.put("maxima..", division * 49);
         noteTypeMap.put("maxima.", division * 42);
@@ -548,22 +545,18 @@ public final class Engine {
         if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
     }
 
-    void changeDivision(int num) {
-        division *= num;
-        // reInsert the values in the map to add those supported by the new measure division
-        mapValuesInsert();
+    void changeDivision(int multiplier) {
+        division *= multiplier;
         // change the duration of all notes according to the new corresponding to the new division value
-        noteList.forEach(note -> {
-            int newValue = note.getDuration().intValue();
-            newValue *= num;
-            note.setDuration(new BigDecimal(newValue));
-        });
+        noteList.parallelStream().forEach(note -> note.updateDivision(multiplier));
+        // reInsert the values in the map to add those supported by the new measure division
+        mapValuesUpdate();
     }
 
     int getIndex() {
         ListIterator<Mxml.Note> iterator = noteList.listIterator(noteList.size());
         while (iterator.hasPrevious())
-            if (((Mxml.Note) iterator.previous()).canGetTime())
+            if (iterator.previous().canGetTime())
                 return iterator.nextIndex();
         throw new NullPointerException("Couldn't find a Note that canGetTime()");
     }
@@ -585,16 +578,15 @@ public final class Engine {
     }
 
     boolean putFthoraScale(ByzScale k, Integer v) {
-        return fthoraScalesQueue.add(new AbstractMap.SimpleImmutableEntry<>(k, v));
+        return fthoraScalesQueue.add(new SimpleImmutableEntry<>(k, v));
     }
 
     int getNoteListSize() {
         return noteList.size();
     }
 
-    private ByzStep toByzStep(@NotNull org.audiveris.proxymusic.Note note) {
-        final Step step = note.getPitch().getStep();
-        return STEPS_MAP.inverse().get(step);
+    private ByzStep toByzStep(@NotNull Mxml.Note note) {
+        return STEPS_MAP.inverse().get(note.getStep());
     }
 
     private @Nullable Accidental commasToAccidental(int commas) {
@@ -612,11 +604,15 @@ public final class Engine {
         Arrays.stream(Step.values()).forEach(step -> stepToAccidental.put(step, null));
         // get
         List<Object> nonTraditionalKey = key.getNonTraditionalKey();
-        for (int i = 0; i < nonTraditionalKey.size(); i+=3) {
+        for (int i = 0; i < nonTraditionalKey.size(); i += 3) {
             Step step = (Step) nonTraditionalKey.get(i);
             AccidentalValue accidentalValue = (AccidentalValue) nonTraditionalKey.get(i + 2);
             stepToAccidental.put(step, accidentalValue);
         }
         return stepToAccidental;
+    }
+
+    public static class Builder {
+
     }
 }

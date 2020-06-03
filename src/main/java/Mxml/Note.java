@@ -3,6 +3,7 @@ package Mxml;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 
@@ -22,7 +23,7 @@ public final class Note extends org.audiveris.proxymusic.Note implements Cloneab
     private boolean time;
     private Integer accidentalCommmas = null;
 
-    public Note(Note note) {
+    public Note(@NotNull Note note) {
         this(note.lyric, note.time);
         pitch = new Pitch();
         pitch.setStep(Step.valueOf(note.pitch.getStep().toString()));
@@ -30,6 +31,7 @@ public final class Note extends org.audiveris.proxymusic.Note implements Cloneab
         duration = new BigDecimal(note.duration.intValue());
         type = new NoteType();
         type.setValue(note.type.getValue());
+        this.accidentalCommmas = note.accidentalCommmas;
     }
 
     public Note(boolean lyric, boolean time) {
@@ -72,9 +74,25 @@ public final class Note extends org.audiveris.proxymusic.Note implements Cloneab
         this.accidentalCommmas = accidentalCommmas;
     }
 
+    public Step getStep() {
+        return pitch.getStep();
+    }
+
+    public int getOctave() {
+        return getPitch().getOctave();
+    }
+
+    public int getByzOctave() {
+        return getOctave() - 5;
+    }
+
+    public void updateDivision(int multiplier) {
+        setDuration(getDuration().multiply(BigDecimal.valueOf(multiplier)));
+    }
+
     @Override
     public String toString() {
-        return "ExtendedNote{" +
+        return "Note{" +
                 "lyric=" + lyric +
                 ", time=" + time +
                 ", pitch=" + (pitch!=null?pitch.getStep() + "" + pitch.getOctave():"null") +
