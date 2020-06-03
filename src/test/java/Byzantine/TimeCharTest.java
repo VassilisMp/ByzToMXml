@@ -25,11 +25,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -65,11 +65,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 3; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -110,11 +110,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 4; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -154,11 +154,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 5; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -202,8 +202,8 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
-            note = new ExtendedNote(true, true);
+            org.audiveris.proxymusic.Note note;
+            note = new Mxml.Note(true, true);
             engine.noteList.add(note);
 
             // Pitch
@@ -251,11 +251,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 3; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1 || i==0)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -310,11 +310,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 4; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1 || i==0)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -369,11 +369,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 5; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1 || i==0)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -432,8 +432,8 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
-            note = new ExtendedNote(true, true);
+            org.audiveris.proxymusic.Note note;
+            note = new Mxml.Note(true, true);
             engine.noteList.add(note);
 
             // Pitch
@@ -481,11 +481,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -523,11 +523,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -565,11 +565,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 3; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -607,11 +607,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 4; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -653,8 +653,8 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
-            note = new ExtendedNote(true, true);
+            org.audiveris.proxymusic.Note note;
+            note = new Mxml.Note(true, true);
             engine.noteList.add(note);
 
             // Pitch
@@ -707,8 +707,8 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
-            note = new ExtendedNote(true, true);
+            org.audiveris.proxymusic.Note note;
+            note = new Mxml.Note(true, true);
             engine.noteList.add(note);
 
             // Pitch
@@ -759,8 +759,8 @@ class TimeCharTest {
         
 
 
-        Note note;
-        note = new ExtendedNote(true, true);
+        org.audiveris.proxymusic.Note note;
+        note = new Mxml.Note(true, true);
         engine.noteList.add(note);
 
         // Pitch
@@ -796,11 +796,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 4; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1 | i == 2)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -856,11 +856,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 4; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1 | i == 2)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -921,11 +921,11 @@ class TimeCharTest {
 
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 0)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -958,11 +958,11 @@ class TimeCharTest {
     void testGorgonXronos() {
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -999,11 +999,11 @@ class TimeCharTest {
     void testGorgonXronos2() {
         for (int i = 0; i < 2; i++) {
             // Note
-            Note note;
+            org.audiveris.proxymusic.Note note;
             if (i == 1)
-                note = new ExtendedNote(true, true);
+                note = new Mxml.Note(true, true);
             else
-                note = new ExtendedNote(true, false);
+                note = new Mxml.Note(true, false);
             engine.noteList.add(note);
 
             // Pitch
@@ -1040,7 +1040,7 @@ class TimeCharTest {
     @Test
     void testIfNullInNotations() {
         assertAll(
-                () -> assertNotNull(new ExtendedNote(true, true).getNotations()),
+                () -> assertNotNull(new Mxml.Note(true, true).getNotations()),
                 () -> assertNotNull(new Notations().getTiedOrSlurOrTuplet())
         );
     }

@@ -1,6 +1,5 @@
 package Byzantine;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
@@ -64,7 +63,7 @@ public class TimeChar extends ByzChar{
 
     @Override
     public void accept(Engine engine) {// TODO finish if statement code L124, it's dot after pause
-        List<Note> notes = engine.noteList;
+        List<org.audiveris.proxymusic.Note> notes = engine.noteList;
         int argoDivs = 0;
         if (argo) {
             argoDivs = -divisions;
@@ -72,7 +71,7 @@ public class TimeChar extends ByzChar{
         }
         // varia-dot
         if (this.getByzClass() == Byzantine.ByzClass.L && this.getCodePoint() == 92) {
-            ExtendedNote note = new ExtendedNote(false, true);
+            Mxml.Note note = new Mxml.Note(false, true);
             note.setDuration(BigDecimal.valueOf(engine.division));
             NoteType noteType = new NoteType();
             noteType.setValue("quarter");
@@ -83,16 +82,16 @@ public class TimeChar extends ByzChar{
         }
         if (divisions > 0) {
             int index = engine.getIndex();
-            List<Note> subList = notes.subList(index - 1, index + divisions);
+            List<org.audiveris.proxymusic.Note> subList = notes.subList(index - 1, index + divisions);
             int addedTime;
             if (dotPlace == 0) {
                 if (engine.division % (divisions + 1) != 0) engine.changeDivision(divisions + 1);
             } else if (engine.division % (divisions + 2) != 0) engine.changeDivision(divisions + 2);
-            Note tieNote = null;
+            org.audiveris.proxymusic.Note tieNote = null;
             int tieNoteIndex = 0;
             for (int i = 0; i < subList.size(); i++) {
                 addedTime = dotPlace == 0 ? engine.division / (divisions + 1) : engine.division / (divisions + 2);
-                Note note = subList.get(i);
+                org.audiveris.proxymusic.Note note = subList.get(i);
                 int duration = note.getDuration().intValue();
                 String noteType;
                 if (duration > engine.division) {
@@ -107,7 +106,7 @@ public class TimeChar extends ByzChar{
                     }
                     if (i == dotPlace - 1) addedTime1 *= 2;
                     note.setDuration(new BigDecimal(addedTime1));
-                    tieNote = (Note) ((ExtendedNote) note).clone();
+                    tieNote = new Mxml.Note((Mxml.Note)note);
                     tieNoteIndex = i;
                     int tDuration = duration - engine.division; //((duration / engine.division) * engine.division) - engine.division;
                     tieNote.getType().setValue(engine.noteTypeMap.inverse().get(tDuration));
@@ -204,7 +203,7 @@ public class TimeChar extends ByzChar{
             divisions = argoDivs;
         }
         if (divisions < 0) {
-            Note note = argo ? notes.get(engine.getIndex() + 1) : notes.get(engine.getIndex());
+            org.audiveris.proxymusic.Note note = argo ? notes.get(engine.getIndex() + 1) : notes.get(engine.getIndex());
             int duration = note.getDuration().intValue() + (Math.abs(divisions) * engine.division);
             String noteTypeS = engine.noteTypeMap.inverse().get(duration);
             if (noteTypeS != null) {
@@ -212,7 +211,7 @@ public class TimeChar extends ByzChar{
                 checkDots(note);
             } else {
                 int b = (duration / engine.division) *engine.division;
-                Note newNote = Cloner.deepClone(note);
+                org.audiveris.proxymusic.Note newNote = Cloner.deepClone(note);
                 noteTypeS = engine.noteTypeMap.inverse().get(b);
                 if (noteTypeS == null) throw new NullPointerException("String noteType doesn't exist");
                 setDurAndType(newNote, b, noteTypeS);
@@ -223,7 +222,7 @@ public class TimeChar extends ByzChar{
         }
     }
 
-    private static void setDurAndType(@NotNull Note note, int duration, String noteType) {
+    private static void setDurAndType(@NotNull org.audiveris.proxymusic.Note note, int duration, String noteType) {
         note.setDuration(BigDecimal.valueOf(duration));
         NoteType type = new NoteType();
         type.setValue(noteType);
@@ -242,7 +241,7 @@ public class TimeChar extends ByzChar{
         return noteType;
     }
 
-    private Notations getNotations(@NotNull Note note) {
+    private Notations getNotations(@NotNull org.audiveris.proxymusic.Note note) {
         Notations notations;
         if(note.getNotations().size() > 0)
             notations = note.getNotations().get(0);
@@ -253,19 +252,19 @@ public class TimeChar extends ByzChar{
         return notations;
     }
 
-    private void setTiedInNote(@NotNull Note note, StartStopContinue startStopContinue) {
+    private void setTiedInNote(@NotNull org.audiveris.proxymusic.Note note, StartStopContinue startStopContinue) {
         Notations notations = getNotations(note);
         Tied tied = new Tied();
         tied.setType(startStopContinue);
         notations.getTiedOrSlurOrTuplet().add(tied);
     }
 
-    private void setTupletInNote(@NotNull Note note, Tuplet tuplet) {
+    private void setTupletInNote(@NotNull org.audiveris.proxymusic.Note note, Tuplet tuplet) {
         Notations notations = getNotations(note);
         notations.getTiedOrSlurOrTuplet().add(tuplet);
     }
 
-    private void addTuplet(int subListSize, int i, @NotNull Note note, int num, String normalType) {
+    private void addTuplet(int subListSize, int i, @NotNull org.audiveris.proxymusic.Note note, int num, String normalType) {
         TimeModification timeModification = new TimeModification();
         timeModification.setActualNotes(BigInteger.valueOf(divisions + num));
         timeModification.setNormalNotes(BigInteger.valueOf(divisions + (num-1)));
@@ -285,7 +284,7 @@ public class TimeChar extends ByzChar{
         }
     }
 
-    private static void checkDots(@NotNull Note note) {
+    private static void checkDots(@NotNull org.audiveris.proxymusic.Note note) {
         String noteType = note.getType().getValue();
         if (noteType.charAt(noteType.length()-1) == '.') {
             int matches = 1;

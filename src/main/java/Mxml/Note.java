@@ -1,14 +1,13 @@
-package Byzantine;
+package Mxml;
 
-import org.audiveris.proxymusic.Note;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 
-public final class ExtendedNote extends Note implements Cloneable {
+public final class Note extends org.audiveris.proxymusic.Note implements Cloneable {
+
     public enum NoteTypeEnum {
         MAXIMA("maxima"), LONG("long"), BREVE("breve"), WHOLE("whole"), HALF("half"), QUARTER("quarter"),
         EIGHTH("eighth"), SIXTEENTH("16th"), THIRTY_SECOND("32nd"), SIXTY_FOURTH("64th"), ONE_TWO_EIGHTH("128th"),
@@ -21,13 +20,24 @@ public final class ExtendedNote extends Note implements Cloneable {
     }
     private final boolean lyric;
     private boolean time;
+    private Integer accidentalCommmas = null;
 
-    public ExtendedNote(boolean lyric, boolean time) {
+    public Note(Note note) {
+        this(note.lyric, note.time);
+        pitch = new Pitch();
+        pitch.setStep(Step.valueOf(note.pitch.getStep().toString()));
+        pitch.setOctave(note.pitch.getOctave());
+        duration = new BigDecimal(note.duration.intValue());
+        type = new NoteType();
+        type.setValue(note.type.getValue());
+    }
+
+    public Note(boolean lyric, boolean time) {
         this.lyric = lyric;
         this.time = time;
     }
 
-    public ExtendedNote(boolean lyric, boolean time, Step step, int octave, int duration, String noteType) {
+    public Note(boolean lyric, boolean time, Step step, int octave, int duration, String noteType) {
         this(lyric, time);
         // Pitch
         Pitch pitch = new Pitch();
@@ -54,6 +64,14 @@ public final class ExtendedNote extends Note implements Cloneable {
         this.time = time;
     }
 
+    public Integer getAccidentalCommmas() {
+        return accidentalCommmas;
+    }
+
+    public void setAccidentalCommmas(int accidentalCommmas) {
+        this.accidentalCommmas = accidentalCommmas;
+    }
+
     @Override
     public String toString() {
         return "ExtendedNote{" +
@@ -65,20 +83,4 @@ public final class ExtendedNote extends Note implements Cloneable {
                 //", tie=" + ((getTie().size()>0)?getTie().get(0).getType():"null") +
                 '}';
     }
-
-    /**
-     * @return a deep copy of some fields of this object without calling super.clone()
-     */
-    @Override
-    protected @NotNull Object clone() {
-        ExtendedNote Note = new ExtendedNote(lyric, time);
-        Note.pitch = new Pitch();
-        Note.pitch.setStep(Step.valueOf(pitch.getStep().toString()));
-        Note.pitch.setOctave(pitch.getOctave());
-        Note.duration = new BigDecimal(duration.intValue());
-        Note.type = new NoteType();
-        Note.type.setValue(type.getValue());
-        return Note;
-    }
-
 }

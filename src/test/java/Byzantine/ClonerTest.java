@@ -1,6 +1,6 @@
 package Byzantine;
 
-import org.audiveris.proxymusic.Note;
+import Mxml.Note;
 import org.audiveris.proxymusic.NoteType;
 import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
@@ -8,13 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ClonerTest {
 
     @Test
     void NoteDeepClone() {
-        Note note = new ExtendedNote(true, true);
+        org.audiveris.proxymusic.Note note = new Note(true, true);
         // Pitch
         Pitch pitch = new Pitch();
         note.setPitch(pitch);
@@ -29,7 +27,7 @@ class ClonerTest {
         type.setValue("quarter");
         note.setType(type);
 
-        Note cloneNote = Cloner.deepClone(note);
+        org.audiveris.proxymusic.Note cloneNote = Cloner.deepClone(note);
         cloneNote.getPitch().setStep(Step.E);
         cloneNote.getPitch().setOctave(2);
 

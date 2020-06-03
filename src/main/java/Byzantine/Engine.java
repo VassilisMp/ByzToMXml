@@ -79,8 +79,8 @@ public final class Engine {
         this.noteList = new ArrayList<>();
         this.docChars = new ArrayList<>();
         // Note 0 ---
-        Note note = new ExtendedNote(true, true, this.initialStep, 4,
-                division, ExtendedNote.NoteTypeEnum.QUARTER.noteType);
+        org.audiveris.proxymusic.Note note = new Mxml.Note(true, true, this.initialStep, 4,
+                division, Mxml.Note.NoteTypeEnum.QUARTER.noteType);
         noteList.add(note);
 
         setDefaultStepsMap(STEPS_MAP);
@@ -301,11 +301,11 @@ public final class Engine {
                 tChar.accept(this);
                 if (moves != null) {
                     // reset Time values on the notes
-                    List<Note> notes = noteList.subList(noteList.size() - moves.size(), noteList.size());
+                    List<org.audiveris.proxymusic.Note> notes = noteList.subList(noteList.size() - moves.size(), noteList.size());
                     for (int i1 = 0; i1 < notes.size(); i1++) {
-                        Note note = notes.get(i1);
-                        if (note instanceof ExtendedNote) {
-                            ExtendedNote exNote = (ExtendedNote) note;
+                        org.audiveris.proxymusic.Note note = notes.get(i1);
+                        if (note instanceof Mxml.Note) {
+                            Mxml.Note exNote = (Mxml.Note) note;
                             exNote.setTime(moves.get(i1).getTime());
                         }
                     }
@@ -564,18 +564,18 @@ public final class Engine {
     }
 
     int getIndex() {
-        ListIterator<Note> iterator = noteList.listIterator(noteList.size());
+        ListIterator<org.audiveris.proxymusic.Note> iterator = noteList.listIterator(noteList.size());
         while (iterator.hasPrevious())
-            if (((ExtendedNote) iterator.previous()).canGetTime())
+            if (((Mxml.Note) iterator.previous()).canGetTime())
                 return iterator.nextIndex();
         throw new NullPointerException("Couldn't find a Note that canGetTime()");
     }
 
     @Nullable Step getLastNoteStep() {
         if (noteList.size() < 1) return null;
-        ListIterator<Note> noteListIterator = noteList.listIterator(noteList.size());
+        ListIterator<org.audiveris.proxymusic.Note> noteListIterator = noteList.listIterator(noteList.size());
         while (noteListIterator.hasPrevious()) {
-            Note note = noteListIterator.previous();
+            org.audiveris.proxymusic.Note note = noteListIterator.previous();
             if (note.getPitch() != null)
                 if (note.getPitch().getStep() != null)
                     return note.getPitch().getStep();
@@ -595,7 +595,7 @@ public final class Engine {
         return noteList.size();
     }
 
-    private ByzStep toByzStep(@NotNull Note note) {
+    private ByzStep toByzStep(@NotNull org.audiveris.proxymusic.Note note) {
         final Step step = note.getPitch().getStep();
         return STEPS_MAP.inverse().get(step);
     }
