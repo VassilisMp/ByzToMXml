@@ -24,12 +24,12 @@ class EngineTest {
 
     @Test
     void runElpiza() throws Exception {
-        engine = new Engine("elpiza.docx", Step.A).setTimeBeats(4);
+        engine = new Engine("elpiza.docx", Step.D, 5).setTimeBeats(4);
         engine.run();
         System.out.println(engine.getDurationSum());
         assertAll(
                 () -> assertEquals(BigDecimal.valueOf(768), engine.getDurationSum()),
-                () -> assertEquals(Step.D, engine.getLastNoteStep())
+                () -> assertEquals(Step.G, engine.getLastNoteStep())
         );
     }
 

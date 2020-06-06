@@ -70,14 +70,8 @@ public class TimeChar extends ByzChar{
             divisions = 1;
         }
         // varia-dot
-        if (this.getByzClass() == Byzantine.ByzClass.L && this.getCodePoint() == 92) {
-            Mxml.Note note = new Mxml.Note(false, true);
-            note.setDuration(BigDecimal.valueOf(engine.division));
-            NoteType noteType = new NoteType();
-            noteType.setValue("quarter");
-            note.setType(noteType);
-            note.setRest(new Rest());
-            notes.add(note);
+        if (getByzClass() == ByzClass.L && getCodePoint() == 92) {
+            notes.add(Mxml.Note.createRest(engine.getDivision(), Mxml.Note.NoteTypeEnum.QUARTER));
             return;
         }
         if (divisions > 0) {
@@ -91,7 +85,7 @@ public class TimeChar extends ByzChar{
             int tieNoteIndex = 0;
             for (int i = 0; i < subList.size(); i++) {
                 addedTime = dotPlace == 0 ? engine.division / (divisions + 1) : engine.division / (divisions + 2);
-                org.audiveris.proxymusic.Note note = subList.get(i);
+                Mxml.Note note = subList.get(i);
                 int duration = note.getDuration().intValue();
                 String noteType;
                 if (duration > engine.division) {
@@ -106,7 +100,7 @@ public class TimeChar extends ByzChar{
                     }
                     if (i == dotPlace - 1) addedTime1 *= 2;
                     note.setDuration(new BigDecimal(addedTime1));
-                    tieNote = new Mxml.Note((Mxml.Note)note);
+                    tieNote = new Mxml.Note(note);
                     tieNoteIndex = i;
                     int tDuration = duration - engine.division; //((duration / engine.division) * engine.division) - engine.division;
                     tieNote.getType().setValue(engine.noteTypeMap.inverse().get(tDuration));

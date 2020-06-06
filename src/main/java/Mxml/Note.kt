@@ -1,104 +1,125 @@
-package Mxml;
+package Mxml
 
-import org.audiveris.proxymusic.NoteType;
-import org.audiveris.proxymusic.Pitch;
-import org.audiveris.proxymusic.Step;
-import org.jetbrains.annotations.NotNull;
+import com.google.common.collect.ImmutableList
+import org.audiveris.proxymusic.NoteType
+import org.audiveris.proxymusic.Pitch
+import org.audiveris.proxymusic.Rest
+import org.audiveris.proxymusic.Step
+import org.jetbrains.annotations.TestOnly
+import java.math.BigDecimal
 
-import java.math.BigDecimal;
+class Note : org.audiveris.proxymusic.Note, Cloneable {
+    private val canGetLyric: Boolean
+    val isRest: Boolean
+    private var time: Boolean
+    var accidentalCommmas: Int? = null
+        private set
 
-public final class Note extends org.audiveris.proxymusic.Note implements Cloneable {
-
-    public enum NoteTypeEnum {
-        MAXIMA("maxima"), LONG("long"), BREVE("breve"), WHOLE("whole"), HALF("half"), QUARTER("quarter"),
-        EIGHTH("eighth"), SIXTEENTH("16th"), THIRTY_SECOND("32nd"), SIXTY_FOURTH("64th"), ONE_TWO_EIGHTH("128th"),
-        TWO_FIVE_SIXTH("256th"), FIVE_TWELFTH("512th"), TEN_TWENTY_FOURTH("1024th");
-        public String noteType;
-
-        NoteTypeEnum(String noteType) {
-            this.noteType = noteType;
-        }
-    }
-    private final boolean lyric;
-    private boolean time;
-    private Integer accidentalCommmas = null;
-
-    public Note(@NotNull Note note) {
-        this(note.lyric, note.time);
-        pitch = new Pitch();
-        pitch.setStep(Step.valueOf(note.pitch.getStep().toString()));
-        pitch.setOctave(note.pitch.getOctave());
-        duration = new BigDecimal(note.duration.intValue());
-        type = new NoteType();
-        type.setValue(note.type.getValue());
-        this.accidentalCommmas = note.accidentalCommmas;
-    }
-
-    public Note(boolean lyric, boolean time) {
-        this.lyric = lyric;
-        this.time = time;
-    }
-
-    public Note(boolean lyric, boolean time, Step step, int octave, int duration, String noteType) {
-        this(lyric, time);
+    constructor(lyric: Boolean, time: Boolean, step: Step?, octave: Int, duration: Int, noteType: String?) : this(lyric, time) {
         // Pitch
-        Pitch pitch = new Pitch();
-        pitch.setStep(step);
-        pitch.setOctave(octave);
-        this.setPitch(pitch);
+        val pitch = Pitch()
+        pitch.step = step
+        pitch.octave = octave
+        setPitch(pitch)
         // Duration
-        this.setDuration(new BigDecimal(duration));
+        setDuration(BigDecimal(duration))
         // Type
-        NoteType type = new NoteType();
-        type.setValue(noteType);
-        this.setType(type);
+        val type = NoteType()
+        type.value = noteType
+        setType(type)
     }
 
-    public boolean canGetLyric() {
-        return lyric;
+    constructor(note: Note) {
+        this.canGetLyric = note.canGetLyric
+        time = note.time
+        isRest = note.isRest
+        pitch = Pitch()
+        pitch.step = Step.valueOf(note.pitch.step.toString())
+        pitch.octave = note.pitch.octave
+        duration = BigDecimal(note.duration.toInt())
+        type = NoteType()
+        type.value = note.type.value
+        accidentalCommmas = note.accidentalCommmas
     }
 
-    public boolean canGetTime() {
-        return time;
+    @TestOnly
+    constructor(lyric: Boolean, time: Boolean) {
+        this.canGetLyric = lyric
+        this.time = time
+        isRest = false
     }
 
-    public void setTime(boolean time) {
-        this.time = time;
+    // Rest constructor
+    private constructor(duration: Int, noteTypeEnum: NoteTypeEnum) {
+        this.canGetLyric = false
+        time = true
+        isRest = true
+        setDuration(BigDecimal.valueOf(duration.toLong()))
+        val noteType = NoteType()
+        noteType.value = noteTypeEnum.noteType
+        setType(noteType)
+        setRest(Rest())
     }
 
-    public Integer getAccidentalCommmas() {
-        return accidentalCommmas;
+    fun canGetLyric(): Boolean {
+        return canGetLyric
     }
 
-    public void setAccidentalCommmas(int accidentalCommmas) {
-        this.accidentalCommmas = accidentalCommmas;
+    fun canGetTime(): Boolean {
+        return time
     }
 
-    public Step getStep() {
-        return pitch.getStep();
+    fun setTime(time: Boolean) {
+        this.time = time
     }
 
-    public int getOctave() {
-        return getPitch().getOctave();
+    fun setAccidentalCommmas(accidentalCommmas: Int) {
+        this.accidentalCommmas = accidentalCommmas
     }
 
-    public int getByzOctave() {
-        return getOctave() - 5;
+    val step: Step?
+        get() = if (isRest) null else pitch.step
+
+    val octave: Int?
+        get() = if (isRest) null else getPitch().octave
+
+    fun setOctave(octave: Int) {
+        if (!isRest) getPitch().octave = octave
     }
 
-    public void updateDivision(int multiplier) {
-        setDuration(getDuration().multiply(BigDecimal.valueOf(multiplier)));
+    val byzOctave: Int?
+        get() {
+            if (isRest) return null
+            var octave = octave!! - 4
+            if (steps!!.indexOf(step) < 4) --octave
+            return octave
+        }
+
+    fun updateDivision(multiplier: Int) {
+        setDuration(getDuration().multiply(BigDecimal.valueOf(multiplier.toLong())))
     }
 
-    @Override
-    public String toString() {
+    override fun toString(): String {
         return "Note{" +
-                "lyric=" + lyric +
+                "lyric=" + canGetLyric +
                 ", time=" + time +
-                ", pitch=" + (pitch!=null?pitch.getStep() + "" + pitch.getOctave():"null") +
+                ", pitch=" + (if (pitch != null) pitch.step.toString() + "" + pitch.octave else "null") +
                 ", duration=" + duration +
-                ", type=" + type.getValue() +
-                //", tie=" + ((getTie().size()>0)?getTie().get(0).getType():"null") +
-                '}';
+                ", type=" + type.value +
+                ", commas=" + accidentalCommmas +  //", tie=" + ((getTie().size()>0)?getTie().get(0).getType():"null") +
+                '}'
+    }
+
+    enum class NoteTypeEnum(var noteType: String) {
+        MAXIMA("maxima"), LONG("long"), BREVE("breve"), WHOLE("whole"), HALF("half"), QUARTER("quarter"), EIGHTH("eighth"), SIXTEENTH("16th"), THIRTY_SECOND("32nd"), SIXTY_FOURTH("64th"), ONE_TWO_EIGHTH("128th"), TWO_FIVE_SIXTH("256th"), FIVE_TWELFTH("512th"), TEN_TWENTY_FOURTH("1024th");
+
+    }
+
+    companion object {
+        private val steps = ImmutableList.of(Step.C, Step.D, Step.E, Step.F, Step.G, Step.A, Step.B)
+        @JvmStatic
+        fun createRest(duration: Int, noteTypeEnum: NoteTypeEnum): Note {
+            return Note(duration, noteTypeEnum)
+        }
     }
 }

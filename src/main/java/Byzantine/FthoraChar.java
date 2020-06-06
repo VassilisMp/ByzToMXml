@@ -1,7 +1,7 @@
 package Byzantine;
 
+import Mxml.Note;
 import com.google.gson.annotations.Expose;
-import org.audiveris.proxymusic.Pitch;
 import org.audiveris.proxymusic.Step;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,9 +24,9 @@ final class FthoraChar extends ByzChar {
     @Override
     public void accept(@NotNull Engine engine) {
         // get relative Byzantine step from Step
-        Pitch lastPitch = QuantityChar.getLastPitch(engine.noteList);
+        @NotNull Note lastPitch = QuantityChar.getLastNonRestNote(engine.noteList);
         Step step = lastPitch.getStep();
-        ByzStep byzStep = engine.stepToByzStep(step);
+        ByzStep byzStep = Engine.stepToByzStep(step);
         // get relative byzantine octave
         int octave = lastPitch.getOctave();
         int byzOctave = octave - 5;

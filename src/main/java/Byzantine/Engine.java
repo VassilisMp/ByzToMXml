@@ -11,6 +11,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.audiveris.proxymusic.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import javax.xml.bind.Marshaller;
@@ -50,7 +51,7 @@ public final class Engine {
     /**
      * Queue that holds fthoras as keys mapping to positions in the <code>noteList</code>
      */
-    private final Queue<SimpleImmutableEntry<ByzScale, Integer>> fthoraScalesQueue = new LinkedList<>();
+    private final LinkedList<SimpleImmutableEntry<ByzScale, Integer>> fthoraScalesQueue = new LinkedList<>();
     private final Step initialStep;
     private final List<ByzChar> docChars = new ArrayList<>();
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
@@ -60,14 +61,13 @@ public final class Engine {
     BiMap<String, Integer> noteTypeMap = initializeNoteTypeMap();
     private BigDecimal durationSum = BigDecimal.ZERO;
     private Integer timeBeats = null;
-
     // instances of Engine are immutable
     public Engine() {
         this.docx = null;
         fileName = null;
         initialStep = Step.C;
+        this.putFthoraScale(new ByzScale(this.currentByzScale), 0);
     }
-
     public Engine(String filePath, Step initialStep) throws IOException {
         Matcher matcher = Pattern.compile("(.*/)*(.*)(\\.docx?)").matcher(filePath);
         if (matcher.find())
@@ -77,10 +77,17 @@ public final class Engine {
         this.docx = new XWPFDocument(new FileInputStream(filePath));
         // Note 0 ---
         Mxml.Note note = new Mxml.Note(true, true, this.initialStep, 4,
-                division, Mxml.Note.NoteTypeEnum.QUARTER.noteType);
+                division, Mxml.Note.NoteTypeEnum.QUARTER.getNoteType());
+        /*new Mxml.Note.Builder(true, true, this.initialStep, 4,
+                division, Mxml.Note.NoteTypeEnum.QUARTER).build();*/
         noteList.add(note);
         initAccidentalCommas();
         this.putFthoraScale(new ByzScale(this.currentByzScale), 0);
+    }
+
+    public Engine(String filePath, Step initialStep, int octave) throws IOException {
+        this(filePath, initialStep);
+        noteList.get(0).setOctave(octave);
     }
 
     /**
@@ -191,26 +198,41 @@ public final class Engine {
         return STEPS_MAP.get(byzStep);
     }
 
-    void initAccidentalCommas() {
-        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep);
+    static ByzStep stepToByzStep(Step step) {
+        return STEPS_MAP.inverse().get(step);
     }
 
-    public Engine setTimeBeats(int timeBeats) {
-        this.timeBeats = timeBeats;
-        return this;
+    public static ByzStep toByzStep(@NotNull Mxml.Note note) {
+        return STEPS_MAP.inverse().get(note.getStep());
     }
 
+    public ByzScale getLastFthora() {
+        return fthoraScalesQueue.getLast().getKey();
+    }
+
+    public int getDivision() {
+        return division;
+    }
+
+    @TestOnly
     void setDivision(int division) {
         this.division = division;
         mapValuesUpdate();
     }
 
-    public ByzScale getCurrentByzScale() {
-        return currentByzScale;
+    void initAccidentalCommas() {
+        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep);
     }
 
-    ByzStep stepToByzStep(Step step) {
-        return STEPS_MAP.inverse().get(step);
+    @Deprecated
+    @TestOnly
+    public Engine setTimeBeats(int timeBeats) {
+        this.timeBeats = timeBeats;
+        return this;
+    }
+
+    public ByzScale getCurrentByzScale() {
+        return currentByzScale;
     }
 
     public void run() throws Exception {
@@ -231,20 +253,6 @@ public final class Engine {
                     return note.getDuration();
                 })
                 .reduce(durationSum, BigDecimal::add);
-        fthoraScalesQueue.forEach(k -> {
-            System.out.println(k.getKey());
-            System.out.println(k.getValue());
-        });
-        /*SimpleImmutableEntry<ByzScale, Integer> curScale = fthoraScalesQueue.poll();
-        for (int i = 0; i < noteList.size(); i++) {
-            Mxml.Note note = noteList.get(i);
-            if (curScale.getValue() == i) curScale = fthoraScalesQueue.poll();
-            final ByzStep byzStep = toByzStep(note);
-            final int byzOctave = note.getByzOctave();
-            final Martyria martyria = curScale.getKey()
-                    .getMartyria(byzStep, byzOctave);
-            note.setAccidentalCommmas(martyria.getAccidentalCommas());
-        }*/
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".xml")) {
             ScorePartwise scorePartwise = toScorePartwise();
             Marshaller marshaller = getContext(ScorePartwise.class).createMarshaller();
@@ -253,8 +261,6 @@ public final class Engine {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        // DEBUG
-//        this.noteTypeMap.forEach((str, integer) -> System.out.println(str + " : " + integer));
     }
 
     private void createNotelist() throws Exception {
@@ -583,10 +589,6 @@ public final class Engine {
 
     int getNoteListSize() {
         return noteList.size();
-    }
-
-    private ByzStep toByzStep(@NotNull Mxml.Note note) {
-        return STEPS_MAP.inverse().get(note.getStep());
     }
 
     private @Nullable Accidental commasToAccidental(int commas) {

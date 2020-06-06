@@ -1,5 +1,6 @@
 package Byzantine;
 
+import Mxml.Note;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
 import com.google.gson.annotations.Expose;
@@ -11,8 +12,9 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.function.Consumer;
+
+import static Byzantine.Engine.toByzStep;
 
 public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> {
     private static final BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
@@ -83,9 +85,9 @@ public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> 
     public void accept(Engine engine) {
         for (Move move : moves) {
             Mxml.Note note = new Mxml.Note(move.getLyric(), move.getTime());
-            Pitch pitch = getLastPitch(engine.noteList);
-            Step step = pitch.getStep();
-            int octave = pitch.getOctave();
+            @NotNull Note lastNote = getLastNonRestNote(engine.noteList);
+            Step step = lastNote.getStep();
+            int octave = lastNote.getOctave();
             int stepNum = stepMap.get(step);
             String strNum = octave + "" + stepNum;
             int parsedInt = Integer.parseInt(strNum, 7);
@@ -108,6 +110,19 @@ public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> 
             NoteType type = new NoteType();
             type.setValue("quarter");
             note.setType(type);
+
+            if (!note.isRest()) {
+                final ByzStep byzStep = toByzStep(note);
+                final int byzOctave = note.getByzOctave();
+                final Martyria martyria = engine.getLastFthora().getMartyria(byzStep, byzOctave)
+//                                .orElseThrow(NullPointerException::new)
+                        .orElse(null);
+                if (martyria == null)
+                    System.out.println("accid commas null");
+                else {
+                    note.setAccidentalCommmas(martyria.getAccidentalCommas());
+                }
+            }
         }
         if (this.getText() != null && !this.getText().equals("")) {
             org.audiveris.proxymusic.Note fNote = engine.noteList.get(engine.noteList.size() - moves.length);
@@ -123,19 +138,12 @@ public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> 
     // this method was created to overpass previous notes that are rests
     // return last non null Pitch in noteList
     @NotNull
-    static Pitch getLastPitch(@NotNull List<Mxml.Note> notes) {
-        ListIterator<Mxml.Note> iterator = notes.listIterator(notes.size());
-        Pitch pitch = null;
-        while (iterator.hasPrevious()) {
-            Mxml.Note exNote = (Mxml.Note) iterator.previous();
-            pitch = exNote.getPitch();
-            if (pitch != null) {
-                break;
-            }
+    static Mxml.Note getLastNonRestNote(@NotNull List<Mxml.Note> notes) {
+        for (int i = notes.size() - 1; i >= 0; i--) {
+            final Note note = notes.get(i);
+            if (!note.isRest()) return note;
         }
-        if (pitch == null)
-            throw new NullPointerException("Couldn't find a Note with pitch");
-        return pitch;
+        throw new NullPointerException("Couldn't find a Note with pitch");
     }
 
     @NotNull

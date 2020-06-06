@@ -30,13 +30,13 @@ public final class ByzScale implements CircularList<Martyria> {
     static final ByzScale NEANES = createScale(Arrays.asList(
             new Martyria(0, ByzStep.DI, MartirikoSimio.NEANES, 6),
             new Martyria(0, ByzStep.KE, MartirikoSimio.NEANES2, 11),
-            new Martyria(1, ByzStep.ZW, MartirikoSimio.NEANES, 5),
+            new Martyria(0, ByzStep.ZW, MartirikoSimio.NEANES, 5),
             new Martyria(1, ByzStep.NH, MartirikoSimio.NEANES2, 9)
     ));
     static final ByzScale SOFT_DIATONIC = createScale(Arrays.asList(
             new Martyria((byte) -1, ByzStep.DI, MartirikoSimio.AGIA, 9),
             new Martyria((byte) -1, ByzStep.KE, MartirikoSimio.ANANES, 8),
-            new Martyria((byte) 0, ByzStep.ZW, MartirikoSimio.AANES, 5),
+            new Martyria((byte) -1, ByzStep.ZW, MartirikoSimio.AANES, 5),
             new Martyria((byte) 0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
             new Martyria((byte) 0, ByzStep.PA, MartirikoSimio.ANEANES, 8),
             new Martyria((byte) 0, ByzStep.BOU, MartirikoSimio.NEHEANES, 5),
@@ -49,7 +49,7 @@ public final class ByzScale implements CircularList<Martyria> {
             new Martyria(0, ByzStep.GA, MartirikoSimio.NANA, 9),
             new Martyria(0, ByzStep.DI, MartirikoSimio.AGIA, 9),
             new Martyria(0, ByzStep.KE, MartirikoSimio.ANANES, 9),
-            new Martyria(1, ByzStep.ZW, MartirikoSimio.AANES, 4)
+            new Martyria(0, ByzStep.ZW, MartirikoSimio.AANES, 4)
     ));
 
     /**
@@ -69,10 +69,11 @@ public final class ByzScale implements CircularList<Martyria> {
      * martyria on which the last fthora was applied
      */
     private Martyria fthoraHolder;
+
     private ByzScale(Collection<? extends Martyria> collection, FthorikoSimio fthorikoSimio, ByzStep step, int octave) {
         this.scale = collection != null ? new ArrayList<>(collection) : new ArrayList<>();
         this.fthorikoSimio = fthorikoSimio;
-        this.fthoraHolder = this.getMartyria(step, octave);
+        this.fthoraHolder = getMartyria(step, octave).orElse(null);
     }
 
     /*public ByzScale(List<Martyria> list, FthorikoSimio fthorikoSimio, ByzStep step, int octave*//*, Martyria fthoraHolder*//*) {
@@ -108,7 +109,8 @@ public final class ByzScale implements CircularList<Martyria> {
 
     @NotNull
     @Contract("_, _, _, _ -> new")
-    public static ByzScale ByzScaleOf(@NotNull Collection<? extends Martyria> collection, FthorikoSimio fthorikoSimio, ByzStep step, int octave) {
+    public static ByzScale ByzScaleOf(@NotNull Collection<? extends Martyria> collection,
+                                      FthorikoSimio fthorikoSimio, ByzStep step, int octave) {
         return new ByzScale(collection, fthorikoSimio, step, octave);
     }
 
@@ -119,7 +121,7 @@ public final class ByzScale implements CircularList<Martyria> {
         // wrap in ByzScale
         final ByzScale diatonicByzScale = new ByzScale(SOFT_DIATONIC);
         diatonicByzScale.fthorikoSimio = FthorikoSimio.NH_D;
-        diatonicByzScale.fthoraHolder = diatonicByzScale.getMartyria(ByzStep.NH, 0);
+        diatonicByzScale.fthoraHolder = diatonicByzScale.getMartyria(ByzStep.NH, 0).orElse(null);
         // go two positions to left, to call getNext().commasToNext on the previous martyria
         diatonicByzScale.getItemToLeft(2);
         // set commasToPrev using commasToNext value of the previous martyria
@@ -139,6 +141,29 @@ public final class ByzScale implements CircularList<Martyria> {
         diatonicByzScale.scale.add(martyria);
         diatonicByzScale.calcAbsPos();
         return diatonicByzScale;
+    }
+
+    static void initAccidentalCommas(@NotNull ByzScale currentByzScale, ByzStep relativeStandardStep) {
+        final ByzScale HARD_DIATONIC = ByzScale.HARD_DIATONIC.getByStep(relativeStandardStep, null);
+        int HARD_DIATONIC_cursorPos = HARD_DIATONIC.getCursorPos();
+        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos - 1);
+        currentByzScale.getByStep(ByzStep.NH, null);
+        final int currentByzScaleCursorPos = currentByzScale.getCursorPos();
+        for (int i = currentByzScaleCursorPos, difference = 0; i < currentByzScale.size(); i++) {
+            final Martyria a = currentByzScale.get(i);
+            final Martyria b = HARD_DIATONIC.getNext();
+            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
+            final int setIndex = (i + 1) == currentByzScale.size() ? 0 : i + 1;
+            currentByzScale.get(setIndex).setAccidentalCommas(difference);
+        }
+        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos);
+        for (int i = currentByzScaleCursorPos - 1, difference = 0; i >= 0; i--) {
+            final Martyria a = currentByzScale.get(i);
+            final Martyria b = HARD_DIATONIC.getPrev();
+            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
+            a.setAccidentalCommas(-difference);
+        }
+        currentByzScale.resetCursor();
     }
 
     ByzScale getByStep(ByzStep step, @Nullable Integer octave) {
@@ -167,8 +192,9 @@ public final class ByzScale implements CircularList<Martyria> {
     }
 
     /**
+     * @param byzStep the step to search for.
      * @return the index of the step if exists, or else -1.
-     * @param byzStep the step to search for.*/
+     */
     private int indexOfStep(ByzStep byzStep) {
         for (int i = 0; i < scale.size(); i++) {
             Martyria martyria = scale.get(i);
@@ -213,16 +239,16 @@ public final class ByzScale implements CircularList<Martyria> {
         return index;
     }
 
-    void setCursorPos(int cursorPos) {
-        this.cursorPos = cursorPos;
-    }
-
     int getCursorPos() {
         return cursorPos;
     }
 
+    void setCursorPos(int cursorPos) {
+        this.cursorPos = cursorPos;
+    }
+
     private void calcAbsPos() {
-        Martyria martyria1 = getMartyria(ByzStep.DI, 0);
+        Martyria martyria1 = getMartyria(ByzStep.DI, 0).orElse(null);
         int indexOfMesoDI = scale.indexOf(martyria1);
         for (int i = 0, thisSize = this.scale.size(); i < thisSize; i++) {
             Martyria martyria = this.scale.get(i);
@@ -234,16 +260,14 @@ public final class ByzScale implements CircularList<Martyria> {
         }
     }
 
-    @Nullable
-    Martyria getMartyria(ByzStep step, int octave) {
+    @NotNull Optional<Martyria> getMartyria(ByzStep step, int octave) {
         return this.scale.stream()
                 .filter(martyria -> martyria.step == step && martyria.octave == octave)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
-    @Nullable
-    Martyria getMartyriaByStepOctave(@NotNull Martyria martyria) {
+    @NotNull
+    Optional<Martyria> getMartyriaByStepOctave(@NotNull Martyria martyria) {
         return getMartyria(martyria.step, martyria.octave);
     }
 
@@ -312,7 +336,7 @@ public final class ByzScale implements CircularList<Martyria> {
         List<Martyria> scale = this.scale;
         if (startStep != null) {
             final int start = this.indexOf(startStep, octave);
-            scale = this.scale.subList(start, start+7);
+            scale = this.scale.subList(start, start + 7);
         }
         Key key = new ObjectFactory().createKey();
         List<Object> nonTraditionalKey = key.getNonTraditionalKey();
@@ -334,29 +358,6 @@ public final class ByzScale implements CircularList<Martyria> {
         funRef.set((@NotNull Martyria martyria) -> martyria.getAccidentalCommas() > 0);
         Martyria.SHARP_FIFTHS.forEach(addAccidentals);
         return key;
-    }
-
-    static void initAccidentalCommas(@NotNull ByzScale currentByzScale, ByzStep relativeStandardStep) {
-        final ByzScale HARD_DIATONIC = ByzScale.HARD_DIATONIC.getByStep(relativeStandardStep, null);
-        int HARD_DIATONIC_cursorPos = HARD_DIATONIC.getCursorPos();
-        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos - 1);
-        currentByzScale.getByStep(ByzStep.NH, null);
-        final int currentByzScaleCursorPos = currentByzScale.getCursorPos();
-        for (int i = currentByzScaleCursorPos, difference = 0; i < currentByzScale.size(); i++) {
-            final Martyria a = currentByzScale.get(i);
-            final Martyria b = HARD_DIATONIC.getNext();
-            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
-            final int setIndex = (i + 1) == currentByzScale.size() ? 0 : i + 1;
-            currentByzScale.get(setIndex).setAccidentalCommas(difference);
-        }
-        HARD_DIATONIC.setCursorPos(HARD_DIATONIC_cursorPos);
-        for (int i = currentByzScaleCursorPos - 1, difference = 0; i >= 0; i--) {
-            final Martyria a = currentByzScale.get(i);
-            final Martyria b = HARD_DIATONIC.getPrev();
-            difference = a.getCommasToNext() - b.getCommasToNext() + difference;
-            a.setAccidentalCommas(-difference);
-        }
-        currentByzScale.resetCursor();
     }
 
 }
