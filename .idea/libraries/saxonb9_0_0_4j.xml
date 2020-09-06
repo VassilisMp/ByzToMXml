@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="saxonb9-0-0-4j">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/saxonb9-0-0-4j" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/saxonb9-0-0-4j" recursive="false" />
+  </library>
+</component>

@@ -1,5 +1,5 @@
 package Byzantine;
 
-enum ByzStep {
+public enum ByzStep {
     NH, PA, BOU, GA, DI, KE, ZW
 }

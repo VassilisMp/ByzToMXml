@@ -33,7 +33,7 @@ public final class Engine {
     @UnmodifiableView
     private static final List<ByzChar> charList = Collections.unmodifiableList(getCharList());
     @UnmodifiableView
-    private static final Map<String, ByzClass> byzClassMap = getByzClassMap();
+    public static final Map<String, ByzClass> byzClassMap = getByzClassMap();
     /**
      * The best mapping from European to Byzantine hard-diatonic scale, without the need of turkish accidentals
      */
@@ -236,7 +236,7 @@ public final class Engine {
     }
 
     public void run() throws Exception {
-        parseChars();
+        new DocParser().parseChars();
         fixL116();
 //        this.docChars.forEach(System.out::println);
         createNotelist();
@@ -316,124 +316,6 @@ public final class Engine {
             Char.accept(this);
             //System.out.println(unicodeChar);
             //System.out.println(i + " " + Char);
-        }
-    }
-
-    private void parseChars() throws NotSupportedException {
-        // TODO start parsing lyrics with Arxigramma if exists
-        // 0 - 1264 chars using toCharArray
-        int pos = 0;
-        // if there is lyric char before Quantity Char but belongs to that
-        boolean qCharAdded = false;
-        boolean mCharAdded = false;
-        StringBuilder sb = new StringBuilder();
-        FthoraChar lastFthora = null;
-        int lastFthoraIndex = -1;
-        for (XWPFParagraph paragraph : docx.getParagraphs()) {
-            for (XWPFRun run : paragraph.getRuns()) {
-                for (char c : run.text().toCharArray()) {
-                    pos++;
-                    String fontName = run.getFontName();
-                    ByzClass byzClass = byzClassMap.get(fontName);
-                    if (c > 0xEFFF) // && <0xF8FF because Unicode Private Use Area is, U+E000 to U+F8FF
-                        c -= 0xF000;
-                    System.out.println(String.format("%5d", (int) c) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
-                    // if char is greek letter append to the lyric StringBuilder
-                    if (c >= 0x0370 && c <= 0x03FF) {
-                        sb.append(c);
-                        continue;
-                    }
-                    // if there is lyrics in the StringBuilder and a QuantityChar was added then add the lyrics in the last QChar
-                    if (sb.length() > 0 && (qCharAdded || mCharAdded)) {
-                        @SuppressWarnings("rawtypes")
-                        Class clazz = qCharAdded ? QuantityChar.class : MixedChar.class;
-                        qCharAdded = mCharAdded = false;
-                        // find the last QChar which may also be in a MixedChar
-                        Lists.reverse(docChars).stream()
-                                .filter(clazz::isInstance)
-                                .findFirst()
-                                .ifPresent(character -> {
-                                    // if MixedChar then find the last QChar in the MixedChar
-                                    if (clazz == MixedChar.class) {
-                                        for (ByzChar m : ((MixedChar) character))
-                                            if (m instanceof QuantityChar) {
-                                                character = m;
-                                                break;
-                                            }
-                                    }
-                                    // set last Char lyrics
-                                    character.setText(sb.toString());
-                                });
-                        // delete the StringBuilder's contents
-                        sb.setLength(0);
-                    }
-                    // if ByzClass is exists, it means this char is a Byzantine one
-                    if (byzClass != null) {
-                        try {
-                            // check if this char class is supported
-                            boolean annotationPresent = ByzClass.class.getField(byzClass.toString()).isAnnotationPresent(NotSupported.class);
-                            //System.out.println(byzClass + " annotation isPresent: " + annotationPresent);
-                            // if not supported continue
-                            if (annotationPresent) {
-                                //continue;
-                                throw new NotSupportedException("document contains ByzClass." + byzClass + " character which is not supported");
-                            }
-                        } catch (NoSuchFieldException e) {
-                            e.printStackTrace();
-                        }
-                        // if c<33 || c>255 means the Char isn't in the area of ByzChars in the Unicode
-                        if (c < 33 || c > 255) continue;
-                    } else continue;
-                    if (c == 162 && byzClass == ByzClass.B) c = 100;
-                    if (c == 52 && byzClass == ByzClass.F) {
-                        c = 36;
-                        if (lastFthora != null)
-                            if (lastFthora.getCodePoint() == 36) {
-                                if (lastFthoraIndex != -1) {
-                                    int counter = (int) docChars.subList(lastFthoraIndex, docChars.size())
-                                            .stream().filter(byzChar -> byzChar instanceof QuantityChar).count();
-                                    if (counter < 2) docChars.remove(lastFthoraIndex);
-                                }
-                            }
-                    }
-                    final char finalChar = c;
-                    // check if current Char is in the ByzCharList
-                    ByzChar byzChar = charList.stream()
-                            .filter(character -> character.getCodePoint() == finalChar && character.getByzClass() == byzClass)
-                            .findAny()
-                            .orElse(null);
-                    //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
-                    // if doesn't exist continue to next
-                    if (byzChar == null) continue;
-                    else if (byzChar instanceof FthoraChar) {
-                        lastFthora = (FthoraChar) byzChar;
-                        lastFthoraIndex = docChars.size();
-                    }
-                    if (byzChar.getCodePoint() == 67 && byzChar.getByzClass() == ByzClass.B) {
-                        ByzChar prev = docChars.get(docChars.size() - 1);
-                        if (prev.getCodePoint() == 115 && prev.getByzClass() == ByzClass.B) {
-                            byzChar = charList.stream()
-                                    .filter(character -> character.getCodePoint() == 100 && character.getByzClass() == ByzClass.B)
-                                    .findAny()
-                                    .orElse(null);
-                            Objects.requireNonNull(byzChar);
-                            ByzChar clone = byzChar.clone();//Cloner.deepClone(byzChar);
-                            clone.setText(prev.getText());
-                            docChars.set(docChars.size() - 1, clone);
-                            continue;
-                        }
-                    }
-                    // else clone and add in the docChars
-                    Objects.requireNonNull(byzChar);
-                    ByzChar clone = Objects.requireNonNull(byzChar.clone());
-                    clone.setFont(fontName);
-                    docChars.add(clone);
-                    if (byzChar instanceof QuantityChar) qCharAdded = true;
-                    else if (byzChar instanceof MixedChar)
-                        mCharAdded = Arrays.stream(((MixedChar) byzChar).getChars())
-                                .anyMatch(Char -> Char instanceof QuantityChar);
-                }
-            }
         }
     }
 
@@ -614,7 +496,127 @@ public final class Engine {
         return stepToAccidental;
     }
 
-    public static class Builder {
+    private class DocParser {
 
+        /*private List<Object> parseCharsFirst() {
+
+        }*/
+        private void parseChars() throws NotSupportedException {
+            // TODO start parsing lyrics with Arxigramma if exists
+            // 0 - 1264 chars using toCharArray
+            int pos = 0;
+            // if there is lyric char before Quantity Char but belongs to that
+            boolean qCharAdded = false;
+            boolean mCharAdded = false;
+            StringBuilder sb = new StringBuilder();
+            FthoraChar lastFthora = null;
+            int lastFthoraIndex = -1;
+            for (XWPFParagraph paragraph : docx.getParagraphs()) {
+                for (XWPFRun run : paragraph.getRuns()) {
+                    for (char c : run.text().toCharArray()) {
+                        pos++;
+                        String fontName = run.getFontName();
+                        ByzClass byzClass = byzClassMap.get(fontName);
+                        if (c > 0xEFFF) // && <0xF8FF because Unicode Private Use Area is, U+E000 to U+F8FF
+                            c -= 0xF000;
+                        System.out.println(String.format("%5d", (int) c) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
+                        // if char is greek letter append to the lyric StringBuilder
+                        if (c >= 0x0370 && c <= 0x03FF) {
+                            sb.append(c);
+                            continue;
+                        }
+                        // if there is lyrics in the StringBuilder and a QuantityChar was added then add the lyrics in the last QChar
+                        if (sb.length() > 0 && (qCharAdded || mCharAdded)) {
+                            @SuppressWarnings("rawtypes")
+                            Class clazz = qCharAdded ? QuantityChar.class : MixedChar.class;
+                            qCharAdded = mCharAdded = false;
+                            // find the last QChar which may also be in a MixedChar
+                            Lists.reverse(docChars).stream()
+                                    .filter(clazz::isInstance)
+                                    .findFirst()
+                                    .ifPresent(character -> {
+                                        // if MixedChar then find the last QChar in the MixedChar
+                                        if (clazz == MixedChar.class) {
+                                            for (ByzChar m : ((MixedChar) character))
+                                                if (m instanceof QuantityChar) {
+                                                    character = m;
+                                                    break;
+                                                }
+                                        }
+                                        // set last Char lyrics
+                                        character.setText(sb.toString());
+                                    });
+                            // delete the StringBuilder's contents
+                            sb.setLength(0);
+                        }
+                        // if ByzClass is exists, it means this char is a Byzantine one
+                        if (byzClass != null) {
+                            try {
+                                // check if this char class is supported
+                                boolean annotationPresent = ByzClass.class.getField(byzClass.toString()).isAnnotationPresent(NotSupported.class);
+                                //System.out.println(byzClass + " annotation isPresent: " + annotationPresent);
+                                // if not supported continue
+                                if (annotationPresent) {
+                                    //continue;
+                                    throw new NotSupportedException("document contains ByzClass." + byzClass + " character which is not supported");
+                                }
+                            } catch (NoSuchFieldException e) {
+                                e.printStackTrace();
+                            }
+                            // if c<33 || c>255 means the Char isn't in the area of ByzChars in the Unicode
+                            if (c < 33 || c > 255) continue;
+                        } else continue;
+                        if (c == 162 && byzClass == ByzClass.B) c = 100;
+                        if (c == 52 && byzClass == ByzClass.F) {
+                            c = 36;
+                            if (lastFthora != null)
+                                if (lastFthora.getCodePoint() == 36) {
+                                    if (lastFthoraIndex != -1) {
+                                        int counter = (int) docChars.subList(lastFthoraIndex, docChars.size())
+                                                .stream().filter(byzChar -> byzChar instanceof QuantityChar).count();
+                                        if (counter < 2) docChars.remove(lastFthoraIndex);
+                                    }
+                                }
+                        }
+                        final char finalChar = c;
+                        // check if current Char is in the ByzCharList
+                        ByzChar byzChar = charList.stream()
+                                .filter(character -> character.getCodePoint() == finalChar && character.getByzClass() == byzClass)
+                                .findAny()
+                                .orElse(null);
+                        //System.out.println(String.format("%5d", charInt) + " The character at " + String.format("%4d", pos) + " is " + c + "   " + fontName + "  " + byzClass);
+                        // if doesn't exist continue to next
+                        if (byzChar == null) continue;
+                        else if (byzChar instanceof FthoraChar) {
+                            lastFthora = (FthoraChar) byzChar;
+                            lastFthoraIndex = docChars.size();
+                        }
+                        if (byzChar.getCodePoint() == 67 && byzChar.getByzClass() == ByzClass.B) {
+                            ByzChar prev = docChars.get(docChars.size() - 1);
+                            if (prev.getCodePoint() == 115 && prev.getByzClass() == ByzClass.B) {
+                                byzChar = charList.stream()
+                                        .filter(character -> character.getCodePoint() == 100 && character.getByzClass() == ByzClass.B)
+                                        .findAny()
+                                        .orElse(null);
+                                Objects.requireNonNull(byzChar);
+                                ByzChar clone = byzChar.clone();//Cloner.deepClone(byzChar);
+                                clone.setText(prev.getText());
+                                docChars.set(docChars.size() - 1, clone);
+                                continue;
+                            }
+                        }
+                        // else clone and add in the docChars
+                        Objects.requireNonNull(byzChar);
+                        ByzChar clone = Objects.requireNonNull(byzChar.clone());
+                        clone.setFont(fontName);
+                        docChars.add(clone);
+                        if (byzChar instanceof QuantityChar) qCharAdded = true;
+                        else if (byzChar instanceof MixedChar)
+                            mCharAdded = Arrays.stream(((MixedChar) byzChar).getChars())
+                                    .anyMatch(Char -> Char instanceof QuantityChar);
+                    }
+                }
+            }
+        }
     }
 }
