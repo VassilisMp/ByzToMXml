@@ -3,9 +3,21 @@ import byzLexer, gorgotites, argies, fthores, fonitika;
 
 //test : (capWord | syllable)+ ;
 // level 2
+newScore: newArktikiMartyria? (clusterType2|martyria)+ ;
+
 score2 : arktikiMartyria? clusterType2+ ;
 
-clusterType2 : qChar syllable? tChar* fthoraMeEndeixi? ;
+clusterType2 : ARXIGRAMMA? syllable? qChar
+        (
+            syllable? tChar* fthoraMeEndeixi?
+            syllable? fthoraMeEndeixi? tChar*
+            tChar* syllable? fthoraMeEndeixi?
+            tChar* fthoraMeEndeixi? syllable?
+//            fthoraMeEndeixi? syllable? tChar*
+//            fthoraMeEndeixi? tChar* syllable?
+        )
+        pause?
+        ;
 
 // level 1
 score : text* emptyCluster* arktikiMartyria? (text | cluster)+ ;
@@ -14,7 +26,7 @@ emptyCluster : LEFT_PARENTHESIS RIGHT_PARENTHESIS ;
 
 //eteronAlone : (LEFT_PARENTHESIS ETERON_PARAKALESMA RIGHT_PARENTHESIS) ;
 
-fthoraMeEndeixi : fthora /*endixiFthoggou*/ ;
+fthoraMeEndeixi : fthora endixiFthoggou? ;
 
 //fthoraAlone : (LEFT_PARENTHESIS fthora RIGHT_PARENTHESIS) ;
 
@@ -127,24 +139,14 @@ arktikiMartyria :
         syllable* ARXIGRAMMA* RIGHT_PARENTHESIS?
         ;
 
+newArktikiMartyria: plagiosTetartoyArktikiMartyria | plagiosPrwtouArktikiMartyria ;
+
 plagiosTetartoyArktikiMartyria :
         HXOS_WORD MARTYRIA_PLAGIOS_ICHOS ARKTIKH_MARTYRIA_TETARTOS_ICHOS FTHOGGOS_NH_WORD
         ;
 
 plagiosPrwtouArktikiMartyria :
         HXOS_WORD ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS FANEROSIS_TETRAFONIAS FTHOGGOS_PA_WORD FTHORA_DIATONIKI_PA
-        ;
-
-/*
-agogi :
-        AGOGI_POLI_ARGI
-        | AGOGI_ARGOTERI
-        | AGOGI_ARGI
-        | AGOGI_METRIA
-        | AGOGI_MESI
-        | AGOGI_GORGI
-        | AGOGI_GORGOTERI
-        | AGOGI_POLI_GORGI
         ;
 
 endixiFthoggou :
@@ -164,6 +166,18 @@ endixiFthoggou :
         | ENDIXI_ZW_DEXIA
         | ENDIXI_DI_KATO_ARISTERA
         | ENDIXI_PA_KATO_ARISTERA
+        ;
+
+/*
+agogi :
+        AGOGI_POLI_ARGI
+        | AGOGI_ARGOTERI
+        | AGOGI_ARGI
+        | AGOGI_METRIA
+        | AGOGI_MESI
+        | AGOGI_GORGI
+        | AGOGI_GORGOTERI
+        | AGOGI_POLI_GORGI
         ;
 
 isokratima :
@@ -195,6 +209,6 @@ text : (syllable | LATIN_WORD | GREEK_WORD | SYMBOLS_NUMBERS | capWord )+
 
 capWord : CAP_LETTER CAP_LETTER+ ;
 syllable :
-        CAP_LETTER? SMALL_LETTER+
+        CAP_LETTER? SMALL_LETTER+?
         | CAP_LETTER
         ;

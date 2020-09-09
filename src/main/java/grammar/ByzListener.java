@@ -1,4 +1,5 @@
-package grammar;// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+package grammar;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -6,6 +7,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  * {@link ByzParser}.
  */
 public interface ByzListener extends ParseTreeListener {
+	/**
+	 * Enter a parse tree produced by {@link ByzParser#newScore}.
+	 * @param ctx the parse tree
+	 */
+	void enterNewScore(ByzParser.NewScoreContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ByzParser#newScore}.
+	 * @param ctx the parse tree
+	 */
+	void exitNewScore(ByzParser.NewScoreContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ByzParser#score2}.
 	 * @param ctx the parse tree
@@ -127,6 +138,16 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link ByzParser#newArktikiMartyria}.
+	 * @param ctx the parse tree
+	 */
+	void enterNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ByzParser#newArktikiMartyria}.
+	 * @param ctx the parse tree
+	 */
+	void exitNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link ByzParser#plagiosTetartoyArktikiMartyria}.
 	 * @param ctx the parse tree
 	 */
@@ -146,6 +167,16 @@ public interface ByzListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ByzParser#endixiFthoggou}.
+	 * @param ctx the parse tree
+	 */
+	void enterEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ByzParser#endixiFthoggou}.
+	 * @param ctx the parse tree
+	 */
+	void exitEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ByzParser#text}.
 	 * @param ctx the parse tree

@@ -1,4 +1,5 @@
-package grammar;// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+package grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -10,6 +11,18 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  */
 public class ByzBaseListener implements ByzListener {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNewScore(ByzParser.NewScoreContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewScore(ByzParser.NewScoreContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -159,6 +172,18 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -178,6 +203,18 @@ public class ByzBaseListener implements ByzListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

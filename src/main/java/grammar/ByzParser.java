@@ -1,4 +1,5 @@
-package grammar;// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+package grammar;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;
@@ -148,34 +149,36 @@ public class ByzParser extends Parser {
 		HAMILI_AND_KENTIMATA_OVER_OLIGON=393, YPORROI_AND_KENTIMATA_OVER_OLIGON=394, 
 		KENTIMA_TO_THE_RIGHT_OF_OLIGON=395;
 	public static final int
-		RULE_score2 = 0, RULE_clusterType2 = 1, RULE_score = 2, RULE_emptyCluster = 3, 
-		RULE_fthoraMeEndeixi = 4, RULE_pause = 5, RULE_cluster = 6, RULE_tChar = 7, 
-		RULE_grammaMartyrias = 8, RULE_martyrikoSimio = 9, RULE_martyria = 10, 
-		RULE_arktikiMartyria = 11, RULE_plagiosTetartoyArktikiMartyria = 12, RULE_plagiosPrwtouArktikiMartyria = 13, 
-		RULE_text = 14, RULE_capWord = 15, RULE_syllable = 16, RULE_gorgotita = 17, 
-		RULE_gorgon = 18, RULE_gorgonParestigmenoAristera = 19, RULE_gorgonParestigmenoDexia = 20, 
-		RULE_digorgon = 21, RULE_digorgonParestigmenoAristera = 22, RULE_digorgonParestigmenoDexia = 23, 
-		RULE_trigorgon = 24, RULE_trigorgonParestigmenoAristeraKato = 25, RULE_trigorgonParestigmenoAristeraPano = 26, 
-		RULE_trigorgonParestigmenoDexia = 27, RULE_argia = 28, RULE_klasma = 29, 
-		RULE_apli = 30, RULE_dipli = 31, RULE_tripli = 32, RULE_fthora = 33, RULE_yfesi = 34, 
-		RULE_yfesiApli = 35, RULE_yfesiMonogrammos = 36, RULE_yfesiDigrammos = 37, 
-		RULE_diesi = 38, RULE_diesiApli = 39, RULE_diesiMonogrammos = 40, RULE_diesiDigrammos = 41, 
-		RULE_fthoraDiatoniki = 42, RULE_fthoraChromatiki = 43, RULE_geniki = 44, 
-		RULE_chroa = 45, RULE_qChar = 46, RULE_kentimaToTheRightOfOligon = 47, 
-		RULE_yporroi = 48;
+		RULE_newScore = 0, RULE_score2 = 1, RULE_clusterType2 = 2, RULE_score = 3, 
+		RULE_emptyCluster = 4, RULE_fthoraMeEndeixi = 5, RULE_pause = 6, RULE_cluster = 7, 
+		RULE_tChar = 8, RULE_grammaMartyrias = 9, RULE_martyrikoSimio = 10, RULE_martyria = 11, 
+		RULE_arktikiMartyria = 12, RULE_newArktikiMartyria = 13, RULE_plagiosTetartoyArktikiMartyria = 14, 
+		RULE_plagiosPrwtouArktikiMartyria = 15, RULE_endixiFthoggou = 16, RULE_text = 17, 
+		RULE_capWord = 18, RULE_syllable = 19, RULE_gorgotita = 20, RULE_gorgon = 21, 
+		RULE_gorgonParestigmenoAristera = 22, RULE_gorgonParestigmenoDexia = 23, 
+		RULE_digorgon = 24, RULE_digorgonParestigmenoAristera = 25, RULE_digorgonParestigmenoDexia = 26, 
+		RULE_trigorgon = 27, RULE_trigorgonParestigmenoAristeraKato = 28, RULE_trigorgonParestigmenoAristeraPano = 29, 
+		RULE_trigorgonParestigmenoDexia = 30, RULE_argia = 31, RULE_klasma = 32, 
+		RULE_apli = 33, RULE_dipli = 34, RULE_tripli = 35, RULE_fthora = 36, RULE_yfesi = 37, 
+		RULE_yfesiApli = 38, RULE_yfesiMonogrammos = 39, RULE_yfesiDigrammos = 40, 
+		RULE_diesi = 41, RULE_diesiApli = 42, RULE_diesiMonogrammos = 43, RULE_diesiDigrammos = 44, 
+		RULE_fthoraDiatoniki = 45, RULE_fthoraChromatiki = 46, RULE_geniki = 47, 
+		RULE_chroa = 48, RULE_qChar = 49, RULE_kentimaToTheRightOfOligon = 50, 
+		RULE_yporroi = 51;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"score2", "clusterType2", "score", "emptyCluster", "fthoraMeEndeixi", 
+			"newScore", "score2", "clusterType2", "score", "emptyCluster", "fthoraMeEndeixi", 
 			"pause", "cluster", "tChar", "grammaMartyrias", "martyrikoSimio", "martyria", 
-			"arktikiMartyria", "plagiosTetartoyArktikiMartyria", "plagiosPrwtouArktikiMartyria", 
-			"text", "capWord", "syllable", "gorgotita", "gorgon", "gorgonParestigmenoAristera", 
-			"gorgonParestigmenoDexia", "digorgon", "digorgonParestigmenoAristera", 
-			"digorgonParestigmenoDexia", "trigorgon", "trigorgonParestigmenoAristeraKato", 
-			"trigorgonParestigmenoAristeraPano", "trigorgonParestigmenoDexia", "argia", 
-			"klasma", "apli", "dipli", "tripli", "fthora", "yfesi", "yfesiApli", 
-			"yfesiMonogrammos", "yfesiDigrammos", "diesi", "diesiApli", "diesiMonogrammos", 
-			"diesiDigrammos", "fthoraDiatoniki", "fthoraChromatiki", "geniki", "chroa", 
-			"qChar", "kentimaToTheRightOfOligon", "yporroi"
+			"arktikiMartyria", "newArktikiMartyria", "plagiosTetartoyArktikiMartyria", 
+			"plagiosPrwtouArktikiMartyria", "endixiFthoggou", "text", "capWord", 
+			"syllable", "gorgotita", "gorgon", "gorgonParestigmenoAristera", "gorgonParestigmenoDexia", 
+			"digorgon", "digorgonParestigmenoAristera", "digorgonParestigmenoDexia", 
+			"trigorgon", "trigorgonParestigmenoAristeraKato", "trigorgonParestigmenoAristeraPano", 
+			"trigorgonParestigmenoDexia", "argia", "klasma", "apli", "dipli", "tripli", 
+			"fthora", "yfesi", "yfesiApli", "yfesiMonogrammos", "yfesiDigrammos", 
+			"diesi", "diesiApli", "diesiMonogrammos", "diesiDigrammos", "fthoraDiatoniki", 
+			"fthoraChromatiki", "geniki", "chroa", "qChar", "kentimaToTheRightOfOligon", 
+			"yporroi"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -418,6 +421,194 @@ public class ByzParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
+	public static class NewScoreContext extends ParserRuleContext {
+		public NewArktikiMartyriaContext newArktikiMartyria() {
+			return getRuleContext(NewArktikiMartyriaContext.class,0);
+		}
+		public List<ClusterType2Context> clusterType2() {
+			return getRuleContexts(ClusterType2Context.class);
+		}
+		public ClusterType2Context clusterType2(int i) {
+			return getRuleContext(ClusterType2Context.class,i);
+		}
+		public List<MartyriaContext> martyria() {
+			return getRuleContexts(MartyriaContext.class);
+		}
+		public MartyriaContext martyria(int i) {
+			return getRuleContext(MartyriaContext.class,i);
+		}
+		public NewScoreContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_newScore; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterNewScore(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitNewScore(this);
+		}
+	}
+
+	public final NewScoreContext newScore() throws RecognitionException {
+		NewScoreContext _localctx = new NewScoreContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_newScore);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(105);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==HXOS_WORD) {
+				{
+				setState(104);
+				newArktikiMartyria();
+				}
+			}
+
+			setState(109); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				setState(109);
+				_errHandler.sync(this);
+				switch (_input.LA(1)) {
+				case ARXIGRAMMA:
+				case CAP_LETTER:
+				case SMALL_LETTER:
+				case ISON_NEO:
+				case OLIGON_NEO:
+				case PETASTI:
+				case APOSTROFOS_NEO:
+				case YPORROI:
+				case ELAFRON:
+				case CHAMILI:
+				case KENTIMATA_NEO_MESO:
+				case KENTIMA_NEO_MESO:
+				case OLIGON_OVER_PETASTI:
+				case KENTIMA_UNDER_OLIGON:
+				case OLIGON_ABOVE_KENTIMATA:
+				case KENTIMATA_ABOVE_OLIGON:
+				case ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON:
+				case KENTIMA_OVER_OLIGON:
+				case KENTIMA_OVER_PETASTI:
+				case YPSILI_AT_RIGHT_END_OF_OLIGON:
+				case YPSILI_AT_RIGHT_END_OF_PETASTI:
+				case YPSILI_AT_LEFT_END_OF_OLIGON:
+				case YPSILI_AT_LEFT_END_OF_PETASTI:
+				case YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT:
+				case YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT:
+				case YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON:
+				case YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI:
+				case YPSILI_OVER_KENTIMA_OVER_OLIGON:
+				case YPSILI_OVER_KENTIMA_OVER_PETASTI:
+				case TWO_IPSILES_OVER_OLIGON:
+				case TWO_IPSILES_OVER_PETASTI:
+				case TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON:
+				case TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI:
+				case YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT:
+				case YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT:
+				case THREE_YPSILES_OVER_OLIGON:
+				case THREE_YPSILES_OVER_PETASTI:
+				case THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE:
+				case THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE:
+				case THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE:
+				case CONTINUOUS_ELAFRON:
+				case ELAPHRON_OVER_APOSTROPHOS:
+				case HAMILI_OVER_APOSTROPHOS:
+				case HAMILI_OVER_ELAPHRON:
+				case HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS:
+				case APOSTROPHOS_OVER_PETASTI:
+				case CONTINUOUS_ELAFRON_OVER_PETASTI:
+				case ELAPHRON_OVER_PETASTI:
+				case ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI:
+				case TWO_APOSTROPHOI_IN_A_ROW:
+				case APOSTROPHOS_OVER_OLIGON:
+				case ELAPHRON_OVER_OLIGON:
+				case ELAPHRON_OVER_APOSTROPHOS_OVER_ISON:
+				case HAMILI_OVER_OLIGON:
+				case YPORROI_OVER_OLIGON:
+				case YPORROI_OVER_PETASTI:
+				case HAMILI_OVER_HAMILI:
+				case HAMILI_OVER_PETASTI:
+				case HAMILI_OVER_APOSTROPHOS_OVER_PETASTI:
+				case HAMILI_OVER_ELAPHRON_OVER_PETASTI:
+				case HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI:
+				case HAMILI_OVER_HAMILI_OVER_PETASTI:
+				case HAMILI_OVER_HAMILI_OVER_APOSTROPHOS:
+				case HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI:
+				case HAMILI_OVER_HAMILI_OVER_ELAPHRON:
+				case HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS:
+				case HAMILI_OVER_HAMILI_OVER_HAMILI:
+				case ISON_OVER_PETASTI:
+				case ISON_OVER_OLIGON:
+				case APOSTROPHOS_UNDER_ISON:
+				case APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON:
+				case ISON_AND_KENTIMATA_OVER_OLIGON:
+				case ELAPHRON_AND_KENTIMATA_OVER_OLIGON:
+				case CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON:
+				case ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON:
+				case HAMILI_AND_KENTIMATA_OVER_OLIGON:
+				case YPORROI_AND_KENTIMATA_OVER_OLIGON:
+				case KENTIMA_TO_THE_RIGHT_OF_OLIGON:
+					{
+					setState(107);
+					clusterType2();
+					}
+					break;
+				case MARTYRIA_ALLI_PROTOS_ICHOS:
+				case MARTYRIA_ALLI_DEYTEROS_ICHOS:
+				case MARTYRIA_TRIFONIAS:
+				case MARTYRIA_TETARTOS_ICHOS:
+				case MARTYRIA_LEGETOS_ICHOS:
+				case APOSTROFOI_TELOUS_ICHIMATOS:
+				case MARTYRIA_VARYS_ICHOS:
+				case ARKTIKO_PA:
+				case ARKTIKO_VOU:
+				case ARKTIKO_GA:
+				case ARKTIKO_DI:
+				case ARKTIKO_KE:
+				case ARKTIKO_ZO:
+				case ARKTIKO_NI:
+				case GRAMMA_MARTYRIAS_TONOS:
+				case LOW_GA:
+				case LOW_DI:
+				case LOW_KE:
+				case MARTYRIA_NENANO:
+				case MARTYRIA_ALLI_PROTOS_ICHOS_LOW:
+				case MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW:
+				case MARTYRIA_TRIFONIAS_LOW:
+				case MARTYRIA_TETARTOS_ICHOS_LOW:
+				case MARTYRIA_NENANO_LOW:
+					{
+					setState(108);
+					martyria();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				}
+				setState(111); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( ((((_la - 54)) & ~0x3f) == 0 && ((1L << (_la - 54)) & ((1L << (MARTYRIA_ALLI_PROTOS_ICHOS - 54)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS - 54)) | (1L << (MARTYRIA_TRIFONIAS - 54)) | (1L << (MARTYRIA_TETARTOS_ICHOS - 54)) | (1L << (MARTYRIA_LEGETOS_ICHOS - 54)) | (1L << (APOSTROFOI_TELOUS_ICHIMATOS - 54)) | (1L << (MARTYRIA_VARYS_ICHOS - 54)) | (1L << (ARKTIKO_PA - 54)) | (1L << (ARKTIKO_VOU - 54)) | (1L << (ARKTIKO_GA - 54)) | (1L << (ARKTIKO_DI - 54)) | (1L << (ARKTIKO_KE - 54)) | (1L << (ARKTIKO_ZO - 54)) | (1L << (ARKTIKO_NI - 54)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)) | (1L << (ARXIGRAMMA - 150)) | (1L << (CAP_LETTER - 150)) | (1L << (SMALL_LETTER - 150)))) != 0) || ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (KENTIMA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static class Score2Context extends ParserRuleContext {
 		public ArktikiMartyriaContext arktikiMartyria() {
 			return getRuleContext(ArktikiMartyriaContext.class,0);
@@ -444,35 +635,35 @@ public class ByzParser extends Parser {
 
 	public final Score2Context score2() throws RecognitionException {
 		Score2Context _localctx = new Score2Context(_ctx, getState());
-		enterRule(_localctx, 0, RULE_score2);
+		enterRule(_localctx, 2, RULE_score2);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(99);
+			setState(114);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (((((_la - 160)) & ~0x3f) == 0 && ((1L << (_la - 160)) & ((1L << (HXOS_WORD - 160)) | (1L << (LEFT_PARENTHESIS - 160)) | (1L << (CAP_LETTER - 160)) | (1L << (SMALL_LETTER - 160)) | (1L << (LATIN_WORD - 160)) | (1L << (GREEK_WORD - 160)) | (1L << (SYMBOLS_NUMBERS - 160)))) != 0)) {
+			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
+			case 1:
 				{
-				setState(98);
+				setState(113);
 				arktikiMartyria();
 				}
+				break;
 			}
-
-			setState(102); 
+			setState(117); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(101);
+				setState(116);
 				clusterType2();
 				}
 				}
-				setState(104); 
+				setState(119); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (KENTIMA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
+			} while ( ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ARXIGRAMMA - 196)) | (1L << (CAP_LETTER - 196)) | (1L << (SMALL_LETTER - 196)))) != 0) || ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (KENTIMA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -490,8 +681,15 @@ public class ByzParser extends Parser {
 		public QCharContext qChar() {
 			return getRuleContext(QCharContext.class,0);
 		}
-		public SyllableContext syllable() {
-			return getRuleContext(SyllableContext.class,0);
+		public TerminalNode ARXIGRAMMA() { return getToken(ByzParser.ARXIGRAMMA, 0); }
+		public List<SyllableContext> syllable() {
+			return getRuleContexts(SyllableContext.class);
+		}
+		public SyllableContext syllable(int i) {
+			return getRuleContext(SyllableContext.class,i);
+		}
+		public PauseContext pause() {
+			return getRuleContext(PauseContext.class,0);
 		}
 		public List<TCharContext> tChar() {
 			return getRuleContexts(TCharContext.class);
@@ -499,8 +697,11 @@ public class ByzParser extends Parser {
 		public TCharContext tChar(int i) {
 			return getRuleContext(TCharContext.class,i);
 		}
-		public FthoraMeEndeixiContext fthoraMeEndeixi() {
-			return getRuleContext(FthoraMeEndeixiContext.class,0);
+		public List<FthoraMeEndeixiContext> fthoraMeEndeixi() {
+			return getRuleContexts(FthoraMeEndeixiContext.class);
+		}
+		public FthoraMeEndeixiContext fthoraMeEndeixi(int i) {
+			return getRuleContext(FthoraMeEndeixiContext.class,i);
 		}
 		public ClusterType2Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -518,44 +719,185 @@ public class ByzParser extends Parser {
 
 	public final ClusterType2Context clusterType2() throws RecognitionException {
 		ClusterType2Context _localctx = new ClusterType2Context(_ctx, getState());
-		enterRule(_localctx, 2, RULE_clusterType2);
+		enterRule(_localctx, 4, RULE_clusterType2);
 		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(106);
-			qChar();
-			setState(108);
+			setState(122);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==ARXIGRAMMA) {
+				{
+				setState(121);
+				match(ARXIGRAMMA);
+				}
+			}
+
+			setState(125);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==CAP_LETTER || _la==SMALL_LETTER) {
 				{
-				setState(107);
+				setState(124);
 				syllable();
 				}
 			}
 
-			setState(113);
+			setState(127);
+			qChar();
+			{
+			setState(129);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+			case 1:
+				{
+				setState(128);
+				syllable();
+				}
+				break;
+			}
+			setState(134);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(131);
+					tChar();
+					}
+					} 
+				}
+				setState(136);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
+			}
+			setState(138);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
+			case 1:
+				{
+				setState(137);
+				fthoraMeEndeixi();
+				}
+				break;
+			}
+			setState(141);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			case 1:
+				{
+				setState(140);
+				syllable();
+				}
+				break;
+			}
+			setState(144);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			case 1:
+				{
+				setState(143);
+				fthoraMeEndeixi();
+				}
+				break;
+			}
+			setState(149);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(146);
+					tChar();
+					}
+					} 
+				}
+				setState(151);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
+			}
+			setState(155);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(152);
+					tChar();
+					}
+					} 
+				}
+				setState(157);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
+			}
+			setState(159);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
+			case 1:
+				{
+				setState(158);
+				syllable();
+				}
+				break;
+			}
+			setState(162);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
+			case 1:
+				{
+				setState(161);
+				fthoraMeEndeixi();
+				}
+				break;
+			}
+			setState(167);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (((((_la - 205)) & ~0x3f) == 0 && ((1L << (_la - 205)) & ((1L << (GORGON_NEO_ANO - 205)) | (1L << (GORGON_PARESTIGMENON_ARISTERA - 205)) | (1L << (GORGON_PARESTIGMENON_DEXIA - 205)) | (1L << (DIGORGON - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 205)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA - 205)) | (1L << (TRIGORGON - 205)) | (1L << (ARGON - 205)) | (1L << (IMIDIARGON - 205)) | (1L << (DIARGON - 205)) | (1L << (GORGON_NEO_KATO - 205)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 205)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 205)) | (1L << (GORGON_USED_ON_YPORROI - 205)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 205)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 205)) | (1L << (DIGORGON_USED_ON_YPORROI - 205)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 205)) | (1L << (TRIGORGON_USED_ON_YPORROI - 205)) | (1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 205)) | (1L << (GORGON_USED_ON_L116_YPORROI - 205)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 205)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 205)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 205)) | (1L << (GORGON_ANO_STA_DEXIA - 205)) | (1L << (GORGON_KATO - 205)) | (1L << (GORGON_KATO_STA_DEXIA - 205)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 205)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 205)) | (1L << (DIGORGON_STA_DEXIA - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 205)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 205)) | (1L << (TRIGORGON_STA_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 205)) | (1L << (KLASMA_ANO - 205)) | (1L << (APLI - 205)) | (1L << (DIPLI - 205)) | (1L << (TRIPLI - 205)) | (1L << (KLASMA_KATO - 205)) | (1L << (KLASMA_ANO_STA_DEXIA - 205)) | (1L << (KLASMA_ANO_STA_ARISTERA - 205)) | (1L << (APLI_STA_DEXIA - 205)) | (1L << (DIPLI_STA_DEXIA - 205)) | (1L << (TRIPLI_STA_DEXIA - 205)))) != 0)) {
 				{
 				{
-				setState(110);
+				setState(164);
 				tChar();
 				}
 				}
-				setState(115);
+				setState(169);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(117);
+			setState(171);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 269)) & ~0x3f) == 0 && ((1L << (_la - 269)) & ((1L << (ENARXIS_KAI_FTHORA_VOU - 269)) | (1L << (FTHORA_DIATONIKI_PA - 269)) | (1L << (FTHORA_DIATONIKI_NANA - 269)) | (1L << (FTHORA_NAOS_ICHOS - 269)) | (1L << (FTHORA_DIATONIKI_DI - 269)) | (1L << (FTHORA_DIATONIKI_KE - 269)) | (1L << (FTHORA_DIATONIKI_ZO - 269)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 269)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 269)) | (1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 269)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 269)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 269)) | (1L << (FTHORA_NENANO - 269)) | (1L << (CHROA_ZYGOS - 269)) | (1L << (CHROA_KLITON - 269)) | (1L << (CHROA_SPATHI - 269)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 269)) | (1L << (DIESIS_APLI_DYO_DODEKATA - 269)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA - 269)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA - 269)) | (1L << (DIESIS_TRIGRAMMOS_OKTO_DODEKATA - 269)) | (1L << (YFESIS_APLI_DYO_DODEKATA - 269)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA - 269)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA - 269)) | (1L << (YFESIS_TRIGRAMMOS_OKTO_DODEKATA - 269)) | (1L << (GENIKI_DIESIS - 269)) | (1L << (GENIKI_YFESIS - 269)) | (1L << (DIESIS_APLI_DYO_DODEKATA_DEXIA - 269)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 269)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 269)) | (1L << (YFESIS_APLI_DYO_DODEKATA_DEXIA - 269)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 269)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 269)))) != 0)) {
 				{
-				setState(116);
+				setState(170);
 				fthoraMeEndeixi();
+				}
+			}
+
+			setState(174);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
+			case 1:
+				{
+				setState(173);
+				syllable();
+				}
+				break;
+			}
+			}
+			setState(177);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==LEIMMA_ENOS_CHRONOU) {
+				{
+				setState(176);
+				pause();
 				}
 			}
 
@@ -610,77 +952,77 @@ public class ByzParser extends Parser {
 
 	public final ScoreContext score() throws RecognitionException {
 		ScoreContext _localctx = new ScoreContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_score);
+		enterRule(_localctx, 6, RULE_score);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(122);
+			setState(182);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(119);
+					setState(179);
 					text();
 					}
 					} 
 				}
-				setState(124);
+				setState(184);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 			}
-			setState(128);
+			setState(188);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(125);
+					setState(185);
 					emptyCluster();
 					}
 					} 
 				}
-				setState(130);
+				setState(190);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 			}
-			setState(132);
+			setState(192);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				{
-				setState(131);
+				setState(191);
 				arktikiMartyria();
 				}
 				break;
 			}
-			setState(136); 
+			setState(196); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(136);
+				setState(196);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 				case 1:
 					{
-					setState(134);
+					setState(194);
 					text();
 					}
 					break;
 				case 2:
 					{
-					setState(135);
+					setState(195);
 					cluster();
 					}
 					break;
 				}
 				}
-				setState(138); 
+				setState(198); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( ((((_la - 197)) & ~0x3f) == 0 && ((1L << (_la - 197)) & ((1L << (LEFT_PARENTHESIS - 197)) | (1L << (CAP_LETTER - 197)) | (1L << (SMALL_LETTER - 197)) | (1L << (LATIN_WORD - 197)) | (1L << (GREEK_WORD - 197)) | (1L << (SYMBOLS_NUMBERS - 197)))) != 0) );
@@ -716,13 +1058,13 @@ public class ByzParser extends Parser {
 
 	public final EmptyClusterContext emptyCluster() throws RecognitionException {
 		EmptyClusterContext _localctx = new EmptyClusterContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_emptyCluster);
+		enterRule(_localctx, 8, RULE_emptyCluster);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(140);
+			setState(200);
 			match(LEFT_PARENTHESIS);
-			setState(141);
+			setState(201);
 			match(RIGHT_PARENTHESIS);
 			}
 		}
@@ -741,6 +1083,9 @@ public class ByzParser extends Parser {
 		public FthoraContext fthora() {
 			return getRuleContext(FthoraContext.class,0);
 		}
+		public EndixiFthoggouContext endixiFthoggou() {
+			return getRuleContext(EndixiFthoggouContext.class,0);
+		}
 		public FthoraMeEndeixiContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -757,12 +1102,23 @@ public class ByzParser extends Parser {
 
 	public final FthoraMeEndeixiContext fthoraMeEndeixi() throws RecognitionException {
 		FthoraMeEndeixiContext _localctx = new FthoraMeEndeixiContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_fthoraMeEndeixi);
+		enterRule(_localctx, 10, RULE_fthoraMeEndeixi);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(143);
+			setState(203);
 			fthora();
+			setState(205);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (((((_la - 117)) & ~0x3f) == 0 && ((1L << (_la - 117)) & ((1L << (ENDIXI_NH_ARISTERA - 117)) | (1L << (ENDIXI_NH_DEXIA - 117)) | (1L << (ENDIXI_PA_ARISTERA - 117)) | (1L << (ENDIXI_PA_DEXIA - 117)) | (1L << (ENDIXI_BOY_ARISTERA - 117)) | (1L << (ENDIXI_BOY_DEXIA - 117)) | (1L << (ENDIXI_GA_ARISTERA - 117)) | (1L << (ENDIXI_GA_DEXIA - 117)) | (1L << (ENDIXI_DI_ARISTERA - 117)) | (1L << (ENDIXI_DI_DEXIA - 117)) | (1L << (ENDIXI_KE_ARISTERA - 117)) | (1L << (ENDIXI_KE_DEXIA - 117)) | (1L << (ENDIXI_ZW_ARISTERA - 117)) | (1L << (ENDIXI_ZW_DEXIA - 117)) | (1L << (ENDIXI_DI_KATO_ARISTERA - 117)) | (1L << (ENDIXI_PA_KATO_ARISTERA - 117)))) != 0)) {
+				{
+				setState(204);
+				endixiFthoggou();
+				}
+			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -809,22 +1165,22 @@ public class ByzParser extends Parser {
 
 	public final PauseContext pause() throws RecognitionException {
 		PauseContext _localctx = new PauseContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_pause);
+		enterRule(_localctx, 12, RULE_pause);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(145);
+			setState(207);
 			match(LEIMMA_ENOS_CHRONOU);
-			setState(149);
+			setState(211);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(146);
+					setState(208);
 					_la = _input.LA(1);
 					if ( !(((((_la - 252)) & ~0x3f) == 0 && ((1L << (_la - 252)) & ((1L << (APLI - 252)) | (1L << (DIPLI - 252)) | (1L << (TRIPLI - 252)))) != 0)) ) {
 					_errHandler.recoverInline(this);
@@ -837,16 +1193,16 @@ public class ByzParser extends Parser {
 					}
 					} 
 				}
-				setState(151);
+				setState(213);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 			}
-			setState(153);
+			setState(215);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,27,_ctx) ) {
 			case 1:
 				{
-				setState(152);
+				setState(214);
 				gorgotita();
 				}
 				break;
@@ -929,76 +1285,76 @@ public class ByzParser extends Parser {
 
 	public final ClusterContext cluster() throws RecognitionException {
 		ClusterContext _localctx = new ClusterContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_cluster);
+		enterRule(_localctx, 14, RULE_cluster);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(155);
+			setState(217);
 			match(LEFT_PARENTHESIS);
-			setState(166);
+			setState(228);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LEIMMA_ENOS_CHRONOU) | (1L << MARTYRIA_ALLI_PROTOS_ICHOS) | (1L << MARTYRIA_ALLI_DEYTEROS_ICHOS) | (1L << MARTYRIA_TRIFONIAS) | (1L << MARTYRIA_TETARTOS_ICHOS) | (1L << MARTYRIA_LEGETOS_ICHOS))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (APOSTROFOI_TELOUS_ICHIMATOS - 64)) | (1L << (MARTYRIA_VARYS_ICHOS - 64)) | (1L << (ARKTIKO_PA - 64)) | (1L << (ARKTIKO_VOU - 64)) | (1L << (ARKTIKO_GA - 64)) | (1L << (ARKTIKO_DI - 64)) | (1L << (ARKTIKO_KE - 64)) | (1L << (ARKTIKO_ZO - 64)) | (1L << (ARKTIKO_NI - 64)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)) | (1L << (ARXIGRAMMA - 150)) | (1L << (CAP_LETTER - 150)) | (1L << (SMALL_LETTER - 150)) | (1L << (GORGON_NEO_ANO - 150)) | (1L << (GORGON_PARESTIGMENON_ARISTERA - 150)) | (1L << (GORGON_PARESTIGMENON_DEXIA - 150)) | (1L << (DIGORGON - 150)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 150)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 150)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA - 150)) | (1L << (TRIGORGON - 150)) | (1L << (ARGON - 150)))) != 0) || ((((_la - 214)) & ~0x3f) == 0 && ((1L << (_la - 214)) & ((1L << (IMIDIARGON - 214)) | (1L << (DIARGON - 214)) | (1L << (GORGON_NEO_KATO - 214)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 214)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 214)) | (1L << (GORGON_USED_ON_YPORROI - 214)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 214)) | (1L << (DIGORGON_USED_ON_YPORROI - 214)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (TRIGORGON_USED_ON_YPORROI - 214)) | (1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (GORGON_USED_ON_L116_YPORROI - 214)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 214)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 214)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 214)) | (1L << (GORGON_ANO_STA_DEXIA - 214)) | (1L << (GORGON_KATO - 214)) | (1L << (GORGON_KATO_STA_DEXIA - 214)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 214)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (DIGORGON_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (TRIGORGON_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (KLASMA_ANO - 214)) | (1L << (APLI - 214)) | (1L << (DIPLI - 214)) | (1L << (TRIPLI - 214)) | (1L << (KLASMA_KATO - 214)) | (1L << (KLASMA_ANO_STA_DEXIA - 214)) | (1L << (KLASMA_ANO_STA_ARISTERA - 214)) | (1L << (APLI_STA_DEXIA - 214)) | (1L << (DIPLI_STA_DEXIA - 214)) | (1L << (TRIPLI_STA_DEXIA - 214)) | (1L << (ENARXIS_KAI_FTHORA_VOU - 214)) | (1L << (FTHORA_DIATONIKI_PA - 214)) | (1L << (FTHORA_DIATONIKI_NANA - 214)) | (1L << (FTHORA_NAOS_ICHOS - 214)) | (1L << (FTHORA_DIATONIKI_DI - 214)))) != 0) || ((((_la - 278)) & ~0x3f) == 0 && ((1L << (_la - 278)) & ((1L << (FTHORA_DIATONIKI_KE - 278)) | (1L << (FTHORA_DIATONIKI_ZO - 278)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 278)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 278)) | (1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 278)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 278)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 278)) | (1L << (FTHORA_NENANO - 278)) | (1L << (CHROA_ZYGOS - 278)) | (1L << (CHROA_KLITON - 278)) | (1L << (CHROA_SPATHI - 278)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 278)) | (1L << (DIESIS_APLI_DYO_DODEKATA - 278)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA - 278)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA - 278)) | (1L << (DIESIS_TRIGRAMMOS_OKTO_DODEKATA - 278)) | (1L << (YFESIS_APLI_DYO_DODEKATA - 278)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA - 278)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA - 278)) | (1L << (YFESIS_TRIGRAMMOS_OKTO_DODEKATA - 278)) | (1L << (GENIKI_DIESIS - 278)) | (1L << (GENIKI_YFESIS - 278)) | (1L << (DIESIS_APLI_DYO_DODEKATA_DEXIA - 278)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 278)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_APLI_DYO_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 278)) | (1L << (ISON_NEO - 278)) | (1L << (OLIGON_NEO - 278)) | (1L << (PETASTI - 278)) | (1L << (APOSTROFOS_NEO - 278)) | (1L << (YPORROI - 278)) | (1L << (ELAFRON - 278)) | (1L << (CHAMILI - 278)) | (1L << (KENTIMATA_NEO_MESO - 278)) | (1L << (KENTIMA_NEO_MESO - 278)) | (1L << (OLIGON_OVER_PETASTI - 278)) | (1L << (KENTIMA_UNDER_OLIGON - 278)) | (1L << (OLIGON_ABOVE_KENTIMATA - 278)) | (1L << (KENTIMATA_ABOVE_OLIGON - 278)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 278)) | (1L << (KENTIMA_OVER_OLIGON - 278)) | (1L << (KENTIMA_OVER_PETASTI - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 278)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 278)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 278)))) != 0) || ((((_la - 342)) & ~0x3f) == 0 && ((1L << (_la - 342)) & ((1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 342)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 342)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 342)) | (1L << (TWO_IPSILES_OVER_OLIGON - 342)) | (1L << (TWO_IPSILES_OVER_PETASTI - 342)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 342)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON - 342)) | (1L << (THREE_YPSILES_OVER_PETASTI - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 342)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 342)) | (1L << (CONTINUOUS_ELAFRON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_ELAPHRON - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 342)) | (1L << (ELAPHRON_OVER_PETASTI - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 342)) | (1L << (APOSTROPHOS_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 342)) | (1L << (HAMILI_OVER_OLIGON - 342)) | (1L << (YPORROI_OVER_OLIGON - 342)) | (1L << (YPORROI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI - 342)) | (1L << (HAMILI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 342)) | (1L << (ISON_OVER_PETASTI - 342)) | (1L << (ISON_OVER_OLIGON - 342)) | (1L << (APOSTROPHOS_UNDER_ISON - 342)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 342)))) != 0)) {
 				{
-				setState(164);
+				setState(226);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 				case 1:
 					{
-					setState(156);
+					setState(218);
 					capWord();
 					}
 					break;
 				case 2:
 					{
-					setState(157);
+					setState(219);
 					syllable();
 					}
 					break;
 				case 3:
 					{
-					setState(158);
+					setState(220);
 					tChar();
 					}
 					break;
 				case 4:
 					{
-					setState(159);
+					setState(221);
 					qChar();
 					}
 					break;
 				case 5:
 					{
-					setState(160);
+					setState(222);
 					fthoraMeEndeixi();
 					}
 					break;
 				case 6:
 					{
-					setState(161);
+					setState(223);
 					martyria();
 					}
 					break;
 				case 7:
 					{
-					setState(162);
+					setState(224);
 					match(ARXIGRAMMA);
 					}
 					break;
 				case 8:
 					{
-					setState(163);
+					setState(225);
 					pause();
 					}
 					break;
 				}
 				}
-				setState(168);
+				setState(230);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(169);
+			setState(231);
 			match(RIGHT_PARENTHESIS);
 			}
 		}
@@ -1036,9 +1392,9 @@ public class ByzParser extends Parser {
 
 	public final TCharContext tChar() throws RecognitionException {
 		TCharContext _localctx = new TCharContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_tChar);
+		enterRule(_localctx, 16, RULE_tChar);
 		try {
-			setState(173);
+			setState(235);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case GORGON_NEO_ANO:
@@ -1084,7 +1440,7 @@ public class ByzParser extends Parser {
 			case TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(171);
+				setState(233);
 				gorgotita();
 				}
 				break;
@@ -1100,7 +1456,7 @@ public class ByzParser extends Parser {
 			case TRIPLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(172);
+				setState(234);
 				argia();
 				}
 				break;
@@ -1146,12 +1502,12 @@ public class ByzParser extends Parser {
 
 	public final GrammaMartyriasContext grammaMartyrias() throws RecognitionException {
 		GrammaMartyriasContext _localctx = new GrammaMartyriasContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_grammaMartyrias);
+		enterRule(_localctx, 18, RULE_grammaMartyrias);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(175);
+			setState(237);
 			_la = _input.LA(1);
 			if ( !(((((_la - 100)) & ~0x3f) == 0 && ((1L << (_la - 100)) & ((1L << (ARKTIKO_PA - 100)) | (1L << (ARKTIKO_VOU - 100)) | (1L << (ARKTIKO_GA - 100)) | (1L << (ARKTIKO_DI - 100)) | (1L << (ARKTIKO_KE - 100)) | (1L << (ARKTIKO_ZO - 100)) | (1L << (ARKTIKO_NI - 100)) | (1L << (LOW_GA - 100)) | (1L << (LOW_DI - 100)) | (1L << (LOW_KE - 100)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1204,26 +1560,26 @@ public class ByzParser extends Parser {
 
 	public final MartyrikoSimioContext martyrikoSimio() throws RecognitionException {
 		MartyrikoSimioContext _localctx = new MartyrikoSimioContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_martyrikoSimio);
+		enterRule(_localctx, 20, RULE_martyrikoSimio);
 		int _la;
 		try {
-			setState(191);
+			setState(253);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,17,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(178);
+				setState(240);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==APOSTROFOI_TELOUS_ICHIMATOS) {
 					{
-					setState(177);
+					setState(239);
 					match(APOSTROFOI_TELOUS_ICHIMATOS);
 					}
 				}
 
-				setState(180);
+				setState(242);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MARTYRIA_ALLI_PROTOS_ICHOS) | (1L << MARTYRIA_ALLI_DEYTEROS_ICHOS) | (1L << MARTYRIA_TETARTOS_ICHOS))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1238,17 +1594,17 @@ public class ByzParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(182);
+				setState(244);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==APOSTROFOI_TELOUS_ICHIMATOS) {
 					{
-					setState(181);
+					setState(243);
 					match(APOSTROFOI_TELOUS_ICHIMATOS);
 					}
 				}
 
-				setState(184);
+				setState(246);
 				_la = _input.LA(1);
 				if ( !(((((_la - 155)) & ~0x3f) == 0 && ((1L << (_la - 155)) & ((1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 155)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 155)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 155)))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1263,42 +1619,42 @@ public class ByzParser extends Parser {
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(185);
+				setState(247);
 				match(MARTYRIA_LEGETOS_ICHOS);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(186);
+				setState(248);
 				match(MARTYRIA_TRIFONIAS);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(187);
+				setState(249);
 				match(MARTYRIA_VARYS_ICHOS);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(188);
+				setState(250);
 				match(MARTYRIA_NENANO);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(189);
+				setState(251);
 				match(MARTYRIA_TRIFONIAS_LOW);
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(190);
+				setState(252);
 				match(MARTYRIA_NENANO_LOW);
 				}
 				break;
@@ -1339,25 +1695,25 @@ public class ByzParser extends Parser {
 
 	public final MartyriaContext martyria() throws RecognitionException {
 		MartyriaContext _localctx = new MartyriaContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_martyria);
+		enterRule(_localctx, 22, RULE_martyria);
 		int _la;
 		try {
-			setState(227);
+			setState(289);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,40,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(193);
+				setState(255);
 				grammaMartyrias();
-				setState(194);
+				setState(256);
 				martyrikoSimio();
-				setState(196);
+				setState(258);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
 				case 1:
 					{
-					setState(195);
+					setState(257);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 					break;
@@ -1367,35 +1723,35 @@ public class ByzParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(198);
+				setState(260);
 				grammaMartyrias();
-				setState(200);
+				setState(262);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(199);
+					setState(261);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(202);
+				setState(264);
 				martyrikoSimio();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(204);
+				setState(266);
 				martyrikoSimio();
-				setState(205);
+				setState(267);
 				grammaMartyrias();
-				setState(207);
+				setState(269);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,36,_ctx) ) {
 				case 1:
 					{
-					setState(206);
+					setState(268);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 					break;
@@ -1405,57 +1761,57 @@ public class ByzParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(209);
+				setState(271);
 				martyrikoSimio();
-				setState(211);
+				setState(273);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(210);
+					setState(272);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(213);
+				setState(275);
 				grammaMartyrias();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(216);
+				setState(278);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(215);
+					setState(277);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(218);
+				setState(280);
 				grammaMartyrias();
-				setState(219);
+				setState(281);
 				martyrikoSimio();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(222);
+				setState(284);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(221);
+					setState(283);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(224);
+				setState(286);
 				martyrikoSimio();
-				setState(225);
+				setState(287);
 				grammaMartyrias();
 				}
 				break;
@@ -1510,88 +1866,145 @@ public class ByzParser extends Parser {
 
 	public final ArktikiMartyriaContext arktikiMartyria() throws RecognitionException {
 		ArktikiMartyriaContext _localctx = new ArktikiMartyriaContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_arktikiMartyria);
+		enterRule(_localctx, 24, RULE_arktikiMartyria);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(230);
+			setState(292);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,25,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,41,_ctx) ) {
 			case 1:
 				{
-				setState(229);
+				setState(291);
 				match(LEFT_PARENTHESIS);
 				}
 				break;
 			}
-			setState(233);
+			setState(295);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 197)) & ~0x3f) == 0 && ((1L << (_la - 197)) & ((1L << (LEFT_PARENTHESIS - 197)) | (1L << (CAP_LETTER - 197)) | (1L << (SMALL_LETTER - 197)) | (1L << (LATIN_WORD - 197)) | (1L << (GREEK_WORD - 197)) | (1L << (SYMBOLS_NUMBERS - 197)))) != 0)) {
 				{
-				setState(232);
+				setState(294);
 				text();
 				}
 			}
 
-			setState(237);
+			setState(299);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,27,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,43,_ctx) ) {
 			case 1:
 				{
-				setState(235);
+				setState(297);
 				plagiosTetartoyArktikiMartyria();
 				}
 				break;
 			case 2:
 				{
-				setState(236);
+				setState(298);
 				plagiosPrwtouArktikiMartyria();
 				}
 				break;
 			}
-			setState(242);
+			setState(304);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,28,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,44,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(239);
+					setState(301);
 					syllable();
 					}
 					} 
 				}
-				setState(244);
+				setState(306);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,28,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,44,_ctx);
 			}
-			setState(248);
+			setState(310);
 			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==ARXIGRAMMA) {
-				{
-				{
-				setState(245);
-				match(ARXIGRAMMA);
+			_alt = getInterpreter().adaptivePredict(_input,45,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(307);
+					match(ARXIGRAMMA);
+					}
+					} 
 				}
-				}
-				setState(250);
+				setState(312);
 				_errHandler.sync(this);
-				_la = _input.LA(1);
+				_alt = getInterpreter().adaptivePredict(_input,45,_ctx);
 			}
-			setState(252);
+			setState(314);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==RIGHT_PARENTHESIS) {
 				{
-				setState(251);
+				setState(313);
 				match(RIGHT_PARENTHESIS);
 				}
 			}
 
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class NewArktikiMartyriaContext extends ParserRuleContext {
+		public PlagiosTetartoyArktikiMartyriaContext plagiosTetartoyArktikiMartyria() {
+			return getRuleContext(PlagiosTetartoyArktikiMartyriaContext.class,0);
+		}
+		public PlagiosPrwtouArktikiMartyriaContext plagiosPrwtouArktikiMartyria() {
+			return getRuleContext(PlagiosPrwtouArktikiMartyriaContext.class,0);
+		}
+		public NewArktikiMartyriaContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_newArktikiMartyria; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterNewArktikiMartyria(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitNewArktikiMartyria(this);
+		}
+	}
+
+	public final NewArktikiMartyriaContext newArktikiMartyria() throws RecognitionException {
+		NewArktikiMartyriaContext _localctx = new NewArktikiMartyriaContext(_ctx, getState());
+		enterRule(_localctx, 26, RULE_newArktikiMartyria);
+		try {
+			setState(318);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
+			case 1:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(316);
+				plagiosTetartoyArktikiMartyria();
+				}
+				break;
+			case 2:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(317);
+				plagiosPrwtouArktikiMartyria();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -1626,17 +2039,17 @@ public class ByzParser extends Parser {
 
 	public final PlagiosTetartoyArktikiMartyriaContext plagiosTetartoyArktikiMartyria() throws RecognitionException {
 		PlagiosTetartoyArktikiMartyriaContext _localctx = new PlagiosTetartoyArktikiMartyriaContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_plagiosTetartoyArktikiMartyria);
+		enterRule(_localctx, 28, RULE_plagiosTetartoyArktikiMartyria);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(254);
+			setState(320);
 			match(HXOS_WORD);
-			setState(255);
+			setState(321);
 			match(MARTYRIA_PLAGIOS_ICHOS);
-			setState(256);
+			setState(322);
 			match(ARKTIKH_MARTYRIA_TETARTOS_ICHOS);
-			setState(257);
+			setState(323);
 			match(FTHOGGOS_NH_WORD);
 			}
 		}
@@ -1673,20 +2086,81 @@ public class ByzParser extends Parser {
 
 	public final PlagiosPrwtouArktikiMartyriaContext plagiosPrwtouArktikiMartyria() throws RecognitionException {
 		PlagiosPrwtouArktikiMartyriaContext _localctx = new PlagiosPrwtouArktikiMartyriaContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_plagiosPrwtouArktikiMartyria);
+		enterRule(_localctx, 30, RULE_plagiosPrwtouArktikiMartyria);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(259);
+			setState(325);
 			match(HXOS_WORD);
-			setState(260);
+			setState(326);
 			match(ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS);
-			setState(261);
+			setState(327);
 			match(FANEROSIS_TETRAFONIAS);
-			setState(262);
+			setState(328);
 			match(FTHOGGOS_PA_WORD);
-			setState(263);
+			setState(329);
 			match(FTHORA_DIATONIKI_PA);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class EndixiFthoggouContext extends ParserRuleContext {
+		public TerminalNode ENDIXI_NH_ARISTERA() { return getToken(ByzParser.ENDIXI_NH_ARISTERA, 0); }
+		public TerminalNode ENDIXI_NH_DEXIA() { return getToken(ByzParser.ENDIXI_NH_DEXIA, 0); }
+		public TerminalNode ENDIXI_PA_ARISTERA() { return getToken(ByzParser.ENDIXI_PA_ARISTERA, 0); }
+		public TerminalNode ENDIXI_PA_DEXIA() { return getToken(ByzParser.ENDIXI_PA_DEXIA, 0); }
+		public TerminalNode ENDIXI_BOY_ARISTERA() { return getToken(ByzParser.ENDIXI_BOY_ARISTERA, 0); }
+		public TerminalNode ENDIXI_BOY_DEXIA() { return getToken(ByzParser.ENDIXI_BOY_DEXIA, 0); }
+		public TerminalNode ENDIXI_GA_ARISTERA() { return getToken(ByzParser.ENDIXI_GA_ARISTERA, 0); }
+		public TerminalNode ENDIXI_GA_DEXIA() { return getToken(ByzParser.ENDIXI_GA_DEXIA, 0); }
+		public TerminalNode ENDIXI_DI_ARISTERA() { return getToken(ByzParser.ENDIXI_DI_ARISTERA, 0); }
+		public TerminalNode ENDIXI_DI_DEXIA() { return getToken(ByzParser.ENDIXI_DI_DEXIA, 0); }
+		public TerminalNode ENDIXI_KE_ARISTERA() { return getToken(ByzParser.ENDIXI_KE_ARISTERA, 0); }
+		public TerminalNode ENDIXI_KE_DEXIA() { return getToken(ByzParser.ENDIXI_KE_DEXIA, 0); }
+		public TerminalNode ENDIXI_ZW_ARISTERA() { return getToken(ByzParser.ENDIXI_ZW_ARISTERA, 0); }
+		public TerminalNode ENDIXI_ZW_DEXIA() { return getToken(ByzParser.ENDIXI_ZW_DEXIA, 0); }
+		public TerminalNode ENDIXI_DI_KATO_ARISTERA() { return getToken(ByzParser.ENDIXI_DI_KATO_ARISTERA, 0); }
+		public TerminalNode ENDIXI_PA_KATO_ARISTERA() { return getToken(ByzParser.ENDIXI_PA_KATO_ARISTERA, 0); }
+		public EndixiFthoggouContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_endixiFthoggou; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterEndixiFthoggou(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitEndixiFthoggou(this);
+		}
+	}
+
+	public final EndixiFthoggouContext endixiFthoggou() throws RecognitionException {
+		EndixiFthoggouContext _localctx = new EndixiFthoggouContext(_ctx, getState());
+		enterRule(_localctx, 32, RULE_endixiFthoggou);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(331);
+			_la = _input.LA(1);
+			if ( !(((((_la - 117)) & ~0x3f) == 0 && ((1L << (_la - 117)) & ((1L << (ENDIXI_NH_ARISTERA - 117)) | (1L << (ENDIXI_NH_DEXIA - 117)) | (1L << (ENDIXI_PA_ARISTERA - 117)) | (1L << (ENDIXI_PA_DEXIA - 117)) | (1L << (ENDIXI_BOY_ARISTERA - 117)) | (1L << (ENDIXI_BOY_DEXIA - 117)) | (1L << (ENDIXI_GA_ARISTERA - 117)) | (1L << (ENDIXI_GA_DEXIA - 117)) | (1L << (ENDIXI_DI_ARISTERA - 117)) | (1L << (ENDIXI_DI_DEXIA - 117)) | (1L << (ENDIXI_KE_ARISTERA - 117)) | (1L << (ENDIXI_KE_DEXIA - 117)) | (1L << (ENDIXI_ZW_ARISTERA - 117)) | (1L << (ENDIXI_ZW_DEXIA - 117)) | (1L << (ENDIXI_DI_KATO_ARISTERA - 117)) | (1L << (ENDIXI_PA_KATO_ARISTERA - 117)))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -1749,11 +2223,11 @@ public class ByzParser extends Parser {
 
 	public final TextContext text() throws RecognitionException {
 		TextContext _localctx = new TextContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_text);
+		enterRule(_localctx, 34, RULE_text);
 		int _la;
 		try {
 			int _alt;
-			setState(286);
+			setState(354);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case CAP_LETTER:
@@ -1763,43 +2237,43 @@ public class ByzParser extends Parser {
 			case SYMBOLS_NUMBERS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(270); 
+				setState(338); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
 					switch (_alt) {
 					case 1:
 						{
-						setState(270);
+						setState(338);
 						_errHandler.sync(this);
-						switch ( getInterpreter().adaptivePredict(_input,31,_ctx) ) {
+						switch ( getInterpreter().adaptivePredict(_input,48,_ctx) ) {
 						case 1:
 							{
-							setState(265);
+							setState(333);
 							syllable();
 							}
 							break;
 						case 2:
 							{
-							setState(266);
+							setState(334);
 							match(LATIN_WORD);
 							}
 							break;
 						case 3:
 							{
-							setState(267);
+							setState(335);
 							match(GREEK_WORD);
 							}
 							break;
 						case 4:
 							{
-							setState(268);
+							setState(336);
 							match(SYMBOLS_NUMBERS);
 							}
 							break;
 						case 5:
 							{
-							setState(269);
+							setState(337);
 							capWord();
 							}
 							break;
@@ -1809,68 +2283,68 @@ public class ByzParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(272); 
+					setState(340); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,32,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,49,_ctx);
 				} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
 				}
 				break;
 			case LEFT_PARENTHESIS:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(274);
+				setState(342);
 				match(LEFT_PARENTHESIS);
-				setState(281); 
+				setState(349); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
-					setState(281);
+					setState(349);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,50,_ctx) ) {
 					case 1:
 						{
-						setState(275);
+						setState(343);
 						syllable();
 						}
 						break;
 					case 2:
 						{
-						setState(276);
+						setState(344);
 						capWord();
 						}
 						break;
 					case 3:
 						{
-						setState(277);
+						setState(345);
 						match(LATIN_WORD);
 						}
 						break;
 					case 4:
 						{
-						setState(278);
+						setState(346);
 						match(GREEK_WORD);
 						}
 						break;
 					case 5:
 						{
-						setState(279);
+						setState(347);
 						match(SYMBOLS_NUMBERS);
 						}
 						break;
 					case 6:
 						{
-						setState(280);
+						setState(348);
 						text();
 						}
 						break;
 					}
 					}
-					setState(283); 
+					setState(351); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( ((((_la - 197)) & ~0x3f) == 0 && ((1L << (_la - 197)) & ((1L << (LEFT_PARENTHESIS - 197)) | (1L << (CAP_LETTER - 197)) | (1L << (SMALL_LETTER - 197)) | (1L << (LATIN_WORD - 197)) | (1L << (GREEK_WORD - 197)) | (1L << (SYMBOLS_NUMBERS - 197)))) != 0) );
-				setState(285);
+				setState(353);
 				match(RIGHT_PARENTHESIS);
 				}
 				break;
@@ -1910,14 +2384,14 @@ public class ByzParser extends Parser {
 
 	public final CapWordContext capWord() throws RecognitionException {
 		CapWordContext _localctx = new CapWordContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_capWord);
+		enterRule(_localctx, 36, RULE_capWord);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(288);
+			setState(356);
 			match(CAP_LETTER);
-			setState(290); 
+			setState(358); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -1925,7 +2399,7 @@ public class ByzParser extends Parser {
 				case 1:
 					{
 					{
-					setState(289);
+					setState(357);
 					match(CAP_LETTER);
 					}
 					}
@@ -1933,9 +2407,9 @@ public class ByzParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(292); 
+				setState(360); 
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,36,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,53,_ctx);
 			} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
 			}
 		}
@@ -1972,27 +2446,27 @@ public class ByzParser extends Parser {
 
 	public final SyllableContext syllable() throws RecognitionException {
 		SyllableContext _localctx = new SyllableContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_syllable);
+		enterRule(_localctx, 38, RULE_syllable);
 		int _la;
 		try {
 			int _alt;
-			setState(303);
+			setState(371);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,39,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,56,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(295);
+				setState(363);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==CAP_LETTER) {
 					{
-					setState(294);
+					setState(362);
 					match(CAP_LETTER);
 					}
 				}
 
-				setState(298); 
+				setState(366); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
@@ -2000,7 +2474,7 @@ public class ByzParser extends Parser {
 					case 1:
 						{
 						{
-						setState(297);
+						setState(365);
 						match(SMALL_LETTER);
 						}
 						}
@@ -2008,16 +2482,16 @@ public class ByzParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(300); 
+					setState(368); 
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,38,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,55,_ctx);
 				} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(302);
+				setState(370);
 				match(CAP_LETTER);
 				}
 				break;
@@ -2084,9 +2558,9 @@ public class ByzParser extends Parser {
 
 	public final GorgotitaContext gorgotita() throws RecognitionException {
 		GorgotitaContext _localctx = new GorgotitaContext(_ctx, getState());
-		enterRule(_localctx, 34, RULE_gorgotita);
+		enterRule(_localctx, 40, RULE_gorgotita);
 		try {
-			setState(318);
+			setState(386);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case GORGON_NEO_ANO:
@@ -2099,7 +2573,7 @@ public class ByzParser extends Parser {
 			case GORGON_KATO_STA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(305);
+				setState(373);
 				gorgon();
 				}
 				break;
@@ -2109,7 +2583,7 @@ public class ByzParser extends Parser {
 			case GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(306);
+				setState(374);
 				gorgonParestigmenoAristera();
 				}
 				break;
@@ -2118,7 +2592,7 @@ public class ByzParser extends Parser {
 			case GORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(307);
+				setState(375);
 				gorgonParestigmenoDexia();
 				}
 				break;
@@ -2129,7 +2603,7 @@ public class ByzParser extends Parser {
 			case DIGORGON_STA_DEXIA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(308);
+				setState(376);
 				digorgon();
 				}
 				break;
@@ -2140,7 +2614,7 @@ public class ByzParser extends Parser {
 			case DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(309);
+				setState(377);
 				digorgonParestigmenoAristera();
 				}
 				break;
@@ -2148,7 +2622,7 @@ public class ByzParser extends Parser {
 			case DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(310);
+				setState(378);
 				digorgonParestigmenoDexia();
 				}
 				break;
@@ -2158,7 +2632,7 @@ public class ByzParser extends Parser {
 			case TRIGORGON_STA_DEXIA:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(311);
+				setState(379);
 				trigorgon();
 				}
 				break;
@@ -2167,7 +2641,7 @@ public class ByzParser extends Parser {
 			case TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(312);
+				setState(380);
 				trigorgonParestigmenoAristeraKato();
 				}
 				break;
@@ -2175,7 +2649,7 @@ public class ByzParser extends Parser {
 			case TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(313);
+				setState(381);
 				trigorgonParestigmenoAristeraPano();
 				}
 				break;
@@ -2183,28 +2657,28 @@ public class ByzParser extends Parser {
 			case TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(314);
+				setState(382);
 				trigorgonParestigmenoDexia();
 				}
 				break;
 			case ARGON:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(315);
+				setState(383);
 				match(ARGON);
 				}
 				break;
 			case IMIDIARGON:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(316);
+				setState(384);
 				match(IMIDIARGON);
 				}
 				break;
 			case DIARGON:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(317);
+				setState(385);
 				match(DIARGON);
 				}
 				break;
@@ -2248,12 +2722,12 @@ public class ByzParser extends Parser {
 
 	public final GorgonContext gorgon() throws RecognitionException {
 		GorgonContext _localctx = new GorgonContext(_ctx, getState());
-		enterRule(_localctx, 36, RULE_gorgon);
+		enterRule(_localctx, 42, RULE_gorgon);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(320);
+			setState(388);
 			_la = _input.LA(1);
 			if ( !(((((_la - 205)) & ~0x3f) == 0 && ((1L << (_la - 205)) & ((1L << (GORGON_NEO_ANO - 205)) | (1L << (GORGON_NEO_KATO - 205)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 205)) | (1L << (GORGON_USED_ON_YPORROI - 205)) | (1L << (GORGON_USED_ON_L116_YPORROI - 205)) | (1L << (GORGON_ANO_STA_DEXIA - 205)) | (1L << (GORGON_KATO - 205)) | (1L << (GORGON_KATO_STA_DEXIA - 205)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2297,12 +2771,12 @@ public class ByzParser extends Parser {
 
 	public final GorgonParestigmenoAristeraContext gorgonParestigmenoAristera() throws RecognitionException {
 		GorgonParestigmenoAristeraContext _localctx = new GorgonParestigmenoAristeraContext(_ctx, getState());
-		enterRule(_localctx, 38, RULE_gorgonParestigmenoAristera);
+		enterRule(_localctx, 44, RULE_gorgonParestigmenoAristera);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(322);
+			setState(390);
 			_la = _input.LA(1);
 			if ( !(((((_la - 206)) & ~0x3f) == 0 && ((1L << (_la - 206)) & ((1L << (GORGON_PARESTIGMENON_ARISTERA - 206)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 206)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 206)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 206)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2345,12 +2819,12 @@ public class ByzParser extends Parser {
 
 	public final GorgonParestigmenoDexiaContext gorgonParestigmenoDexia() throws RecognitionException {
 		GorgonParestigmenoDexiaContext _localctx = new GorgonParestigmenoDexiaContext(_ctx, getState());
-		enterRule(_localctx, 40, RULE_gorgonParestigmenoDexia);
+		enterRule(_localctx, 46, RULE_gorgonParestigmenoDexia);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(324);
+			setState(392);
 			_la = _input.LA(1);
 			if ( !(((((_la - 207)) & ~0x3f) == 0 && ((1L << (_la - 207)) & ((1L << (GORGON_PARESTIGMENON_DEXIA - 207)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 207)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 207)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2395,12 +2869,12 @@ public class ByzParser extends Parser {
 
 	public final DigorgonContext digorgon() throws RecognitionException {
 		DigorgonContext _localctx = new DigorgonContext(_ctx, getState());
-		enterRule(_localctx, 42, RULE_digorgon);
+		enterRule(_localctx, 48, RULE_digorgon);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(326);
+			setState(394);
 			_la = _input.LA(1);
 			if ( !(((((_la - 208)) & ~0x3f) == 0 && ((1L << (_la - 208)) & ((1L << (DIGORGON - 208)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 208)) | (1L << (DIGORGON_USED_ON_YPORROI - 208)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 208)) | (1L << (DIGORGON_STA_DEXIA - 208)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2445,12 +2919,12 @@ public class ByzParser extends Parser {
 
 	public final DigorgonParestigmenoAristeraContext digorgonParestigmenoAristera() throws RecognitionException {
 		DigorgonParestigmenoAristeraContext _localctx = new DigorgonParestigmenoAristeraContext(_ctx, getState());
-		enterRule(_localctx, 44, RULE_digorgonParestigmenoAristera);
+		enterRule(_localctx, 50, RULE_digorgonParestigmenoAristera);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(328);
+			setState(396);
 			_la = _input.LA(1);
 			if ( !(((((_la - 209)) & ~0x3f) == 0 && ((1L << (_la - 209)) & ((1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 209)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 209)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2492,12 +2966,12 @@ public class ByzParser extends Parser {
 
 	public final DigorgonParestigmenoDexiaContext digorgonParestigmenoDexia() throws RecognitionException {
 		DigorgonParestigmenoDexiaContext _localctx = new DigorgonParestigmenoDexiaContext(_ctx, getState());
-		enterRule(_localctx, 46, RULE_digorgonParestigmenoDexia);
+		enterRule(_localctx, 52, RULE_digorgonParestigmenoDexia);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(330);
+			setState(398);
 			_la = _input.LA(1);
 			if ( !(_la==DIGORGON_PARESTIGMENON_DEXIA || _la==DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -2541,12 +3015,12 @@ public class ByzParser extends Parser {
 
 	public final TrigorgonContext trigorgon() throws RecognitionException {
 		TrigorgonContext _localctx = new TrigorgonContext(_ctx, getState());
-		enterRule(_localctx, 48, RULE_trigorgon);
+		enterRule(_localctx, 54, RULE_trigorgon);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(332);
+			setState(400);
 			_la = _input.LA(1);
 			if ( !(((((_la - 212)) & ~0x3f) == 0 && ((1L << (_la - 212)) & ((1L << (TRIGORGON - 212)) | (1L << (TRIGORGON_USED_ON_YPORROI - 212)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 212)) | (1L << (TRIGORGON_STA_DEXIA - 212)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2589,12 +3063,12 @@ public class ByzParser extends Parser {
 
 	public final TrigorgonParestigmenoAristeraKatoContext trigorgonParestigmenoAristeraKato() throws RecognitionException {
 		TrigorgonParestigmenoAristeraKatoContext _localctx = new TrigorgonParestigmenoAristeraKatoContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_trigorgonParestigmenoAristeraKato);
+		enterRule(_localctx, 56, RULE_trigorgonParestigmenoAristeraKato);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(334);
+			setState(402);
 			_la = _input.LA(1);
 			if ( !(((((_la - 225)) & ~0x3f) == 0 && ((1L << (_la - 225)) & ((1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 225)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 225)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 225)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2636,12 +3110,12 @@ public class ByzParser extends Parser {
 
 	public final TrigorgonParestigmenoAristeraPanoContext trigorgonParestigmenoAristeraPano() throws RecognitionException {
 		TrigorgonParestigmenoAristeraPanoContext _localctx = new TrigorgonParestigmenoAristeraPanoContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_trigorgonParestigmenoAristeraPano);
+		enterRule(_localctx, 58, RULE_trigorgonParestigmenoAristeraPano);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(336);
+			setState(404);
 			_la = _input.LA(1);
 			if ( !(_la==TRIGORGON_PARESTIGMENON_ARISTERA_ANO || _la==TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -2683,12 +3157,12 @@ public class ByzParser extends Parser {
 
 	public final TrigorgonParestigmenoDexiaContext trigorgonParestigmenoDexia() throws RecognitionException {
 		TrigorgonParestigmenoDexiaContext _localctx = new TrigorgonParestigmenoDexiaContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_trigorgonParestigmenoDexia);
+		enterRule(_localctx, 60, RULE_trigorgonParestigmenoDexia);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(338);
+			setState(406);
 			_la = _input.LA(1);
 			if ( !(_la==TRIGORGON_PARESTIGMENON_DEXIA || _la==TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -2740,9 +3214,9 @@ public class ByzParser extends Parser {
 
 	public final ArgiaContext argia() throws RecognitionException {
 		ArgiaContext _localctx = new ArgiaContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_argia);
+		enterRule(_localctx, 62, RULE_argia);
 		try {
-			setState(344);
+			setState(412);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case KLASMA_ANO:
@@ -2751,7 +3225,7 @@ public class ByzParser extends Parser {
 			case KLASMA_ANO_STA_ARISTERA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(340);
+				setState(408);
 				klasma();
 				}
 				break;
@@ -2759,7 +3233,7 @@ public class ByzParser extends Parser {
 			case APLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(341);
+				setState(409);
 				apli();
 				}
 				break;
@@ -2767,7 +3241,7 @@ public class ByzParser extends Parser {
 			case DIPLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(342);
+				setState(410);
 				dipli();
 				}
 				break;
@@ -2775,7 +3249,7 @@ public class ByzParser extends Parser {
 			case TRIPLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(343);
+				setState(411);
 				tripli();
 				}
 				break;
@@ -2815,12 +3289,12 @@ public class ByzParser extends Parser {
 
 	public final KlasmaContext klasma() throws RecognitionException {
 		KlasmaContext _localctx = new KlasmaContext(_ctx, getState());
-		enterRule(_localctx, 58, RULE_klasma);
+		enterRule(_localctx, 64, RULE_klasma);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(346);
+			setState(414);
 			_la = _input.LA(1);
 			if ( !(((((_la - 246)) & ~0x3f) == 0 && ((1L << (_la - 246)) & ((1L << (KLASMA_ANO - 246)) | (1L << (KLASMA_KATO - 246)) | (1L << (KLASMA_ANO_STA_DEXIA - 246)) | (1L << (KLASMA_ANO_STA_ARISTERA - 246)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2862,12 +3336,12 @@ public class ByzParser extends Parser {
 
 	public final ApliContext apli() throws RecognitionException {
 		ApliContext _localctx = new ApliContext(_ctx, getState());
-		enterRule(_localctx, 60, RULE_apli);
+		enterRule(_localctx, 66, RULE_apli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(348);
+			setState(416);
 			_la = _input.LA(1);
 			if ( !(_la==APLI || _la==APLI_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -2909,12 +3383,12 @@ public class ByzParser extends Parser {
 
 	public final DipliContext dipli() throws RecognitionException {
 		DipliContext _localctx = new DipliContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_dipli);
+		enterRule(_localctx, 68, RULE_dipli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(350);
+			setState(418);
 			_la = _input.LA(1);
 			if ( !(_la==DIPLI || _la==DIPLI_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -2956,12 +3430,12 @@ public class ByzParser extends Parser {
 
 	public final TripliContext tripli() throws RecognitionException {
 		TripliContext _localctx = new TripliContext(_ctx, getState());
-		enterRule(_localctx, 64, RULE_tripli);
+		enterRule(_localctx, 70, RULE_tripli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(352);
+			setState(420);
 			_la = _input.LA(1);
 			if ( !(_la==TRIPLI || _la==TRIPLI_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3019,9 +3493,9 @@ public class ByzParser extends Parser {
 
 	public final FthoraContext fthora() throws RecognitionException {
 		FthoraContext _localctx = new FthoraContext(_ctx, getState());
-		enterRule(_localctx, 66, RULE_fthora);
+		enterRule(_localctx, 72, RULE_fthora);
 		try {
-			setState(360);
+			setState(428);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case YFESIS_APLI_DYO_DODEKATA:
@@ -3033,7 +3507,7 @@ public class ByzParser extends Parser {
 			case YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(354);
+				setState(422);
 				yfesi();
 				}
 				break;
@@ -3046,7 +3520,7 @@ public class ByzParser extends Parser {
 			case DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(355);
+				setState(423);
 				diesi();
 				}
 				break;
@@ -3060,7 +3534,7 @@ public class ByzParser extends Parser {
 			case FTHORA_DIATONIKI_NI_ANO:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(356);
+				setState(424);
 				fthoraDiatoniki();
 				}
 				break;
@@ -3070,7 +3544,7 @@ public class ByzParser extends Parser {
 			case FTHORA_NENANO:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(357);
+				setState(425);
 				fthoraChromatiki();
 				}
 				break;
@@ -3078,7 +3552,7 @@ public class ByzParser extends Parser {
 			case GENIKI_YFESIS:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(358);
+				setState(426);
 				geniki();
 				}
 				break;
@@ -3089,7 +3563,7 @@ public class ByzParser extends Parser {
 			case FTHORA_I_YFESIS_TETARTIMORION:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(359);
+				setState(427);
 				chroa();
 				}
 				break;
@@ -3135,16 +3609,16 @@ public class ByzParser extends Parser {
 
 	public final YfesiContext yfesi() throws RecognitionException {
 		YfesiContext _localctx = new YfesiContext(_ctx, getState());
-		enterRule(_localctx, 68, RULE_yfesi);
+		enterRule(_localctx, 74, RULE_yfesi);
 		try {
-			setState(366);
+			setState(434);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case YFESIS_APLI_DYO_DODEKATA:
 			case YFESIS_APLI_DYO_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(362);
+				setState(430);
 				yfesiApli();
 				}
 				break;
@@ -3152,7 +3626,7 @@ public class ByzParser extends Parser {
 			case YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(363);
+				setState(431);
 				yfesiMonogrammos();
 				}
 				break;
@@ -3160,14 +3634,14 @@ public class ByzParser extends Parser {
 			case YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(364);
+				setState(432);
 				yfesiDigrammos();
 				}
 				break;
 			case YFESIS_TRIGRAMMOS_OKTO_DODEKATA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(365);
+				setState(433);
 				match(YFESIS_TRIGRAMMOS_OKTO_DODEKATA);
 				}
 				break;
@@ -3205,12 +3679,12 @@ public class ByzParser extends Parser {
 
 	public final YfesiApliContext yfesiApli() throws RecognitionException {
 		YfesiApliContext _localctx = new YfesiApliContext(_ctx, getState());
-		enterRule(_localctx, 70, RULE_yfesiApli);
+		enterRule(_localctx, 76, RULE_yfesiApli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(368);
+			setState(436);
 			_la = _input.LA(1);
 			if ( !(_la==YFESIS_APLI_DYO_DODEKATA || _la==YFESIS_APLI_DYO_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3252,12 +3726,12 @@ public class ByzParser extends Parser {
 
 	public final YfesiMonogrammosContext yfesiMonogrammos() throws RecognitionException {
 		YfesiMonogrammosContext _localctx = new YfesiMonogrammosContext(_ctx, getState());
-		enterRule(_localctx, 72, RULE_yfesiMonogrammos);
+		enterRule(_localctx, 78, RULE_yfesiMonogrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(370);
+			setState(438);
 			_la = _input.LA(1);
 			if ( !(_la==YFESIS_MONOGRAMMOS_TESSERA_DODEKATA || _la==YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3299,12 +3773,12 @@ public class ByzParser extends Parser {
 
 	public final YfesiDigrammosContext yfesiDigrammos() throws RecognitionException {
 		YfesiDigrammosContext _localctx = new YfesiDigrammosContext(_ctx, getState());
-		enterRule(_localctx, 74, RULE_yfesiDigrammos);
+		enterRule(_localctx, 80, RULE_yfesiDigrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(372);
+			setState(440);
 			_la = _input.LA(1);
 			if ( !(_la==YFESIS_DIGRAMMOS_EX_DODEKATA || _la==YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3354,16 +3828,16 @@ public class ByzParser extends Parser {
 
 	public final DiesiContext diesi() throws RecognitionException {
 		DiesiContext _localctx = new DiesiContext(_ctx, getState());
-		enterRule(_localctx, 76, RULE_diesi);
+		enterRule(_localctx, 82, RULE_diesi);
 		try {
-			setState(378);
+			setState(446);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DIESIS_APLI_DYO_DODEKATA:
 			case DIESIS_APLI_DYO_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(374);
+				setState(442);
 				diesiApli();
 				}
 				break;
@@ -3371,7 +3845,7 @@ public class ByzParser extends Parser {
 			case DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(375);
+				setState(443);
 				diesiMonogrammos();
 				}
 				break;
@@ -3379,14 +3853,14 @@ public class ByzParser extends Parser {
 			case DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(376);
+				setState(444);
 				diesiDigrammos();
 				}
 				break;
 			case DIESIS_TRIGRAMMOS_OKTO_DODEKATA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(377);
+				setState(445);
 				match(DIESIS_TRIGRAMMOS_OKTO_DODEKATA);
 				}
 				break;
@@ -3424,12 +3898,12 @@ public class ByzParser extends Parser {
 
 	public final DiesiApliContext diesiApli() throws RecognitionException {
 		DiesiApliContext _localctx = new DiesiApliContext(_ctx, getState());
-		enterRule(_localctx, 78, RULE_diesiApli);
+		enterRule(_localctx, 84, RULE_diesiApli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(380);
+			setState(448);
 			_la = _input.LA(1);
 			if ( !(_la==DIESIS_APLI_DYO_DODEKATA || _la==DIESIS_APLI_DYO_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3471,12 +3945,12 @@ public class ByzParser extends Parser {
 
 	public final DiesiMonogrammosContext diesiMonogrammos() throws RecognitionException {
 		DiesiMonogrammosContext _localctx = new DiesiMonogrammosContext(_ctx, getState());
-		enterRule(_localctx, 80, RULE_diesiMonogrammos);
+		enterRule(_localctx, 86, RULE_diesiMonogrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(382);
+			setState(450);
 			_la = _input.LA(1);
 			if ( !(_la==DIESIS_MONOGRAMMOS_TESSERA_DODEKATA || _la==DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3518,12 +3992,12 @@ public class ByzParser extends Parser {
 
 	public final DiesiDigrammosContext diesiDigrammos() throws RecognitionException {
 		DiesiDigrammosContext _localctx = new DiesiDigrammosContext(_ctx, getState());
-		enterRule(_localctx, 82, RULE_diesiDigrammos);
+		enterRule(_localctx, 88, RULE_diesiDigrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(384);
+			setState(452);
 			_la = _input.LA(1);
 			if ( !(_la==DIESIS_DIGRAMMOS_EX_DODEKATA || _la==DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3571,12 +4045,12 @@ public class ByzParser extends Parser {
 
 	public final FthoraDiatonikiContext fthoraDiatoniki() throws RecognitionException {
 		FthoraDiatonikiContext _localctx = new FthoraDiatonikiContext(_ctx, getState());
-		enterRule(_localctx, 84, RULE_fthoraDiatoniki);
+		enterRule(_localctx, 90, RULE_fthoraDiatoniki);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(386);
+			setState(454);
 			_la = _input.LA(1);
 			if ( !(((((_la - 269)) & ~0x3f) == 0 && ((1L << (_la - 269)) & ((1L << (ENARXIS_KAI_FTHORA_VOU - 269)) | (1L << (FTHORA_DIATONIKI_PA - 269)) | (1L << (FTHORA_DIATONIKI_NANA - 269)) | (1L << (FTHORA_DIATONIKI_DI - 269)) | (1L << (FTHORA_DIATONIKI_KE - 269)) | (1L << (FTHORA_DIATONIKI_ZO - 269)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 269)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 269)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -3620,12 +4094,12 @@ public class ByzParser extends Parser {
 
 	public final FthoraChromatikiContext fthoraChromatiki() throws RecognitionException {
 		FthoraChromatikiContext _localctx = new FthoraChromatikiContext(_ctx, getState());
-		enterRule(_localctx, 86, RULE_fthoraChromatiki);
+		enterRule(_localctx, 92, RULE_fthoraChromatiki);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(388);
+			setState(456);
 			_la = _input.LA(1);
 			if ( !(((((_la - 282)) & ~0x3f) == 0 && ((1L << (_la - 282)) & ((1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 282)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 282)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 282)) | (1L << (FTHORA_NENANO - 282)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -3667,12 +4141,12 @@ public class ByzParser extends Parser {
 
 	public final GenikiContext geniki() throws RecognitionException {
 		GenikiContext _localctx = new GenikiContext(_ctx, getState());
-		enterRule(_localctx, 88, RULE_geniki);
+		enterRule(_localctx, 94, RULE_geniki);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(390);
+			setState(458);
 			_la = _input.LA(1);
 			if ( !(_la==GENIKI_DIESIS || _la==GENIKI_YFESIS) ) {
 			_errHandler.recoverInline(this);
@@ -3717,12 +4191,12 @@ public class ByzParser extends Parser {
 
 	public final ChroaContext chroa() throws RecognitionException {
 		ChroaContext _localctx = new ChroaContext(_ctx, getState());
-		enterRule(_localctx, 90, RULE_chroa);
+		enterRule(_localctx, 96, RULE_chroa);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(392);
+			setState(460);
 			_la = _input.LA(1);
 			if ( !(((((_la - 275)) & ~0x3f) == 0 && ((1L << (_la - 275)) & ((1L << (FTHORA_NAOS_ICHOS - 275)) | (1L << (CHROA_ZYGOS - 275)) | (1L << (CHROA_KLITON - 275)) | (1L << (CHROA_SPATHI - 275)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 275)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -3838,512 +4312,512 @@ public class ByzParser extends Parser {
 
 	public final QCharContext qChar() throws RecognitionException {
 		QCharContext _localctx = new QCharContext(_ctx, getState());
-		enterRule(_localctx, 92, RULE_qChar);
+		enterRule(_localctx, 98, RULE_qChar);
 		try {
-			setState(466);
+			setState(534);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,45,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,62,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(394);
+				setState(462);
 				kentimaToTheRightOfOligon();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(395);
+				setState(463);
 				match(OLIGON_NEO);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(396);
+				setState(464);
 				match(PETASTI);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(397);
+				setState(465);
 				match(KENTIMATA_NEO_MESO);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(398);
+				setState(466);
 				match(KENTIMA_NEO_MESO);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(399);
+				setState(467);
 				match(OLIGON_OVER_PETASTI);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(400);
+				setState(468);
 				match(KENTIMA_UNDER_OLIGON);
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(401);
+				setState(469);
 				match(OLIGON_ABOVE_KENTIMATA);
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(402);
+				setState(470);
 				match(KENTIMATA_ABOVE_OLIGON);
 				}
 				break;
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(403);
+				setState(471);
 				match(ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON);
 				}
 				break;
 			case 11:
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(404);
+				setState(472);
 				match(KENTIMA_OVER_OLIGON);
 				}
 				break;
 			case 12:
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(405);
+				setState(473);
 				match(KENTIMA_OVER_PETASTI);
 				}
 				break;
 			case 13:
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(406);
+				setState(474);
 				match(YPSILI_AT_RIGHT_END_OF_OLIGON);
 				}
 				break;
 			case 14:
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(407);
+				setState(475);
 				match(YPSILI_AT_RIGHT_END_OF_PETASTI);
 				}
 				break;
 			case 15:
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(408);
+				setState(476);
 				match(YPSILI_AT_LEFT_END_OF_OLIGON);
 				}
 				break;
 			case 16:
 				enterOuterAlt(_localctx, 16);
 				{
-				setState(409);
+				setState(477);
 				match(YPSILI_AT_LEFT_END_OF_PETASTI);
 				}
 				break;
 			case 17:
 				enterOuterAlt(_localctx, 17);
 				{
-				setState(410);
+				setState(478);
 				match(YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT);
 				}
 				break;
 			case 18:
 				enterOuterAlt(_localctx, 18);
 				{
-				setState(411);
+				setState(479);
 				match(YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT);
 				}
 				break;
 			case 19:
 				enterOuterAlt(_localctx, 19);
 				{
-				setState(412);
+				setState(480);
 				match(YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON);
 				}
 				break;
 			case 20:
 				enterOuterAlt(_localctx, 20);
 				{
-				setState(413);
+				setState(481);
 				match(YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI);
 				}
 				break;
 			case 21:
 				enterOuterAlt(_localctx, 21);
 				{
-				setState(414);
+				setState(482);
 				match(YPSILI_OVER_KENTIMA_OVER_OLIGON);
 				}
 				break;
 			case 22:
 				enterOuterAlt(_localctx, 22);
 				{
-				setState(415);
+				setState(483);
 				match(YPSILI_OVER_KENTIMA_OVER_PETASTI);
 				}
 				break;
 			case 23:
 				enterOuterAlt(_localctx, 23);
 				{
-				setState(416);
+				setState(484);
 				match(TWO_IPSILES_OVER_OLIGON);
 				}
 				break;
 			case 24:
 				enterOuterAlt(_localctx, 24);
 				{
-				setState(417);
+				setState(485);
 				match(TWO_IPSILES_OVER_PETASTI);
 				}
 				break;
 			case 25:
 				enterOuterAlt(_localctx, 25);
 				{
-				setState(418);
+				setState(486);
 				match(TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON);
 				}
 				break;
 			case 26:
 				enterOuterAlt(_localctx, 26);
 				{
-				setState(419);
+				setState(487);
 				match(TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI);
 				}
 				break;
 			case 27:
 				enterOuterAlt(_localctx, 27);
 				{
-				setState(420);
+				setState(488);
 				match(YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT);
 				}
 				break;
 			case 28:
 				enterOuterAlt(_localctx, 28);
 				{
-				setState(421);
+				setState(489);
 				match(YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT);
 				}
 				break;
 			case 29:
 				enterOuterAlt(_localctx, 29);
 				{
-				setState(422);
+				setState(490);
 				match(THREE_YPSILES_OVER_OLIGON);
 				}
 				break;
 			case 30:
 				enterOuterAlt(_localctx, 30);
 				{
-				setState(423);
+				setState(491);
 				match(THREE_YPSILES_OVER_PETASTI);
 				}
 				break;
 			case 31:
 				enterOuterAlt(_localctx, 31);
 				{
-				setState(424);
+				setState(492);
 				match(THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE);
 				}
 				break;
 			case 32:
 				enterOuterAlt(_localctx, 32);
 				{
-				setState(425);
+				setState(493);
 				match(THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE);
 				}
 				break;
 			case 33:
 				enterOuterAlt(_localctx, 33);
 				{
-				setState(426);
+				setState(494);
 				match(THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE);
 				}
 				break;
 			case 34:
 				enterOuterAlt(_localctx, 34);
 				{
-				setState(427);
+				setState(495);
 				match(APOSTROFOS_NEO);
 				}
 				break;
 			case 35:
 				enterOuterAlt(_localctx, 35);
 				{
-				setState(428);
+				setState(496);
 				match(CONTINUOUS_ELAFRON);
 				}
 				break;
 			case 36:
 				enterOuterAlt(_localctx, 36);
 				{
-				setState(429);
+				setState(497);
 				match(ELAFRON);
 				}
 				break;
 			case 37:
 				enterOuterAlt(_localctx, 37);
 				{
-				setState(430);
+				setState(498);
 				match(ELAPHRON_OVER_APOSTROPHOS);
 				}
 				break;
 			case 38:
 				enterOuterAlt(_localctx, 38);
 				{
-				setState(431);
+				setState(499);
 				match(CHAMILI);
 				}
 				break;
 			case 39:
 				enterOuterAlt(_localctx, 39);
 				{
-				setState(432);
+				setState(500);
 				match(HAMILI_OVER_APOSTROPHOS);
 				}
 				break;
 			case 40:
 				enterOuterAlt(_localctx, 40);
 				{
-				setState(433);
+				setState(501);
 				match(HAMILI_OVER_ELAPHRON);
 				}
 				break;
 			case 41:
 				enterOuterAlt(_localctx, 41);
 				{
-				setState(434);
+				setState(502);
 				match(HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS);
 				}
 				break;
 			case 42:
 				enterOuterAlt(_localctx, 42);
 				{
-				setState(435);
+				setState(503);
 				match(APOSTROPHOS_OVER_PETASTI);
 				}
 				break;
 			case 43:
 				enterOuterAlt(_localctx, 43);
 				{
-				setState(436);
+				setState(504);
 				match(CONTINUOUS_ELAFRON_OVER_PETASTI);
 				}
 				break;
 			case 44:
 				enterOuterAlt(_localctx, 44);
 				{
-				setState(437);
+				setState(505);
 				match(ELAPHRON_OVER_PETASTI);
 				}
 				break;
 			case 45:
 				enterOuterAlt(_localctx, 45);
 				{
-				setState(438);
+				setState(506);
 				match(ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI);
 				}
 				break;
 			case 46:
 				enterOuterAlt(_localctx, 46);
 				{
-				setState(439);
+				setState(507);
 				match(TWO_APOSTROPHOI_IN_A_ROW);
 				}
 				break;
 			case 47:
 				enterOuterAlt(_localctx, 47);
 				{
-				setState(440);
+				setState(508);
 				match(APOSTROPHOS_OVER_OLIGON);
 				}
 				break;
 			case 48:
 				enterOuterAlt(_localctx, 48);
 				{
-				setState(441);
+				setState(509);
 				match(ELAPHRON_OVER_OLIGON);
 				}
 				break;
 			case 49:
 				enterOuterAlt(_localctx, 49);
 				{
-				setState(442);
+				setState(510);
 				match(ELAPHRON_OVER_APOSTROPHOS_OVER_ISON);
 				}
 				break;
 			case 50:
 				enterOuterAlt(_localctx, 50);
 				{
-				setState(443);
+				setState(511);
 				match(HAMILI_OVER_OLIGON);
 				}
 				break;
 			case 51:
 				enterOuterAlt(_localctx, 51);
 				{
-				setState(444);
+				setState(512);
 				match(HAMILI_OVER_HAMILI);
 				}
 				break;
 			case 52:
 				enterOuterAlt(_localctx, 52);
 				{
-				setState(445);
+				setState(513);
 				match(HAMILI_OVER_PETASTI);
 				}
 				break;
 			case 53:
 				enterOuterAlt(_localctx, 53);
 				{
-				setState(446);
+				setState(514);
 				match(HAMILI_OVER_APOSTROPHOS_OVER_PETASTI);
 				}
 				break;
 			case 54:
 				enterOuterAlt(_localctx, 54);
 				{
-				setState(447);
+				setState(515);
 				match(HAMILI_OVER_ELAPHRON_OVER_PETASTI);
 				}
 				break;
 			case 55:
 				enterOuterAlt(_localctx, 55);
 				{
-				setState(448);
+				setState(516);
 				match(HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI);
 				}
 				break;
 			case 56:
 				enterOuterAlt(_localctx, 56);
 				{
-				setState(449);
+				setState(517);
 				match(HAMILI_OVER_HAMILI_OVER_PETASTI);
 				}
 				break;
 			case 57:
 				enterOuterAlt(_localctx, 57);
 				{
-				setState(450);
+				setState(518);
 				match(HAMILI_OVER_HAMILI_OVER_APOSTROPHOS);
 				}
 				break;
 			case 58:
 				enterOuterAlt(_localctx, 58);
 				{
-				setState(451);
+				setState(519);
 				match(HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI);
 				}
 				break;
 			case 59:
 				enterOuterAlt(_localctx, 59);
 				{
-				setState(452);
+				setState(520);
 				match(HAMILI_OVER_HAMILI_OVER_ELAPHRON);
 				}
 				break;
 			case 60:
 				enterOuterAlt(_localctx, 60);
 				{
-				setState(453);
+				setState(521);
 				match(HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS);
 				}
 				break;
 			case 61:
 				enterOuterAlt(_localctx, 61);
 				{
-				setState(454);
+				setState(522);
 				match(HAMILI_OVER_HAMILI_OVER_HAMILI);
 				}
 				break;
 			case 62:
 				enterOuterAlt(_localctx, 62);
 				{
-				setState(455);
+				setState(523);
 				match(ISON_NEO);
 				}
 				break;
 			case 63:
 				enterOuterAlt(_localctx, 63);
 				{
-				setState(456);
+				setState(524);
 				match(ISON_OVER_PETASTI);
 				}
 				break;
 			case 64:
 				enterOuterAlt(_localctx, 64);
 				{
-				setState(457);
+				setState(525);
 				match(ISON_OVER_OLIGON);
 				}
 				break;
 			case 65:
 				enterOuterAlt(_localctx, 65);
 				{
-				setState(458);
+				setState(526);
 				match(APOSTROPHOS_UNDER_ISON);
 				}
 				break;
 			case 66:
 				enterOuterAlt(_localctx, 66);
 				{
-				setState(459);
+				setState(527);
 				match(APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON);
 				}
 				break;
 			case 67:
 				enterOuterAlt(_localctx, 67);
 				{
-				setState(460);
+				setState(528);
 				match(ISON_AND_KENTIMATA_OVER_OLIGON);
 				}
 				break;
 			case 68:
 				enterOuterAlt(_localctx, 68);
 				{
-				setState(461);
+				setState(529);
 				match(ELAPHRON_AND_KENTIMATA_OVER_OLIGON);
 				}
 				break;
 			case 69:
 				enterOuterAlt(_localctx, 69);
 				{
-				setState(462);
+				setState(530);
 				match(CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON);
 				}
 				break;
 			case 70:
 				enterOuterAlt(_localctx, 70);
 				{
-				setState(463);
+				setState(531);
 				match(ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON);
 				}
 				break;
 			case 71:
 				enterOuterAlt(_localctx, 71);
 				{
-				setState(464);
+				setState(532);
 				match(HAMILI_AND_KENTIMATA_OVER_OLIGON);
 				}
 				break;
 			case 72:
 				enterOuterAlt(_localctx, 72);
 				{
-				setState(465);
+				setState(533);
 				yporroi();
 				}
 				break;
@@ -4380,24 +4854,24 @@ public class ByzParser extends Parser {
 
 	public final KentimaToTheRightOfOligonContext kentimaToTheRightOfOligon() throws RecognitionException {
 		KentimaToTheRightOfOligonContext _localctx = new KentimaToTheRightOfOligonContext(_ctx, getState());
-		enterRule(_localctx, 94, RULE_kentimaToTheRightOfOligon);
+		enterRule(_localctx, 100, RULE_kentimaToTheRightOfOligon);
 		try {
-			setState(471);
+			setState(539);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case OLIGON_NEO:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(468);
+				setState(536);
 				match(OLIGON_NEO);
-				setState(469);
+				setState(537);
 				match(KENTIMA_NEO_MESO);
 				}
 				break;
 			case KENTIMA_TO_THE_RIGHT_OF_OLIGON:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(470);
+				setState(538);
 				match(KENTIMA_TO_THE_RIGHT_OF_OLIGON);
 				}
 				break;
@@ -4437,12 +4911,12 @@ public class ByzParser extends Parser {
 
 	public final YporroiContext yporroi() throws RecognitionException {
 		YporroiContext _localctx = new YporroiContext(_ctx, getState());
-		enterRule(_localctx, 96, RULE_yporroi);
+		enterRule(_localctx, 102, RULE_yporroi);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(473);
+			setState(541);
 			_la = _input.LA(1);
 			if ( !(((((_la - 320)) & ~0x3f) == 0 && ((1L << (_la - 320)) & ((1L << (YPORROI - 320)) | (1L << (YPORROI_OVER_OLIGON - 320)) | (1L << (YPORROI_OVER_PETASTI - 320)))) != 0) || _la==YPORROI_AND_KENTIMATA_OVER_OLIGON) ) {
 			_errHandler.recoverInline(this);
@@ -4466,44 +4940,50 @@ public class ByzParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\u018d\u01de\4\2\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\u018d\u0222\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
 		"\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\4+\t+\4"+
-		",\t,\4-\t-\4.\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\3\2\5\2f\n\2\3\2"+
-		"\6\2i\n\2\r\2\16\2j\3\3\3\3\5\3o\n\3\3\3\7\3r\n\3\f\3\16\3u\13\3\3\3\5"+
-		"\3x\n\3\3\4\7\4{\n\4\f\4\16\4~\13\4\3\4\7\4\u0081\n\4\f\4\16\4\u0084\13"+
-		"\4\3\4\5\4\u0087\n\4\3\4\3\4\6\4\u008b\n\4\r\4\16\4\u008c\3\5\3\5\3\5"+
-		"\3\6\3\6\3\7\3\7\7\7\u0096\n\7\f\7\16\7\u0099\13\7\3\7\5\7\u009c\n\7\3"+
-		"\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\7\b\u00a7\n\b\f\b\16\b\u00aa\13\b\3"+
-		"\b\3\b\3\t\3\t\5\t\u00b0\n\t\3\n\3\n\3\13\5\13\u00b5\n\13\3\13\3\13\5"+
-		"\13\u00b9\n\13\3\13\3\13\3\13\3\13\3\13\3\13\3\13\5\13\u00c2\n\13\3\f"+
-		"\3\f\3\f\5\f\u00c7\n\f\3\f\3\f\5\f\u00cb\n\f\3\f\3\f\3\f\3\f\3\f\5\f\u00d2"+
-		"\n\f\3\f\3\f\5\f\u00d6\n\f\3\f\3\f\3\f\5\f\u00db\n\f\3\f\3\f\3\f\3\f\5"+
-		"\f\u00e1\n\f\3\f\3\f\3\f\5\f\u00e6\n\f\3\r\5\r\u00e9\n\r\3\r\5\r\u00ec"+
-		"\n\r\3\r\3\r\5\r\u00f0\n\r\3\r\7\r\u00f3\n\r\f\r\16\r\u00f6\13\r\3\r\7"+
-		"\r\u00f9\n\r\f\r\16\r\u00fc\13\r\3\r\5\r\u00ff\n\r\3\16\3\16\3\16\3\16"+
-		"\3\16\3\17\3\17\3\17\3\17\3\17\3\17\3\20\3\20\3\20\3\20\3\20\6\20\u0111"+
-		"\n\20\r\20\16\20\u0112\3\20\3\20\3\20\3\20\3\20\3\20\3\20\6\20\u011c\n"+
-		"\20\r\20\16\20\u011d\3\20\5\20\u0121\n\20\3\21\3\21\6\21\u0125\n\21\r"+
-		"\21\16\21\u0126\3\22\5\22\u012a\n\22\3\22\6\22\u012d\n\22\r\22\16\22\u012e"+
-		"\3\22\5\22\u0132\n\22\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23\3\23"+
-		"\3\23\3\23\3\23\5\23\u0141\n\23\3\24\3\24\3\25\3\25\3\26\3\26\3\27\3\27"+
-		"\3\30\3\30\3\31\3\31\3\32\3\32\3\33\3\33\3\34\3\34\3\35\3\35\3\36\3\36"+
-		"\3\36\3\36\5\36\u015b\n\36\3\37\3\37\3 \3 \3!\3!\3\"\3\"\3#\3#\3#\3#\3"+
-		"#\3#\5#\u016b\n#\3$\3$\3$\3$\5$\u0171\n$\3%\3%\3&\3&\3\'\3\'\3(\3(\3("+
-		"\3(\5(\u017d\n(\3)\3)\3*\3*\3+\3+\3,\3,\3-\3-\3.\3.\3/\3/\3\60\3\60\3"+
-		"\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3"+
-		"\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3"+
-		"\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3"+
-		"\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3"+
-		"\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\3\60\5"+
-		"\60\u01d5\n\60\3\61\3\61\3\61\5\61\u01da\n\61\3\62\3\62\3\62\2\2\63\2"+
-		"\4\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJL"+
-		"NPRTVXZ\\^`b\2\37\3\2\u00fe\u0100\4\2fl\u0099\u009b\5\288::==\4\2\u009d"+
-		"\u009e\u00a0\u00a0\7\2\u00cf\u00cf\u00da\u00db\u00dd\u00dd\u00e4\u00e4"+
+		",\t,\4-\t-\4.\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\4\63\t\63\4\64\t"+
+		"\64\4\65\t\65\3\2\5\2l\n\2\3\2\3\2\6\2p\n\2\r\2\16\2q\3\3\5\3u\n\3\3\3"+
+		"\6\3x\n\3\r\3\16\3y\3\4\5\4}\n\4\3\4\5\4\u0080\n\4\3\4\3\4\5\4\u0084\n"+
+		"\4\3\4\7\4\u0087\n\4\f\4\16\4\u008a\13\4\3\4\5\4\u008d\n\4\3\4\5\4\u0090"+
+		"\n\4\3\4\5\4\u0093\n\4\3\4\7\4\u0096\n\4\f\4\16\4\u0099\13\4\3\4\7\4\u009c"+
+		"\n\4\f\4\16\4\u009f\13\4\3\4\5\4\u00a2\n\4\3\4\5\4\u00a5\n\4\3\4\7\4\u00a8"+
+		"\n\4\f\4\16\4\u00ab\13\4\3\4\5\4\u00ae\n\4\3\4\5\4\u00b1\n\4\3\4\5\4\u00b4"+
+		"\n\4\3\5\7\5\u00b7\n\5\f\5\16\5\u00ba\13\5\3\5\7\5\u00bd\n\5\f\5\16\5"+
+		"\u00c0\13\5\3\5\5\5\u00c3\n\5\3\5\3\5\6\5\u00c7\n\5\r\5\16\5\u00c8\3\6"+
+		"\3\6\3\6\3\7\3\7\5\7\u00d0\n\7\3\b\3\b\7\b\u00d4\n\b\f\b\16\b\u00d7\13"+
+		"\b\3\b\5\b\u00da\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\7\t\u00e5\n\t"+
+		"\f\t\16\t\u00e8\13\t\3\t\3\t\3\n\3\n\5\n\u00ee\n\n\3\13\3\13\3\f\5\f\u00f3"+
+		"\n\f\3\f\3\f\5\f\u00f7\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u0100\n\f\3"+
+		"\r\3\r\3\r\5\r\u0105\n\r\3\r\3\r\5\r\u0109\n\r\3\r\3\r\3\r\3\r\3\r\5\r"+
+		"\u0110\n\r\3\r\3\r\5\r\u0114\n\r\3\r\3\r\3\r\5\r\u0119\n\r\3\r\3\r\3\r"+
+		"\3\r\5\r\u011f\n\r\3\r\3\r\3\r\5\r\u0124\n\r\3\16\5\16\u0127\n\16\3\16"+
+		"\5\16\u012a\n\16\3\16\3\16\5\16\u012e\n\16\3\16\7\16\u0131\n\16\f\16\16"+
+		"\16\u0134\13\16\3\16\7\16\u0137\n\16\f\16\16\16\u013a\13\16\3\16\5\16"+
+		"\u013d\n\16\3\17\3\17\5\17\u0141\n\17\3\20\3\20\3\20\3\20\3\20\3\21\3"+
+		"\21\3\21\3\21\3\21\3\21\3\22\3\22\3\23\3\23\3\23\3\23\3\23\6\23\u0155"+
+		"\n\23\r\23\16\23\u0156\3\23\3\23\3\23\3\23\3\23\3\23\3\23\6\23\u0160\n"+
+		"\23\r\23\16\23\u0161\3\23\5\23\u0165\n\23\3\24\3\24\6\24\u0169\n\24\r"+
+		"\24\16\24\u016a\3\25\5\25\u016e\n\25\3\25\6\25\u0171\n\25\r\25\16\25\u0172"+
+		"\3\25\5\25\u0176\n\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26"+
+		"\3\26\3\26\3\26\5\26\u0185\n\26\3\27\3\27\3\30\3\30\3\31\3\31\3\32\3\32"+
+		"\3\33\3\33\3\34\3\34\3\35\3\35\3\36\3\36\3\37\3\37\3 \3 \3!\3!\3!\3!\5"+
+		"!\u019f\n!\3\"\3\"\3#\3#\3$\3$\3%\3%\3&\3&\3&\3&\3&\3&\5&\u01af\n&\3\'"+
+		"\3\'\3\'\3\'\5\'\u01b5\n\'\3(\3(\3)\3)\3*\3*\3+\3+\3+\3+\5+\u01c1\n+\3"+
+		",\3,\3-\3-\3.\3.\3/\3/\3\60\3\60\3\61\3\61\3\62\3\62\3\63\3\63\3\63\3"+
+		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
+		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
+		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
+		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
+		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\5\63\u0219"+
+		"\n\63\3\64\3\64\3\64\5\64\u021e\n\64\3\65\3\65\3\65\2\2\66\2\4\6\b\n\f"+
+		"\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^"+
+		"`bdfh\2 \3\2\u00fe\u0100\4\2fl\u0099\u009b\5\288::==\4\2\u009d\u009e\u00a0"+
+		"\u00a0\3\2w\u0086\7\2\u00cf\u00cf\u00da\u00db\u00dd\u00dd\u00e4\u00e4"+
 		"\u00e8\u00ea\6\2\u00d0\u00d0\u00de\u00de\u00e7\u00e7\u00eb\u00eb\5\2\u00d1"+
 		"\u00d1\u00df\u00df\u00ec\u00ec\7\2\u00d2\u00d2\u00dc\u00dc\u00e0\u00e0"+
 		"\u00e5\u00e5\u00ed\u00ed\5\2\u00d3\u00d4\u00e1\u00e1\u00ee\u00ef\4\2\u00d5"+
@@ -4515,172 +4995,197 @@ public class ByzParser extends Parser {
 		"\2\u012a\u012a\u0134\u0134\4\2\u012b\u012b\u0135\u0135\6\2\u010f\u010f"+
 		"\u0113\u0114\u0116\u0116\u0118\u011b\4\2\u011c\u011e\u0120\u0120\3\2\u0131"+
 		"\u0132\4\2\u0115\u0115\u0121\u0124\5\2\u0142\u0142\u0176\u0177\u018c\u018c"+
-		"\2\u024d\2e\3\2\2\2\4l\3\2\2\2\6|\3\2\2\2\b\u008e\3\2\2\2\n\u0091\3\2"+
-		"\2\2\f\u0093\3\2\2\2\16\u009d\3\2\2\2\20\u00af\3\2\2\2\22\u00b1\3\2\2"+
-		"\2\24\u00c1\3\2\2\2\26\u00e5\3\2\2\2\30\u00e8\3\2\2\2\32\u0100\3\2\2\2"+
-		"\34\u0105\3\2\2\2\36\u0120\3\2\2\2 \u0122\3\2\2\2\"\u0131\3\2\2\2$\u0140"+
-		"\3\2\2\2&\u0142\3\2\2\2(\u0144\3\2\2\2*\u0146\3\2\2\2,\u0148\3\2\2\2."+
-		"\u014a\3\2\2\2\60\u014c\3\2\2\2\62\u014e\3\2\2\2\64\u0150\3\2\2\2\66\u0152"+
-		"\3\2\2\28\u0154\3\2\2\2:\u015a\3\2\2\2<\u015c\3\2\2\2>\u015e\3\2\2\2@"+
-		"\u0160\3\2\2\2B\u0162\3\2\2\2D\u016a\3\2\2\2F\u0170\3\2\2\2H\u0172\3\2"+
-		"\2\2J\u0174\3\2\2\2L\u0176\3\2\2\2N\u017c\3\2\2\2P\u017e\3\2\2\2R\u0180"+
-		"\3\2\2\2T\u0182\3\2\2\2V\u0184\3\2\2\2X\u0186\3\2\2\2Z\u0188\3\2\2\2\\"+
-		"\u018a\3\2\2\2^\u01d4\3\2\2\2`\u01d9\3\2\2\2b\u01db\3\2\2\2df\5\30\r\2"+
-		"ed\3\2\2\2ef\3\2\2\2fh\3\2\2\2gi\5\4\3\2hg\3\2\2\2ij\3\2\2\2jh\3\2\2\2"+
-		"jk\3\2\2\2k\3\3\2\2\2ln\5^\60\2mo\5\"\22\2nm\3\2\2\2no\3\2\2\2os\3\2\2"+
-		"\2pr\5\20\t\2qp\3\2\2\2ru\3\2\2\2sq\3\2\2\2st\3\2\2\2tw\3\2\2\2us\3\2"+
-		"\2\2vx\5\n\6\2wv\3\2\2\2wx\3\2\2\2x\5\3\2\2\2y{\5\36\20\2zy\3\2\2\2{~"+
-		"\3\2\2\2|z\3\2\2\2|}\3\2\2\2}\u0082\3\2\2\2~|\3\2\2\2\177\u0081\5\b\5"+
-		"\2\u0080\177\3\2\2\2\u0081\u0084\3\2\2\2\u0082\u0080\3\2\2\2\u0082\u0083"+
-		"\3\2\2\2\u0083\u0086\3\2\2\2\u0084\u0082\3\2\2\2\u0085\u0087\5\30\r\2"+
-		"\u0086\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087\u008a\3\2\2\2\u0088\u008b"+
-		"\5\36\20\2\u0089\u008b\5\16\b\2\u008a\u0088\3\2\2\2\u008a\u0089\3\2\2"+
-		"\2\u008b\u008c\3\2\2\2\u008c\u008a\3\2\2\2\u008c\u008d\3\2\2\2\u008d\7"+
-		"\3\2\2\2\u008e\u008f\7\u00c7\2\2\u008f\u0090\7\u00c8\2\2\u0090\t\3\2\2"+
-		"\2\u0091\u0092\5D#\2\u0092\13\3\2\2\2\u0093\u0097\7*\2\2\u0094\u0096\t"+
-		"\2\2\2\u0095\u0094\3\2\2\2\u0096\u0099\3\2\2\2\u0097\u0095\3\2\2\2\u0097"+
-		"\u0098\3\2\2\2\u0098\u009b\3\2\2\2\u0099\u0097\3\2\2\2\u009a\u009c\5$"+
-		"\23\2\u009b\u009a\3\2\2\2\u009b\u009c\3\2\2\2\u009c\r\3\2\2\2\u009d\u00a8"+
-		"\7\u00c7\2\2\u009e\u00a7\5 \21\2\u009f\u00a7\5\"\22\2\u00a0\u00a7\5\20"+
-		"\t\2\u00a1\u00a7\5^\60\2\u00a2\u00a7\5\n\6\2\u00a3\u00a7\5\26\f\2\u00a4"+
-		"\u00a7\7\u00c6\2\2\u00a5\u00a7\5\f\7\2\u00a6\u009e\3\2\2\2\u00a6\u009f"+
-		"\3\2\2\2\u00a6\u00a0\3\2\2\2\u00a6\u00a1\3\2\2\2\u00a6\u00a2\3\2\2\2\u00a6"+
-		"\u00a3\3\2\2\2\u00a6\u00a4\3\2\2\2\u00a6\u00a5\3\2\2\2\u00a7\u00aa\3\2"+
-		"\2\2\u00a8\u00a6\3\2\2\2\u00a8\u00a9\3\2\2\2\u00a9\u00ab\3\2\2\2\u00aa"+
-		"\u00a8\3\2\2\2\u00ab\u00ac\7\u00c8\2\2\u00ac\17\3\2\2\2\u00ad\u00b0\5"+
-		"$\23\2\u00ae\u00b0\5:\36\2\u00af\u00ad\3\2\2\2\u00af\u00ae\3\2\2\2\u00b0"+
-		"\21\3\2\2\2\u00b1\u00b2\t\3\2\2\u00b2\23\3\2\2\2\u00b3\u00b5\7B\2\2\u00b4"+
-		"\u00b3\3\2\2\2\u00b4\u00b5\3\2\2\2\u00b5\u00b6\3\2\2\2\u00b6\u00c2\t\4"+
-		"\2\2\u00b7\u00b9\7B\2\2\u00b8\u00b7\3\2\2\2\u00b8\u00b9\3\2\2\2\u00b9"+
-		"\u00ba\3\2\2\2\u00ba\u00c2\t\5\2\2\u00bb\u00c2\7?\2\2\u00bc\u00c2\7<\2"+
-		"\2\u00bd\u00c2\7F\2\2\u00be\u00c2\7\u009c\2\2\u00bf\u00c2\7\u009f\2\2"+
-		"\u00c0\u00c2\7\u00a1\2\2\u00c1\u00b4\3\2\2\2\u00c1\u00b8\3\2\2\2\u00c1"+
-		"\u00bb\3\2\2\2\u00c1\u00bc\3\2\2\2\u00c1\u00bd\3\2\2\2\u00c1\u00be\3\2"+
-		"\2\2\u00c1\u00bf\3\2\2\2\u00c1\u00c0\3\2\2\2\u00c2\25\3\2\2\2\u00c3\u00c4"+
-		"\5\22\n\2\u00c4\u00c6\5\24\13\2\u00c5\u00c7\7\u0098\2\2\u00c6\u00c5\3"+
-		"\2\2\2\u00c6\u00c7\3\2\2\2\u00c7\u00e6\3\2\2\2\u00c8\u00ca\5\22\n\2\u00c9"+
-		"\u00cb\7\u0098\2\2\u00ca\u00c9\3\2\2\2\u00ca\u00cb\3\2\2\2\u00cb\u00cc"+
-		"\3\2\2\2\u00cc\u00cd\5\24\13\2\u00cd\u00e6\3\2\2\2\u00ce\u00cf\5\24\13"+
-		"\2\u00cf\u00d1\5\22\n\2\u00d0\u00d2\7\u0098\2\2\u00d1\u00d0\3\2\2\2\u00d1"+
-		"\u00d2\3\2\2\2\u00d2\u00e6\3\2\2\2\u00d3\u00d5\5\24\13\2\u00d4\u00d6\7"+
-		"\u0098\2\2\u00d5\u00d4\3\2\2\2\u00d5\u00d6\3\2\2\2\u00d6\u00d7\3\2\2\2"+
-		"\u00d7\u00d8\5\22\n\2\u00d8\u00e6\3\2\2\2\u00d9\u00db\7\u0098\2\2\u00da"+
-		"\u00d9\3\2\2\2\u00da\u00db\3\2\2\2\u00db\u00dc\3\2\2\2\u00dc\u00dd\5\22"+
-		"\n\2\u00dd\u00de\5\24\13\2\u00de\u00e6\3\2\2\2\u00df\u00e1\7\u0098\2\2"+
-		"\u00e0\u00df\3\2\2\2\u00e0\u00e1\3\2\2\2\u00e1\u00e2\3\2\2\2\u00e2\u00e3"+
-		"\5\24\13\2\u00e3\u00e4\5\22\n\2\u00e4\u00e6\3\2\2\2\u00e5\u00c3\3\2\2"+
-		"\2\u00e5\u00c8\3\2\2\2\u00e5\u00ce\3\2\2\2\u00e5\u00d3\3\2\2\2\u00e5\u00da"+
-		"\3\2\2\2\u00e5\u00e0\3\2\2\2\u00e6\27\3\2\2\2\u00e7\u00e9\7\u00c7\2\2"+
-		"\u00e8\u00e7\3\2\2\2\u00e8\u00e9\3\2\2\2\u00e9\u00eb\3\2\2\2\u00ea\u00ec"+
-		"\5\36\20\2\u00eb\u00ea\3\2\2\2\u00eb\u00ec\3\2\2\2\u00ec\u00ef\3\2\2\2"+
-		"\u00ed\u00f0\5\32\16\2\u00ee\u00f0\5\34\17\2\u00ef\u00ed\3\2\2\2\u00ef"+
-		"\u00ee\3\2\2\2\u00f0\u00f4\3\2\2\2\u00f1\u00f3\5\"\22\2\u00f2\u00f1\3"+
-		"\2\2\2\u00f3\u00f6\3\2\2\2\u00f4\u00f2\3\2\2\2\u00f4\u00f5\3\2\2\2\u00f5"+
-		"\u00fa\3\2\2\2\u00f6\u00f4\3\2\2\2\u00f7\u00f9\7\u00c6\2\2\u00f8\u00f7"+
-		"\3\2\2\2\u00f9\u00fc\3\2\2\2\u00fa\u00f8\3\2\2\2\u00fa\u00fb\3\2\2\2\u00fb"+
-		"\u00fe\3\2\2\2\u00fc\u00fa\3\2\2\2\u00fd\u00ff\7\u00c8\2\2\u00fe\u00fd"+
-		"\3\2\2\2\u00fe\u00ff\3\2\2\2\u00ff\31\3\2\2\2\u0100\u0101\7\u00a2\2\2"+
-		"\u0101\u0102\7@\2\2\u0102\u0103\7\u00b0\2\2\u0103\u0104\7\u00a8\2\2\u0104"+
-		"\33\3\2\2\2\u0105\u0106\7\u00a2\2\2\u0106\u0107\7\u00b1\2\2\u0107\u0108"+
-		"\7C\2\2\u0108\u0109\7\u00a9\2\2\u0109\u010a\7\u0113\2\2\u010a\35\3\2\2"+
-		"\2\u010b\u0111\5\"\22\2\u010c\u0111\7\u00cb\2\2\u010d\u0111\7\u00cc\2"+
-		"\2\u010e\u0111\7\u00cd\2\2\u010f\u0111\5 \21\2\u0110\u010b\3\2\2\2\u0110"+
-		"\u010c\3\2\2\2\u0110\u010d\3\2\2\2\u0110\u010e\3\2\2\2\u0110\u010f\3\2"+
-		"\2\2\u0111\u0112\3\2\2\2\u0112\u0110\3\2\2\2\u0112\u0113\3\2\2\2\u0113"+
-		"\u0121\3\2\2\2\u0114\u011b\7\u00c7\2\2\u0115\u011c\5\"\22\2\u0116\u011c"+
-		"\5 \21\2\u0117\u011c\7\u00cb\2\2\u0118\u011c\7\u00cc\2\2\u0119\u011c\7"+
-		"\u00cd\2\2\u011a\u011c\5\36\20\2\u011b\u0115\3\2\2\2\u011b\u0116\3\2\2"+
-		"\2\u011b\u0117\3\2\2\2\u011b\u0118\3\2\2\2\u011b\u0119\3\2\2\2\u011b\u011a"+
-		"\3\2\2\2\u011c\u011d\3\2\2\2\u011d\u011b\3\2\2\2\u011d\u011e\3\2\2\2\u011e"+
-		"\u011f\3\2\2\2\u011f\u0121\7\u00c8\2\2\u0120\u0110\3\2\2\2\u0120\u0114"+
-		"\3\2\2\2\u0121\37\3\2\2\2\u0122\u0124\7\u00c9\2\2\u0123\u0125\7\u00c9"+
-		"\2\2\u0124\u0123\3\2\2\2\u0125\u0126\3\2\2\2\u0126\u0124\3\2\2\2\u0126"+
-		"\u0127\3\2\2\2\u0127!\3\2\2\2\u0128\u012a\7\u00c9\2\2\u0129\u0128\3\2"+
-		"\2\2\u0129\u012a\3\2\2\2\u012a\u012c\3\2\2\2\u012b\u012d\7\u00ca\2\2\u012c"+
-		"\u012b\3\2\2\2\u012d\u012e\3\2\2\2\u012e\u012c\3\2\2\2\u012e\u012f\3\2"+
-		"\2\2\u012f\u0132\3\2\2\2\u0130\u0132\7\u00c9\2\2\u0131\u0129\3\2\2\2\u0131"+
-		"\u0130\3\2\2\2\u0132#\3\2\2\2\u0133\u0141\5&\24\2\u0134\u0141\5(\25\2"+
-		"\u0135\u0141\5*\26\2\u0136\u0141\5,\27\2\u0137\u0141\5.\30\2\u0138\u0141"+
-		"\5\60\31\2\u0139\u0141\5\62\32\2\u013a\u0141\5\64\33\2\u013b\u0141\5\66"+
-		"\34\2\u013c\u0141\58\35\2\u013d\u0141\7\u00d7\2\2\u013e\u0141\7\u00d8"+
-		"\2\2\u013f\u0141\7\u00d9\2\2\u0140\u0133\3\2\2\2\u0140\u0134\3\2\2\2\u0140"+
-		"\u0135\3\2\2\2\u0140\u0136\3\2\2\2\u0140\u0137\3\2\2\2\u0140\u0138\3\2"+
-		"\2\2\u0140\u0139\3\2\2\2\u0140\u013a\3\2\2\2\u0140\u013b\3\2\2\2\u0140"+
-		"\u013c\3\2\2\2\u0140\u013d\3\2\2\2\u0140\u013e\3\2\2\2\u0140\u013f\3\2"+
-		"\2\2\u0141%\3\2\2\2\u0142\u0143\t\6\2\2\u0143\'\3\2\2\2\u0144\u0145\t"+
-		"\7\2\2\u0145)\3\2\2\2\u0146\u0147\t\b\2\2\u0147+\3\2\2\2\u0148\u0149\t"+
-		"\t\2\2\u0149-\3\2\2\2\u014a\u014b\t\n\2\2\u014b/\3\2\2\2\u014c\u014d\t"+
-		"\13\2\2\u014d\61\3\2\2\2\u014e\u014f\t\f\2\2\u014f\63\3\2\2\2\u0150\u0151"+
-		"\t\r\2\2\u0151\65\3\2\2\2\u0152\u0153\t\16\2\2\u0153\67\3\2\2\2\u0154"+
-		"\u0155\t\17\2\2\u01559\3\2\2\2\u0156\u015b\5<\37\2\u0157\u015b\5> \2\u0158"+
-		"\u015b\5@!\2\u0159\u015b\5B\"\2\u015a\u0156\3\2\2\2\u015a\u0157\3\2\2"+
-		"\2\u015a\u0158\3\2\2\2\u015a\u0159\3\2\2\2\u015b;\3\2\2\2\u015c\u015d"+
-		"\t\20\2\2\u015d=\3\2\2\2\u015e\u015f\t\21\2\2\u015f?\3\2\2\2\u0160\u0161"+
-		"\t\22\2\2\u0161A\3\2\2\2\u0162\u0163\t\23\2\2\u0163C\3\2\2\2\u0164\u016b"+
-		"\5F$\2\u0165\u016b\5N(\2\u0166\u016b\5V,\2\u0167\u016b\5X-\2\u0168\u016b"+
-		"\5Z.\2\u0169\u016b\5\\/\2\u016a\u0164\3\2\2\2\u016a\u0165\3\2\2\2\u016a"+
-		"\u0166\3\2\2\2\u016a\u0167\3\2\2\2\u016a\u0168\3\2\2\2\u016a\u0169\3\2"+
-		"\2\2\u016bE\3\2\2\2\u016c\u0171\5H%\2\u016d\u0171\5J&\2\u016e\u0171\5"+
-		"L\'\2\u016f\u0171\7\u0130\2\2\u0170\u016c\3\2\2\2\u0170\u016d\3\2\2\2"+
-		"\u0170\u016e\3\2\2\2\u0170\u016f\3\2\2\2\u0171G\3\2\2\2\u0172\u0173\t"+
-		"\24\2\2\u0173I\3\2\2\2\u0174\u0175\t\25\2\2\u0175K\3\2\2\2\u0176\u0177"+
-		"\t\26\2\2\u0177M\3\2\2\2\u0178\u017d\5P)\2\u0179\u017d\5R*\2\u017a\u017d"+
-		"\5T+\2\u017b\u017d\7\u012c\2\2\u017c\u0178\3\2\2\2\u017c\u0179\3\2\2\2"+
-		"\u017c\u017a\3\2\2\2\u017c\u017b\3\2\2\2\u017dO\3\2\2\2\u017e\u017f\t"+
-		"\27\2\2\u017fQ\3\2\2\2\u0180\u0181\t\30\2\2\u0181S\3\2\2\2\u0182\u0183"+
-		"\t\31\2\2\u0183U\3\2\2\2\u0184\u0185\t\32\2\2\u0185W\3\2\2\2\u0186\u0187"+
-		"\t\33\2\2\u0187Y\3\2\2\2\u0188\u0189\t\34\2\2\u0189[\3\2\2\2\u018a\u018b"+
-		"\t\35\2\2\u018b]\3\2\2\2\u018c\u01d5\5`\61\2\u018d\u01d5\7\u013a\2\2\u018e"+
-		"\u01d5\7\u013c\2\2\u018f\u01d5\7\u0146\2\2\u0190\u01d5\7\u0147\2\2\u0191"+
-		"\u01d5\7\u014a\2\2\u0192\u01d5\7\u014b\2\2\u0193\u01d5\7\u014c\2\2\u0194"+
-		"\u01d5\7\u014d\2\2\u0195\u01d5\7\u014e\2\2\u0196\u01d5\7\u0151\2\2\u0197"+
-		"\u01d5\7\u0152\2\2\u0198\u01d5\7\u0153\2\2\u0199\u01d5\7\u0154\2\2\u019a"+
-		"\u01d5\7\u0155\2\2\u019b\u01d5\7\u0156\2\2\u019c\u01d5\7\u0157\2\2\u019d"+
-		"\u01d5\7\u0158\2\2\u019e\u01d5\7\u0159\2\2\u019f\u01d5\7\u015a\2\2\u01a0"+
-		"\u01d5\7\u015b\2\2\u01a1\u01d5\7\u015c\2\2\u01a2\u01d5\7\u015d\2\2\u01a3"+
-		"\u01d5\7\u015e\2\2\u01a4\u01d5\7\u015f\2\2\u01a5\u01d5\7\u0160\2\2\u01a6"+
-		"\u01d5\7\u0161\2\2\u01a7\u01d5\7\u0162\2\2\u01a8\u01d5\7\u0163\2\2\u01a9"+
-		"\u01d5\7\u0164\2\2\u01aa\u01d5\7\u0165\2\2\u01ab\u01d5\7\u0166\2\2\u01ac"+
-		"\u01d5\7\u0167\2\2\u01ad\u01d5\7\u0140\2\2\u01ae\u01d5\7\u0168\2\2\u01af"+
-		"\u01d5\7\u0144\2\2\u01b0\u01d5\7\u0169\2\2\u01b1\u01d5\7\u0145\2\2\u01b2"+
-		"\u01d5\7\u016a\2\2\u01b3\u01d5\7\u016b\2\2\u01b4\u01d5\7\u016c\2\2\u01b5"+
-		"\u01d5\7\u016d\2\2\u01b6\u01d5\7\u016e\2\2\u01b7\u01d5\7\u016f\2\2\u01b8"+
-		"\u01d5\7\u0170\2\2\u01b9\u01d5\7\u0171\2\2\u01ba\u01d5\7\u0172\2\2\u01bb"+
-		"\u01d5\7\u0173\2\2\u01bc\u01d5\7\u0174\2\2\u01bd\u01d5\7\u0175\2\2\u01be"+
-		"\u01d5\7\u0178\2\2\u01bf\u01d5\7\u0179\2\2\u01c0\u01d5\7\u017a\2\2\u01c1"+
-		"\u01d5\7\u017b\2\2\u01c2\u01d5\7\u017c\2\2\u01c3\u01d5\7\u017d\2\2\u01c4"+
-		"\u01d5\7\u017e\2\2\u01c5\u01d5\7\u017f\2\2\u01c6\u01d5\7\u0180\2\2\u01c7"+
-		"\u01d5\7\u0181\2\2\u01c8\u01d5\7\u0182\2\2\u01c9\u01d5\7\u0139\2\2\u01ca"+
-		"\u01d5\7\u0183\2\2\u01cb\u01d5\7\u0184\2\2\u01cc\u01d5\7\u0185\2\2\u01cd"+
-		"\u01d5\7\u0186\2\2\u01ce\u01d5\7\u0187\2\2\u01cf\u01d5\7\u0188\2\2\u01d0"+
-		"\u01d5\7\u0189\2\2\u01d1\u01d5\7\u018a\2\2\u01d2\u01d5\7\u018b\2\2\u01d3"+
-		"\u01d5\5b\62\2\u01d4\u018c\3\2\2\2\u01d4\u018d\3\2\2\2\u01d4\u018e\3\2"+
-		"\2\2\u01d4\u018f\3\2\2\2\u01d4\u0190\3\2\2\2\u01d4\u0191\3\2\2\2\u01d4"+
-		"\u0192\3\2\2\2\u01d4\u0193\3\2\2\2\u01d4\u0194\3\2\2\2\u01d4\u0195\3\2"+
-		"\2\2\u01d4\u0196\3\2\2\2\u01d4\u0197\3\2\2\2\u01d4\u0198\3\2\2\2\u01d4"+
-		"\u0199\3\2\2\2\u01d4\u019a\3\2\2\2\u01d4\u019b\3\2\2\2\u01d4\u019c\3\2"+
-		"\2\2\u01d4\u019d\3\2\2\2\u01d4\u019e\3\2\2\2\u01d4\u019f\3\2\2\2\u01d4"+
-		"\u01a0\3\2\2\2\u01d4\u01a1\3\2\2\2\u01d4\u01a2\3\2\2\2\u01d4\u01a3\3\2"+
-		"\2\2\u01d4\u01a4\3\2\2\2\u01d4\u01a5\3\2\2\2\u01d4\u01a6\3\2\2\2\u01d4"+
-		"\u01a7\3\2\2\2\u01d4\u01a8\3\2\2\2\u01d4\u01a9\3\2\2\2\u01d4\u01aa\3\2"+
-		"\2\2\u01d4\u01ab\3\2\2\2\u01d4\u01ac\3\2\2\2\u01d4\u01ad\3\2\2\2\u01d4"+
-		"\u01ae\3\2\2\2\u01d4\u01af\3\2\2\2\u01d4\u01b0\3\2\2\2\u01d4\u01b1\3\2"+
-		"\2\2\u01d4\u01b2\3\2\2\2\u01d4\u01b3\3\2\2\2\u01d4\u01b4\3\2\2\2\u01d4"+
-		"\u01b5\3\2\2\2\u01d4\u01b6\3\2\2\2\u01d4\u01b7\3\2\2\2\u01d4\u01b8\3\2"+
-		"\2\2\u01d4\u01b9\3\2\2\2\u01d4\u01ba\3\2\2\2\u01d4\u01bb\3\2\2\2\u01d4"+
-		"\u01bc\3\2\2\2\u01d4\u01bd\3\2\2\2\u01d4\u01be\3\2\2\2\u01d4\u01bf\3\2"+
-		"\2\2\u01d4\u01c0\3\2\2\2\u01d4\u01c1\3\2\2\2\u01d4\u01c2\3\2\2\2\u01d4"+
-		"\u01c3\3\2\2\2\u01d4\u01c4\3\2\2\2\u01d4\u01c5\3\2\2\2\u01d4\u01c6\3\2"+
-		"\2\2\u01d4\u01c7\3\2\2\2\u01d4\u01c8\3\2\2\2\u01d4\u01c9\3\2\2\2\u01d4"+
-		"\u01ca\3\2\2\2\u01d4\u01cb\3\2\2\2\u01d4\u01cc\3\2\2\2\u01d4\u01cd\3\2"+
-		"\2\2\u01d4\u01ce\3\2\2\2\u01d4\u01cf\3\2\2\2\u01d4\u01d0\3\2\2\2\u01d4"+
-		"\u01d1\3\2\2\2\u01d4\u01d2\3\2\2\2\u01d4\u01d3\3\2\2\2\u01d5_\3\2\2\2"+
-		"\u01d6\u01d7\7\u013a\2\2\u01d7\u01da\7\u0147\2\2\u01d8\u01da\7\u018d\2"+
-		"\2\u01d9\u01d6\3\2\2\2\u01d9\u01d8\3\2\2\2\u01daa\3\2\2\2\u01db\u01dc"+
-		"\t\36\2\2\u01dcc\3\2\2\2\61ejnsw|\u0082\u0086\u008a\u008c\u0097\u009b"+
-		"\u00a6\u00a8\u00af\u00b4\u00b8\u00c1\u00c6\u00ca\u00d1\u00d5\u00da\u00e0"+
-		"\u00e5\u00e8\u00eb\u00ef\u00f4\u00fa\u00fe\u0110\u0112\u011b\u011d\u0120"+
-		"\u0126\u0129\u012e\u0131\u0140\u015a\u016a\u0170\u017c\u01d4\u01d9";
+		"\2\u029f\2k\3\2\2\2\4t\3\2\2\2\6|\3\2\2\2\b\u00b8\3\2\2\2\n\u00ca\3\2"+
+		"\2\2\f\u00cd\3\2\2\2\16\u00d1\3\2\2\2\20\u00db\3\2\2\2\22\u00ed\3\2\2"+
+		"\2\24\u00ef\3\2\2\2\26\u00ff\3\2\2\2\30\u0123\3\2\2\2\32\u0126\3\2\2\2"+
+		"\34\u0140\3\2\2\2\36\u0142\3\2\2\2 \u0147\3\2\2\2\"\u014d\3\2\2\2$\u0164"+
+		"\3\2\2\2&\u0166\3\2\2\2(\u0175\3\2\2\2*\u0184\3\2\2\2,\u0186\3\2\2\2."+
+		"\u0188\3\2\2\2\60\u018a\3\2\2\2\62\u018c\3\2\2\2\64\u018e\3\2\2\2\66\u0190"+
+		"\3\2\2\28\u0192\3\2\2\2:\u0194\3\2\2\2<\u0196\3\2\2\2>\u0198\3\2\2\2@"+
+		"\u019e\3\2\2\2B\u01a0\3\2\2\2D\u01a2\3\2\2\2F\u01a4\3\2\2\2H\u01a6\3\2"+
+		"\2\2J\u01ae\3\2\2\2L\u01b4\3\2\2\2N\u01b6\3\2\2\2P\u01b8\3\2\2\2R\u01ba"+
+		"\3\2\2\2T\u01c0\3\2\2\2V\u01c2\3\2\2\2X\u01c4\3\2\2\2Z\u01c6\3\2\2\2\\"+
+		"\u01c8\3\2\2\2^\u01ca\3\2\2\2`\u01cc\3\2\2\2b\u01ce\3\2\2\2d\u0218\3\2"+
+		"\2\2f\u021d\3\2\2\2h\u021f\3\2\2\2jl\5\34\17\2kj\3\2\2\2kl\3\2\2\2lo\3"+
+		"\2\2\2mp\5\6\4\2np\5\30\r\2om\3\2\2\2on\3\2\2\2pq\3\2\2\2qo\3\2\2\2qr"+
+		"\3\2\2\2r\3\3\2\2\2su\5\32\16\2ts\3\2\2\2tu\3\2\2\2uw\3\2\2\2vx\5\6\4"+
+		"\2wv\3\2\2\2xy\3\2\2\2yw\3\2\2\2yz\3\2\2\2z\5\3\2\2\2{}\7\u00c6\2\2|{"+
+		"\3\2\2\2|}\3\2\2\2}\177\3\2\2\2~\u0080\5(\25\2\177~\3\2\2\2\177\u0080"+
+		"\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0083\5d\63\2\u0082\u0084\5(\25\2\u0083"+
+		"\u0082\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0088\3\2\2\2\u0085\u0087\5\22"+
+		"\n\2\u0086\u0085\3\2\2\2\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2\u0088"+
+		"\u0089\3\2\2\2\u0089\u008c\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u008d\5\f"+
+		"\7\2\u008c\u008b\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008f\3\2\2\2\u008e"+
+		"\u0090\5(\25\2\u008f\u008e\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0092\3\2"+
+		"\2\2\u0091\u0093\5\f\7\2\u0092\u0091\3\2\2\2\u0092\u0093\3\2\2\2\u0093"+
+		"\u0097\3\2\2\2\u0094\u0096\5\22\n\2\u0095\u0094\3\2\2\2\u0096\u0099\3"+
+		"\2\2\2\u0097\u0095\3\2\2\2\u0097\u0098\3\2\2\2\u0098\u009d\3\2\2\2\u0099"+
+		"\u0097\3\2\2\2\u009a\u009c\5\22\n\2\u009b\u009a\3\2\2\2\u009c\u009f\3"+
+		"\2\2\2\u009d\u009b\3\2\2\2\u009d\u009e\3\2\2\2\u009e\u00a1\3\2\2\2\u009f"+
+		"\u009d\3\2\2\2\u00a0\u00a2\5(\25\2\u00a1\u00a0\3\2\2\2\u00a1\u00a2\3\2"+
+		"\2\2\u00a2\u00a4\3\2\2\2\u00a3\u00a5\5\f\7\2\u00a4\u00a3\3\2\2\2\u00a4"+
+		"\u00a5\3\2\2\2\u00a5\u00a9\3\2\2\2\u00a6\u00a8\5\22\n\2\u00a7\u00a6\3"+
+		"\2\2\2\u00a8\u00ab\3\2\2\2\u00a9\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa"+
+		"\u00ad\3\2\2\2\u00ab\u00a9\3\2\2\2\u00ac\u00ae\5\f\7\2\u00ad\u00ac\3\2"+
+		"\2\2\u00ad\u00ae\3\2\2\2\u00ae\u00b0\3\2\2\2\u00af\u00b1\5(\25\2\u00b0"+
+		"\u00af\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1\u00b3\3\2\2\2\u00b2\u00b4\5\16"+
+		"\b\2\u00b3\u00b2\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4\7\3\2\2\2\u00b5\u00b7"+
+		"\5$\23\2\u00b6\u00b5\3\2\2\2\u00b7\u00ba\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b8"+
+		"\u00b9\3\2\2\2\u00b9\u00be\3\2\2\2\u00ba\u00b8\3\2\2\2\u00bb\u00bd\5\n"+
+		"\6\2\u00bc\u00bb\3\2\2\2\u00bd\u00c0\3\2\2\2\u00be\u00bc\3\2\2\2\u00be"+
+		"\u00bf\3\2\2\2\u00bf\u00c2\3\2\2\2\u00c0\u00be\3\2\2\2\u00c1\u00c3\5\32"+
+		"\16\2\u00c2\u00c1\3\2\2\2\u00c2\u00c3\3\2\2\2\u00c3\u00c6\3\2\2\2\u00c4"+
+		"\u00c7\5$\23\2\u00c5\u00c7\5\20\t\2\u00c6\u00c4\3\2\2\2\u00c6\u00c5\3"+
+		"\2\2\2\u00c7\u00c8\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9"+
+		"\t\3\2\2\2\u00ca\u00cb\7\u00c7\2\2\u00cb\u00cc\7\u00c8\2\2\u00cc\13\3"+
+		"\2\2\2\u00cd\u00cf\5J&\2\u00ce\u00d0\5\"\22\2\u00cf\u00ce\3\2\2\2\u00cf"+
+		"\u00d0\3\2\2\2\u00d0\r\3\2\2\2\u00d1\u00d5\7*\2\2\u00d2\u00d4\t\2\2\2"+
+		"\u00d3\u00d2\3\2\2\2\u00d4\u00d7\3\2\2\2\u00d5\u00d3\3\2\2\2\u00d5\u00d6"+
+		"\3\2\2\2\u00d6\u00d9\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d8\u00da\5*\26\2\u00d9"+
+		"\u00d8\3\2\2\2\u00d9\u00da\3\2\2\2\u00da\17\3\2\2\2\u00db\u00e6\7\u00c7"+
+		"\2\2\u00dc\u00e5\5&\24\2\u00dd\u00e5\5(\25\2\u00de\u00e5\5\22\n\2\u00df"+
+		"\u00e5\5d\63\2\u00e0\u00e5\5\f\7\2\u00e1\u00e5\5\30\r\2\u00e2\u00e5\7"+
+		"\u00c6\2\2\u00e3\u00e5\5\16\b\2\u00e4\u00dc\3\2\2\2\u00e4\u00dd\3\2\2"+
+		"\2\u00e4\u00de\3\2\2\2\u00e4\u00df\3\2\2\2\u00e4\u00e0\3\2\2\2\u00e4\u00e1"+
+		"\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e4\u00e3\3\2\2\2\u00e5\u00e8\3\2\2\2\u00e6"+
+		"\u00e4\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00e9\3\2\2\2\u00e8\u00e6\3\2"+
+		"\2\2\u00e9\u00ea\7\u00c8\2\2\u00ea\21\3\2\2\2\u00eb\u00ee\5*\26\2\u00ec"+
+		"\u00ee\5@!\2\u00ed\u00eb\3\2\2\2\u00ed\u00ec\3\2\2\2\u00ee\23\3\2\2\2"+
+		"\u00ef\u00f0\t\3\2\2\u00f0\25\3\2\2\2\u00f1\u00f3\7B\2\2\u00f2\u00f1\3"+
+		"\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4\u0100\t\4\2\2\u00f5"+
+		"\u00f7\7B\2\2\u00f6\u00f5\3\2\2\2\u00f6\u00f7\3\2\2\2\u00f7\u00f8\3\2"+
+		"\2\2\u00f8\u0100\t\5\2\2\u00f9\u0100\7?\2\2\u00fa\u0100\7<\2\2\u00fb\u0100"+
+		"\7F\2\2\u00fc\u0100\7\u009c\2\2\u00fd\u0100\7\u009f\2\2\u00fe\u0100\7"+
+		"\u00a1\2\2\u00ff\u00f2\3\2\2\2\u00ff\u00f6\3\2\2\2\u00ff\u00f9\3\2\2\2"+
+		"\u00ff\u00fa\3\2\2\2\u00ff\u00fb\3\2\2\2\u00ff\u00fc\3\2\2\2\u00ff\u00fd"+
+		"\3\2\2\2\u00ff\u00fe\3\2\2\2\u0100\27\3\2\2\2\u0101\u0102\5\24\13\2\u0102"+
+		"\u0104\5\26\f\2\u0103\u0105\7\u0098\2\2\u0104\u0103\3\2\2\2\u0104\u0105"+
+		"\3\2\2\2\u0105\u0124\3\2\2\2\u0106\u0108\5\24\13\2\u0107\u0109\7\u0098"+
+		"\2\2\u0108\u0107\3\2\2\2\u0108\u0109\3\2\2\2\u0109\u010a\3\2\2\2\u010a"+
+		"\u010b\5\26\f\2\u010b\u0124\3\2\2\2\u010c\u010d\5\26\f\2\u010d\u010f\5"+
+		"\24\13\2\u010e\u0110\7\u0098\2\2\u010f\u010e\3\2\2\2\u010f\u0110\3\2\2"+
+		"\2\u0110\u0124\3\2\2\2\u0111\u0113\5\26\f\2\u0112\u0114\7\u0098\2\2\u0113"+
+		"\u0112\3\2\2\2\u0113\u0114\3\2\2\2\u0114\u0115\3\2\2\2\u0115\u0116\5\24"+
+		"\13\2\u0116\u0124\3\2\2\2\u0117\u0119\7\u0098\2\2\u0118\u0117\3\2\2\2"+
+		"\u0118\u0119\3\2\2\2\u0119\u011a\3\2\2\2\u011a\u011b\5\24\13\2\u011b\u011c"+
+		"\5\26\f\2\u011c\u0124\3\2\2\2\u011d\u011f\7\u0098\2\2\u011e\u011d\3\2"+
+		"\2\2\u011e\u011f\3\2\2\2\u011f\u0120\3\2\2\2\u0120\u0121\5\26\f\2\u0121"+
+		"\u0122\5\24\13\2\u0122\u0124\3\2\2\2\u0123\u0101\3\2\2\2\u0123\u0106\3"+
+		"\2\2\2\u0123\u010c\3\2\2\2\u0123\u0111\3\2\2\2\u0123\u0118\3\2\2\2\u0123"+
+		"\u011e\3\2\2\2\u0124\31\3\2\2\2\u0125\u0127\7\u00c7\2\2\u0126\u0125\3"+
+		"\2\2\2\u0126\u0127\3\2\2\2\u0127\u0129\3\2\2\2\u0128\u012a\5$\23\2\u0129"+
+		"\u0128\3\2\2\2\u0129\u012a\3\2\2\2\u012a\u012d\3\2\2\2\u012b\u012e\5\36"+
+		"\20\2\u012c\u012e\5 \21\2\u012d\u012b\3\2\2\2\u012d\u012c\3\2\2\2\u012e"+
+		"\u0132\3\2\2\2\u012f\u0131\5(\25\2\u0130\u012f\3\2\2\2\u0131\u0134\3\2"+
+		"\2\2\u0132\u0130\3\2\2\2\u0132\u0133\3\2\2\2\u0133\u0138\3\2\2\2\u0134"+
+		"\u0132\3\2\2\2\u0135\u0137\7\u00c6\2\2\u0136\u0135\3\2\2\2\u0137\u013a"+
+		"\3\2\2\2\u0138\u0136\3\2\2\2\u0138\u0139\3\2\2\2\u0139\u013c\3\2\2\2\u013a"+
+		"\u0138\3\2\2\2\u013b\u013d\7\u00c8\2\2\u013c\u013b\3\2\2\2\u013c\u013d"+
+		"\3\2\2\2\u013d\33\3\2\2\2\u013e\u0141\5\36\20\2\u013f\u0141\5 \21\2\u0140"+
+		"\u013e\3\2\2\2\u0140\u013f\3\2\2\2\u0141\35\3\2\2\2\u0142\u0143\7\u00a2"+
+		"\2\2\u0143\u0144\7@\2\2\u0144\u0145\7\u00b0\2\2\u0145\u0146\7\u00a8\2"+
+		"\2\u0146\37\3\2\2\2\u0147\u0148\7\u00a2\2\2\u0148\u0149\7\u00b1\2\2\u0149"+
+		"\u014a\7C\2\2\u014a\u014b\7\u00a9\2\2\u014b\u014c\7\u0113\2\2\u014c!\3"+
+		"\2\2\2\u014d\u014e\t\6\2\2\u014e#\3\2\2\2\u014f\u0155\5(\25\2\u0150\u0155"+
+		"\7\u00cb\2\2\u0151\u0155\7\u00cc\2\2\u0152\u0155\7\u00cd\2\2\u0153\u0155"+
+		"\5&\24\2\u0154\u014f\3\2\2\2\u0154\u0150\3\2\2\2\u0154\u0151\3\2\2\2\u0154"+
+		"\u0152\3\2\2\2\u0154\u0153\3\2\2\2\u0155\u0156\3\2\2\2\u0156\u0154\3\2"+
+		"\2\2\u0156\u0157\3\2\2\2\u0157\u0165\3\2\2\2\u0158\u015f\7\u00c7\2\2\u0159"+
+		"\u0160\5(\25\2\u015a\u0160\5&\24\2\u015b\u0160\7\u00cb\2\2\u015c\u0160"+
+		"\7\u00cc\2\2\u015d\u0160\7\u00cd\2\2\u015e\u0160\5$\23\2\u015f\u0159\3"+
+		"\2\2\2\u015f\u015a\3\2\2\2\u015f\u015b\3\2\2\2\u015f\u015c\3\2\2\2\u015f"+
+		"\u015d\3\2\2\2\u015f\u015e\3\2\2\2\u0160\u0161\3\2\2\2\u0161\u015f\3\2"+
+		"\2\2\u0161\u0162\3\2\2\2\u0162\u0163\3\2\2\2\u0163\u0165\7\u00c8\2\2\u0164"+
+		"\u0154\3\2\2\2\u0164\u0158\3\2\2\2\u0165%\3\2\2\2\u0166\u0168\7\u00c9"+
+		"\2\2\u0167\u0169\7\u00c9\2\2\u0168\u0167\3\2\2\2\u0169\u016a\3\2\2\2\u016a"+
+		"\u0168\3\2\2\2\u016a\u016b\3\2\2\2\u016b\'\3\2\2\2\u016c\u016e\7\u00c9"+
+		"\2\2\u016d\u016c\3\2\2\2\u016d\u016e\3\2\2\2\u016e\u0170\3\2\2\2\u016f"+
+		"\u0171\7\u00ca\2\2\u0170\u016f\3\2\2\2\u0171\u0172\3\2\2\2\u0172\u0170"+
+		"\3\2\2\2\u0172\u0173\3\2\2\2\u0173\u0176\3\2\2\2\u0174\u0176\7\u00c9\2"+
+		"\2\u0175\u016d\3\2\2\2\u0175\u0174\3\2\2\2\u0176)\3\2\2\2\u0177\u0185"+
+		"\5,\27\2\u0178\u0185\5.\30\2\u0179\u0185\5\60\31\2\u017a\u0185\5\62\32"+
+		"\2\u017b\u0185\5\64\33\2\u017c\u0185\5\66\34\2\u017d\u0185\58\35\2\u017e"+
+		"\u0185\5:\36\2\u017f\u0185\5<\37\2\u0180\u0185\5> \2\u0181\u0185\7\u00d7"+
+		"\2\2\u0182\u0185\7\u00d8\2\2\u0183\u0185\7\u00d9\2\2\u0184\u0177\3\2\2"+
+		"\2\u0184\u0178\3\2\2\2\u0184\u0179\3\2\2\2\u0184\u017a\3\2\2\2\u0184\u017b"+
+		"\3\2\2\2\u0184\u017c\3\2\2\2\u0184\u017d\3\2\2\2\u0184\u017e\3\2\2\2\u0184"+
+		"\u017f\3\2\2\2\u0184\u0180\3\2\2\2\u0184\u0181\3\2\2\2\u0184\u0182\3\2"+
+		"\2\2\u0184\u0183\3\2\2\2\u0185+\3\2\2\2\u0186\u0187\t\7\2\2\u0187-\3\2"+
+		"\2\2\u0188\u0189\t\b\2\2\u0189/\3\2\2\2\u018a\u018b\t\t\2\2\u018b\61\3"+
+		"\2\2\2\u018c\u018d\t\n\2\2\u018d\63\3\2\2\2\u018e\u018f\t\13\2\2\u018f"+
+		"\65\3\2\2\2\u0190\u0191\t\f\2\2\u0191\67\3\2\2\2\u0192\u0193\t\r\2\2\u0193"+
+		"9\3\2\2\2\u0194\u0195\t\16\2\2\u0195;\3\2\2\2\u0196\u0197\t\17\2\2\u0197"+
+		"=\3\2\2\2\u0198\u0199\t\20\2\2\u0199?\3\2\2\2\u019a\u019f\5B\"\2\u019b"+
+		"\u019f\5D#\2\u019c\u019f\5F$\2\u019d\u019f\5H%\2\u019e\u019a\3\2\2\2\u019e"+
+		"\u019b\3\2\2\2\u019e\u019c\3\2\2\2\u019e\u019d\3\2\2\2\u019fA\3\2\2\2"+
+		"\u01a0\u01a1\t\21\2\2\u01a1C\3\2\2\2\u01a2\u01a3\t\22\2\2\u01a3E\3\2\2"+
+		"\2\u01a4\u01a5\t\23\2\2\u01a5G\3\2\2\2\u01a6\u01a7\t\24\2\2\u01a7I\3\2"+
+		"\2\2\u01a8\u01af\5L\'\2\u01a9\u01af\5T+\2\u01aa\u01af\5\\/\2\u01ab\u01af"+
+		"\5^\60\2\u01ac\u01af\5`\61\2\u01ad\u01af\5b\62\2\u01ae\u01a8\3\2\2\2\u01ae"+
+		"\u01a9\3\2\2\2\u01ae\u01aa\3\2\2\2\u01ae\u01ab\3\2\2\2\u01ae\u01ac\3\2"+
+		"\2\2\u01ae\u01ad\3\2\2\2\u01afK\3\2\2\2\u01b0\u01b5\5N(\2\u01b1\u01b5"+
+		"\5P)\2\u01b2\u01b5\5R*\2\u01b3\u01b5\7\u0130\2\2\u01b4\u01b0\3\2\2\2\u01b4"+
+		"\u01b1\3\2\2\2\u01b4\u01b2\3\2\2\2\u01b4\u01b3\3\2\2\2\u01b5M\3\2\2\2"+
+		"\u01b6\u01b7\t\25\2\2\u01b7O\3\2\2\2\u01b8\u01b9\t\26\2\2\u01b9Q\3\2\2"+
+		"\2\u01ba\u01bb\t\27\2\2\u01bbS\3\2\2\2\u01bc\u01c1\5V,\2\u01bd\u01c1\5"+
+		"X-\2\u01be\u01c1\5Z.\2\u01bf\u01c1\7\u012c\2\2\u01c0\u01bc\3\2\2\2\u01c0"+
+		"\u01bd\3\2\2\2\u01c0\u01be\3\2\2\2\u01c0\u01bf\3\2\2\2\u01c1U\3\2\2\2"+
+		"\u01c2\u01c3\t\30\2\2\u01c3W\3\2\2\2\u01c4\u01c5\t\31\2\2\u01c5Y\3\2\2"+
+		"\2\u01c6\u01c7\t\32\2\2\u01c7[\3\2\2\2\u01c8\u01c9\t\33\2\2\u01c9]\3\2"+
+		"\2\2\u01ca\u01cb\t\34\2\2\u01cb_\3\2\2\2\u01cc\u01cd\t\35\2\2\u01cda\3"+
+		"\2\2\2\u01ce\u01cf\t\36\2\2\u01cfc\3\2\2\2\u01d0\u0219\5f\64\2\u01d1\u0219"+
+		"\7\u013a\2\2\u01d2\u0219\7\u013c\2\2\u01d3\u0219\7\u0146\2\2\u01d4\u0219"+
+		"\7\u0147\2\2\u01d5\u0219\7\u014a\2\2\u01d6\u0219\7\u014b\2\2\u01d7\u0219"+
+		"\7\u014c\2\2\u01d8\u0219\7\u014d\2\2\u01d9\u0219\7\u014e\2\2\u01da\u0219"+
+		"\7\u0151\2\2\u01db\u0219\7\u0152\2\2\u01dc\u0219\7\u0153\2\2\u01dd\u0219"+
+		"\7\u0154\2\2\u01de\u0219\7\u0155\2\2\u01df\u0219\7\u0156\2\2\u01e0\u0219"+
+		"\7\u0157\2\2\u01e1\u0219\7\u0158\2\2\u01e2\u0219\7\u0159\2\2\u01e3\u0219"+
+		"\7\u015a\2\2\u01e4\u0219\7\u015b\2\2\u01e5\u0219\7\u015c\2\2\u01e6\u0219"+
+		"\7\u015d\2\2\u01e7\u0219\7\u015e\2\2\u01e8\u0219\7\u015f\2\2\u01e9\u0219"+
+		"\7\u0160\2\2\u01ea\u0219\7\u0161\2\2\u01eb\u0219\7\u0162\2\2\u01ec\u0219"+
+		"\7\u0163\2\2\u01ed\u0219\7\u0164\2\2\u01ee\u0219\7\u0165\2\2\u01ef\u0219"+
+		"\7\u0166\2\2\u01f0\u0219\7\u0167\2\2\u01f1\u0219\7\u0140\2\2\u01f2\u0219"+
+		"\7\u0168\2\2\u01f3\u0219\7\u0144\2\2\u01f4\u0219\7\u0169\2\2\u01f5\u0219"+
+		"\7\u0145\2\2\u01f6\u0219\7\u016a\2\2\u01f7\u0219\7\u016b\2\2\u01f8\u0219"+
+		"\7\u016c\2\2\u01f9\u0219\7\u016d\2\2\u01fa\u0219\7\u016e\2\2\u01fb\u0219"+
+		"\7\u016f\2\2\u01fc\u0219\7\u0170\2\2\u01fd\u0219\7\u0171\2\2\u01fe\u0219"+
+		"\7\u0172\2\2\u01ff\u0219\7\u0173\2\2\u0200\u0219\7\u0174\2\2\u0201\u0219"+
+		"\7\u0175\2\2\u0202\u0219\7\u0178\2\2\u0203\u0219\7\u0179\2\2\u0204\u0219"+
+		"\7\u017a\2\2\u0205\u0219\7\u017b\2\2\u0206\u0219\7\u017c\2\2\u0207\u0219"+
+		"\7\u017d\2\2\u0208\u0219\7\u017e\2\2\u0209\u0219\7\u017f\2\2\u020a\u0219"+
+		"\7\u0180\2\2\u020b\u0219\7\u0181\2\2\u020c\u0219\7\u0182\2\2\u020d\u0219"+
+		"\7\u0139\2\2\u020e\u0219\7\u0183\2\2\u020f\u0219\7\u0184\2\2\u0210\u0219"+
+		"\7\u0185\2\2\u0211\u0219\7\u0186\2\2\u0212\u0219\7\u0187\2\2\u0213\u0219"+
+		"\7\u0188\2\2\u0214\u0219\7\u0189\2\2\u0215\u0219\7\u018a\2\2\u0216\u0219"+
+		"\7\u018b\2\2\u0217\u0219\5h\65\2\u0218\u01d0\3\2\2\2\u0218\u01d1\3\2\2"+
+		"\2\u0218\u01d2\3\2\2\2\u0218\u01d3\3\2\2\2\u0218\u01d4\3\2\2\2\u0218\u01d5"+
+		"\3\2\2\2\u0218\u01d6\3\2\2\2\u0218\u01d7\3\2\2\2\u0218\u01d8\3\2\2\2\u0218"+
+		"\u01d9\3\2\2\2\u0218\u01da\3\2\2\2\u0218\u01db\3\2\2\2\u0218\u01dc\3\2"+
+		"\2\2\u0218\u01dd\3\2\2\2\u0218\u01de\3\2\2\2\u0218\u01df\3\2\2\2\u0218"+
+		"\u01e0\3\2\2\2\u0218\u01e1\3\2\2\2\u0218\u01e2\3\2\2\2\u0218\u01e3\3\2"+
+		"\2\2\u0218\u01e4\3\2\2\2\u0218\u01e5\3\2\2\2\u0218\u01e6\3\2\2\2\u0218"+
+		"\u01e7\3\2\2\2\u0218\u01e8\3\2\2\2\u0218\u01e9\3\2\2\2\u0218\u01ea\3\2"+
+		"\2\2\u0218\u01eb\3\2\2\2\u0218\u01ec\3\2\2\2\u0218\u01ed\3\2\2\2\u0218"+
+		"\u01ee\3\2\2\2\u0218\u01ef\3\2\2\2\u0218\u01f0\3\2\2\2\u0218\u01f1\3\2"+
+		"\2\2\u0218\u01f2\3\2\2\2\u0218\u01f3\3\2\2\2\u0218\u01f4\3\2\2\2\u0218"+
+		"\u01f5\3\2\2\2\u0218\u01f6\3\2\2\2\u0218\u01f7\3\2\2\2\u0218\u01f8\3\2"+
+		"\2\2\u0218\u01f9\3\2\2\2\u0218\u01fa\3\2\2\2\u0218\u01fb\3\2\2\2\u0218"+
+		"\u01fc\3\2\2\2\u0218\u01fd\3\2\2\2\u0218\u01fe\3\2\2\2\u0218\u01ff\3\2"+
+		"\2\2\u0218\u0200\3\2\2\2\u0218\u0201\3\2\2\2\u0218\u0202\3\2\2\2\u0218"+
+		"\u0203\3\2\2\2\u0218\u0204\3\2\2\2\u0218\u0205\3\2\2\2\u0218\u0206\3\2"+
+		"\2\2\u0218\u0207\3\2\2\2\u0218\u0208\3\2\2\2\u0218\u0209\3\2\2\2\u0218"+
+		"\u020a\3\2\2\2\u0218\u020b\3\2\2\2\u0218\u020c\3\2\2\2\u0218\u020d\3\2"+
+		"\2\2\u0218\u020e\3\2\2\2\u0218\u020f\3\2\2\2\u0218\u0210\3\2\2\2\u0218"+
+		"\u0211\3\2\2\2\u0218\u0212\3\2\2\2\u0218\u0213\3\2\2\2\u0218\u0214\3\2"+
+		"\2\2\u0218\u0215\3\2\2\2\u0218\u0216\3\2\2\2\u0218\u0217\3\2\2\2\u0219"+
+		"e\3\2\2\2\u021a\u021b\7\u013a\2\2\u021b\u021e\7\u0147\2\2\u021c\u021e"+
+		"\7\u018d\2\2\u021d\u021a\3\2\2\2\u021d\u021c\3\2\2\2\u021eg\3\2\2\2\u021f"+
+		"\u0220\t\37\2\2\u0220i\3\2\2\2Bkoqty|\177\u0083\u0088\u008c\u008f\u0092"+
+		"\u0097\u009d\u00a1\u00a4\u00a9\u00ad\u00b0\u00b3\u00b8\u00be\u00c2\u00c6"+
+		"\u00c8\u00cf\u00d5\u00d9\u00e4\u00e6\u00ed\u00f2\u00f6\u00ff\u0104\u0108"+
+		"\u010f\u0113\u0118\u011e\u0123\u0126\u0129\u012d\u0132\u0138\u013c\u0140"+
+		"\u0154\u0156\u015f\u0161\u0164\u016a\u016d\u0172\u0175\u0184\u019e\u01ae"+
+		"\u01b4\u01c0\u0218\u021d";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

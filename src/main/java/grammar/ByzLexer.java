@@ -1,4 +1,5 @@
-package grammar;// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+package grammar;
 
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.ATN;

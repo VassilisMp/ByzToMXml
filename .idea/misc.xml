@@ -18,7 +18,7 @@
           <option name="outputDir" value="" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="" />
+          <option name="pkg" value="grammar" />
           <option name="language" value="" />
         </PerGrammarGenerationSettings>
       </list>

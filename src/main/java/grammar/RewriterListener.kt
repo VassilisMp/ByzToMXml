@@ -19,15 +19,13 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
 
     // put arxigramma and syllables in the correct places, meaning after quantity chars
     override fun visitTerminal(node: TerminalNode?) {
-        when {
-            node?.symbol?.type == ARXIGRAMMA &&
-                    rewriter.tokenStream[node.symbol.tokenIndex + 1]?.type == RIGHT_PARENTHESIS -> {
-                arxigramma = node
-                /*for (i in (node.symbol.tokenIndex - 1 .. 0)) {
+        if (node?.symbol?.type == ARXIGRAMMA &&
+                rewriter.tokenStream[node.symbol.tokenIndex + 1]?.type == RIGHT_PARENTHESIS) {
+            arxigramma = node
+            /*for (i in (node.symbol.tokenIndex - 1 .. 0)) {
                     val token: Token = rewriter.tokenStream[node.symbol.tokenIndex - 1]
                     println(rewriter.tokenStream[node.symbol.tokenIndex-1])
                 }*/
-            }
         }
     }
 
@@ -38,15 +36,13 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
                 rewriter.delete(ctx.start, ctx.stop)
                 return
             }
-            ctx.getParent().children[1] == ctx|| !inMusic -> {
+            ctx.getParent().children[1] == ctx || !inMusic -> {
                 syllable = ctx
-                println(syllable?.text)
+//                println(syllable?.text)
             }
-            else -> {
-                for (pt in ctx.getParent().children.subList(0, ctx.getParent().children.indexOf(ctx)).asReversed()) {
-                    if (pt::class.java == ByzParser.SyllableContext::class.java) syllable = ctx
-                    if (pt::class.java == ByzParser.QCharContext::class.java) return
-                }
+            else -> ctx.getParent().children.subList(0, ctx.getParent().children.indexOf(ctx)).asReversed().forEach { pt ->
+                if (pt::class.java == ByzParser.SyllableContext::class.java) syllable = ctx
+                if (pt::class.java == ByzParser.QCharContext::class.java) return
             }
         }
     }
