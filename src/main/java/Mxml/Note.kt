@@ -110,7 +110,7 @@ class Note : org.audiveris.proxymusic.Note, Cloneable {
                 '}'
     }
 
-    enum class NoteTypeEnum(var noteType: String) {
+    public enum class NoteTypeEnum(var noteType: String) {
         MAXIMA("maxima"), LONG("long"), BREVE("breve"), WHOLE("whole"), HALF("half"), QUARTER("quarter"), EIGHTH("eighth"), SIXTEENTH("16th"), THIRTY_SECOND("32nd"), SIXTY_FOURTH("64th"), ONE_TWO_EIGHTH("128th"), TWO_FIVE_SIXTH("256th"), FIVE_TWELFTH("512th"), TEN_TWENTY_FOURTH("1024th");
 
     }

@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 import static Byzantine.Engine.toByzStep;
 
 public class QuantityChar extends ByzChar implements Comparable, Iterable<Move> {
-    private static final BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
+    public static final BiMap<Step, Integer> stepMap = EnumHashBiMap.create(Step.class);
     static {
         stepMap.put(Step.C,0);
         stepMap.put(Step.D,1);

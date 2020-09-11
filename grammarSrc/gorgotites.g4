@@ -4,7 +4,8 @@ gorgotita : gorgon
         | gorgonParestigmenoAristera
         | gorgonParestigmenoDexia
         | digorgon
-        | digorgonParestigmenoAristera
+        | digorgonParestigmenoAristeraKato
+        | digorgonParestigmenoAristeraAno
         | digorgonParestigmenoDexia
         | trigorgon
         | trigorgonParestigmenoAristeraKato
@@ -46,11 +47,14 @@ digorgon :
         | DIGORGON_STA_DEXIA
         ;
 
-digorgonParestigmenoAristera :
+digorgonParestigmenoAristeraKato :
         DIGORGON_PARESTIGMENON_ARISTERA_KATO
-        | DIGORGON_PARESTIGMENON_ARISTERA_ANO
         | DIGORGON_LEFT_DOT_USED_ON_YPORROI
         | DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA
+        ;
+
+digorgonParestigmenoAristeraAno :
+        DIGORGON_PARESTIGMENON_ARISTERA_ANO
         | DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA
         ;
 
