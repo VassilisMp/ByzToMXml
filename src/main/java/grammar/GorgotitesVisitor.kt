@@ -2,7 +2,7 @@ package grammar
 
 import grammar.ByzParser.*
 
-class TimeCharVisitor: ByzBaseVisitor<Tchar>() {
+class GorgotitesVisitor: ByzBaseVisitor<Tchar>() {
 
     override fun visitGorgon(ctx: GorgonContext?) = Tchar(0, 1, false)
     override fun visitGorgonParestigmenoAristera(ctx: GorgonParestigmenoAristeraContext?) = Tchar(1, 1, false)
@@ -15,6 +15,9 @@ class TimeCharVisitor: ByzBaseVisitor<Tchar>() {
     override fun visitTrigorgonParestigmenoAristeraKato(ctx: TrigorgonParestigmenoAristeraKatoContext?) = Tchar(1, 3, false)
     override fun visitTrigorgonParestigmenoAristeraPano(ctx: TrigorgonParestigmenoAristeraPanoContext?) = Tchar(3, 3, false)
     override fun visitTrigorgonParestigmenoDexia(ctx: TrigorgonParestigmenoDexiaContext?) = Tchar(4, 3, false)
+    override fun visitArgon(ctx: ArgonContext?) = Tchar(0, 1, false)
+    override fun visitImiDiargon(ctx: ImiDiargonContext?) = Tchar(0, 1, false)
+    override fun visitDiargon(ctx: DiargonContext?) = Tchar(0, 1, false)
     /*val argon = TimeChar(119, ByzClass.B, 0, 1, true)
         val imidiargon = TimeChar(87, ByzClass.B, 0, 2, true)
         val diargon = TimeChar(113, ByzClass.L, 0, 3, true)*/
