@@ -173,4 +173,27 @@ class Tchar(private val dotPlace: Int, var divisions: Int, val argo: Boolean): C
         if (i == 0) note.setTuplet(YesNo.YES, AboveBelow.ABOVE, StartStop.START)
         if (i == subListSize - 1) note.setTuplet(type = StartStop.STOP)
     }
+
+    override fun toString(): String {
+        return when {
+            dotPlace == 0 && divisions == 1 -> "gorgon"
+            dotPlace == 1 && divisions == 1 -> "GorgonParestigmenoAristera"
+            dotPlace == 2 && divisions == 1 -> "GorgonParestigmenoDexia"
+            dotPlace == 0 && divisions == 2 -> "digorgon"
+            dotPlace == 1 && divisions == 2 -> "DigorgonParestigmenoAristeraKato"
+            dotPlace == 2 && divisions == 2 -> "DigorgonParestigmenoAristeraAno"
+            dotPlace == 3 && divisions == 2 -> "DigorgonParestigmenoDexia"
+            dotPlace == 0 && divisions == 3 -> "trigorgon"
+            dotPlace == 1 && divisions == 3 -> "TrigorgonParestigmenoAristeraKato"
+            dotPlace == 3 && divisions == 3 -> "TrigorgonParestigmenoAristeraPano"
+            dotPlace == 4 && divisions == 3 -> "TrigorgonParestigmenoDexia"
+            dotPlace == 0 && divisions == -1 && argo -> "argon"
+            dotPlace == 0 && divisions == -2 && argo -> "imiDiargon"
+            dotPlace == 0 && divisions == -3 && argo -> "diargon"
+            dotPlace == 0 && divisions == -1 -> "apli"
+            dotPlace == 0 && divisions == -2 -> "dipli"
+            dotPlace == 0 && divisions == -3 -> "tripli"
+            else -> super.toString()
+        }
+    }
 }
