@@ -11,9 +11,9 @@ gorgotita : gorgon
         | trigorgonParestigmenoAristeraKato
         | trigorgonParestigmenoAristeraPano
         | trigorgonParestigmenoDexia
-        | ARGON
-        | IMIDIARGON
-        | DIARGON
+        | argon
+        | imiDiargon
+        | diargon
         ;
 
 gorgon : GORGON_NEO_ANO
@@ -85,6 +85,12 @@ trigorgonParestigmenoDexia :
         TRIGORGON_PARESTIGMENON_DEXIA
         | TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA
         ;
+
+argon : ARGON ;
+
+imiDiargon : IMIDIARGON ;
+
+diargon : DIARGON ;
 
 // Synagmata or Gorgotites (Synagmas or Quickeners)
 GORGON_NEO_ANO : '𝂏' | 'B101' ;

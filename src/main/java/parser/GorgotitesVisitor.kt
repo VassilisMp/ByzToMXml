@@ -1,10 +1,11 @@
-package grammar
+package parser
 
+import grammar.ByzBaseVisitor
 import grammar.ByzParser.*
 
 class GorgotitesVisitor: ByzBaseVisitor<Tchar>() {
 
-    override fun visitGorgon(ctx: GorgonContext?) = Tchar(0, 1, false)
+    override fun visitGorgon(ctx: GorgonContext?) = gorgon
     override fun visitGorgonParestigmenoAristera(ctx: GorgonParestigmenoAristeraContext?) = Tchar(1, 1, false)
     override fun visitGorgonParestigmenoDexia(ctx: GorgonParestigmenoDexiaContext?) = Tchar(2, 1, false)
     override fun visitDigorgon(ctx: DigorgonContext?) = Tchar(0, 2, false)
@@ -18,4 +19,8 @@ class GorgotitesVisitor: ByzBaseVisitor<Tchar>() {
     override fun visitArgon(ctx: ArgonContext?) = Tchar(0, -1, true)
     override fun visitImiDiargon(ctx: ImiDiargonContext?) = Tchar(0, -2, true)
     override fun visitDiargon(ctx: DiargonContext?) = Tchar(0, -3, true)
+
+    companion object {
+        val gorgon = Tchar(0, 1, false)
+    }
 }

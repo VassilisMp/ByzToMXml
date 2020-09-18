@@ -1,6 +1,7 @@
-package grammar
+package parser
 
 import org.audiveris.proxymusic.*
+import west.cast
 import java.math.BigDecimal
 
 /* Method to check if x is power of 2*/
@@ -10,20 +11,16 @@ fun Int.isPowerOfTwo(): Boolean {
     return this != 0 && this and this - 1 == 0
 }
 
-fun Any.asNote(): Note = this as Note
-
-fun Any.asTextElementData(): TextElementData = this as TextElementData
-
 fun Note.copy(): Note = Note().also {
     it.pitch = this.pitch.copy()
-    it.duration = BigDecimal(this.duration.toInt())
-    it.type = this.type.copy()
+    it.duration_ = this.duration_
+    it.noteType = this.noteType
     it.dot += mutableListOf<EmptyPlacement>().also { list -> for (i in 0..this.dot.size) list += EmptyPlacement() }
 //    accidentalCommmas = note.accidentalCommmas
 }
 
 var Note.lyricText: String?
-    get() = lyric?.firstOrNull()?.elisionAndSyllabicAndText?.firstOrNull { it is TextElementData }?.asTextElementData()?.value
+    get() = lyric?.firstOrNull()?.elisionAndSyllabicAndText?.firstOrNull { it is TextElementData }?.cast<TextElementData>()?.value
     set(value) {
         lyric.clear()
         lyric += Lyric().apply { elisionAndSyllabicAndText += Syllabic.SINGLE
@@ -36,31 +33,39 @@ var Note.noteType: String?
 
 fun Pitch.copy(): Pitch = Pitch().also { it.step = this.step; it.octave = this.octave }
 
-fun NoteType.copy(): NoteType = NoteType().also { it.value = this.value }
-
 fun noteTypeByDuration(duration: BigDecimal): Mxml.Note.NoteTypeEnum? =
         Mxml.Note.NoteTypeEnum.values().asList().find { it.duration == duration.toInt() }
 
-var Note.durationInt: Int
+var Note.duration_: Int
     get() = duration.toInt()
-    set(value) { duration += value.toBigDecimal() }
+    set(value) { duration = value.toBigDecimal() }
 
-fun Note.setDuration(noteType: Mxml.Note.NoteTypeEnum) { durationInt = noteType.duration }
+fun Note.setDuration(noteType: Mxml.Note.NoteTypeEnum) { duration_ = noteType.duration }
 fun Note.setNoteType(noteType: Mxml.Note.NoteTypeEnum) { this.noteType = noteType.noteType }
 fun Note.setType(noteType: Mxml.Note.NoteTypeEnum) {
     setDuration(noteType)
     setNoteType(noteType)
 }
 fun Note.setDurType(duration: Int, noteType: String) {
-    durationInt = duration
+    duration_ = duration
     this.noteType = noteType
 }
 
-val Note.step: Step?
+var Note.step: Step?
     get() = this.pitch?.step
+    set(value) {
+        if (pitch != null) pitch.step = value
+        else pitch = Pitch().apply { step = value }
+    }
 
-val Note.octave: Int?
+var Note.octave: Int?
     get() = pitch?.octave
+    set(value) {
+        if (value != null) {
+            if (pitch != null) pitch.octave = value
+            else pitch = Pitch().apply { octave = value }
+        }
+    }
 
 val Note.byzOctave: Int?
     get() = if (Mxml.Note.steps.indexOf(step) < 4) octave?.minus(5) else octave?.minus(4)
@@ -74,12 +79,32 @@ fun Note.addTied(startStopContinue: StartStopContinue) {
 
 fun Note.setTuplet(bracket: YesNo? = null, placement: AboveBelow? = null, type: StartStop) {
     notation.tiedOrSlurOrTuplet += Tuplet().also {tuplet ->
-        bracket?.let { tuplet.bracket = it }
-        placement?.let { tuplet.placement = it }
+        if (bracket != null) tuplet.bracket = bracket
+        if (placement != null) tuplet.placement = placement
         tuplet.type = type
     }
 }
 
 fun Note.addTie(tie: Tie) { this.tie += tie }
 
-fun Note.updateDivision(multiplier: Int) { durationInt *= multiplier }
+fun Note.updateDivision(multiplier: Int) { duration_ *= multiplier }
+
+fun newPitch(step: Step, octave: Int): Pitch = Pitch().apply {
+    this.step = step
+    this.octave = octave
+}
+
+fun newNote(
+        step: Step,
+        octave: Int,
+        duration: Int,
+        noteType: Mxml.Note.NoteTypeEnum,
+        syllable: String?
+): Note = Note().apply {
+    this.step = step
+    this.octave = octave
+    this.duration_ = duration
+    setNoteType(noteType)
+    // add syllable if not null
+    if (syllable != null) lyricText = syllable
+}

@@ -20,6 +20,7 @@
           <option name="encoding" value="" />
           <option name="pkg" value="grammar" />
           <option name="language" value="" />
+          <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
       </list>
     </option>

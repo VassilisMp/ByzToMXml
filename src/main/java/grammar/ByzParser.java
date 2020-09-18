@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.atn.ParserATNSimulator;
 import org.antlr.v4.runtime.atn.PredictionContextCache;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.List;
@@ -156,15 +157,16 @@ public class ByzParser extends Parser {
 		RULE_plagiosPrwtouArktikiMartyria = 15, RULE_endixiFthoggou = 16, RULE_text = 17, 
 		RULE_capWord = 18, RULE_syllable = 19, RULE_gorgotita = 20, RULE_gorgon = 21, 
 		RULE_gorgonParestigmenoAristera = 22, RULE_gorgonParestigmenoDexia = 23, 
-		RULE_digorgon = 24, RULE_digorgonParestigmenoAristera = 25, RULE_digorgonParestigmenoDexia = 26, 
-		RULE_trigorgon = 27, RULE_trigorgonParestigmenoAristeraKato = 28, RULE_trigorgonParestigmenoAristeraPano = 29, 
-		RULE_trigorgonParestigmenoDexia = 30, RULE_argia = 31, RULE_klasma = 32, 
-		RULE_apli = 33, RULE_dipli = 34, RULE_tripli = 35, RULE_fthora = 36, RULE_yfesi = 37, 
-		RULE_yfesiApli = 38, RULE_yfesiMonogrammos = 39, RULE_yfesiDigrammos = 40, 
-		RULE_diesi = 41, RULE_diesiApli = 42, RULE_diesiMonogrammos = 43, RULE_diesiDigrammos = 44, 
-		RULE_fthoraDiatoniki = 45, RULE_fthoraChromatiki = 46, RULE_geniki = 47, 
-		RULE_chroa = 48, RULE_qChar = 49, RULE_kentimaToTheRightOfOligon = 50, 
-		RULE_yporroi = 51;
+		RULE_digorgon = 24, RULE_digorgonParestigmenoAristeraKato = 25, RULE_digorgonParestigmenoAristeraAno = 26, 
+		RULE_digorgonParestigmenoDexia = 27, RULE_trigorgon = 28, RULE_trigorgonParestigmenoAristeraKato = 29, 
+		RULE_trigorgonParestigmenoAristeraPano = 30, RULE_trigorgonParestigmenoDexia = 31, 
+		RULE_argon = 32, RULE_imiDiargon = 33, RULE_diargon = 34, RULE_argia = 35, 
+		RULE_klasma = 36, RULE_apli = 37, RULE_dipli = 38, RULE_tripli = 39, RULE_fthora = 40, 
+		RULE_monimi = 41, RULE_yfesodiesi = 42, RULE_yfesi = 43, RULE_yfesiApli = 44, 
+		RULE_yfesiMonogrammos = 45, RULE_yfesiDigrammos = 46, RULE_diesi = 47, 
+		RULE_diesiApli = 48, RULE_diesiMonogrammos = 49, RULE_diesiDigrammos = 50, 
+		RULE_fthoraDiatoniki = 51, RULE_fthoraChromatiki = 52, RULE_geniki = 53, 
+		RULE_chroa = 54, RULE_qChar = 55, RULE_qChar2 = 56;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"newScore", "score2", "clusterType2", "score", "emptyCluster", "fthoraMeEndeixi", 
@@ -172,13 +174,13 @@ public class ByzParser extends Parser {
 			"arktikiMartyria", "newArktikiMartyria", "plagiosTetartoyArktikiMartyria", 
 			"plagiosPrwtouArktikiMartyria", "endixiFthoggou", "text", "capWord", 
 			"syllable", "gorgotita", "gorgon", "gorgonParestigmenoAristera", "gorgonParestigmenoDexia", 
-			"digorgon", "digorgonParestigmenoAristera", "digorgonParestigmenoDexia", 
-			"trigorgon", "trigorgonParestigmenoAristeraKato", "trigorgonParestigmenoAristeraPano", 
-			"trigorgonParestigmenoDexia", "argia", "klasma", "apli", "dipli", "tripli", 
-			"fthora", "yfesi", "yfesiApli", "yfesiMonogrammos", "yfesiDigrammos", 
-			"diesi", "diesiApli", "diesiMonogrammos", "diesiDigrammos", "fthoraDiatoniki", 
-			"fthoraChromatiki", "geniki", "chroa", "qChar", "kentimaToTheRightOfOligon", 
-			"yporroi"
+			"digorgon", "digorgonParestigmenoAristeraKato", "digorgonParestigmenoAristeraAno", 
+			"digorgonParestigmenoDexia", "trigorgon", "trigorgonParestigmenoAristeraKato", 
+			"trigorgonParestigmenoAristeraPano", "trigorgonParestigmenoDexia", "argon", 
+			"imiDiargon", "diargon", "argia", "klasma", "apli", "dipli", "tripli", 
+			"fthora", "monimi", "yfesodiesi", "yfesi", "yfesiApli", "yfesiMonogrammos", 
+			"yfesiDigrammos", "diesi", "diesiApli", "diesiMonogrammos", "diesiDigrammos", 
+			"fthoraDiatoniki", "fthoraChromatiki", "geniki", "chroa", "qChar", "qChar2"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -449,6 +451,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitNewScore(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitNewScore(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final NewScoreContext newScore() throws RecognitionException {
@@ -458,22 +465,22 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(105);
+			setState(115);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==HXOS_WORD) {
 				{
-				setState(104);
+				setState(114);
 				newArktikiMartyria();
 				}
 			}
 
-			setState(109); 
+			setState(119); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(109);
+				setState(119);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case ARXIGRAMMA:
@@ -487,12 +494,13 @@ public class ByzParser extends Parser {
 				case ELAFRON:
 				case CHAMILI:
 				case KENTIMATA_NEO_MESO:
-				case KENTIMA_NEO_MESO:
 				case OLIGON_OVER_PETASTI:
 				case KENTIMA_UNDER_OLIGON:
 				case OLIGON_ABOVE_KENTIMATA:
 				case KENTIMATA_ABOVE_OLIGON:
 				case ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON:
+				case APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON:
+				case APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA:
 				case KENTIMA_OVER_OLIGON:
 				case KENTIMA_OVER_PETASTI:
 				case YPSILI_AT_RIGHT_END_OF_OLIGON:
@@ -555,7 +563,7 @@ public class ByzParser extends Parser {
 				case YPORROI_AND_KENTIMATA_OVER_OLIGON:
 				case KENTIMA_TO_THE_RIGHT_OF_OLIGON:
 					{
-					setState(107);
+					setState(117);
 					clusterType2();
 					}
 					break;
@@ -584,7 +592,7 @@ public class ByzParser extends Parser {
 				case MARTYRIA_TETARTOS_ICHOS_LOW:
 				case MARTYRIA_NENANO_LOW:
 					{
-					setState(108);
+					setState(118);
 					martyria();
 					}
 					break;
@@ -592,10 +600,10 @@ public class ByzParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(111); 
+				setState(121); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 54)) & ~0x3f) == 0 && ((1L << (_la - 54)) & ((1L << (MARTYRIA_ALLI_PROTOS_ICHOS - 54)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS - 54)) | (1L << (MARTYRIA_TRIFONIAS - 54)) | (1L << (MARTYRIA_TETARTOS_ICHOS - 54)) | (1L << (MARTYRIA_LEGETOS_ICHOS - 54)) | (1L << (APOSTROFOI_TELOUS_ICHIMATOS - 54)) | (1L << (MARTYRIA_VARYS_ICHOS - 54)) | (1L << (ARKTIKO_PA - 54)) | (1L << (ARKTIKO_VOU - 54)) | (1L << (ARKTIKO_GA - 54)) | (1L << (ARKTIKO_DI - 54)) | (1L << (ARKTIKO_KE - 54)) | (1L << (ARKTIKO_ZO - 54)) | (1L << (ARKTIKO_NI - 54)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)) | (1L << (ARXIGRAMMA - 150)) | (1L << (CAP_LETTER - 150)) | (1L << (SMALL_LETTER - 150)))) != 0) || ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (KENTIMA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
+			} while ( ((((_la - 54)) & ~0x3f) == 0 && ((1L << (_la - 54)) & ((1L << (MARTYRIA_ALLI_PROTOS_ICHOS - 54)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS - 54)) | (1L << (MARTYRIA_TRIFONIAS - 54)) | (1L << (MARTYRIA_TETARTOS_ICHOS - 54)) | (1L << (MARTYRIA_LEGETOS_ICHOS - 54)) | (1L << (APOSTROFOI_TELOUS_ICHIMATOS - 54)) | (1L << (MARTYRIA_VARYS_ICHOS - 54)) | (1L << (ARKTIKO_PA - 54)) | (1L << (ARKTIKO_VOU - 54)) | (1L << (ARKTIKO_GA - 54)) | (1L << (ARKTIKO_DI - 54)) | (1L << (ARKTIKO_KE - 54)) | (1L << (ARKTIKO_ZO - 54)) | (1L << (ARKTIKO_NI - 54)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)) | (1L << (ARXIGRAMMA - 150)) | (1L << (CAP_LETTER - 150)) | (1L << (SMALL_LETTER - 150)))) != 0) || ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -631,6 +639,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitScore2(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitScore2(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final Score2Context score2() throws RecognitionException {
@@ -640,30 +653,30 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(114);
+			setState(124);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				{
-				setState(113);
+				setState(123);
 				arktikiMartyria();
 				}
 				break;
 			}
-			setState(117); 
+			setState(127); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(116);
+				setState(126);
 				clusterType2();
 				}
 				}
-				setState(119); 
+				setState(129); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ARXIGRAMMA - 196)) | (1L << (CAP_LETTER - 196)) | (1L << (SMALL_LETTER - 196)))) != 0) || ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (KENTIMA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
+			} while ( ((((_la - 196)) & ~0x3f) == 0 && ((1L << (_la - 196)) & ((1L << (ARXIGRAMMA - 196)) | (1L << (CAP_LETTER - 196)) | (1L << (SMALL_LETTER - 196)))) != 0) || ((((_la - 311)) & ~0x3f) == 0 && ((1L << (_la - 311)) & ((1L << (ISON_NEO - 311)) | (1L << (OLIGON_NEO - 311)) | (1L << (PETASTI - 311)) | (1L << (APOSTROFOS_NEO - 311)) | (1L << (YPORROI - 311)) | (1L << (ELAFRON - 311)) | (1L << (CHAMILI - 311)) | (1L << (KENTIMATA_NEO_MESO - 311)) | (1L << (OLIGON_OVER_PETASTI - 311)) | (1L << (KENTIMA_UNDER_OLIGON - 311)) | (1L << (OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMATA_ABOVE_OLIGON - 311)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 311)) | (1L << (APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA - 311)) | (1L << (KENTIMA_OVER_OLIGON - 311)) | (1L << (KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 311)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 311)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_PETASTI - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 311)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 311)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 311)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 311)) | (1L << (CONTINUOUS_ELAFRON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_APOSTROPHOS - 311)) | (1L << (HAMILI_OVER_ELAPHRON - 311)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 311)) | (1L << (APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_PETASTI - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 311)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 311)) | (1L << (APOSTROPHOS_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_OLIGON - 311)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 311)) | (1L << (HAMILI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_OLIGON - 311)) | (1L << (YPORROI_OVER_PETASTI - 311)) | (1L << (HAMILI_OVER_HAMILI - 311)))) != 0) || ((((_la - 375)) & ~0x3f) == 0 && ((1L << (_la - 375)) & ((1L << (HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 375)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 375)) | (1L << (ISON_OVER_PETASTI - 375)) | (1L << (ISON_OVER_OLIGON - 375)) | (1L << (APOSTROPHOS_UNDER_ISON - 375)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 375)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 375)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -715,6 +728,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitClusterType2(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitClusterType2(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ClusterType2Context clusterType2() throws RecognitionException {
@@ -725,178 +743,178 @@ public class ByzParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(122);
+			setState(132);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ARXIGRAMMA) {
 				{
-				setState(121);
+				setState(131);
 				match(ARXIGRAMMA);
 				}
 			}
 
-			setState(125);
+			setState(135);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==CAP_LETTER || _la==SMALL_LETTER) {
 				{
-				setState(124);
+				setState(134);
 				syllable();
 				}
 			}
 
-			setState(127);
+			setState(137);
 			qChar();
 			{
-			setState(129);
+			setState(139);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				{
-				setState(128);
-				syllable();
-				}
-				break;
-			}
-			setState(134);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
-			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(131);
-					tChar();
-					}
-					} 
-				}
-				setState(136);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
-			}
-			setState(138);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
-			case 1:
-				{
-				setState(137);
-				fthoraMeEndeixi();
-				}
-				break;
-			}
-			setState(141);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
-			case 1:
-				{
-				setState(140);
+				setState(138);
 				syllable();
 				}
 				break;
 			}
 			setState(144);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
+			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(141);
+					tChar();
+					}
+					} 
+				}
+				setState(146);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
+			}
+			setState(148);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				{
-				setState(143);
+				setState(147);
 				fthoraMeEndeixi();
 				}
 				break;
 			}
-			setState(149);
+			setState(151);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
+			case 1:
+				{
+				setState(150);
+				syllable();
+				}
+				break;
+			}
+			setState(154);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
+			case 1:
+				{
+				setState(153);
+				fthoraMeEndeixi();
+				}
+				break;
+			}
+			setState(159);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(146);
+					setState(156);
 					tChar();
 					}
 					} 
 				}
-				setState(151);
+				setState(161);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			}
-			setState(155);
+			setState(165);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(152);
+					setState(162);
 					tChar();
 					}
 					} 
 				}
-				setState(157);
+				setState(167);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,13,_ctx);
 			}
-			setState(159);
+			setState(169);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
 				{
-				setState(158);
+				setState(168);
 				syllable();
 				}
 				break;
 			}
-			setState(162);
+			setState(172);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 			case 1:
 				{
-				setState(161);
+				setState(171);
 				fthoraMeEndeixi();
 				}
 				break;
 			}
-			setState(167);
+			setState(177);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (((((_la - 205)) & ~0x3f) == 0 && ((1L << (_la - 205)) & ((1L << (GORGON_NEO_ANO - 205)) | (1L << (GORGON_PARESTIGMENON_ARISTERA - 205)) | (1L << (GORGON_PARESTIGMENON_DEXIA - 205)) | (1L << (DIGORGON - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 205)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA - 205)) | (1L << (TRIGORGON - 205)) | (1L << (ARGON - 205)) | (1L << (IMIDIARGON - 205)) | (1L << (DIARGON - 205)) | (1L << (GORGON_NEO_KATO - 205)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 205)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 205)) | (1L << (GORGON_USED_ON_YPORROI - 205)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 205)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 205)) | (1L << (DIGORGON_USED_ON_YPORROI - 205)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 205)) | (1L << (TRIGORGON_USED_ON_YPORROI - 205)) | (1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 205)) | (1L << (GORGON_USED_ON_L116_YPORROI - 205)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 205)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 205)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 205)) | (1L << (GORGON_ANO_STA_DEXIA - 205)) | (1L << (GORGON_KATO - 205)) | (1L << (GORGON_KATO_STA_DEXIA - 205)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 205)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 205)) | (1L << (DIGORGON_STA_DEXIA - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 205)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 205)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 205)) | (1L << (TRIGORGON_STA_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO - 205)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA - 205)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 205)) | (1L << (KLASMA_ANO - 205)) | (1L << (APLI - 205)) | (1L << (DIPLI - 205)) | (1L << (TRIPLI - 205)) | (1L << (KLASMA_KATO - 205)) | (1L << (KLASMA_ANO_STA_DEXIA - 205)) | (1L << (KLASMA_ANO_STA_ARISTERA - 205)) | (1L << (APLI_STA_DEXIA - 205)) | (1L << (DIPLI_STA_DEXIA - 205)) | (1L << (TRIPLI_STA_DEXIA - 205)))) != 0)) {
 				{
 				{
-				setState(164);
+				setState(174);
 				tChar();
 				}
 				}
-				setState(169);
+				setState(179);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(171);
+			setState(181);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 269)) & ~0x3f) == 0 && ((1L << (_la - 269)) & ((1L << (ENARXIS_KAI_FTHORA_VOU - 269)) | (1L << (FTHORA_DIATONIKI_PA - 269)) | (1L << (FTHORA_DIATONIKI_NANA - 269)) | (1L << (FTHORA_NAOS_ICHOS - 269)) | (1L << (FTHORA_DIATONIKI_DI - 269)) | (1L << (FTHORA_DIATONIKI_KE - 269)) | (1L << (FTHORA_DIATONIKI_ZO - 269)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 269)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 269)) | (1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 269)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 269)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 269)) | (1L << (FTHORA_NENANO - 269)) | (1L << (CHROA_ZYGOS - 269)) | (1L << (CHROA_KLITON - 269)) | (1L << (CHROA_SPATHI - 269)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 269)) | (1L << (DIESIS_APLI_DYO_DODEKATA - 269)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA - 269)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA - 269)) | (1L << (DIESIS_TRIGRAMMOS_OKTO_DODEKATA - 269)) | (1L << (YFESIS_APLI_DYO_DODEKATA - 269)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA - 269)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA - 269)) | (1L << (YFESIS_TRIGRAMMOS_OKTO_DODEKATA - 269)) | (1L << (GENIKI_DIESIS - 269)) | (1L << (GENIKI_YFESIS - 269)) | (1L << (DIESIS_APLI_DYO_DODEKATA_DEXIA - 269)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 269)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 269)) | (1L << (YFESIS_APLI_DYO_DODEKATA_DEXIA - 269)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 269)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 269)))) != 0)) {
 				{
-				setState(170);
+				setState(180);
 				fthoraMeEndeixi();
 				}
 			}
 
-			setState(174);
+			setState(184);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,18,_ctx) ) {
 			case 1:
 				{
-				setState(173);
+				setState(183);
 				syllable();
 				}
 				break;
 			}
 			}
-			setState(177);
+			setState(187);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LEIMMA_ENOS_CHRONOU) {
 				{
-				setState(176);
+				setState(186);
 				pause();
 				}
 			}
@@ -948,6 +966,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitScore(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitScore(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ScoreContext score() throws RecognitionException {
@@ -958,71 +981,71 @@ public class ByzParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(182);
+			setState(192);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(179);
+					setState(189);
 					text();
 					}
 					} 
 				}
-				setState(184);
+				setState(194);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,20,_ctx);
 			}
-			setState(188);
+			setState(198);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(185);
+					setState(195);
 					emptyCluster();
 					}
 					} 
 				}
-				setState(190);
+				setState(200);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,21,_ctx);
 			}
-			setState(192);
+			setState(202);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				{
-				setState(191);
+				setState(201);
 				arktikiMartyria();
 				}
 				break;
 			}
-			setState(196); 
+			setState(206); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(196);
+				setState(206);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 				case 1:
 					{
-					setState(194);
+					setState(204);
 					text();
 					}
 					break;
 				case 2:
 					{
-					setState(195);
+					setState(205);
 					cluster();
 					}
 					break;
 				}
 				}
-				setState(198); 
+				setState(208); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( ((((_la - 197)) & ~0x3f) == 0 && ((1L << (_la - 197)) & ((1L << (LEFT_PARENTHESIS - 197)) | (1L << (CAP_LETTER - 197)) | (1L << (SMALL_LETTER - 197)) | (1L << (LATIN_WORD - 197)) | (1L << (GREEK_WORD - 197)) | (1L << (SYMBOLS_NUMBERS - 197)))) != 0) );
@@ -1054,6 +1077,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitEmptyCluster(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitEmptyCluster(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final EmptyClusterContext emptyCluster() throws RecognitionException {
@@ -1062,9 +1090,9 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(200);
+			setState(210);
 			match(LEFT_PARENTHESIS);
-			setState(201);
+			setState(211);
 			match(RIGHT_PARENTHESIS);
 			}
 		}
@@ -1098,6 +1126,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitFthoraMeEndeixi(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitFthoraMeEndeixi(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FthoraMeEndeixiContext fthoraMeEndeixi() throws RecognitionException {
@@ -1107,14 +1140,14 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(203);
+			setState(213);
 			fthora();
-			setState(205);
+			setState(215);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 117)) & ~0x3f) == 0 && ((1L << (_la - 117)) & ((1L << (ENDIXI_NH_ARISTERA - 117)) | (1L << (ENDIXI_NH_DEXIA - 117)) | (1L << (ENDIXI_PA_ARISTERA - 117)) | (1L << (ENDIXI_PA_DEXIA - 117)) | (1L << (ENDIXI_BOY_ARISTERA - 117)) | (1L << (ENDIXI_BOY_DEXIA - 117)) | (1L << (ENDIXI_GA_ARISTERA - 117)) | (1L << (ENDIXI_GA_DEXIA - 117)) | (1L << (ENDIXI_DI_ARISTERA - 117)) | (1L << (ENDIXI_DI_DEXIA - 117)) | (1L << (ENDIXI_KE_ARISTERA - 117)) | (1L << (ENDIXI_KE_DEXIA - 117)) | (1L << (ENDIXI_ZW_ARISTERA - 117)) | (1L << (ENDIXI_ZW_DEXIA - 117)) | (1L << (ENDIXI_DI_KATO_ARISTERA - 117)) | (1L << (ENDIXI_PA_KATO_ARISTERA - 117)))) != 0)) {
 				{
-				setState(204);
+				setState(214);
 				endixiFthoggou();
 				}
 			}
@@ -1161,6 +1194,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitPause(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitPause(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PauseContext pause() throws RecognitionException {
@@ -1171,16 +1209,16 @@ public class ByzParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(207);
+			setState(217);
 			match(LEIMMA_ENOS_CHRONOU);
-			setState(211);
+			setState(221);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(208);
+					setState(218);
 					_la = _input.LA(1);
 					if ( !(((((_la - 252)) & ~0x3f) == 0 && ((1L << (_la - 252)) & ((1L << (APLI - 252)) | (1L << (DIPLI - 252)) | (1L << (TRIPLI - 252)))) != 0)) ) {
 					_errHandler.recoverInline(this);
@@ -1193,16 +1231,16 @@ public class ByzParser extends Parser {
 					}
 					} 
 				}
-				setState(213);
+				setState(223);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 			}
-			setState(215);
+			setState(225);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,27,_ctx) ) {
 			case 1:
 				{
-				setState(214);
+				setState(224);
 				gorgotita();
 				}
 				break;
@@ -1281,6 +1319,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitCluster(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitCluster(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ClusterContext cluster() throws RecognitionException {
@@ -1290,71 +1333,71 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(217);
+			setState(227);
 			match(LEFT_PARENTHESIS);
-			setState(228);
+			setState(238);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LEIMMA_ENOS_CHRONOU) | (1L << MARTYRIA_ALLI_PROTOS_ICHOS) | (1L << MARTYRIA_ALLI_DEYTEROS_ICHOS) | (1L << MARTYRIA_TRIFONIAS) | (1L << MARTYRIA_TETARTOS_ICHOS) | (1L << MARTYRIA_LEGETOS_ICHOS))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (APOSTROFOI_TELOUS_ICHIMATOS - 64)) | (1L << (MARTYRIA_VARYS_ICHOS - 64)) | (1L << (ARKTIKO_PA - 64)) | (1L << (ARKTIKO_VOU - 64)) | (1L << (ARKTIKO_GA - 64)) | (1L << (ARKTIKO_DI - 64)) | (1L << (ARKTIKO_KE - 64)) | (1L << (ARKTIKO_ZO - 64)) | (1L << (ARKTIKO_NI - 64)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)) | (1L << (ARXIGRAMMA - 150)) | (1L << (CAP_LETTER - 150)) | (1L << (SMALL_LETTER - 150)) | (1L << (GORGON_NEO_ANO - 150)) | (1L << (GORGON_PARESTIGMENON_ARISTERA - 150)) | (1L << (GORGON_PARESTIGMENON_DEXIA - 150)) | (1L << (DIGORGON - 150)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 150)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 150)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA - 150)) | (1L << (TRIGORGON - 150)) | (1L << (ARGON - 150)))) != 0) || ((((_la - 214)) & ~0x3f) == 0 && ((1L << (_la - 214)) & ((1L << (IMIDIARGON - 214)) | (1L << (DIARGON - 214)) | (1L << (GORGON_NEO_KATO - 214)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 214)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 214)) | (1L << (GORGON_USED_ON_YPORROI - 214)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 214)) | (1L << (DIGORGON_USED_ON_YPORROI - 214)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (TRIGORGON_USED_ON_YPORROI - 214)) | (1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (GORGON_USED_ON_L116_YPORROI - 214)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 214)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 214)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 214)) | (1L << (GORGON_ANO_STA_DEXIA - 214)) | (1L << (GORGON_KATO - 214)) | (1L << (GORGON_KATO_STA_DEXIA - 214)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 214)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (DIGORGON_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (TRIGORGON_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (KLASMA_ANO - 214)) | (1L << (APLI - 214)) | (1L << (DIPLI - 214)) | (1L << (TRIPLI - 214)) | (1L << (KLASMA_KATO - 214)) | (1L << (KLASMA_ANO_STA_DEXIA - 214)) | (1L << (KLASMA_ANO_STA_ARISTERA - 214)) | (1L << (APLI_STA_DEXIA - 214)) | (1L << (DIPLI_STA_DEXIA - 214)) | (1L << (TRIPLI_STA_DEXIA - 214)) | (1L << (ENARXIS_KAI_FTHORA_VOU - 214)) | (1L << (FTHORA_DIATONIKI_PA - 214)) | (1L << (FTHORA_DIATONIKI_NANA - 214)) | (1L << (FTHORA_NAOS_ICHOS - 214)) | (1L << (FTHORA_DIATONIKI_DI - 214)))) != 0) || ((((_la - 278)) & ~0x3f) == 0 && ((1L << (_la - 278)) & ((1L << (FTHORA_DIATONIKI_KE - 278)) | (1L << (FTHORA_DIATONIKI_ZO - 278)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 278)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 278)) | (1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 278)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 278)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 278)) | (1L << (FTHORA_NENANO - 278)) | (1L << (CHROA_ZYGOS - 278)) | (1L << (CHROA_KLITON - 278)) | (1L << (CHROA_SPATHI - 278)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 278)) | (1L << (DIESIS_APLI_DYO_DODEKATA - 278)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA - 278)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA - 278)) | (1L << (DIESIS_TRIGRAMMOS_OKTO_DODEKATA - 278)) | (1L << (YFESIS_APLI_DYO_DODEKATA - 278)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA - 278)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA - 278)) | (1L << (YFESIS_TRIGRAMMOS_OKTO_DODEKATA - 278)) | (1L << (GENIKI_DIESIS - 278)) | (1L << (GENIKI_YFESIS - 278)) | (1L << (DIESIS_APLI_DYO_DODEKATA_DEXIA - 278)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 278)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_APLI_DYO_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 278)) | (1L << (ISON_NEO - 278)) | (1L << (OLIGON_NEO - 278)) | (1L << (PETASTI - 278)) | (1L << (APOSTROFOS_NEO - 278)) | (1L << (YPORROI - 278)) | (1L << (ELAFRON - 278)) | (1L << (CHAMILI - 278)) | (1L << (KENTIMATA_NEO_MESO - 278)) | (1L << (KENTIMA_NEO_MESO - 278)) | (1L << (OLIGON_OVER_PETASTI - 278)) | (1L << (KENTIMA_UNDER_OLIGON - 278)) | (1L << (OLIGON_ABOVE_KENTIMATA - 278)) | (1L << (KENTIMATA_ABOVE_OLIGON - 278)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 278)) | (1L << (KENTIMA_OVER_OLIGON - 278)) | (1L << (KENTIMA_OVER_PETASTI - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 278)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 278)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 278)))) != 0) || ((((_la - 342)) & ~0x3f) == 0 && ((1L << (_la - 342)) & ((1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 342)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 342)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 342)) | (1L << (TWO_IPSILES_OVER_OLIGON - 342)) | (1L << (TWO_IPSILES_OVER_PETASTI - 342)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 342)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON - 342)) | (1L << (THREE_YPSILES_OVER_PETASTI - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 342)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 342)) | (1L << (CONTINUOUS_ELAFRON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_ELAPHRON - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 342)) | (1L << (ELAPHRON_OVER_PETASTI - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 342)) | (1L << (APOSTROPHOS_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 342)) | (1L << (HAMILI_OVER_OLIGON - 342)) | (1L << (YPORROI_OVER_OLIGON - 342)) | (1L << (YPORROI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI - 342)) | (1L << (HAMILI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 342)) | (1L << (ISON_OVER_PETASTI - 342)) | (1L << (ISON_OVER_OLIGON - 342)) | (1L << (APOSTROPHOS_UNDER_ISON - 342)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 342)))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << LEIMMA_ENOS_CHRONOU) | (1L << MARTYRIA_ALLI_PROTOS_ICHOS) | (1L << MARTYRIA_ALLI_DEYTEROS_ICHOS) | (1L << MARTYRIA_TRIFONIAS) | (1L << MARTYRIA_TETARTOS_ICHOS) | (1L << MARTYRIA_LEGETOS_ICHOS))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (APOSTROFOI_TELOUS_ICHIMATOS - 64)) | (1L << (MARTYRIA_VARYS_ICHOS - 64)) | (1L << (ARKTIKO_PA - 64)) | (1L << (ARKTIKO_VOU - 64)) | (1L << (ARKTIKO_GA - 64)) | (1L << (ARKTIKO_DI - 64)) | (1L << (ARKTIKO_KE - 64)) | (1L << (ARKTIKO_ZO - 64)) | (1L << (ARKTIKO_NI - 64)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)) | (1L << (ARXIGRAMMA - 150)) | (1L << (CAP_LETTER - 150)) | (1L << (SMALL_LETTER - 150)) | (1L << (GORGON_NEO_ANO - 150)) | (1L << (GORGON_PARESTIGMENON_ARISTERA - 150)) | (1L << (GORGON_PARESTIGMENON_DEXIA - 150)) | (1L << (DIGORGON - 150)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 150)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 150)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA - 150)) | (1L << (TRIGORGON - 150)) | (1L << (ARGON - 150)))) != 0) || ((((_la - 214)) & ~0x3f) == 0 && ((1L << (_la - 214)) & ((1L << (IMIDIARGON - 214)) | (1L << (DIARGON - 214)) | (1L << (GORGON_NEO_KATO - 214)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 214)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 214)) | (1L << (GORGON_USED_ON_YPORROI - 214)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 214)) | (1L << (DIGORGON_USED_ON_YPORROI - 214)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (TRIGORGON_USED_ON_YPORROI - 214)) | (1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 214)) | (1L << (GORGON_USED_ON_L116_YPORROI - 214)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 214)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 214)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 214)) | (1L << (GORGON_ANO_STA_DEXIA - 214)) | (1L << (GORGON_KATO - 214)) | (1L << (GORGON_KATO_STA_DEXIA - 214)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 214)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (DIGORGON_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 214)) | (1L << (DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (TRIGORGON_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO - 214)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA - 214)) | (1L << (TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 214)) | (1L << (KLASMA_ANO - 214)) | (1L << (APLI - 214)) | (1L << (DIPLI - 214)) | (1L << (TRIPLI - 214)) | (1L << (KLASMA_KATO - 214)) | (1L << (KLASMA_ANO_STA_DEXIA - 214)) | (1L << (KLASMA_ANO_STA_ARISTERA - 214)) | (1L << (APLI_STA_DEXIA - 214)) | (1L << (DIPLI_STA_DEXIA - 214)) | (1L << (TRIPLI_STA_DEXIA - 214)) | (1L << (ENARXIS_KAI_FTHORA_VOU - 214)) | (1L << (FTHORA_DIATONIKI_PA - 214)) | (1L << (FTHORA_DIATONIKI_NANA - 214)) | (1L << (FTHORA_NAOS_ICHOS - 214)) | (1L << (FTHORA_DIATONIKI_DI - 214)))) != 0) || ((((_la - 278)) & ~0x3f) == 0 && ((1L << (_la - 278)) & ((1L << (FTHORA_DIATONIKI_KE - 278)) | (1L << (FTHORA_DIATONIKI_ZO - 278)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 278)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 278)) | (1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 278)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 278)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 278)) | (1L << (FTHORA_NENANO - 278)) | (1L << (CHROA_ZYGOS - 278)) | (1L << (CHROA_KLITON - 278)) | (1L << (CHROA_SPATHI - 278)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 278)) | (1L << (DIESIS_APLI_DYO_DODEKATA - 278)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA - 278)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA - 278)) | (1L << (DIESIS_TRIGRAMMOS_OKTO_DODEKATA - 278)) | (1L << (YFESIS_APLI_DYO_DODEKATA - 278)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA - 278)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA - 278)) | (1L << (YFESIS_TRIGRAMMOS_OKTO_DODEKATA - 278)) | (1L << (GENIKI_DIESIS - 278)) | (1L << (GENIKI_YFESIS - 278)) | (1L << (DIESIS_APLI_DYO_DODEKATA_DEXIA - 278)) | (1L << (DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 278)) | (1L << (DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_APLI_DYO_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA - 278)) | (1L << (YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA - 278)) | (1L << (ISON_NEO - 278)) | (1L << (OLIGON_NEO - 278)) | (1L << (PETASTI - 278)) | (1L << (APOSTROFOS_NEO - 278)) | (1L << (YPORROI - 278)) | (1L << (ELAFRON - 278)) | (1L << (CHAMILI - 278)) | (1L << (KENTIMATA_NEO_MESO - 278)) | (1L << (OLIGON_OVER_PETASTI - 278)) | (1L << (KENTIMA_UNDER_OLIGON - 278)) | (1L << (OLIGON_ABOVE_KENTIMATA - 278)) | (1L << (KENTIMATA_ABOVE_OLIGON - 278)) | (1L << (ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 278)) | (1L << (APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON - 278)) | (1L << (APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA - 278)) | (1L << (KENTIMA_OVER_OLIGON - 278)) | (1L << (KENTIMA_OVER_PETASTI - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_PETASTI - 278)) | (1L << (YPSILI_AT_LEFT_END_OF_OLIGON - 278)) | (1L << (YPSILI_AT_LEFT_END_OF_PETASTI - 278)) | (1L << (YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT - 278)))) != 0) || ((((_la - 342)) & ~0x3f) == 0 && ((1L << (_la - 342)) & ((1L << (YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT - 342)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON - 342)) | (1L << (YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI - 342)) | (1L << (TWO_IPSILES_OVER_OLIGON - 342)) | (1L << (TWO_IPSILES_OVER_PETASTI - 342)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON - 342)) | (1L << (TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT - 342)) | (1L << (YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON - 342)) | (1L << (THREE_YPSILES_OVER_PETASTI - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE - 342)) | (1L << (THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE - 342)) | (1L << (THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE - 342)) | (1L << (CONTINUOUS_ELAFRON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_ELAPHRON - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (CONTINUOUS_ELAFRON_OVER_PETASTI - 342)) | (1L << (ELAPHRON_OVER_PETASTI - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (TWO_APOSTROPHOI_IN_A_ROW - 342)) | (1L << (APOSTROPHOS_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 342)) | (1L << (HAMILI_OVER_OLIGON - 342)) | (1L << (YPORROI_OVER_OLIGON - 342)) | (1L << (YPORROI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI - 342)) | (1L << (HAMILI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS - 342)) | (1L << (HAMILI_OVER_HAMILI_OVER_HAMILI - 342)) | (1L << (ISON_OVER_PETASTI - 342)) | (1L << (ISON_OVER_OLIGON - 342)) | (1L << (APOSTROPHOS_UNDER_ISON - 342)) | (1L << (APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ISON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ELAPHRON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (HAMILI_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (YPORROI_AND_KENTIMATA_OVER_OLIGON - 342)) | (1L << (KENTIMA_TO_THE_RIGHT_OF_OLIGON - 342)))) != 0)) {
 				{
-				setState(226);
+				setState(236);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,28,_ctx) ) {
 				case 1:
 					{
-					setState(218);
+					setState(228);
 					capWord();
 					}
 					break;
 				case 2:
 					{
-					setState(219);
+					setState(229);
 					syllable();
 					}
 					break;
 				case 3:
 					{
-					setState(220);
+					setState(230);
 					tChar();
 					}
 					break;
 				case 4:
 					{
-					setState(221);
+					setState(231);
 					qChar();
 					}
 					break;
 				case 5:
 					{
-					setState(222);
+					setState(232);
 					fthoraMeEndeixi();
 					}
 					break;
 				case 6:
 					{
-					setState(223);
+					setState(233);
 					martyria();
 					}
 					break;
 				case 7:
 					{
-					setState(224);
+					setState(234);
 					match(ARXIGRAMMA);
 					}
 					break;
 				case 8:
 					{
-					setState(225);
+					setState(235);
 					pause();
 					}
 					break;
 				}
 				}
-				setState(230);
+				setState(240);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(231);
+			setState(241);
 			match(RIGHT_PARENTHESIS);
 			}
 		}
@@ -1388,13 +1431,18 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTChar(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTChar(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TCharContext tChar() throws RecognitionException {
 		TCharContext _localctx = new TCharContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_tChar);
 		try {
-			setState(235);
+			setState(245);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case GORGON_NEO_ANO:
@@ -1440,7 +1488,7 @@ public class ByzParser extends Parser {
 			case TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(233);
+				setState(243);
 				gorgotita();
 				}
 				break;
@@ -1456,7 +1504,7 @@ public class ByzParser extends Parser {
 			case TRIPLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(234);
+				setState(244);
 				argia();
 				}
 				break;
@@ -1498,6 +1546,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGrammaMartyrias(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGrammaMartyrias(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GrammaMartyriasContext grammaMartyrias() throws RecognitionException {
@@ -1507,7 +1560,7 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(237);
+			setState(247);
 			_la = _input.LA(1);
 			if ( !(((((_la - 100)) & ~0x3f) == 0 && ((1L << (_la - 100)) & ((1L << (ARKTIKO_PA - 100)) | (1L << (ARKTIKO_VOU - 100)) | (1L << (ARKTIKO_GA - 100)) | (1L << (ARKTIKO_DI - 100)) | (1L << (ARKTIKO_KE - 100)) | (1L << (ARKTIKO_ZO - 100)) | (1L << (ARKTIKO_NI - 100)) | (1L << (LOW_GA - 100)) | (1L << (LOW_DI - 100)) | (1L << (LOW_KE - 100)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -1556,6 +1609,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMartyrikoSimio(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMartyrikoSimio(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MartyrikoSimioContext martyrikoSimio() throws RecognitionException {
@@ -1563,23 +1621,23 @@ public class ByzParser extends Parser {
 		enterRule(_localctx, 20, RULE_martyrikoSimio);
 		int _la;
 		try {
-			setState(253);
+			setState(263);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(240);
+				setState(250);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==APOSTROFOI_TELOUS_ICHIMATOS) {
 					{
-					setState(239);
+					setState(249);
 					match(APOSTROFOI_TELOUS_ICHIMATOS);
 					}
 				}
 
-				setState(242);
+				setState(252);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << MARTYRIA_ALLI_PROTOS_ICHOS) | (1L << MARTYRIA_ALLI_DEYTEROS_ICHOS) | (1L << MARTYRIA_TETARTOS_ICHOS))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1594,17 +1652,17 @@ public class ByzParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(244);
+				setState(254);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==APOSTROFOI_TELOUS_ICHIMATOS) {
 					{
-					setState(243);
+					setState(253);
 					match(APOSTROFOI_TELOUS_ICHIMATOS);
 					}
 				}
 
-				setState(246);
+				setState(256);
 				_la = _input.LA(1);
 				if ( !(((((_la - 155)) & ~0x3f) == 0 && ((1L << (_la - 155)) & ((1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 155)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 155)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 155)))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -1619,42 +1677,42 @@ public class ByzParser extends Parser {
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(247);
+				setState(257);
 				match(MARTYRIA_LEGETOS_ICHOS);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(248);
+				setState(258);
 				match(MARTYRIA_TRIFONIAS);
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(249);
+				setState(259);
 				match(MARTYRIA_VARYS_ICHOS);
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(250);
+				setState(260);
 				match(MARTYRIA_NENANO);
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(251);
+				setState(261);
 				match(MARTYRIA_TRIFONIAS_LOW);
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(252);
+				setState(262);
 				match(MARTYRIA_NENANO_LOW);
 				}
 				break;
@@ -1691,6 +1749,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMartyria(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMartyria(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final MartyriaContext martyria() throws RecognitionException {
@@ -1698,22 +1761,22 @@ public class ByzParser extends Parser {
 		enterRule(_localctx, 22, RULE_martyria);
 		int _la;
 		try {
-			setState(289);
+			setState(299);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,40,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(255);
+				setState(265);
 				grammaMartyrias();
-				setState(256);
+				setState(266);
 				martyrikoSimio();
-				setState(258);
+				setState(268);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
 				case 1:
 					{
-					setState(257);
+					setState(267);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 					break;
@@ -1723,35 +1786,35 @@ public class ByzParser extends Parser {
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(260);
+				setState(270);
 				grammaMartyrias();
-				setState(262);
+				setState(272);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(261);
+					setState(271);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(264);
+				setState(274);
 				martyrikoSimio();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(266);
+				setState(276);
 				martyrikoSimio();
-				setState(267);
+				setState(277);
 				grammaMartyrias();
-				setState(269);
+				setState(279);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,36,_ctx) ) {
 				case 1:
 					{
-					setState(268);
+					setState(278);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 					break;
@@ -1761,57 +1824,57 @@ public class ByzParser extends Parser {
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(271);
+				setState(281);
 				martyrikoSimio();
-				setState(273);
+				setState(283);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(272);
+					setState(282);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(275);
+				setState(285);
 				grammaMartyrias();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(278);
+				setState(288);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(277);
+					setState(287);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(280);
+				setState(290);
 				grammaMartyrias();
-				setState(281);
+				setState(291);
 				martyrikoSimio();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(284);
+				setState(294);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==GRAMMA_MARTYRIAS_TONOS) {
 					{
-					setState(283);
+					setState(293);
 					match(GRAMMA_MARTYRIAS_TONOS);
 					}
 				}
 
-				setState(286);
+				setState(296);
 				martyrikoSimio();
-				setState(287);
+				setState(297);
 				grammaMartyrias();
 				}
 				break;
@@ -1862,6 +1925,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitArktikiMartyria(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitArktikiMartyria(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ArktikiMartyriaContext arktikiMartyria() throws RecognitionException {
@@ -1872,80 +1940,80 @@ public class ByzParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(292);
+			setState(302);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,41,_ctx) ) {
 			case 1:
 				{
-				setState(291);
+				setState(301);
 				match(LEFT_PARENTHESIS);
 				}
 				break;
 			}
-			setState(295);
+			setState(305);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((((_la - 197)) & ~0x3f) == 0 && ((1L << (_la - 197)) & ((1L << (LEFT_PARENTHESIS - 197)) | (1L << (CAP_LETTER - 197)) | (1L << (SMALL_LETTER - 197)) | (1L << (LATIN_WORD - 197)) | (1L << (GREEK_WORD - 197)) | (1L << (SYMBOLS_NUMBERS - 197)))) != 0)) {
 				{
-				setState(294);
+				setState(304);
 				text();
 				}
 			}
 
-			setState(299);
+			setState(309);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,43,_ctx) ) {
 			case 1:
 				{
-				setState(297);
+				setState(307);
 				plagiosTetartoyArktikiMartyria();
 				}
 				break;
 			case 2:
 				{
-				setState(298);
+				setState(308);
 				plagiosPrwtouArktikiMartyria();
 				}
 				break;
 			}
-			setState(304);
+			setState(314);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,44,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(301);
+					setState(311);
 					syllable();
 					}
 					} 
 				}
-				setState(306);
+				setState(316);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,44,_ctx);
 			}
-			setState(310);
+			setState(320);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,45,_ctx);
 			while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(307);
+					setState(317);
 					match(ARXIGRAMMA);
 					}
 					} 
 				}
-				setState(312);
+				setState(322);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,45,_ctx);
 			}
-			setState(314);
+			setState(324);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==RIGHT_PARENTHESIS) {
 				{
-				setState(313);
+				setState(323);
 				match(RIGHT_PARENTHESIS);
 				}
 			}
@@ -1982,26 +2050,31 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitNewArktikiMartyria(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitNewArktikiMartyria(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final NewArktikiMartyriaContext newArktikiMartyria() throws RecognitionException {
 		NewArktikiMartyriaContext _localctx = new NewArktikiMartyriaContext(_ctx, getState());
 		enterRule(_localctx, 26, RULE_newArktikiMartyria);
 		try {
-			setState(318);
+			setState(328);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,47,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(316);
+				setState(326);
 				plagiosTetartoyArktikiMartyria();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(317);
+				setState(327);
 				plagiosPrwtouArktikiMartyria();
 				}
 				break;
@@ -2035,6 +2108,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitPlagiosTetartoyArktikiMartyria(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitPlagiosTetartoyArktikiMartyria(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PlagiosTetartoyArktikiMartyriaContext plagiosTetartoyArktikiMartyria() throws RecognitionException {
@@ -2043,13 +2121,13 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(320);
+			setState(330);
 			match(HXOS_WORD);
-			setState(321);
+			setState(331);
 			match(MARTYRIA_PLAGIOS_ICHOS);
-			setState(322);
+			setState(332);
 			match(ARKTIKH_MARTYRIA_TETARTOS_ICHOS);
-			setState(323);
+			setState(333);
 			match(FTHOGGOS_NH_WORD);
 			}
 		}
@@ -2082,6 +2160,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitPlagiosPrwtouArktikiMartyria(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitPlagiosPrwtouArktikiMartyria(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PlagiosPrwtouArktikiMartyriaContext plagiosPrwtouArktikiMartyria() throws RecognitionException {
@@ -2090,15 +2173,15 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(325);
+			setState(335);
 			match(HXOS_WORD);
-			setState(326);
+			setState(336);
 			match(ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS);
-			setState(327);
+			setState(337);
 			match(FANEROSIS_TETRAFONIAS);
-			setState(328);
+			setState(338);
 			match(FTHOGGOS_PA_WORD);
-			setState(329);
+			setState(339);
 			match(FTHORA_DIATONIKI_PA);
 			}
 		}
@@ -2142,6 +2225,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitEndixiFthoggou(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitEndixiFthoggou(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final EndixiFthoggouContext endixiFthoggou() throws RecognitionException {
@@ -2151,7 +2239,7 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(331);
+			setState(341);
 			_la = _input.LA(1);
 			if ( !(((((_la - 117)) & ~0x3f) == 0 && ((1L << (_la - 117)) & ((1L << (ENDIXI_NH_ARISTERA - 117)) | (1L << (ENDIXI_NH_DEXIA - 117)) | (1L << (ENDIXI_PA_ARISTERA - 117)) | (1L << (ENDIXI_PA_DEXIA - 117)) | (1L << (ENDIXI_BOY_ARISTERA - 117)) | (1L << (ENDIXI_BOY_DEXIA - 117)) | (1L << (ENDIXI_GA_ARISTERA - 117)) | (1L << (ENDIXI_GA_DEXIA - 117)) | (1L << (ENDIXI_DI_ARISTERA - 117)) | (1L << (ENDIXI_DI_DEXIA - 117)) | (1L << (ENDIXI_KE_ARISTERA - 117)) | (1L << (ENDIXI_KE_DEXIA - 117)) | (1L << (ENDIXI_ZW_ARISTERA - 117)) | (1L << (ENDIXI_ZW_DEXIA - 117)) | (1L << (ENDIXI_DI_KATO_ARISTERA - 117)) | (1L << (ENDIXI_PA_KATO_ARISTERA - 117)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2219,6 +2307,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitText(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitText(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TextContext text() throws RecognitionException {
@@ -2227,7 +2320,7 @@ public class ByzParser extends Parser {
 		int _la;
 		try {
 			int _alt;
-			setState(354);
+			setState(364);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case CAP_LETTER:
@@ -2237,43 +2330,43 @@ public class ByzParser extends Parser {
 			case SYMBOLS_NUMBERS:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(338); 
+				setState(348); 
 				_errHandler.sync(this);
 				_alt = 1;
 				do {
 					switch (_alt) {
 					case 1:
 						{
-						setState(338);
+						setState(348);
 						_errHandler.sync(this);
 						switch ( getInterpreter().adaptivePredict(_input,48,_ctx) ) {
 						case 1:
 							{
-							setState(333);
+							setState(343);
 							syllable();
 							}
 							break;
 						case 2:
 							{
-							setState(334);
+							setState(344);
 							match(LATIN_WORD);
 							}
 							break;
 						case 3:
 							{
-							setState(335);
+							setState(345);
 							match(GREEK_WORD);
 							}
 							break;
 						case 4:
 							{
-							setState(336);
+							setState(346);
 							match(SYMBOLS_NUMBERS);
 							}
 							break;
 						case 5:
 							{
-							setState(337);
+							setState(347);
 							capWord();
 							}
 							break;
@@ -2283,7 +2376,7 @@ public class ByzParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(340); 
+					setState(350); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,49,_ctx);
 				} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
@@ -2292,59 +2385,59 @@ public class ByzParser extends Parser {
 			case LEFT_PARENTHESIS:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(342);
+				setState(352);
 				match(LEFT_PARENTHESIS);
-				setState(349); 
+				setState(359); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
 					{
-					setState(349);
+					setState(359);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,50,_ctx) ) {
 					case 1:
 						{
-						setState(343);
+						setState(353);
 						syllable();
 						}
 						break;
 					case 2:
 						{
-						setState(344);
+						setState(354);
 						capWord();
 						}
 						break;
 					case 3:
 						{
-						setState(345);
+						setState(355);
 						match(LATIN_WORD);
 						}
 						break;
 					case 4:
 						{
-						setState(346);
+						setState(356);
 						match(GREEK_WORD);
 						}
 						break;
 					case 5:
 						{
-						setState(347);
+						setState(357);
 						match(SYMBOLS_NUMBERS);
 						}
 						break;
 					case 6:
 						{
-						setState(348);
+						setState(358);
 						text();
 						}
 						break;
 					}
 					}
-					setState(351); 
+					setState(361); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( ((((_la - 197)) & ~0x3f) == 0 && ((1L << (_la - 197)) & ((1L << (LEFT_PARENTHESIS - 197)) | (1L << (CAP_LETTER - 197)) | (1L << (SMALL_LETTER - 197)) | (1L << (LATIN_WORD - 197)) | (1L << (GREEK_WORD - 197)) | (1L << (SYMBOLS_NUMBERS - 197)))) != 0) );
-				setState(353);
+				setState(363);
 				match(RIGHT_PARENTHESIS);
 				}
 				break;
@@ -2380,6 +2473,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitCapWord(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitCapWord(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CapWordContext capWord() throws RecognitionException {
@@ -2389,9 +2487,9 @@ public class ByzParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(356);
+			setState(366);
 			match(CAP_LETTER);
-			setState(358); 
+			setState(368); 
 			_errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -2399,7 +2497,7 @@ public class ByzParser extends Parser {
 				case 1:
 					{
 					{
-					setState(357);
+					setState(367);
 					match(CAP_LETTER);
 					}
 					}
@@ -2407,7 +2505,7 @@ public class ByzParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				setState(360); 
+				setState(370); 
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,53,_ctx);
 			} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
@@ -2442,6 +2540,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitSyllable(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitSyllable(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final SyllableContext syllable() throws RecognitionException {
@@ -2450,31 +2553,31 @@ public class ByzParser extends Parser {
 		int _la;
 		try {
 			int _alt;
-			setState(371);
+			setState(381);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,56,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(363);
+				setState(373);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==CAP_LETTER) {
 					{
-					setState(362);
+					setState(372);
 					match(CAP_LETTER);
 					}
 				}
 
-				setState(366); 
+				setState(376); 
 				_errHandler.sync(this);
-				_alt = 1;
+				_alt = 1+1;
 				do {
 					switch (_alt) {
-					case 1:
+					case 1+1:
 						{
 						{
-						setState(365);
+						setState(375);
 						match(SMALL_LETTER);
 						}
 						}
@@ -2482,16 +2585,16 @@ public class ByzParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					setState(368); 
+					setState(378); 
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,55,_ctx);
-				} while ( _alt!=2 && _alt!= ATN.INVALID_ALT_NUMBER );
+				} while ( _alt!=1 && _alt!= ATN.INVALID_ALT_NUMBER );
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(370);
+				setState(380);
 				match(CAP_LETTER);
 				}
 				break;
@@ -2521,8 +2624,11 @@ public class ByzParser extends Parser {
 		public DigorgonContext digorgon() {
 			return getRuleContext(DigorgonContext.class,0);
 		}
-		public DigorgonParestigmenoAristeraContext digorgonParestigmenoAristera() {
-			return getRuleContext(DigorgonParestigmenoAristeraContext.class,0);
+		public DigorgonParestigmenoAristeraKatoContext digorgonParestigmenoAristeraKato() {
+			return getRuleContext(DigorgonParestigmenoAristeraKatoContext.class,0);
+		}
+		public DigorgonParestigmenoAristeraAnoContext digorgonParestigmenoAristeraAno() {
+			return getRuleContext(DigorgonParestigmenoAristeraAnoContext.class,0);
 		}
 		public DigorgonParestigmenoDexiaContext digorgonParestigmenoDexia() {
 			return getRuleContext(DigorgonParestigmenoDexiaContext.class,0);
@@ -2539,9 +2645,15 @@ public class ByzParser extends Parser {
 		public TrigorgonParestigmenoDexiaContext trigorgonParestigmenoDexia() {
 			return getRuleContext(TrigorgonParestigmenoDexiaContext.class,0);
 		}
-		public TerminalNode ARGON() { return getToken(ByzParser.ARGON, 0); }
-		public TerminalNode IMIDIARGON() { return getToken(ByzParser.IMIDIARGON, 0); }
-		public TerminalNode DIARGON() { return getToken(ByzParser.DIARGON, 0); }
+		public ArgonContext argon() {
+			return getRuleContext(ArgonContext.class,0);
+		}
+		public ImiDiargonContext imiDiargon() {
+			return getRuleContext(ImiDiargonContext.class,0);
+		}
+		public DiargonContext diargon() {
+			return getRuleContext(DiargonContext.class,0);
+		}
 		public GorgotitaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -2554,13 +2666,18 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGorgotita(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGorgotita(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GorgotitaContext gorgotita() throws RecognitionException {
 		GorgotitaContext _localctx = new GorgotitaContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_gorgotita);
 		try {
-			setState(386);
+			setState(397);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case GORGON_NEO_ANO:
@@ -2573,7 +2690,7 @@ public class ByzParser extends Parser {
 			case GORGON_KATO_STA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(373);
+				setState(383);
 				gorgon();
 				}
 				break;
@@ -2583,7 +2700,7 @@ public class ByzParser extends Parser {
 			case GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(374);
+				setState(384);
 				gorgonParestigmenoAristera();
 				}
 				break;
@@ -2592,7 +2709,7 @@ public class ByzParser extends Parser {
 			case GORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(375);
+				setState(385);
 				gorgonParestigmenoDexia();
 				}
 				break;
@@ -2603,26 +2720,32 @@ public class ByzParser extends Parser {
 			case DIGORGON_STA_DEXIA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(376);
+				setState(386);
 				digorgon();
 				}
 				break;
 			case DIGORGON_PARESTIGMENON_ARISTERA_KATO:
-			case DIGORGON_PARESTIGMENON_ARISTERA_ANO:
 			case DIGORGON_LEFT_DOT_USED_ON_YPORROI:
 			case DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA:
-			case DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(377);
-				digorgonParestigmenoAristera();
+				setState(387);
+				digorgonParestigmenoAristeraKato();
+				}
+				break;
+			case DIGORGON_PARESTIGMENON_ARISTERA_ANO:
+			case DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(388);
+				digorgonParestigmenoAristeraAno();
 				}
 				break;
 			case DIGORGON_PARESTIGMENON_DEXIA:
 			case DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
-				enterOuterAlt(_localctx, 6);
+				enterOuterAlt(_localctx, 7);
 				{
-				setState(378);
+				setState(389);
 				digorgonParestigmenoDexia();
 				}
 				break;
@@ -2630,56 +2753,56 @@ public class ByzParser extends Parser {
 			case TRIGORGON_USED_ON_YPORROI:
 			case TRIGORGON_USED_ON_L116_YPORROI:
 			case TRIGORGON_STA_DEXIA:
-				enterOuterAlt(_localctx, 7);
+				enterOuterAlt(_localctx, 8);
 				{
-				setState(379);
+				setState(390);
 				trigorgon();
 				}
 				break;
 			case TRIGORGON_LEFT_DOT_USED_ON_YPORROI:
 			case TRIGORGON_PARESTIGMENON_ARISTERA_KATO:
 			case TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA:
-				enterOuterAlt(_localctx, 8);
+				enterOuterAlt(_localctx, 9);
 				{
-				setState(380);
+				setState(391);
 				trigorgonParestigmenoAristeraKato();
 				}
 				break;
 			case TRIGORGON_PARESTIGMENON_ARISTERA_ANO:
 			case TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA:
-				enterOuterAlt(_localctx, 9);
+				enterOuterAlt(_localctx, 10);
 				{
-				setState(381);
+				setState(392);
 				trigorgonParestigmenoAristeraPano();
 				}
 				break;
 			case TRIGORGON_PARESTIGMENON_DEXIA:
 			case TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA:
-				enterOuterAlt(_localctx, 10);
+				enterOuterAlt(_localctx, 11);
 				{
-				setState(382);
+				setState(393);
 				trigorgonParestigmenoDexia();
 				}
 				break;
 			case ARGON:
-				enterOuterAlt(_localctx, 11);
+				enterOuterAlt(_localctx, 12);
 				{
-				setState(383);
-				match(ARGON);
+				setState(394);
+				argon();
 				}
 				break;
 			case IMIDIARGON:
-				enterOuterAlt(_localctx, 12);
+				enterOuterAlt(_localctx, 13);
 				{
-				setState(384);
-				match(IMIDIARGON);
+				setState(395);
+				imiDiargon();
 				}
 				break;
 			case DIARGON:
-				enterOuterAlt(_localctx, 13);
+				enterOuterAlt(_localctx, 14);
 				{
-				setState(385);
-				match(DIARGON);
+				setState(396);
+				diargon();
 				}
 				break;
 			default:
@@ -2718,6 +2841,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGorgon(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGorgon(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GorgonContext gorgon() throws RecognitionException {
@@ -2727,7 +2855,7 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(388);
+			setState(399);
 			_la = _input.LA(1);
 			if ( !(((((_la - 205)) & ~0x3f) == 0 && ((1L << (_la - 205)) & ((1L << (GORGON_NEO_ANO - 205)) | (1L << (GORGON_NEO_KATO - 205)) | (1L << (GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 205)) | (1L << (GORGON_USED_ON_YPORROI - 205)) | (1L << (GORGON_USED_ON_L116_YPORROI - 205)) | (1L << (GORGON_ANO_STA_DEXIA - 205)) | (1L << (GORGON_KATO - 205)) | (1L << (GORGON_KATO_STA_DEXIA - 205)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2767,6 +2895,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGorgonParestigmenoAristera(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGorgonParestigmenoAristera(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GorgonParestigmenoAristeraContext gorgonParestigmenoAristera() throws RecognitionException {
@@ -2776,7 +2909,7 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(390);
+			setState(401);
 			_la = _input.LA(1);
 			if ( !(((((_la - 206)) & ~0x3f) == 0 && ((1L << (_la - 206)) & ((1L << (GORGON_PARESTIGMENON_ARISTERA - 206)) | (1L << (GORGON_LEFT_DOT_USED_ON_YPORROI - 206)) | (1L << (GORGON_LEFT_DOT_USED_ON_L116_YPORROI - 206)) | (1L << (GORGON_PARESTIGMENON_ARISTERA_STA_DEXIA - 206)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2815,6 +2948,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGorgonParestigmenoDexia(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGorgonParestigmenoDexia(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GorgonParestigmenoDexiaContext gorgonParestigmenoDexia() throws RecognitionException {
@@ -2824,7 +2962,7 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(392);
+			setState(403);
 			_la = _input.LA(1);
 			if ( !(((((_la - 207)) & ~0x3f) == 0 && ((1L << (_la - 207)) & ((1L << (GORGON_PARESTIGMENON_DEXIA - 207)) | (1L << (GORGON_RIGHT_DOT_USED_ON_YPORROI - 207)) | (1L << (GORGON_PARESTIGMENON_DEXIA_STA_DEXIA - 207)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2865,6 +3003,11 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDigorgon(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDigorgon(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DigorgonContext digorgon() throws RecognitionException {
@@ -2874,7 +3017,7 @@ public class ByzParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(394);
+			setState(405);
 			_la = _input.LA(1);
 			if ( !(((((_la - 208)) & ~0x3f) == 0 && ((1L << (_la - 208)) & ((1L << (DIGORGON - 208)) | (1L << (DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON - 208)) | (1L << (DIGORGON_USED_ON_YPORROI - 208)) | (1L << (DIGORGON_USED_ON_L116_YPORROI - 208)) | (1L << (DIGORGON_STA_DEXIA - 208)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -2897,36 +3040,91 @@ public class ByzParser extends Parser {
 		return _localctx;
 	}
 
-	public static class DigorgonParestigmenoAristeraContext extends ParserRuleContext {
+	public static class DigorgonParestigmenoAristeraKatoContext extends ParserRuleContext {
 		public TerminalNode DIGORGON_PARESTIGMENON_ARISTERA_KATO() { return getToken(ByzParser.DIGORGON_PARESTIGMENON_ARISTERA_KATO, 0); }
-		public TerminalNode DIGORGON_PARESTIGMENON_ARISTERA_ANO() { return getToken(ByzParser.DIGORGON_PARESTIGMENON_ARISTERA_ANO, 0); }
 		public TerminalNode DIGORGON_LEFT_DOT_USED_ON_YPORROI() { return getToken(ByzParser.DIGORGON_LEFT_DOT_USED_ON_YPORROI, 0); }
 		public TerminalNode DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA() { return getToken(ByzParser.DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA, 0); }
-		public TerminalNode DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA() { return getToken(ByzParser.DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA, 0); }
-		public DigorgonParestigmenoAristeraContext(ParserRuleContext parent, int invokingState) {
+		public DigorgonParestigmenoAristeraKatoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_digorgonParestigmenoAristera; }
+		@Override public int getRuleIndex() { return RULE_digorgonParestigmenoAristeraKato; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterDigorgonParestigmenoAristera(this);
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterDigorgonParestigmenoAristeraKato(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDigorgonParestigmenoAristera(this);
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDigorgonParestigmenoAristeraKato(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDigorgonParestigmenoAristeraKato(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final DigorgonParestigmenoAristeraContext digorgonParestigmenoAristera() throws RecognitionException {
-		DigorgonParestigmenoAristeraContext _localctx = new DigorgonParestigmenoAristeraContext(_ctx, getState());
-		enterRule(_localctx, 50, RULE_digorgonParestigmenoAristera);
+	public final DigorgonParestigmenoAristeraKatoContext digorgonParestigmenoAristeraKato() throws RecognitionException {
+		DigorgonParestigmenoAristeraKatoContext _localctx = new DigorgonParestigmenoAristeraKatoContext(_ctx, getState());
+		enterRule(_localctx, 50, RULE_digorgonParestigmenoAristeraKato);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(396);
+			setState(407);
 			_la = _input.LA(1);
-			if ( !(((((_la - 209)) & ~0x3f) == 0 && ((1L << (_la - 209)) & ((1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO - 209)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA - 209)))) != 0)) ) {
+			if ( !(((((_la - 209)) & ~0x3f) == 0 && ((1L << (_la - 209)) & ((1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO - 209)) | (1L << (DIGORGON_LEFT_DOT_USED_ON_YPORROI - 209)) | (1L << (DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 209)))) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DigorgonParestigmenoAristeraAnoContext extends ParserRuleContext {
+		public TerminalNode DIGORGON_PARESTIGMENON_ARISTERA_ANO() { return getToken(ByzParser.DIGORGON_PARESTIGMENON_ARISTERA_ANO, 0); }
+		public TerminalNode DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA() { return getToken(ByzParser.DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA, 0); }
+		public DigorgonParestigmenoAristeraAnoContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_digorgonParestigmenoAristeraAno; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterDigorgonParestigmenoAristeraAno(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDigorgonParestigmenoAristeraAno(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDigorgonParestigmenoAristeraAno(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final DigorgonParestigmenoAristeraAnoContext digorgonParestigmenoAristeraAno() throws RecognitionException {
+		DigorgonParestigmenoAristeraAnoContext _localctx = new DigorgonParestigmenoAristeraAnoContext(_ctx, getState());
+		enterRule(_localctx, 52, RULE_digorgonParestigmenoAristeraAno);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(409);
+			_la = _input.LA(1);
+			if ( !(_la==DIGORGON_PARESTIGMENON_ARISTERA_ANO || _la==DIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2962,16 +3160,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDigorgonParestigmenoDexia(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDigorgonParestigmenoDexia(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DigorgonParestigmenoDexiaContext digorgonParestigmenoDexia() throws RecognitionException {
 		DigorgonParestigmenoDexiaContext _localctx = new DigorgonParestigmenoDexiaContext(_ctx, getState());
-		enterRule(_localctx, 52, RULE_digorgonParestigmenoDexia);
+		enterRule(_localctx, 54, RULE_digorgonParestigmenoDexia);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(398);
+			setState(411);
 			_la = _input.LA(1);
 			if ( !(_la==DIGORGON_PARESTIGMENON_DEXIA || _la==DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3011,16 +3214,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTrigorgon(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTrigorgon(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TrigorgonContext trigorgon() throws RecognitionException {
 		TrigorgonContext _localctx = new TrigorgonContext(_ctx, getState());
-		enterRule(_localctx, 54, RULE_trigorgon);
+		enterRule(_localctx, 56, RULE_trigorgon);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(400);
+			setState(413);
 			_la = _input.LA(1);
 			if ( !(((((_la - 212)) & ~0x3f) == 0 && ((1L << (_la - 212)) & ((1L << (TRIGORGON - 212)) | (1L << (TRIGORGON_USED_ON_YPORROI - 212)) | (1L << (TRIGORGON_USED_ON_L116_YPORROI - 212)) | (1L << (TRIGORGON_STA_DEXIA - 212)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -3059,16 +3267,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTrigorgonParestigmenoAristeraKato(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTrigorgonParestigmenoAristeraKato(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TrigorgonParestigmenoAristeraKatoContext trigorgonParestigmenoAristeraKato() throws RecognitionException {
 		TrigorgonParestigmenoAristeraKatoContext _localctx = new TrigorgonParestigmenoAristeraKatoContext(_ctx, getState());
-		enterRule(_localctx, 56, RULE_trigorgonParestigmenoAristeraKato);
+		enterRule(_localctx, 58, RULE_trigorgonParestigmenoAristeraKato);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(402);
+			setState(415);
 			_la = _input.LA(1);
 			if ( !(((((_la - 225)) & ~0x3f) == 0 && ((1L << (_la - 225)) & ((1L << (TRIGORGON_LEFT_DOT_USED_ON_YPORROI - 225)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO - 225)) | (1L << (TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA - 225)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -3106,16 +3319,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTrigorgonParestigmenoAristeraPano(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTrigorgonParestigmenoAristeraPano(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TrigorgonParestigmenoAristeraPanoContext trigorgonParestigmenoAristeraPano() throws RecognitionException {
 		TrigorgonParestigmenoAristeraPanoContext _localctx = new TrigorgonParestigmenoAristeraPanoContext(_ctx, getState());
-		enterRule(_localctx, 58, RULE_trigorgonParestigmenoAristeraPano);
+		enterRule(_localctx, 60, RULE_trigorgonParestigmenoAristeraPano);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(404);
+			setState(417);
 			_la = _input.LA(1);
 			if ( !(_la==TRIGORGON_PARESTIGMENON_ARISTERA_ANO || _la==TRIGORGON_PARESTIGMENON_ARISTERA_ANO_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3153,16 +3371,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTrigorgonParestigmenoDexia(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTrigorgonParestigmenoDexia(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TrigorgonParestigmenoDexiaContext trigorgonParestigmenoDexia() throws RecognitionException {
 		TrigorgonParestigmenoDexiaContext _localctx = new TrigorgonParestigmenoDexiaContext(_ctx, getState());
-		enterRule(_localctx, 60, RULE_trigorgonParestigmenoDexia);
+		enterRule(_localctx, 62, RULE_trigorgonParestigmenoDexia);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(406);
+			setState(419);
 			_la = _input.LA(1);
 			if ( !(_la==TRIGORGON_PARESTIGMENON_DEXIA || _la==TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3172,6 +3395,132 @@ public class ByzParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ArgonContext extends ParserRuleContext {
+		public TerminalNode ARGON() { return getToken(ByzParser.ARGON, 0); }
+		public ArgonContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_argon; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterArgon(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitArgon(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitArgon(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ArgonContext argon() throws RecognitionException {
+		ArgonContext _localctx = new ArgonContext(_ctx, getState());
+		enterRule(_localctx, 64, RULE_argon);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(421);
+			match(ARGON);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class ImiDiargonContext extends ParserRuleContext {
+		public TerminalNode IMIDIARGON() { return getToken(ByzParser.IMIDIARGON, 0); }
+		public ImiDiargonContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_imiDiargon; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterImiDiargon(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitImiDiargon(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitImiDiargon(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ImiDiargonContext imiDiargon() throws RecognitionException {
+		ImiDiargonContext _localctx = new ImiDiargonContext(_ctx, getState());
+		enterRule(_localctx, 66, RULE_imiDiargon);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(423);
+			match(IMIDIARGON);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class DiargonContext extends ParserRuleContext {
+		public TerminalNode DIARGON() { return getToken(ByzParser.DIARGON, 0); }
+		public DiargonContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_diargon; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterDiargon(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDiargon(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDiargon(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final DiargonContext diargon() throws RecognitionException {
+		DiargonContext _localctx = new DiargonContext(_ctx, getState());
+		enterRule(_localctx, 68, RULE_diargon);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(425);
+			match(DIARGON);
 			}
 		}
 		catch (RecognitionException re) {
@@ -3210,13 +3559,18 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitArgia(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitArgia(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ArgiaContext argia() throws RecognitionException {
 		ArgiaContext _localctx = new ArgiaContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_argia);
+		enterRule(_localctx, 70, RULE_argia);
 		try {
-			setState(412);
+			setState(431);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case KLASMA_ANO:
@@ -3225,7 +3579,7 @@ public class ByzParser extends Parser {
 			case KLASMA_ANO_STA_ARISTERA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(408);
+				setState(427);
 				klasma();
 				}
 				break;
@@ -3233,7 +3587,7 @@ public class ByzParser extends Parser {
 			case APLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(409);
+				setState(428);
 				apli();
 				}
 				break;
@@ -3241,7 +3595,7 @@ public class ByzParser extends Parser {
 			case DIPLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(410);
+				setState(429);
 				dipli();
 				}
 				break;
@@ -3249,7 +3603,7 @@ public class ByzParser extends Parser {
 			case TRIPLI_STA_DEXIA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(411);
+				setState(430);
 				tripli();
 				}
 				break;
@@ -3285,16 +3639,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitKlasma(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitKlasma(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final KlasmaContext klasma() throws RecognitionException {
 		KlasmaContext _localctx = new KlasmaContext(_ctx, getState());
-		enterRule(_localctx, 64, RULE_klasma);
+		enterRule(_localctx, 72, RULE_klasma);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(414);
+			setState(433);
 			_la = _input.LA(1);
 			if ( !(((((_la - 246)) & ~0x3f) == 0 && ((1L << (_la - 246)) & ((1L << (KLASMA_ANO - 246)) | (1L << (KLASMA_KATO - 246)) | (1L << (KLASMA_ANO_STA_DEXIA - 246)) | (1L << (KLASMA_ANO_STA_ARISTERA - 246)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -3332,16 +3691,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitApli(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitApli(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ApliContext apli() throws RecognitionException {
 		ApliContext _localctx = new ApliContext(_ctx, getState());
-		enterRule(_localctx, 66, RULE_apli);
+		enterRule(_localctx, 74, RULE_apli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(416);
+			setState(435);
 			_la = _input.LA(1);
 			if ( !(_la==APLI || _la==APLI_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3379,16 +3743,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDipli(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDipli(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DipliContext dipli() throws RecognitionException {
 		DipliContext _localctx = new DipliContext(_ctx, getState());
-		enterRule(_localctx, 68, RULE_dipli);
+		enterRule(_localctx, 76, RULE_dipli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(418);
+			setState(437);
 			_la = _input.LA(1);
 			if ( !(_la==DIPLI || _la==DIPLI_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3426,16 +3795,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTripli(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTripli(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TripliContext tripli() throws RecognitionException {
 		TripliContext _localctx = new TripliContext(_ctx, getState());
-		enterRule(_localctx, 70, RULE_tripli);
+		enterRule(_localctx, 78, RULE_tripli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(420);
+			setState(439);
 			_la = _input.LA(1);
 			if ( !(_la==TRIPLI || _la==TRIPLI_STA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3459,23 +3833,11 @@ public class ByzParser extends Parser {
 	}
 
 	public static class FthoraContext extends ParserRuleContext {
-		public YfesiContext yfesi() {
-			return getRuleContext(YfesiContext.class,0);
+		public YfesodiesiContext yfesodiesi() {
+			return getRuleContext(YfesodiesiContext.class,0);
 		}
-		public DiesiContext diesi() {
-			return getRuleContext(DiesiContext.class,0);
-		}
-		public FthoraDiatonikiContext fthoraDiatoniki() {
-			return getRuleContext(FthoraDiatonikiContext.class,0);
-		}
-		public FthoraChromatikiContext fthoraChromatiki() {
-			return getRuleContext(FthoraChromatikiContext.class,0);
-		}
-		public GenikiContext geniki() {
-			return getRuleContext(GenikiContext.class,0);
-		}
-		public ChroaContext chroa() {
-			return getRuleContext(ChroaContext.class,0);
+		public MonimiContext monimi() {
+			return getRuleContext(MonimiContext.class,0);
 		}
 		public FthoraContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3489,13 +3851,208 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitFthora(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitFthora(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FthoraContext fthora() throws RecognitionException {
 		FthoraContext _localctx = new FthoraContext(_ctx, getState());
-		enterRule(_localctx, 72, RULE_fthora);
+		enterRule(_localctx, 80, RULE_fthora);
 		try {
-			setState(428);
+			setState(443);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case DIESIS_APLI_DYO_DODEKATA:
+			case DIESIS_MONOGRAMMOS_TESSERA_DODEKATA:
+			case DIESIS_DIGRAMMOS_EX_DODEKATA:
+			case DIESIS_TRIGRAMMOS_OKTO_DODEKATA:
+			case YFESIS_APLI_DYO_DODEKATA:
+			case YFESIS_MONOGRAMMOS_TESSERA_DODEKATA:
+			case YFESIS_DIGRAMMOS_EX_DODEKATA:
+			case YFESIS_TRIGRAMMOS_OKTO_DODEKATA:
+			case DIESIS_APLI_DYO_DODEKATA_DEXIA:
+			case DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA:
+			case DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
+			case YFESIS_APLI_DYO_DODEKATA_DEXIA:
+			case YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA:
+			case YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(441);
+				yfesodiesi();
+				}
+				break;
+			case ENARXIS_KAI_FTHORA_VOU:
+			case FTHORA_DIATONIKI_PA:
+			case FTHORA_DIATONIKI_NANA:
+			case FTHORA_NAOS_ICHOS:
+			case FTHORA_DIATONIKI_DI:
+			case FTHORA_DIATONIKI_KE:
+			case FTHORA_DIATONIKI_ZO:
+			case FTHORA_DIATONIKI_NI_KATO:
+			case FTHORA_DIATONIKI_NI_ANO:
+			case FTHORA_MALAKON_CHROMA_DIFONIAS:
+			case FTHORA_MALAKON_CHROMA_MONOFONIAS:
+			case FHTORA_SKLIRON_CHROMA_VASIS:
+			case FTHORA_NENANO:
+			case CHROA_ZYGOS:
+			case CHROA_KLITON:
+			case CHROA_SPATHI:
+			case FTHORA_I_YFESIS_TETARTIMORION:
+			case GENIKI_DIESIS:
+			case GENIKI_YFESIS:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(442);
+				monimi();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class MonimiContext extends ParserRuleContext {
+		public FthoraDiatonikiContext fthoraDiatoniki() {
+			return getRuleContext(FthoraDiatonikiContext.class,0);
+		}
+		public FthoraChromatikiContext fthoraChromatiki() {
+			return getRuleContext(FthoraChromatikiContext.class,0);
+		}
+		public GenikiContext geniki() {
+			return getRuleContext(GenikiContext.class,0);
+		}
+		public ChroaContext chroa() {
+			return getRuleContext(ChroaContext.class,0);
+		}
+		public MonimiContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_monimi; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMonimi(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMonimi(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMonimi(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final MonimiContext monimi() throws RecognitionException {
+		MonimiContext _localctx = new MonimiContext(_ctx, getState());
+		enterRule(_localctx, 82, RULE_monimi);
+		try {
+			setState(449);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case ENARXIS_KAI_FTHORA_VOU:
+			case FTHORA_DIATONIKI_PA:
+			case FTHORA_DIATONIKI_NANA:
+			case FTHORA_DIATONIKI_DI:
+			case FTHORA_DIATONIKI_KE:
+			case FTHORA_DIATONIKI_ZO:
+			case FTHORA_DIATONIKI_NI_KATO:
+			case FTHORA_DIATONIKI_NI_ANO:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(445);
+				fthoraDiatoniki();
+				}
+				break;
+			case FTHORA_MALAKON_CHROMA_DIFONIAS:
+			case FTHORA_MALAKON_CHROMA_MONOFONIAS:
+			case FHTORA_SKLIRON_CHROMA_VASIS:
+			case FTHORA_NENANO:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(446);
+				fthoraChromatiki();
+				}
+				break;
+			case GENIKI_DIESIS:
+			case GENIKI_YFESIS:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(447);
+				geniki();
+				}
+				break;
+			case FTHORA_NAOS_ICHOS:
+			case CHROA_ZYGOS:
+			case CHROA_KLITON:
+			case CHROA_SPATHI:
+			case FTHORA_I_YFESIS_TETARTIMORION:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(448);
+				chroa();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	public static class YfesodiesiContext extends ParserRuleContext {
+		public YfesiContext yfesi() {
+			return getRuleContext(YfesiContext.class,0);
+		}
+		public DiesiContext diesi() {
+			return getRuleContext(DiesiContext.class,0);
+		}
+		public YfesodiesiContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_yfesodiesi; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterYfesodiesi(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYfesodiesi(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYfesodiesi(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final YfesodiesiContext yfesodiesi() throws RecognitionException {
+		YfesodiesiContext _localctx = new YfesodiesiContext(_ctx, getState());
+		enterRule(_localctx, 84, RULE_yfesodiesi);
+		try {
+			setState(453);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case YFESIS_APLI_DYO_DODEKATA:
@@ -3507,7 +4064,7 @@ public class ByzParser extends Parser {
 			case YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(422);
+				setState(451);
 				yfesi();
 				}
 				break;
@@ -3520,51 +4077,8 @@ public class ByzParser extends Parser {
 			case DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(423);
+				setState(452);
 				diesi();
-				}
-				break;
-			case ENARXIS_KAI_FTHORA_VOU:
-			case FTHORA_DIATONIKI_PA:
-			case FTHORA_DIATONIKI_NANA:
-			case FTHORA_DIATONIKI_DI:
-			case FTHORA_DIATONIKI_KE:
-			case FTHORA_DIATONIKI_ZO:
-			case FTHORA_DIATONIKI_NI_KATO:
-			case FTHORA_DIATONIKI_NI_ANO:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(424);
-				fthoraDiatoniki();
-				}
-				break;
-			case FTHORA_MALAKON_CHROMA_DIFONIAS:
-			case FTHORA_MALAKON_CHROMA_MONOFONIAS:
-			case FHTORA_SKLIRON_CHROMA_VASIS:
-			case FTHORA_NENANO:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(425);
-				fthoraChromatiki();
-				}
-				break;
-			case GENIKI_DIESIS:
-			case GENIKI_YFESIS:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(426);
-				geniki();
-				}
-				break;
-			case FTHORA_NAOS_ICHOS:
-			case CHROA_ZYGOS:
-			case CHROA_KLITON:
-			case CHROA_SPATHI:
-			case FTHORA_I_YFESIS_TETARTIMORION:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(427);
-				chroa();
 				}
 				break;
 			default:
@@ -3605,20 +4119,25 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYfesi(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYfesi(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final YfesiContext yfesi() throws RecognitionException {
 		YfesiContext _localctx = new YfesiContext(_ctx, getState());
-		enterRule(_localctx, 74, RULE_yfesi);
+		enterRule(_localctx, 86, RULE_yfesi);
 		try {
-			setState(434);
+			setState(459);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case YFESIS_APLI_DYO_DODEKATA:
 			case YFESIS_APLI_DYO_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(430);
+				setState(455);
 				yfesiApli();
 				}
 				break;
@@ -3626,7 +4145,7 @@ public class ByzParser extends Parser {
 			case YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(431);
+				setState(456);
 				yfesiMonogrammos();
 				}
 				break;
@@ -3634,14 +4153,14 @@ public class ByzParser extends Parser {
 			case YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(432);
+				setState(457);
 				yfesiDigrammos();
 				}
 				break;
 			case YFESIS_TRIGRAMMOS_OKTO_DODEKATA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(433);
+				setState(458);
 				match(YFESIS_TRIGRAMMOS_OKTO_DODEKATA);
 				}
 				break;
@@ -3675,16 +4194,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYfesiApli(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYfesiApli(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final YfesiApliContext yfesiApli() throws RecognitionException {
 		YfesiApliContext _localctx = new YfesiApliContext(_ctx, getState());
-		enterRule(_localctx, 76, RULE_yfesiApli);
+		enterRule(_localctx, 88, RULE_yfesiApli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(436);
+			setState(461);
 			_la = _input.LA(1);
 			if ( !(_la==YFESIS_APLI_DYO_DODEKATA || _la==YFESIS_APLI_DYO_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3722,16 +4246,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYfesiMonogrammos(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYfesiMonogrammos(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final YfesiMonogrammosContext yfesiMonogrammos() throws RecognitionException {
 		YfesiMonogrammosContext _localctx = new YfesiMonogrammosContext(_ctx, getState());
-		enterRule(_localctx, 78, RULE_yfesiMonogrammos);
+		enterRule(_localctx, 90, RULE_yfesiMonogrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(438);
+			setState(463);
 			_la = _input.LA(1);
 			if ( !(_la==YFESIS_MONOGRAMMOS_TESSERA_DODEKATA || _la==YFESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3769,16 +4298,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYfesiDigrammos(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYfesiDigrammos(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final YfesiDigrammosContext yfesiDigrammos() throws RecognitionException {
 		YfesiDigrammosContext _localctx = new YfesiDigrammosContext(_ctx, getState());
-		enterRule(_localctx, 80, RULE_yfesiDigrammos);
+		enterRule(_localctx, 92, RULE_yfesiDigrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(440);
+			setState(465);
 			_la = _input.LA(1);
 			if ( !(_la==YFESIS_DIGRAMMOS_EX_DODEKATA || _la==YFESIS_DIGRAMMOS_EX_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3824,20 +4358,25 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDiesi(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDiesi(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DiesiContext diesi() throws RecognitionException {
 		DiesiContext _localctx = new DiesiContext(_ctx, getState());
-		enterRule(_localctx, 82, RULE_diesi);
+		enterRule(_localctx, 94, RULE_diesi);
 		try {
-			setState(446);
+			setState(471);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case DIESIS_APLI_DYO_DODEKATA:
 			case DIESIS_APLI_DYO_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(442);
+				setState(467);
 				diesiApli();
 				}
 				break;
@@ -3845,7 +4384,7 @@ public class ByzParser extends Parser {
 			case DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(443);
+				setState(468);
 				diesiMonogrammos();
 				}
 				break;
@@ -3853,14 +4392,14 @@ public class ByzParser extends Parser {
 			case DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(444);
+				setState(469);
 				diesiDigrammos();
 				}
 				break;
 			case DIESIS_TRIGRAMMOS_OKTO_DODEKATA:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(445);
+				setState(470);
 				match(DIESIS_TRIGRAMMOS_OKTO_DODEKATA);
 				}
 				break;
@@ -3894,16 +4433,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDiesiApli(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDiesiApli(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DiesiApliContext diesiApli() throws RecognitionException {
 		DiesiApliContext _localctx = new DiesiApliContext(_ctx, getState());
-		enterRule(_localctx, 84, RULE_diesiApli);
+		enterRule(_localctx, 96, RULE_diesiApli);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(448);
+			setState(473);
 			_la = _input.LA(1);
 			if ( !(_la==DIESIS_APLI_DYO_DODEKATA || _la==DIESIS_APLI_DYO_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3941,16 +4485,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDiesiMonogrammos(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDiesiMonogrammos(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DiesiMonogrammosContext diesiMonogrammos() throws RecognitionException {
 		DiesiMonogrammosContext _localctx = new DiesiMonogrammosContext(_ctx, getState());
-		enterRule(_localctx, 86, RULE_diesiMonogrammos);
+		enterRule(_localctx, 98, RULE_diesiMonogrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(450);
+			setState(475);
 			_la = _input.LA(1);
 			if ( !(_la==DIESIS_MONOGRAMMOS_TESSERA_DODEKATA || _la==DIESIS_MONOGRAMMOS_TESSERA_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -3988,16 +4537,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDiesiDigrammos(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDiesiDigrammos(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DiesiDigrammosContext diesiDigrammos() throws RecognitionException {
 		DiesiDigrammosContext _localctx = new DiesiDigrammosContext(_ctx, getState());
-		enterRule(_localctx, 88, RULE_diesiDigrammos);
+		enterRule(_localctx, 100, RULE_diesiDigrammos);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(452);
+			setState(477);
 			_la = _input.LA(1);
 			if ( !(_la==DIESIS_DIGRAMMOS_EX_DODEKATA || _la==DIESIS_DIGRAMMOS_EX_DODEKATA_DEXIA) ) {
 			_errHandler.recoverInline(this);
@@ -4041,16 +4595,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitFthoraDiatoniki(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitFthoraDiatoniki(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FthoraDiatonikiContext fthoraDiatoniki() throws RecognitionException {
 		FthoraDiatonikiContext _localctx = new FthoraDiatonikiContext(_ctx, getState());
-		enterRule(_localctx, 90, RULE_fthoraDiatoniki);
+		enterRule(_localctx, 102, RULE_fthoraDiatoniki);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(454);
+			setState(479);
 			_la = _input.LA(1);
 			if ( !(((((_la - 269)) & ~0x3f) == 0 && ((1L << (_la - 269)) & ((1L << (ENARXIS_KAI_FTHORA_VOU - 269)) | (1L << (FTHORA_DIATONIKI_PA - 269)) | (1L << (FTHORA_DIATONIKI_NANA - 269)) | (1L << (FTHORA_DIATONIKI_DI - 269)) | (1L << (FTHORA_DIATONIKI_KE - 269)) | (1L << (FTHORA_DIATONIKI_ZO - 269)) | (1L << (FTHORA_DIATONIKI_NI_KATO - 269)) | (1L << (FTHORA_DIATONIKI_NI_ANO - 269)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -4090,16 +4649,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitFthoraChromatiki(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitFthoraChromatiki(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FthoraChromatikiContext fthoraChromatiki() throws RecognitionException {
 		FthoraChromatikiContext _localctx = new FthoraChromatikiContext(_ctx, getState());
-		enterRule(_localctx, 92, RULE_fthoraChromatiki);
+		enterRule(_localctx, 104, RULE_fthoraChromatiki);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(456);
+			setState(481);
 			_la = _input.LA(1);
 			if ( !(((((_la - 282)) & ~0x3f) == 0 && ((1L << (_la - 282)) & ((1L << (FTHORA_MALAKON_CHROMA_DIFONIAS - 282)) | (1L << (FTHORA_MALAKON_CHROMA_MONOFONIAS - 282)) | (1L << (FHTORA_SKLIRON_CHROMA_VASIS - 282)) | (1L << (FTHORA_NENANO - 282)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -4137,16 +4701,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGeniki(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGeniki(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final GenikiContext geniki() throws RecognitionException {
 		GenikiContext _localctx = new GenikiContext(_ctx, getState());
-		enterRule(_localctx, 94, RULE_geniki);
+		enterRule(_localctx, 106, RULE_geniki);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(458);
+			setState(483);
 			_la = _input.LA(1);
 			if ( !(_la==GENIKI_DIESIS || _la==GENIKI_YFESIS) ) {
 			_errHandler.recoverInline(this);
@@ -4187,16 +4756,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitChroa(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitChroa(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ChroaContext chroa() throws RecognitionException {
 		ChroaContext _localctx = new ChroaContext(_ctx, getState());
-		enterRule(_localctx, 96, RULE_chroa);
+		enterRule(_localctx, 108, RULE_chroa);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(460);
+			setState(485);
 			_la = _input.LA(1);
 			if ( !(((((_la - 275)) & ~0x3f) == 0 && ((1L << (_la - 275)) & ((1L << (FTHORA_NAOS_ICHOS - 275)) | (1L << (CHROA_ZYGOS - 275)) | (1L << (CHROA_KLITON - 275)) | (1L << (CHROA_SPATHI - 275)) | (1L << (FTHORA_I_YFESIS_TETARTIMORION - 275)))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -4220,81 +4794,8 @@ public class ByzParser extends Parser {
 	}
 
 	public static class QCharContext extends ParserRuleContext {
-		public KentimaToTheRightOfOligonContext kentimaToTheRightOfOligon() {
-			return getRuleContext(KentimaToTheRightOfOligonContext.class,0);
-		}
-		public TerminalNode OLIGON_NEO() { return getToken(ByzParser.OLIGON_NEO, 0); }
-		public TerminalNode PETASTI() { return getToken(ByzParser.PETASTI, 0); }
-		public TerminalNode KENTIMATA_NEO_MESO() { return getToken(ByzParser.KENTIMATA_NEO_MESO, 0); }
-		public TerminalNode KENTIMA_NEO_MESO() { return getToken(ByzParser.KENTIMA_NEO_MESO, 0); }
-		public TerminalNode OLIGON_OVER_PETASTI() { return getToken(ByzParser.OLIGON_OVER_PETASTI, 0); }
-		public TerminalNode KENTIMA_UNDER_OLIGON() { return getToken(ByzParser.KENTIMA_UNDER_OLIGON, 0); }
-		public TerminalNode OLIGON_ABOVE_KENTIMATA() { return getToken(ByzParser.OLIGON_ABOVE_KENTIMATA, 0); }
-		public TerminalNode KENTIMATA_ABOVE_OLIGON() { return getToken(ByzParser.KENTIMATA_ABOVE_OLIGON, 0); }
-		public TerminalNode ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON() { return getToken(ByzParser.ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON, 0); }
-		public TerminalNode KENTIMA_OVER_OLIGON() { return getToken(ByzParser.KENTIMA_OVER_OLIGON, 0); }
-		public TerminalNode KENTIMA_OVER_PETASTI() { return getToken(ByzParser.KENTIMA_OVER_PETASTI, 0); }
-		public TerminalNode YPSILI_AT_RIGHT_END_OF_OLIGON() { return getToken(ByzParser.YPSILI_AT_RIGHT_END_OF_OLIGON, 0); }
-		public TerminalNode YPSILI_AT_RIGHT_END_OF_PETASTI() { return getToken(ByzParser.YPSILI_AT_RIGHT_END_OF_PETASTI, 0); }
-		public TerminalNode YPSILI_AT_LEFT_END_OF_OLIGON() { return getToken(ByzParser.YPSILI_AT_LEFT_END_OF_OLIGON, 0); }
-		public TerminalNode YPSILI_AT_LEFT_END_OF_PETASTI() { return getToken(ByzParser.YPSILI_AT_LEFT_END_OF_PETASTI, 0); }
-		public TerminalNode YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT() { return getToken(ByzParser.YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT, 0); }
-		public TerminalNode YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT() { return getToken(ByzParser.YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT, 0); }
-		public TerminalNode YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON() { return getToken(ByzParser.YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON, 0); }
-		public TerminalNode YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI() { return getToken(ByzParser.YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI, 0); }
-		public TerminalNode YPSILI_OVER_KENTIMA_OVER_OLIGON() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_OLIGON, 0); }
-		public TerminalNode YPSILI_OVER_KENTIMA_OVER_PETASTI() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_PETASTI, 0); }
-		public TerminalNode TWO_IPSILES_OVER_OLIGON() { return getToken(ByzParser.TWO_IPSILES_OVER_OLIGON, 0); }
-		public TerminalNode TWO_IPSILES_OVER_PETASTI() { return getToken(ByzParser.TWO_IPSILES_OVER_PETASTI, 0); }
-		public TerminalNode TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON() { return getToken(ByzParser.TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON, 0); }
-		public TerminalNode TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI() { return getToken(ByzParser.TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI, 0); }
-		public TerminalNode YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT, 0); }
-		public TerminalNode YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT, 0); }
-		public TerminalNode THREE_YPSILES_OVER_OLIGON() { return getToken(ByzParser.THREE_YPSILES_OVER_OLIGON, 0); }
-		public TerminalNode THREE_YPSILES_OVER_PETASTI() { return getToken(ByzParser.THREE_YPSILES_OVER_PETASTI, 0); }
-		public TerminalNode THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE() { return getToken(ByzParser.THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE, 0); }
-		public TerminalNode THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE() { return getToken(ByzParser.THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE, 0); }
-		public TerminalNode THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE() { return getToken(ByzParser.THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE, 0); }
-		public TerminalNode APOSTROFOS_NEO() { return getToken(ByzParser.APOSTROFOS_NEO, 0); }
-		public TerminalNode CONTINUOUS_ELAFRON() { return getToken(ByzParser.CONTINUOUS_ELAFRON, 0); }
-		public TerminalNode ELAFRON() { return getToken(ByzParser.ELAFRON, 0); }
-		public TerminalNode ELAPHRON_OVER_APOSTROPHOS() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS, 0); }
-		public TerminalNode CHAMILI() { return getToken(ByzParser.CHAMILI, 0); }
-		public TerminalNode HAMILI_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_APOSTROPHOS, 0); }
-		public TerminalNode HAMILI_OVER_ELAPHRON() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON, 0); }
-		public TerminalNode HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS, 0); }
-		public TerminalNode APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.APOSTROPHOS_OVER_PETASTI, 0); }
-		public TerminalNode CONTINUOUS_ELAFRON_OVER_PETASTI() { return getToken(ByzParser.CONTINUOUS_ELAFRON_OVER_PETASTI, 0); }
-		public TerminalNode ELAPHRON_OVER_PETASTI() { return getToken(ByzParser.ELAPHRON_OVER_PETASTI, 0); }
-		public TerminalNode ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
-		public TerminalNode TWO_APOSTROPHOI_IN_A_ROW() { return getToken(ByzParser.TWO_APOSTROPHOI_IN_A_ROW, 0); }
-		public TerminalNode APOSTROPHOS_OVER_OLIGON() { return getToken(ByzParser.APOSTROPHOS_OVER_OLIGON, 0); }
-		public TerminalNode ELAPHRON_OVER_OLIGON() { return getToken(ByzParser.ELAPHRON_OVER_OLIGON, 0); }
-		public TerminalNode ELAPHRON_OVER_APOSTROPHOS_OVER_ISON() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS_OVER_ISON, 0); }
-		public TerminalNode HAMILI_OVER_OLIGON() { return getToken(ByzParser.HAMILI_OVER_OLIGON, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI() { return getToken(ByzParser.HAMILI_OVER_HAMILI, 0); }
-		public TerminalNode HAMILI_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_PETASTI, 0); }
-		public TerminalNode HAMILI_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
-		public TerminalNode HAMILI_OVER_ELAPHRON_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON_OVER_PETASTI, 0); }
-		public TerminalNode HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_PETASTI, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_APOSTROPHOS, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI_OVER_ELAPHRON() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_ELAPHRON, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS, 0); }
-		public TerminalNode HAMILI_OVER_HAMILI_OVER_HAMILI() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_HAMILI, 0); }
-		public TerminalNode ISON_NEO() { return getToken(ByzParser.ISON_NEO, 0); }
-		public TerminalNode ISON_OVER_PETASTI() { return getToken(ByzParser.ISON_OVER_PETASTI, 0); }
-		public TerminalNode ISON_OVER_OLIGON() { return getToken(ByzParser.ISON_OVER_OLIGON, 0); }
-		public TerminalNode APOSTROPHOS_UNDER_ISON() { return getToken(ByzParser.APOSTROPHOS_UNDER_ISON, 0); }
-		public TerminalNode APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public TerminalNode ISON_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.ISON_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public TerminalNode ELAPHRON_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.ELAPHRON_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public TerminalNode CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public TerminalNode ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public TerminalNode HAMILI_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.HAMILI_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public YporroiContext yporroi() {
-			return getRuleContext(YporroiContext.class,0);
+		public QChar2Context qChar2() {
+			return getRuleContext(QChar2Context.class,0);
 		}
 		public QCharContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -4308,519 +4809,21 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitQChar(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitQChar(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final QCharContext qChar() throws RecognitionException {
 		QCharContext _localctx = new QCharContext(_ctx, getState());
-		enterRule(_localctx, 98, RULE_qChar);
+		enterRule(_localctx, 110, RULE_qChar);
 		try {
-			setState(534);
-			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,62,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(462);
-				kentimaToTheRightOfOligon();
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(463);
-				match(OLIGON_NEO);
-				}
-				break;
-			case 3:
-				enterOuterAlt(_localctx, 3);
-				{
-				setState(464);
-				match(PETASTI);
-				}
-				break;
-			case 4:
-				enterOuterAlt(_localctx, 4);
-				{
-				setState(465);
-				match(KENTIMATA_NEO_MESO);
-				}
-				break;
-			case 5:
-				enterOuterAlt(_localctx, 5);
-				{
-				setState(466);
-				match(KENTIMA_NEO_MESO);
-				}
-				break;
-			case 6:
-				enterOuterAlt(_localctx, 6);
-				{
-				setState(467);
-				match(OLIGON_OVER_PETASTI);
-				}
-				break;
-			case 7:
-				enterOuterAlt(_localctx, 7);
-				{
-				setState(468);
-				match(KENTIMA_UNDER_OLIGON);
-				}
-				break;
-			case 8:
-				enterOuterAlt(_localctx, 8);
-				{
-				setState(469);
-				match(OLIGON_ABOVE_KENTIMATA);
-				}
-				break;
-			case 9:
-				enterOuterAlt(_localctx, 9);
-				{
-				setState(470);
-				match(KENTIMATA_ABOVE_OLIGON);
-				}
-				break;
-			case 10:
-				enterOuterAlt(_localctx, 10);
-				{
-				setState(471);
-				match(ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON);
-				}
-				break;
-			case 11:
-				enterOuterAlt(_localctx, 11);
-				{
-				setState(472);
-				match(KENTIMA_OVER_OLIGON);
-				}
-				break;
-			case 12:
-				enterOuterAlt(_localctx, 12);
-				{
-				setState(473);
-				match(KENTIMA_OVER_PETASTI);
-				}
-				break;
-			case 13:
-				enterOuterAlt(_localctx, 13);
-				{
-				setState(474);
-				match(YPSILI_AT_RIGHT_END_OF_OLIGON);
-				}
-				break;
-			case 14:
-				enterOuterAlt(_localctx, 14);
-				{
-				setState(475);
-				match(YPSILI_AT_RIGHT_END_OF_PETASTI);
-				}
-				break;
-			case 15:
-				enterOuterAlt(_localctx, 15);
-				{
-				setState(476);
-				match(YPSILI_AT_LEFT_END_OF_OLIGON);
-				}
-				break;
-			case 16:
-				enterOuterAlt(_localctx, 16);
-				{
-				setState(477);
-				match(YPSILI_AT_LEFT_END_OF_PETASTI);
-				}
-				break;
-			case 17:
-				enterOuterAlt(_localctx, 17);
-				{
-				setState(478);
-				match(YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT);
-				}
-				break;
-			case 18:
-				enterOuterAlt(_localctx, 18);
-				{
-				setState(479);
-				match(YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT);
-				}
-				break;
-			case 19:
-				enterOuterAlt(_localctx, 19);
-				{
-				setState(480);
-				match(YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON);
-				}
-				break;
-			case 20:
-				enterOuterAlt(_localctx, 20);
-				{
-				setState(481);
-				match(YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI);
-				}
-				break;
-			case 21:
-				enterOuterAlt(_localctx, 21);
-				{
-				setState(482);
-				match(YPSILI_OVER_KENTIMA_OVER_OLIGON);
-				}
-				break;
-			case 22:
-				enterOuterAlt(_localctx, 22);
-				{
-				setState(483);
-				match(YPSILI_OVER_KENTIMA_OVER_PETASTI);
-				}
-				break;
-			case 23:
-				enterOuterAlt(_localctx, 23);
-				{
-				setState(484);
-				match(TWO_IPSILES_OVER_OLIGON);
-				}
-				break;
-			case 24:
-				enterOuterAlt(_localctx, 24);
-				{
-				setState(485);
-				match(TWO_IPSILES_OVER_PETASTI);
-				}
-				break;
-			case 25:
-				enterOuterAlt(_localctx, 25);
-				{
-				setState(486);
-				match(TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON);
-				}
-				break;
-			case 26:
-				enterOuterAlt(_localctx, 26);
-				{
-				setState(487);
-				match(TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI);
-				}
-				break;
-			case 27:
-				enterOuterAlt(_localctx, 27);
-				{
-				setState(488);
-				match(YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT);
-				}
-				break;
-			case 28:
-				enterOuterAlt(_localctx, 28);
-				{
-				setState(489);
-				match(YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT);
-				}
-				break;
-			case 29:
-				enterOuterAlt(_localctx, 29);
-				{
-				setState(490);
-				match(THREE_YPSILES_OVER_OLIGON);
-				}
-				break;
-			case 30:
-				enterOuterAlt(_localctx, 30);
-				{
-				setState(491);
-				match(THREE_YPSILES_OVER_PETASTI);
-				}
-				break;
-			case 31:
-				enterOuterAlt(_localctx, 31);
-				{
-				setState(492);
-				match(THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE);
-				}
-				break;
-			case 32:
-				enterOuterAlt(_localctx, 32);
-				{
-				setState(493);
-				match(THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE);
-				}
-				break;
-			case 33:
-				enterOuterAlt(_localctx, 33);
-				{
-				setState(494);
-				match(THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE);
-				}
-				break;
-			case 34:
-				enterOuterAlt(_localctx, 34);
-				{
-				setState(495);
-				match(APOSTROFOS_NEO);
-				}
-				break;
-			case 35:
-				enterOuterAlt(_localctx, 35);
-				{
-				setState(496);
-				match(CONTINUOUS_ELAFRON);
-				}
-				break;
-			case 36:
-				enterOuterAlt(_localctx, 36);
-				{
-				setState(497);
-				match(ELAFRON);
-				}
-				break;
-			case 37:
-				enterOuterAlt(_localctx, 37);
-				{
-				setState(498);
-				match(ELAPHRON_OVER_APOSTROPHOS);
-				}
-				break;
-			case 38:
-				enterOuterAlt(_localctx, 38);
-				{
-				setState(499);
-				match(CHAMILI);
-				}
-				break;
-			case 39:
-				enterOuterAlt(_localctx, 39);
-				{
-				setState(500);
-				match(HAMILI_OVER_APOSTROPHOS);
-				}
-				break;
-			case 40:
-				enterOuterAlt(_localctx, 40);
-				{
-				setState(501);
-				match(HAMILI_OVER_ELAPHRON);
-				}
-				break;
-			case 41:
-				enterOuterAlt(_localctx, 41);
-				{
-				setState(502);
-				match(HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS);
-				}
-				break;
-			case 42:
-				enterOuterAlt(_localctx, 42);
-				{
-				setState(503);
-				match(APOSTROPHOS_OVER_PETASTI);
-				}
-				break;
-			case 43:
-				enterOuterAlt(_localctx, 43);
-				{
-				setState(504);
-				match(CONTINUOUS_ELAFRON_OVER_PETASTI);
-				}
-				break;
-			case 44:
-				enterOuterAlt(_localctx, 44);
-				{
-				setState(505);
-				match(ELAPHRON_OVER_PETASTI);
-				}
-				break;
-			case 45:
-				enterOuterAlt(_localctx, 45);
-				{
-				setState(506);
-				match(ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI);
-				}
-				break;
-			case 46:
-				enterOuterAlt(_localctx, 46);
-				{
-				setState(507);
-				match(TWO_APOSTROPHOI_IN_A_ROW);
-				}
-				break;
-			case 47:
-				enterOuterAlt(_localctx, 47);
-				{
-				setState(508);
-				match(APOSTROPHOS_OVER_OLIGON);
-				}
-				break;
-			case 48:
-				enterOuterAlt(_localctx, 48);
-				{
-				setState(509);
-				match(ELAPHRON_OVER_OLIGON);
-				}
-				break;
-			case 49:
-				enterOuterAlt(_localctx, 49);
-				{
-				setState(510);
-				match(ELAPHRON_OVER_APOSTROPHOS_OVER_ISON);
-				}
-				break;
-			case 50:
-				enterOuterAlt(_localctx, 50);
-				{
-				setState(511);
-				match(HAMILI_OVER_OLIGON);
-				}
-				break;
-			case 51:
-				enterOuterAlt(_localctx, 51);
-				{
-				setState(512);
-				match(HAMILI_OVER_HAMILI);
-				}
-				break;
-			case 52:
-				enterOuterAlt(_localctx, 52);
-				{
-				setState(513);
-				match(HAMILI_OVER_PETASTI);
-				}
-				break;
-			case 53:
-				enterOuterAlt(_localctx, 53);
-				{
-				setState(514);
-				match(HAMILI_OVER_APOSTROPHOS_OVER_PETASTI);
-				}
-				break;
-			case 54:
-				enterOuterAlt(_localctx, 54);
-				{
-				setState(515);
-				match(HAMILI_OVER_ELAPHRON_OVER_PETASTI);
-				}
-				break;
-			case 55:
-				enterOuterAlt(_localctx, 55);
-				{
-				setState(516);
-				match(HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI);
-				}
-				break;
-			case 56:
-				enterOuterAlt(_localctx, 56);
-				{
-				setState(517);
-				match(HAMILI_OVER_HAMILI_OVER_PETASTI);
-				}
-				break;
-			case 57:
-				enterOuterAlt(_localctx, 57);
-				{
-				setState(518);
-				match(HAMILI_OVER_HAMILI_OVER_APOSTROPHOS);
-				}
-				break;
-			case 58:
-				enterOuterAlt(_localctx, 58);
-				{
-				setState(519);
-				match(HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI);
-				}
-				break;
-			case 59:
-				enterOuterAlt(_localctx, 59);
-				{
-				setState(520);
-				match(HAMILI_OVER_HAMILI_OVER_ELAPHRON);
-				}
-				break;
-			case 60:
-				enterOuterAlt(_localctx, 60);
-				{
-				setState(521);
-				match(HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS);
-				}
-				break;
-			case 61:
-				enterOuterAlt(_localctx, 61);
-				{
-				setState(522);
-				match(HAMILI_OVER_HAMILI_OVER_HAMILI);
-				}
-				break;
-			case 62:
-				enterOuterAlt(_localctx, 62);
-				{
-				setState(523);
-				match(ISON_NEO);
-				}
-				break;
-			case 63:
-				enterOuterAlt(_localctx, 63);
-				{
-				setState(524);
-				match(ISON_OVER_PETASTI);
-				}
-				break;
-			case 64:
-				enterOuterAlt(_localctx, 64);
-				{
-				setState(525);
-				match(ISON_OVER_OLIGON);
-				}
-				break;
-			case 65:
-				enterOuterAlt(_localctx, 65);
-				{
-				setState(526);
-				match(APOSTROPHOS_UNDER_ISON);
-				}
-				break;
-			case 66:
-				enterOuterAlt(_localctx, 66);
-				{
-				setState(527);
-				match(APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON);
-				}
-				break;
-			case 67:
-				enterOuterAlt(_localctx, 67);
-				{
-				setState(528);
-				match(ISON_AND_KENTIMATA_OVER_OLIGON);
-				}
-				break;
-			case 68:
-				enterOuterAlt(_localctx, 68);
-				{
-				setState(529);
-				match(ELAPHRON_AND_KENTIMATA_OVER_OLIGON);
-				}
-				break;
-			case 69:
-				enterOuterAlt(_localctx, 69);
-				{
-				setState(530);
-				match(CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON);
-				}
-				break;
-			case 70:
-				enterOuterAlt(_localctx, 70);
-				{
-				setState(531);
-				match(ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON);
-				}
-				break;
-			case 71:
-				enterOuterAlt(_localctx, 71);
-				{
-				setState(532);
-				match(HAMILI_AND_KENTIMATA_OVER_OLIGON);
-				}
-				break;
-			case 72:
-				enterOuterAlt(_localctx, 72);
-				{
-				setState(533);
-				yporroi();
-				}
-				break;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(487);
+			qChar2();
 			}
 		}
 		catch (RecognitionException re) {
@@ -4834,71 +4837,304 @@ public class ByzParser extends Parser {
 		return _localctx;
 	}
 
-	public static class KentimaToTheRightOfOligonContext extends ParserRuleContext {
-		public TerminalNode OLIGON_NEO() { return getToken(ByzParser.OLIGON_NEO, 0); }
-		public TerminalNode KENTIMA_NEO_MESO() { return getToken(ByzParser.KENTIMA_NEO_MESO, 0); }
-		public TerminalNode KENTIMA_TO_THE_RIGHT_OF_OLIGON() { return getToken(ByzParser.KENTIMA_TO_THE_RIGHT_OF_OLIGON, 0); }
-		public KentimaToTheRightOfOligonContext(ParserRuleContext parent, int invokingState) {
+	public static class QChar2Context extends ParserRuleContext {
+		public QChar2Context(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_kentimaToTheRightOfOligon; }
+		@Override public int getRuleIndex() { return RULE_qChar2; }
+	 
+		public QChar2Context() { }
+		public void copyFrom(QChar2Context ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class IotaGammaVContext extends QChar2Context {
+		public TerminalNode THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE() { return getToken(ByzParser.THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE, 0); }
+		public TerminalNode THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE() { return getToken(ByzParser.THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE, 0); }
+		public IotaGammaVContext(QChar2Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterKentimaToTheRightOfOligon(this);
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterIotaGammaV(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitKentimaToTheRightOfOligon(this);
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitIotaGammaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitIotaGammaV(this);
+			else return visitor.visitChildren(this);
 		}
 	}
-
-	public final KentimaToTheRightOfOligonContext kentimaToTheRightOfOligon() throws RecognitionException {
-		KentimaToTheRightOfOligonContext _localctx = new KentimaToTheRightOfOligonContext(_ctx, getState());
-		enterRule(_localctx, 100, RULE_kentimaToTheRightOfOligon);
-		try {
-			setState(539);
-			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case OLIGON_NEO:
-				enterOuterAlt(_localctx, 1);
-				{
-				setState(536);
-				match(OLIGON_NEO);
-				setState(537);
-				match(KENTIMA_NEO_MESO);
-				}
-				break;
-			case KENTIMA_TO_THE_RIGHT_OF_OLIGON:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(538);
-				match(KENTIMA_TO_THE_RIGHT_OF_OLIGON);
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
-			}
+	public static class TwoApostrofoiContext extends QChar2Context {
+		public TerminalNode TWO_APOSTROPHOI_IN_A_ROW() { return getToken(ByzParser.TWO_APOSTROPHOI_IN_A_ROW, 0); }
+		public TwoApostrofoiContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterTwoApostrofoi(this);
 		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitTwoApostrofoi(this);
 		}
-		finally {
-			exitRule();
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitTwoApostrofoi(this);
+			else return visitor.visitChildren(this);
 		}
-		return _localctx;
 	}
-
-	public static class YporroiContext extends ParserRuleContext {
+	public static class GammaVContext extends QChar2Context {
+		public TerminalNode KENTIMA_OVER_OLIGON() { return getToken(ByzParser.KENTIMA_OVER_OLIGON, 0); }
+		public TerminalNode KENTIMA_OVER_PETASTI() { return getToken(ByzParser.KENTIMA_OVER_PETASTI, 0); }
+		public GammaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterGammaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitGammaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitGammaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MThetaVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_HAMILI_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_APOSTROPHOS, 0); }
+		public TerminalNode HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
+		public MThetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMThetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMThetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMThetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ContinuousElafronContext extends QChar2Context {
+		public TerminalNode CONTINUOUS_ELAFRON() { return getToken(ByzParser.CONTINUOUS_ELAFRON, 0); }
+		public TerminalNode CONTINUOUS_ELAFRON_OVER_PETASTI() { return getToken(ByzParser.CONTINUOUS_ELAFRON_OVER_PETASTI, 0); }
+		public ContinuousElafronContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterContinuousElafron(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitContinuousElafron(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitContinuousElafron(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MSigmaTafVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_ELAPHRON() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON, 0); }
+		public TerminalNode HAMILI_OVER_ELAPHRON_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON_OVER_PETASTI, 0); }
+		public MSigmaTafVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMSigmaTafV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMSigmaTafV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMSigmaTafV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class HetaVContext extends QChar2Context {
+		public TerminalNode TWO_IPSILES_OVER_OLIGON() { return getToken(ByzParser.TWO_IPSILES_OVER_OLIGON, 0); }
+		public TerminalNode TWO_IPSILES_OVER_PETASTI() { return getToken(ByzParser.TWO_IPSILES_OVER_PETASTI, 0); }
+		public HetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterHetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitHetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitHetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class YporroiAndKentimataContext extends QChar2Context {
+		public TerminalNode YPORROI_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.YPORROI_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public YporroiAndKentimataContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterYporroiAndKentimata(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYporroiAndKentimata(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYporroiAndKentimata(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ZeroVContext extends QChar2Context {
+		public TerminalNode ISON_NEO() { return getToken(ByzParser.ISON_NEO, 0); }
+		public TerminalNode ISON_OVER_PETASTI() { return getToken(ByzParser.ISON_OVER_PETASTI, 0); }
+		public TerminalNode ISON_OVER_OLIGON() { return getToken(ByzParser.ISON_OVER_OLIGON, 0); }
+		public ZeroVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterZeroV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitZeroV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitZeroV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MΗetaVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_HAMILI() { return getToken(ByzParser.HAMILI_OVER_HAMILI, 0); }
+		public TerminalNode HAMILI_OVER_HAMILI_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_PETASTI, 0); }
+		public MΗetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMΗetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMΗetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMΗetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ContinuousElafronAndKentimataContext extends QChar2Context {
+		public TerminalNode CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public ContinuousElafronAndKentimataContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterContinuousElafronAndKentimata(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitContinuousElafronAndKentimata(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitContinuousElafronAndKentimata(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IotaAlphaVContext extends QChar2Context {
+		public TerminalNode YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT, 0); }
+		public IotaAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterIotaAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitIotaAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitIotaAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IotaDeltaVContext extends QChar2Context {
+		public TerminalNode THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE() { return getToken(ByzParser.THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE, 0); }
+		public IotaDeltaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterIotaDeltaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitIotaDeltaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitIotaDeltaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class DeltaAndAlphaVContext extends QChar2Context {
+		public TerminalNode YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT() { return getToken(ByzParser.YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT, 0); }
+		public DeltaAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterDeltaAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDeltaAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDeltaAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IotaBetaVContext extends QChar2Context {
+		public TerminalNode THREE_YPSILES_OVER_OLIGON() { return getToken(ByzParser.THREE_YPSILES_OVER_OLIGON, 0); }
+		public TerminalNode THREE_YPSILES_OVER_PETASTI() { return getToken(ByzParser.THREE_YPSILES_OVER_PETASTI, 0); }
+		public IotaBetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterIotaBetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitIotaBetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitIotaBetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MIotaVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_HAMILI_OVER_ELAPHRON() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_ELAPHRON, 0); }
+		public MIotaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMIotaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMIotaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMIotaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class YporroiContext extends QChar2Context {
 		public TerminalNode YPORROI() { return getToken(ByzParser.YPORROI, 0); }
 		public TerminalNode YPORROI_OVER_OLIGON() { return getToken(ByzParser.YPORROI_OVER_OLIGON, 0); }
 		public TerminalNode YPORROI_OVER_PETASTI() { return getToken(ByzParser.YPORROI_OVER_PETASTI, 0); }
-		public TerminalNode YPORROI_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.YPORROI_AND_KENTIMATA_OVER_OLIGON, 0); }
-		public YporroiContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_yporroi; }
+		public YporroiContext(QChar2Context ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterYporroi(this);
@@ -4907,25 +5143,1070 @@ public class ByzParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitYporroi(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitYporroi(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MBetaAndAlphaVContext extends QChar2Context {
+		public TerminalNode ELAPHRON_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.ELAPHRON_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public MBetaAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMBetaAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMBetaAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMBetaAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ZeroAndmAlphaVContext extends QChar2Context {
+		public TerminalNode APOSTROPHOS_UNDER_ISON() { return getToken(ByzParser.APOSTROPHOS_UNDER_ISON, 0); }
+		public ZeroAndmAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterZeroAndmAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitZeroAndmAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitZeroAndmAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EpsilonAndAlphaVContext extends QChar2Context {
+		public TerminalNode YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT() { return getToken(ByzParser.YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT, 0); }
+		public EpsilonAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterEpsilonAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitEpsilonAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitEpsilonAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AlphaVContext extends QChar2Context {
+		public TerminalNode OLIGON_NEO() { return getToken(ByzParser.OLIGON_NEO, 0); }
+		public TerminalNode PETASTI() { return getToken(ByzParser.PETASTI, 0); }
+		public TerminalNode KENTIMATA_NEO_MESO() { return getToken(ByzParser.KENTIMATA_NEO_MESO, 0); }
+		public AlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ZetaVContext extends QChar2Context {
+		public TerminalNode YPSILI_OVER_KENTIMA_OVER_OLIGON() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_OLIGON, 0); }
+		public TerminalNode YPSILI_OVER_KENTIMA_OVER_PETASTI() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_PETASTI, 0); }
+		public ZetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterZetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitZetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitZetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IotaVContext extends QChar2Context {
+		public TerminalNode YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT() { return getToken(ByzParser.YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT, 0); }
+		public IotaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterIotaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitIotaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitIotaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SigmaTafVContext extends QChar2Context {
+		public TerminalNode YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON() { return getToken(ByzParser.YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON, 0); }
+		public TerminalNode YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI() { return getToken(ByzParser.YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI, 0); }
+		public SigmaTafVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterSigmaTafV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitSigmaTafV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitSigmaTafV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MGammaAndAlphaVContext extends QChar2Context {
+		public TerminalNode ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public MGammaAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMGammaAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMGammaAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMGammaAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MAlphaVContext extends QChar2Context {
+		public TerminalNode APOSTROFOS_NEO() { return getToken(ByzParser.APOSTROFOS_NEO, 0); }
+		public TerminalNode APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.APOSTROPHOS_OVER_PETASTI, 0); }
+		public TerminalNode APOSTROPHOS_OVER_OLIGON() { return getToken(ByzParser.APOSTROPHOS_OVER_OLIGON, 0); }
+		public MAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OligonOnKentimataContext extends QChar2Context {
+		public TerminalNode OLIGON_ABOVE_KENTIMATA() { return getToken(ByzParser.OLIGON_ABOVE_KENTIMATA, 0); }
+		public OligonOnKentimataContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterOligonOnKentimata(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitOligonOnKentimata(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitOligonOnKentimata(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ThetaVContext extends QChar2Context {
+		public TerminalNode TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON() { return getToken(ByzParser.TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON, 0); }
+		public TerminalNode TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI() { return getToken(ByzParser.TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI, 0); }
+		public ThetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterThetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitThetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitThetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class EpsilonVContext extends QChar2Context {
+		public TerminalNode YPSILI_AT_LEFT_END_OF_OLIGON() { return getToken(ByzParser.YPSILI_AT_LEFT_END_OF_OLIGON, 0); }
+		public TerminalNode YPSILI_AT_LEFT_END_OF_PETASTI() { return getToken(ByzParser.YPSILI_AT_LEFT_END_OF_PETASTI, 0); }
+		public EpsilonVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterEpsilonV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitEpsilonV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitEpsilonV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MAlphaAndAlphaVContext extends QChar2Context {
+		public TerminalNode APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public MAlphaAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMAlphaAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMAlphaAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMAlphaAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MGammaVContext extends QChar2Context {
+		public TerminalNode ELAPHRON_OVER_APOSTROPHOS() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS, 0); }
+		public TerminalNode ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
+		public TerminalNode ELAPHRON_OVER_APOSTROPHOS_OVER_ISON() { return getToken(ByzParser.ELAPHRON_OVER_APOSTROPHOS_OVER_ISON, 0); }
+		public MGammaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMGammaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMGammaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMGammaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MBetaVContext extends QChar2Context {
+		public TerminalNode ELAFRON() { return getToken(ByzParser.ELAFRON, 0); }
+		public TerminalNode ELAPHRON_OVER_PETASTI() { return getToken(ByzParser.ELAPHRON_OVER_PETASTI, 0); }
+		public TerminalNode ELAPHRON_OVER_OLIGON() { return getToken(ByzParser.ELAPHRON_OVER_OLIGON, 0); }
+		public MBetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMBetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMBetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMBetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MIotaAlphaVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS, 0); }
+		public MIotaAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMIotaAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMIotaAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMIotaAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class KentimataOnOligonContext extends QChar2Context {
+		public TerminalNode KENTIMATA_ABOVE_OLIGON() { return getToken(ByzParser.KENTIMATA_ABOVE_OLIGON, 0); }
+		public KentimataOnOligonContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterKentimataOnOligon(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitKentimataOnOligon(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitKentimataOnOligon(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BetaVContext extends QChar2Context {
+		public TerminalNode KENTIMA_UNDER_OLIGON() { return getToken(ByzParser.KENTIMA_UNDER_OLIGON, 0); }
+		public TerminalNode OLIGON_OVER_PETASTI() { return getToken(ByzParser.OLIGON_OVER_PETASTI, 0); }
+		public TerminalNode ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON() { return getToken(ByzParser.ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON, 0); }
+		public TerminalNode KENTIMA_TO_THE_RIGHT_OF_OLIGON() { return getToken(ByzParser.KENTIMA_TO_THE_RIGHT_OF_OLIGON, 0); }
+		public TerminalNode OLIGON_NEO() { return getToken(ByzParser.OLIGON_NEO, 0); }
+		public TerminalNode KENTIMA_NEO_MESO() { return getToken(ByzParser.KENTIMA_NEO_MESO, 0); }
+		public BetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterBetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitBetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitBetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MIotaBetaVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_HAMILI_OVER_HAMILI() { return getToken(ByzParser.HAMILI_OVER_HAMILI_OVER_HAMILI, 0); }
+		public MIotaBetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMIotaBetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMIotaBetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMIotaBetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MDeltaAndAlphaVContext extends QChar2Context {
+		public TerminalNode HAMILI_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.HAMILI_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public MDeltaAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMDeltaAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMDeltaAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMDeltaAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MZetaVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS, 0); }
+		public TerminalNode HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
+		public MZetaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMZetaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMZetaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMZetaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class DeltaVContext extends QChar2Context {
+		public TerminalNode YPSILI_AT_RIGHT_END_OF_OLIGON() { return getToken(ByzParser.YPSILI_AT_RIGHT_END_OF_OLIGON, 0); }
+		public TerminalNode YPSILI_AT_RIGHT_END_OF_PETASTI() { return getToken(ByzParser.YPSILI_AT_RIGHT_END_OF_PETASTI, 0); }
+		public DeltaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterDeltaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitDeltaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitDeltaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OligonOnKentimataAndApliContext extends QChar2Context {
+		public TerminalNode APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA() { return getToken(ByzParser.APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA, 0); }
+		public OligonOnKentimataAndApliContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterOligonOnKentimataAndApli(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitOligonOnKentimataAndApli(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitOligonOnKentimataAndApli(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MDeltaVContext extends QChar2Context {
+		public TerminalNode CHAMILI() { return getToken(ByzParser.CHAMILI, 0); }
+		public TerminalNode HAMILI_OVER_OLIGON() { return getToken(ByzParser.HAMILI_OVER_OLIGON, 0); }
+		public TerminalNode HAMILI_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_PETASTI, 0); }
+		public MDeltaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMDeltaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMDeltaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMDeltaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BetaVAndApliContext extends QChar2Context {
+		public TerminalNode APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON() { return getToken(ByzParser.APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON, 0); }
+		public BetaVAndApliContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterBetaVAndApli(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitBetaVAndApli(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitBetaVAndApli(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ZeroAndAlphaVContext extends QChar2Context {
+		public TerminalNode ISON_AND_KENTIMATA_OVER_OLIGON() { return getToken(ByzParser.ISON_AND_KENTIMATA_OVER_OLIGON, 0); }
+		public ZeroAndAlphaVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterZeroAndAlphaV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitZeroAndAlphaV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitZeroAndAlphaV(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MEpsilonVContext extends QChar2Context {
+		public TerminalNode HAMILI_OVER_APOSTROPHOS() { return getToken(ByzParser.HAMILI_OVER_APOSTROPHOS, 0); }
+		public TerminalNode HAMILI_OVER_APOSTROPHOS_OVER_PETASTI() { return getToken(ByzParser.HAMILI_OVER_APOSTROPHOS_OVER_PETASTI, 0); }
+		public MEpsilonVContext(QChar2Context ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterMEpsilonV(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitMEpsilonV(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitMEpsilonV(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
-	public final YporroiContext yporroi() throws RecognitionException {
-		YporroiContext _localctx = new YporroiContext(_ctx, getState());
-		enterRule(_localctx, 102, RULE_yporroi);
+	public final QChar2Context qChar2() throws RecognitionException {
+		QChar2Context _localctx = new QChar2Context(_ctx, getState());
+		enterRule(_localctx, 112, RULE_qChar2);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(541);
-			_la = _input.LA(1);
-			if ( !(((((_la - 320)) & ~0x3f) == 0 && ((1L << (_la - 320)) & ((1L << (YPORROI - 320)) | (1L << (YPORROI_OVER_OLIGON - 320)) | (1L << (YPORROI_OVER_PETASTI - 320)))) != 0) || _la==YPORROI_AND_KENTIMATA_OVER_OLIGON) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
+			setState(540);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,65,_ctx) ) {
+			case 1:
+				_localctx = new ZeroVContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(489);
+				_la = _input.LA(1);
+				if ( !(_la==ISON_NEO || _la==ISON_OVER_PETASTI || _la==ISON_OVER_OLIGON) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 2:
+				_localctx = new AlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(490);
+				_la = _input.LA(1);
+				if ( !(((((_la - 312)) & ~0x3f) == 0 && ((1L << (_la - 312)) & ((1L << (OLIGON_NEO - 312)) | (1L << (PETASTI - 312)) | (1L << (KENTIMATA_NEO_MESO - 312)))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 3:
+				_localctx = new BetaVContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(497);
+				_errHandler.sync(this);
+				switch (_input.LA(1)) {
+				case OLIGON_NEO:
+					{
+					{
+					setState(491);
+					match(OLIGON_NEO);
+					setState(492);
+					match(KENTIMA_NEO_MESO);
+					}
+					}
+					break;
+				case KENTIMA_UNDER_OLIGON:
+					{
+					setState(493);
+					match(KENTIMA_UNDER_OLIGON);
+					}
+					break;
+				case OLIGON_OVER_PETASTI:
+					{
+					setState(494);
+					match(OLIGON_OVER_PETASTI);
+					}
+					break;
+				case ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON:
+					{
+					setState(495);
+					match(ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON);
+					}
+					break;
+				case KENTIMA_TO_THE_RIGHT_OF_OLIGON:
+					{
+					setState(496);
+					match(KENTIMA_TO_THE_RIGHT_OF_OLIGON);
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				}
+				break;
+			case 4:
+				_localctx = new GammaVContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(499);
+				_la = _input.LA(1);
+				if ( !(_la==KENTIMA_OVER_OLIGON || _la==KENTIMA_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 5:
+				_localctx = new DeltaVContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(500);
+				_la = _input.LA(1);
+				if ( !(_la==YPSILI_AT_RIGHT_END_OF_OLIGON || _la==YPSILI_AT_RIGHT_END_OF_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 6:
+				_localctx = new EpsilonVContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(501);
+				_la = _input.LA(1);
+				if ( !(_la==YPSILI_AT_LEFT_END_OF_OLIGON || _la==YPSILI_AT_LEFT_END_OF_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 7:
+				_localctx = new SigmaTafVContext(_localctx);
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(502);
+				_la = _input.LA(1);
+				if ( !(_la==YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON || _la==YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 8:
+				_localctx = new ZetaVContext(_localctx);
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(503);
+				_la = _input.LA(1);
+				if ( !(_la==YPSILI_OVER_KENTIMA_OVER_OLIGON || _la==YPSILI_OVER_KENTIMA_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 9:
+				_localctx = new HetaVContext(_localctx);
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(504);
+				_la = _input.LA(1);
+				if ( !(_la==TWO_IPSILES_OVER_OLIGON || _la==TWO_IPSILES_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 10:
+				_localctx = new ThetaVContext(_localctx);
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(505);
+				_la = _input.LA(1);
+				if ( !(_la==TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON || _la==TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 11:
+				_localctx = new IotaVContext(_localctx);
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(506);
+				match(YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT);
+				}
+				break;
+			case 12:
+				_localctx = new IotaAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(507);
+				match(YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT);
+				}
+				break;
+			case 13:
+				_localctx = new IotaBetaVContext(_localctx);
+				enterOuterAlt(_localctx, 13);
+				{
+				setState(508);
+				_la = _input.LA(1);
+				if ( !(_la==THREE_YPSILES_OVER_OLIGON || _la==THREE_YPSILES_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 14:
+				_localctx = new IotaGammaVContext(_localctx);
+				enterOuterAlt(_localctx, 14);
+				{
+				setState(509);
+				_la = _input.LA(1);
+				if ( !(_la==THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE || _la==THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 15:
+				_localctx = new IotaDeltaVContext(_localctx);
+				enterOuterAlt(_localctx, 15);
+				{
+				setState(510);
+				match(THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE);
+				}
+				break;
+			case 16:
+				_localctx = new MAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 16);
+				{
+				setState(511);
+				_la = _input.LA(1);
+				if ( !(((((_la - 318)) & ~0x3f) == 0 && ((1L << (_la - 318)) & ((1L << (APOSTROFOS_NEO - 318)) | (1L << (APOSTROPHOS_OVER_PETASTI - 318)) | (1L << (APOSTROPHOS_OVER_OLIGON - 318)))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 17:
+				_localctx = new MBetaVContext(_localctx);
+				enterOuterAlt(_localctx, 17);
+				{
+				setState(512);
+				_la = _input.LA(1);
+				if ( !(((((_la - 322)) & ~0x3f) == 0 && ((1L << (_la - 322)) & ((1L << (ELAFRON - 322)) | (1L << (ELAPHRON_OVER_PETASTI - 322)) | (1L << (ELAPHRON_OVER_OLIGON - 322)))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 18:
+				_localctx = new MGammaVContext(_localctx);
+				enterOuterAlt(_localctx, 18);
+				{
+				setState(513);
+				_la = _input.LA(1);
+				if ( !(((((_la - 359)) & ~0x3f) == 0 && ((1L << (_la - 359)) & ((1L << (ELAPHRON_OVER_APOSTROPHOS - 359)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI - 359)) | (1L << (ELAPHRON_OVER_APOSTROPHOS_OVER_ISON - 359)))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 19:
+				_localctx = new MDeltaVContext(_localctx);
+				enterOuterAlt(_localctx, 19);
+				{
+				setState(514);
+				_la = _input.LA(1);
+				if ( !(((((_la - 323)) & ~0x3f) == 0 && ((1L << (_la - 323)) & ((1L << (CHAMILI - 323)) | (1L << (HAMILI_OVER_OLIGON - 323)) | (1L << (HAMILI_OVER_PETASTI - 323)))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 20:
+				_localctx = new MEpsilonVContext(_localctx);
+				enterOuterAlt(_localctx, 20);
+				{
+				setState(515);
+				_la = _input.LA(1);
+				if ( !(_la==HAMILI_OVER_APOSTROPHOS || _la==HAMILI_OVER_APOSTROPHOS_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 21:
+				_localctx = new MSigmaTafVContext(_localctx);
+				enterOuterAlt(_localctx, 21);
+				{
+				setState(516);
+				_la = _input.LA(1);
+				if ( !(_la==HAMILI_OVER_ELAPHRON || _la==HAMILI_OVER_ELAPHRON_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 22:
+				_localctx = new MZetaVContext(_localctx);
+				enterOuterAlt(_localctx, 22);
+				{
+				setState(517);
+				_la = _input.LA(1);
+				if ( !(_la==HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS || _la==HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 23:
+				_localctx = new MΗetaVContext(_localctx);
+				enterOuterAlt(_localctx, 23);
+				{
+				setState(518);
+				_la = _input.LA(1);
+				if ( !(_la==HAMILI_OVER_HAMILI || _la==HAMILI_OVER_HAMILI_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 24:
+				_localctx = new MThetaVContext(_localctx);
+				enterOuterAlt(_localctx, 24);
+				{
+				setState(519);
+				_la = _input.LA(1);
+				if ( !(_la==HAMILI_OVER_HAMILI_OVER_APOSTROPHOS || _la==HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 25:
+				_localctx = new MIotaVContext(_localctx);
+				enterOuterAlt(_localctx, 25);
+				{
+				setState(520);
+				match(HAMILI_OVER_HAMILI_OVER_ELAPHRON);
+				}
+				break;
+			case 26:
+				_localctx = new MIotaAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 26);
+				{
+				setState(521);
+				match(HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS);
+				}
+				break;
+			case 27:
+				_localctx = new MIotaBetaVContext(_localctx);
+				enterOuterAlt(_localctx, 27);
+				{
+				setState(522);
+				match(HAMILI_OVER_HAMILI_OVER_HAMILI);
+				}
+				break;
+			case 28:
+				_localctx = new ZeroAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 28);
+				{
+				{
+				setState(523);
+				match(ISON_AND_KENTIMATA_OVER_OLIGON);
+				}
+				}
+				break;
+			case 29:
+				_localctx = new BetaVAndApliContext(_localctx);
+				enterOuterAlt(_localctx, 29);
+				{
+				setState(524);
+				match(APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON);
+				}
+				break;
+			case 30:
+				_localctx = new DeltaAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 30);
+				{
+				setState(525);
+				match(YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT);
+				}
+				break;
+			case 31:
+				_localctx = new EpsilonAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 31);
+				{
+				setState(526);
+				match(YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT);
+				}
+				break;
+			case 32:
+				_localctx = new ZeroAndmAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 32);
+				{
+				setState(527);
+				match(APOSTROPHOS_UNDER_ISON);
+				}
+				break;
+			case 33:
+				_localctx = new MAlphaAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 33);
+				{
+				setState(528);
+				match(APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON);
+				}
+				break;
+			case 34:
+				_localctx = new MBetaAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 34);
+				{
+				setState(529);
+				match(ELAPHRON_AND_KENTIMATA_OVER_OLIGON);
+				}
+				break;
+			case 35:
+				_localctx = new MGammaAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 35);
+				{
+				setState(530);
+				match(ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON);
+				}
+				break;
+			case 36:
+				_localctx = new MDeltaAndAlphaVContext(_localctx);
+				enterOuterAlt(_localctx, 36);
+				{
+				setState(531);
+				match(HAMILI_AND_KENTIMATA_OVER_OLIGON);
+				}
+				break;
+			case 37:
+				_localctx = new ContinuousElafronContext(_localctx);
+				enterOuterAlt(_localctx, 37);
+				{
+				setState(532);
+				_la = _input.LA(1);
+				if ( !(_la==CONTINUOUS_ELAFRON || _la==CONTINUOUS_ELAFRON_OVER_PETASTI) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 38:
+				_localctx = new TwoApostrofoiContext(_localctx);
+				enterOuterAlt(_localctx, 38);
+				{
+				setState(533);
+				match(TWO_APOSTROPHOI_IN_A_ROW);
+				}
+				break;
+			case 39:
+				_localctx = new YporroiContext(_localctx);
+				enterOuterAlt(_localctx, 39);
+				{
+				setState(534);
+				_la = _input.LA(1);
+				if ( !(((((_la - 320)) & ~0x3f) == 0 && ((1L << (_la - 320)) & ((1L << (YPORROI - 320)) | (1L << (YPORROI_OVER_OLIGON - 320)) | (1L << (YPORROI_OVER_PETASTI - 320)))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				}
+				break;
+			case 40:
+				_localctx = new ContinuousElafronAndKentimataContext(_localctx);
+				enterOuterAlt(_localctx, 40);
+				{
+				setState(535);
+				match(CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON);
+				}
+				break;
+			case 41:
+				_localctx = new YporroiAndKentimataContext(_localctx);
+				enterOuterAlt(_localctx, 41);
+				{
+				setState(536);
+				match(YPORROI_AND_KENTIMATA_OVER_OLIGON);
+				}
+				break;
+			case 42:
+				_localctx = new OligonOnKentimataContext(_localctx);
+				enterOuterAlt(_localctx, 42);
+				{
+				setState(537);
+				match(OLIGON_ABOVE_KENTIMATA);
+				}
+				break;
+			case 43:
+				_localctx = new KentimataOnOligonContext(_localctx);
+				enterOuterAlt(_localctx, 43);
+				{
+				setState(538);
+				match(KENTIMATA_ABOVE_OLIGON);
+				}
+				break;
+			case 44:
+				_localctx = new OligonOnKentimataAndApliContext(_localctx);
+				enterOuterAlt(_localctx, 44);
+				{
+				setState(539);
+				match(APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA);
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -4940,252 +6221,249 @@ public class ByzParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\u018d\u0222\4\2\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\u018d\u0221\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
 		"\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\4+\t+\4"+
 		",\t,\4-\t-\4.\t.\4/\t/\4\60\t\60\4\61\t\61\4\62\t\62\4\63\t\63\4\64\t"+
-		"\64\4\65\t\65\3\2\5\2l\n\2\3\2\3\2\6\2p\n\2\r\2\16\2q\3\3\5\3u\n\3\3\3"+
-		"\6\3x\n\3\r\3\16\3y\3\4\5\4}\n\4\3\4\5\4\u0080\n\4\3\4\3\4\5\4\u0084\n"+
-		"\4\3\4\7\4\u0087\n\4\f\4\16\4\u008a\13\4\3\4\5\4\u008d\n\4\3\4\5\4\u0090"+
-		"\n\4\3\4\5\4\u0093\n\4\3\4\7\4\u0096\n\4\f\4\16\4\u0099\13\4\3\4\7\4\u009c"+
-		"\n\4\f\4\16\4\u009f\13\4\3\4\5\4\u00a2\n\4\3\4\5\4\u00a5\n\4\3\4\7\4\u00a8"+
-		"\n\4\f\4\16\4\u00ab\13\4\3\4\5\4\u00ae\n\4\3\4\5\4\u00b1\n\4\3\4\5\4\u00b4"+
-		"\n\4\3\5\7\5\u00b7\n\5\f\5\16\5\u00ba\13\5\3\5\7\5\u00bd\n\5\f\5\16\5"+
-		"\u00c0\13\5\3\5\5\5\u00c3\n\5\3\5\3\5\6\5\u00c7\n\5\r\5\16\5\u00c8\3\6"+
-		"\3\6\3\6\3\7\3\7\5\7\u00d0\n\7\3\b\3\b\7\b\u00d4\n\b\f\b\16\b\u00d7\13"+
-		"\b\3\b\5\b\u00da\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\7\t\u00e5\n\t"+
-		"\f\t\16\t\u00e8\13\t\3\t\3\t\3\n\3\n\5\n\u00ee\n\n\3\13\3\13\3\f\5\f\u00f3"+
-		"\n\f\3\f\3\f\5\f\u00f7\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u0100\n\f\3"+
-		"\r\3\r\3\r\5\r\u0105\n\r\3\r\3\r\5\r\u0109\n\r\3\r\3\r\3\r\3\r\3\r\5\r"+
-		"\u0110\n\r\3\r\3\r\5\r\u0114\n\r\3\r\3\r\3\r\5\r\u0119\n\r\3\r\3\r\3\r"+
-		"\3\r\5\r\u011f\n\r\3\r\3\r\3\r\5\r\u0124\n\r\3\16\5\16\u0127\n\16\3\16"+
-		"\5\16\u012a\n\16\3\16\3\16\5\16\u012e\n\16\3\16\7\16\u0131\n\16\f\16\16"+
-		"\16\u0134\13\16\3\16\7\16\u0137\n\16\f\16\16\16\u013a\13\16\3\16\5\16"+
-		"\u013d\n\16\3\17\3\17\5\17\u0141\n\17\3\20\3\20\3\20\3\20\3\20\3\21\3"+
-		"\21\3\21\3\21\3\21\3\21\3\22\3\22\3\23\3\23\3\23\3\23\3\23\6\23\u0155"+
-		"\n\23\r\23\16\23\u0156\3\23\3\23\3\23\3\23\3\23\3\23\3\23\6\23\u0160\n"+
-		"\23\r\23\16\23\u0161\3\23\5\23\u0165\n\23\3\24\3\24\6\24\u0169\n\24\r"+
-		"\24\16\24\u016a\3\25\5\25\u016e\n\25\3\25\6\25\u0171\n\25\r\25\16\25\u0172"+
-		"\3\25\5\25\u0176\n\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26"+
-		"\3\26\3\26\3\26\5\26\u0185\n\26\3\27\3\27\3\30\3\30\3\31\3\31\3\32\3\32"+
-		"\3\33\3\33\3\34\3\34\3\35\3\35\3\36\3\36\3\37\3\37\3 \3 \3!\3!\3!\3!\5"+
-		"!\u019f\n!\3\"\3\"\3#\3#\3$\3$\3%\3%\3&\3&\3&\3&\3&\3&\5&\u01af\n&\3\'"+
-		"\3\'\3\'\3\'\5\'\u01b5\n\'\3(\3(\3)\3)\3*\3*\3+\3+\3+\3+\5+\u01c1\n+\3"+
-		",\3,\3-\3-\3.\3.\3/\3/\3\60\3\60\3\61\3\61\3\62\3\62\3\63\3\63\3\63\3"+
-		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
-		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
-		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
-		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3"+
-		"\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\3\63\5\63\u0219"+
-		"\n\63\3\64\3\64\3\64\5\64\u021e\n\64\3\65\3\65\3\65\2\2\66\2\4\6\b\n\f"+
-		"\16\20\22\24\26\30\32\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^"+
-		"`bdfh\2 \3\2\u00fe\u0100\4\2fl\u0099\u009b\5\288::==\4\2\u009d\u009e\u00a0"+
-		"\u00a0\3\2w\u0086\7\2\u00cf\u00cf\u00da\u00db\u00dd\u00dd\u00e4\u00e4"+
-		"\u00e8\u00ea\6\2\u00d0\u00d0\u00de\u00de\u00e7\u00e7\u00eb\u00eb\5\2\u00d1"+
-		"\u00d1\u00df\u00df\u00ec\u00ec\7\2\u00d2\u00d2\u00dc\u00dc\u00e0\u00e0"+
-		"\u00e5\u00e5\u00ed\u00ed\5\2\u00d3\u00d4\u00e1\u00e1\u00ee\u00ef\4\2\u00d5"+
-		"\u00d5\u00f0\u00f0\6\2\u00d6\u00d6\u00e2\u00e2\u00e6\u00e6\u00f1\u00f1"+
-		"\4\2\u00e3\u00e3\u00f2\u00f3\3\2\u00f4\u00f5\3\2\u00f6\u00f7\4\2\u00f8"+
-		"\u00f8\u0103\u0105\4\2\u00fe\u00fe\u0106\u0106\4\2\u00ff\u00ff\u0107\u0107"+
-		"\4\2\u0100\u0100\u0108\u0108\4\2\u012d\u012d\u0136\u0136\4\2\u012e\u012e"+
-		"\u0137\u0137\4\2\u012f\u012f\u0138\u0138\4\2\u0129\u0129\u0133\u0133\4"+
-		"\2\u012a\u012a\u0134\u0134\4\2\u012b\u012b\u0135\u0135\6\2\u010f\u010f"+
+		"\64\4\65\t\65\4\66\t\66\4\67\t\67\48\t8\49\t9\4:\t:\3\2\5\2v\n\2\3\2\3"+
+		"\2\6\2z\n\2\r\2\16\2{\3\3\5\3\177\n\3\3\3\6\3\u0082\n\3\r\3\16\3\u0083"+
+		"\3\4\5\4\u0087\n\4\3\4\5\4\u008a\n\4\3\4\3\4\5\4\u008e\n\4\3\4\7\4\u0091"+
+		"\n\4\f\4\16\4\u0094\13\4\3\4\5\4\u0097\n\4\3\4\5\4\u009a\n\4\3\4\5\4\u009d"+
+		"\n\4\3\4\7\4\u00a0\n\4\f\4\16\4\u00a3\13\4\3\4\7\4\u00a6\n\4\f\4\16\4"+
+		"\u00a9\13\4\3\4\5\4\u00ac\n\4\3\4\5\4\u00af\n\4\3\4\7\4\u00b2\n\4\f\4"+
+		"\16\4\u00b5\13\4\3\4\5\4\u00b8\n\4\3\4\5\4\u00bb\n\4\3\4\5\4\u00be\n\4"+
+		"\3\5\7\5\u00c1\n\5\f\5\16\5\u00c4\13\5\3\5\7\5\u00c7\n\5\f\5\16\5\u00ca"+
+		"\13\5\3\5\5\5\u00cd\n\5\3\5\3\5\6\5\u00d1\n\5\r\5\16\5\u00d2\3\6\3\6\3"+
+		"\6\3\7\3\7\5\7\u00da\n\7\3\b\3\b\7\b\u00de\n\b\f\b\16\b\u00e1\13\b\3\b"+
+		"\5\b\u00e4\n\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\7\t\u00ef\n\t\f\t\16"+
+		"\t\u00f2\13\t\3\t\3\t\3\n\3\n\5\n\u00f8\n\n\3\13\3\13\3\f\5\f\u00fd\n"+
+		"\f\3\f\3\f\5\f\u0101\n\f\3\f\3\f\3\f\3\f\3\f\3\f\3\f\5\f\u010a\n\f\3\r"+
+		"\3\r\3\r\5\r\u010f\n\r\3\r\3\r\5\r\u0113\n\r\3\r\3\r\3\r\3\r\3\r\5\r\u011a"+
+		"\n\r\3\r\3\r\5\r\u011e\n\r\3\r\3\r\3\r\5\r\u0123\n\r\3\r\3\r\3\r\3\r\5"+
+		"\r\u0129\n\r\3\r\3\r\3\r\5\r\u012e\n\r\3\16\5\16\u0131\n\16\3\16\5\16"+
+		"\u0134\n\16\3\16\3\16\5\16\u0138\n\16\3\16\7\16\u013b\n\16\f\16\16\16"+
+		"\u013e\13\16\3\16\7\16\u0141\n\16\f\16\16\16\u0144\13\16\3\16\5\16\u0147"+
+		"\n\16\3\17\3\17\5\17\u014b\n\17\3\20\3\20\3\20\3\20\3\20\3\21\3\21\3\21"+
+		"\3\21\3\21\3\21\3\22\3\22\3\23\3\23\3\23\3\23\3\23\6\23\u015f\n\23\r\23"+
+		"\16\23\u0160\3\23\3\23\3\23\3\23\3\23\3\23\3\23\6\23\u016a\n\23\r\23\16"+
+		"\23\u016b\3\23\5\23\u016f\n\23\3\24\3\24\6\24\u0173\n\24\r\24\16\24\u0174"+
+		"\3\25\5\25\u0178\n\25\3\25\6\25\u017b\n\25\r\25\16\25\u017c\3\25\5\25"+
+		"\u0180\n\25\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26\3\26"+
+		"\3\26\3\26\5\26\u0190\n\26\3\27\3\27\3\30\3\30\3\31\3\31\3\32\3\32\3\33"+
+		"\3\33\3\34\3\34\3\35\3\35\3\36\3\36\3\37\3\37\3 \3 \3!\3!\3\"\3\"\3#\3"+
+		"#\3$\3$\3%\3%\3%\3%\5%\u01b2\n%\3&\3&\3\'\3\'\3(\3(\3)\3)\3*\3*\5*\u01be"+
+		"\n*\3+\3+\3+\3+\5+\u01c4\n+\3,\3,\5,\u01c8\n,\3-\3-\3-\3-\5-\u01ce\n-"+
+		"\3.\3.\3/\3/\3\60\3\60\3\61\3\61\3\61\3\61\5\61\u01da\n\61\3\62\3\62\3"+
+		"\63\3\63\3\64\3\64\3\65\3\65\3\66\3\66\3\67\3\67\38\38\39\39\3:\3:\3:"+
+		"\3:\3:\3:\3:\3:\5:\u01f4\n:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:"+
+		"\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:\3:"+
+		"\3:\3:\3:\3:\5:\u021f\n:\3:\3\u017c\2;\2\4\6\b\n\f\16\20\22\24\26\30\32"+
+		"\34\36 \"$&(*,.\60\62\64\668:<>@BDFHJLNPRTVXZ\\^`bdfhjlnpr\2\66\3\2\u00fe"+
+		"\u0100\4\2fl\u0099\u009b\5\288::==\4\2\u009d\u009e\u00a0\u00a0\3\2w\u0086"+
+		"\7\2\u00cf\u00cf\u00da\u00db\u00dd\u00dd\u00e4\u00e4\u00e8\u00ea\6\2\u00d0"+
+		"\u00d0\u00de\u00de\u00e7\u00e7\u00eb\u00eb\5\2\u00d1\u00d1\u00df\u00df"+
+		"\u00ec\u00ec\7\2\u00d2\u00d2\u00dc\u00dc\u00e0\u00e0\u00e5\u00e5\u00ed"+
+		"\u00ed\5\2\u00d3\u00d3\u00e1\u00e1\u00ee\u00ee\4\2\u00d4\u00d4\u00ef\u00ef"+
+		"\4\2\u00d5\u00d5\u00f0\u00f0\6\2\u00d6\u00d6\u00e2\u00e2\u00e6\u00e6\u00f1"+
+		"\u00f1\4\2\u00e3\u00e3\u00f2\u00f3\3\2\u00f4\u00f5\3\2\u00f6\u00f7\4\2"+
+		"\u00f8\u00f8\u0103\u0105\4\2\u00fe\u00fe\u0106\u0106\4\2\u00ff\u00ff\u0107"+
+		"\u0107\4\2\u0100\u0100\u0108\u0108\4\2\u012d\u012d\u0136\u0136\4\2\u012e"+
+		"\u012e\u0137\u0137\4\2\u012f\u012f\u0138\u0138\4\2\u0129\u0129\u0133\u0133"+
+		"\4\2\u012a\u012a\u0134\u0134\4\2\u012b\u012b\u0135\u0135\6\2\u010f\u010f"+
 		"\u0113\u0114\u0116\u0116\u0118\u011b\4\2\u011c\u011e\u0120\u0120\3\2\u0131"+
-		"\u0132\4\2\u0115\u0115\u0121\u0124\5\2\u0142\u0142\u0176\u0177\u018c\u018c"+
-		"\2\u029f\2k\3\2\2\2\4t\3\2\2\2\6|\3\2\2\2\b\u00b8\3\2\2\2\n\u00ca\3\2"+
-		"\2\2\f\u00cd\3\2\2\2\16\u00d1\3\2\2\2\20\u00db\3\2\2\2\22\u00ed\3\2\2"+
-		"\2\24\u00ef\3\2\2\2\26\u00ff\3\2\2\2\30\u0123\3\2\2\2\32\u0126\3\2\2\2"+
-		"\34\u0140\3\2\2\2\36\u0142\3\2\2\2 \u0147\3\2\2\2\"\u014d\3\2\2\2$\u0164"+
-		"\3\2\2\2&\u0166\3\2\2\2(\u0175\3\2\2\2*\u0184\3\2\2\2,\u0186\3\2\2\2."+
-		"\u0188\3\2\2\2\60\u018a\3\2\2\2\62\u018c\3\2\2\2\64\u018e\3\2\2\2\66\u0190"+
-		"\3\2\2\28\u0192\3\2\2\2:\u0194\3\2\2\2<\u0196\3\2\2\2>\u0198\3\2\2\2@"+
-		"\u019e\3\2\2\2B\u01a0\3\2\2\2D\u01a2\3\2\2\2F\u01a4\3\2\2\2H\u01a6\3\2"+
-		"\2\2J\u01ae\3\2\2\2L\u01b4\3\2\2\2N\u01b6\3\2\2\2P\u01b8\3\2\2\2R\u01ba"+
-		"\3\2\2\2T\u01c0\3\2\2\2V\u01c2\3\2\2\2X\u01c4\3\2\2\2Z\u01c6\3\2\2\2\\"+
-		"\u01c8\3\2\2\2^\u01ca\3\2\2\2`\u01cc\3\2\2\2b\u01ce\3\2\2\2d\u0218\3\2"+
-		"\2\2f\u021d\3\2\2\2h\u021f\3\2\2\2jl\5\34\17\2kj\3\2\2\2kl\3\2\2\2lo\3"+
-		"\2\2\2mp\5\6\4\2np\5\30\r\2om\3\2\2\2on\3\2\2\2pq\3\2\2\2qo\3\2\2\2qr"+
-		"\3\2\2\2r\3\3\2\2\2su\5\32\16\2ts\3\2\2\2tu\3\2\2\2uw\3\2\2\2vx\5\6\4"+
-		"\2wv\3\2\2\2xy\3\2\2\2yw\3\2\2\2yz\3\2\2\2z\5\3\2\2\2{}\7\u00c6\2\2|{"+
-		"\3\2\2\2|}\3\2\2\2}\177\3\2\2\2~\u0080\5(\25\2\177~\3\2\2\2\177\u0080"+
-		"\3\2\2\2\u0080\u0081\3\2\2\2\u0081\u0083\5d\63\2\u0082\u0084\5(\25\2\u0083"+
-		"\u0082\3\2\2\2\u0083\u0084\3\2\2\2\u0084\u0088\3\2\2\2\u0085\u0087\5\22"+
-		"\n\2\u0086\u0085\3\2\2\2\u0087\u008a\3\2\2\2\u0088\u0086\3\2\2\2\u0088"+
-		"\u0089\3\2\2\2\u0089\u008c\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u008d\5\f"+
-		"\7\2\u008c\u008b\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008f\3\2\2\2\u008e"+
-		"\u0090\5(\25\2\u008f\u008e\3\2\2\2\u008f\u0090\3\2\2\2\u0090\u0092\3\2"+
-		"\2\2\u0091\u0093\5\f\7\2\u0092\u0091\3\2\2\2\u0092\u0093\3\2\2\2\u0093"+
-		"\u0097\3\2\2\2\u0094\u0096\5\22\n\2\u0095\u0094\3\2\2\2\u0096\u0099\3"+
-		"\2\2\2\u0097\u0095\3\2\2\2\u0097\u0098\3\2\2\2\u0098\u009d\3\2\2\2\u0099"+
-		"\u0097\3\2\2\2\u009a\u009c\5\22\n\2\u009b\u009a\3\2\2\2\u009c\u009f\3"+
-		"\2\2\2\u009d\u009b\3\2\2\2\u009d\u009e\3\2\2\2\u009e\u00a1\3\2\2\2\u009f"+
-		"\u009d\3\2\2\2\u00a0\u00a2\5(\25\2\u00a1\u00a0\3\2\2\2\u00a1\u00a2\3\2"+
-		"\2\2\u00a2\u00a4\3\2\2\2\u00a3\u00a5\5\f\7\2\u00a4\u00a3\3\2\2\2\u00a4"+
-		"\u00a5\3\2\2\2\u00a5\u00a9\3\2\2\2\u00a6\u00a8\5\22\n\2\u00a7\u00a6\3"+
-		"\2\2\2\u00a8\u00ab\3\2\2\2\u00a9\u00a7\3\2\2\2\u00a9\u00aa\3\2\2\2\u00aa"+
-		"\u00ad\3\2\2\2\u00ab\u00a9\3\2\2\2\u00ac\u00ae\5\f\7\2\u00ad\u00ac\3\2"+
-		"\2\2\u00ad\u00ae\3\2\2\2\u00ae\u00b0\3\2\2\2\u00af\u00b1\5(\25\2\u00b0"+
-		"\u00af\3\2\2\2\u00b0\u00b1\3\2\2\2\u00b1\u00b3\3\2\2\2\u00b2\u00b4\5\16"+
-		"\b\2\u00b3\u00b2\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4\7\3\2\2\2\u00b5\u00b7"+
-		"\5$\23\2\u00b6\u00b5\3\2\2\2\u00b7\u00ba\3\2\2\2\u00b8\u00b6\3\2\2\2\u00b8"+
-		"\u00b9\3\2\2\2\u00b9\u00be\3\2\2\2\u00ba\u00b8\3\2\2\2\u00bb\u00bd\5\n"+
-		"\6\2\u00bc\u00bb\3\2\2\2\u00bd\u00c0\3\2\2\2\u00be\u00bc\3\2\2\2\u00be"+
-		"\u00bf\3\2\2\2\u00bf\u00c2\3\2\2\2\u00c0\u00be\3\2\2\2\u00c1\u00c3\5\32"+
-		"\16\2\u00c2\u00c1\3\2\2\2\u00c2\u00c3\3\2\2\2\u00c3\u00c6\3\2\2\2\u00c4"+
-		"\u00c7\5$\23\2\u00c5\u00c7\5\20\t\2\u00c6\u00c4\3\2\2\2\u00c6\u00c5\3"+
-		"\2\2\2\u00c7\u00c8\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2\2\2\u00c9"+
-		"\t\3\2\2\2\u00ca\u00cb\7\u00c7\2\2\u00cb\u00cc\7\u00c8\2\2\u00cc\13\3"+
-		"\2\2\2\u00cd\u00cf\5J&\2\u00ce\u00d0\5\"\22\2\u00cf\u00ce\3\2\2\2\u00cf"+
-		"\u00d0\3\2\2\2\u00d0\r\3\2\2\2\u00d1\u00d5\7*\2\2\u00d2\u00d4\t\2\2\2"+
-		"\u00d3\u00d2\3\2\2\2\u00d4\u00d7\3\2\2\2\u00d5\u00d3\3\2\2\2\u00d5\u00d6"+
-		"\3\2\2\2\u00d6\u00d9\3\2\2\2\u00d7\u00d5\3\2\2\2\u00d8\u00da\5*\26\2\u00d9"+
-		"\u00d8\3\2\2\2\u00d9\u00da\3\2\2\2\u00da\17\3\2\2\2\u00db\u00e6\7\u00c7"+
-		"\2\2\u00dc\u00e5\5&\24\2\u00dd\u00e5\5(\25\2\u00de\u00e5\5\22\n\2\u00df"+
-		"\u00e5\5d\63\2\u00e0\u00e5\5\f\7\2\u00e1\u00e5\5\30\r\2\u00e2\u00e5\7"+
-		"\u00c6\2\2\u00e3\u00e5\5\16\b\2\u00e4\u00dc\3\2\2\2\u00e4\u00dd\3\2\2"+
-		"\2\u00e4\u00de\3\2\2\2\u00e4\u00df\3\2\2\2\u00e4\u00e0\3\2\2\2\u00e4\u00e1"+
-		"\3\2\2\2\u00e4\u00e2\3\2\2\2\u00e4\u00e3\3\2\2\2\u00e5\u00e8\3\2\2\2\u00e6"+
-		"\u00e4\3\2\2\2\u00e6\u00e7\3\2\2\2\u00e7\u00e9\3\2\2\2\u00e8\u00e6\3\2"+
-		"\2\2\u00e9\u00ea\7\u00c8\2\2\u00ea\21\3\2\2\2\u00eb\u00ee\5*\26\2\u00ec"+
-		"\u00ee\5@!\2\u00ed\u00eb\3\2\2\2\u00ed\u00ec\3\2\2\2\u00ee\23\3\2\2\2"+
-		"\u00ef\u00f0\t\3\2\2\u00f0\25\3\2\2\2\u00f1\u00f3\7B\2\2\u00f2\u00f1\3"+
-		"\2\2\2\u00f2\u00f3\3\2\2\2\u00f3\u00f4\3\2\2\2\u00f4\u0100\t\4\2\2\u00f5"+
-		"\u00f7\7B\2\2\u00f6\u00f5\3\2\2\2\u00f6\u00f7\3\2\2\2\u00f7\u00f8\3\2"+
-		"\2\2\u00f8\u0100\t\5\2\2\u00f9\u0100\7?\2\2\u00fa\u0100\7<\2\2\u00fb\u0100"+
-		"\7F\2\2\u00fc\u0100\7\u009c\2\2\u00fd\u0100\7\u009f\2\2\u00fe\u0100\7"+
-		"\u00a1\2\2\u00ff\u00f2\3\2\2\2\u00ff\u00f6\3\2\2\2\u00ff\u00f9\3\2\2\2"+
-		"\u00ff\u00fa\3\2\2\2\u00ff\u00fb\3\2\2\2\u00ff\u00fc\3\2\2\2\u00ff\u00fd"+
-		"\3\2\2\2\u00ff\u00fe\3\2\2\2\u0100\27\3\2\2\2\u0101\u0102\5\24\13\2\u0102"+
-		"\u0104\5\26\f\2\u0103\u0105\7\u0098\2\2\u0104\u0103\3\2\2\2\u0104\u0105"+
-		"\3\2\2\2\u0105\u0124\3\2\2\2\u0106\u0108\5\24\13\2\u0107\u0109\7\u0098"+
-		"\2\2\u0108\u0107\3\2\2\2\u0108\u0109\3\2\2\2\u0109\u010a\3\2\2\2\u010a"+
-		"\u010b\5\26\f\2\u010b\u0124\3\2\2\2\u010c\u010d\5\26\f\2\u010d\u010f\5"+
-		"\24\13\2\u010e\u0110\7\u0098\2\2\u010f\u010e\3\2\2\2\u010f\u0110\3\2\2"+
-		"\2\u0110\u0124\3\2\2\2\u0111\u0113\5\26\f\2\u0112\u0114\7\u0098\2\2\u0113"+
-		"\u0112\3\2\2\2\u0113\u0114\3\2\2\2\u0114\u0115\3\2\2\2\u0115\u0116\5\24"+
-		"\13\2\u0116\u0124\3\2\2\2\u0117\u0119\7\u0098\2\2\u0118\u0117\3\2\2\2"+
-		"\u0118\u0119\3\2\2\2\u0119\u011a\3\2\2\2\u011a\u011b\5\24\13\2\u011b\u011c"+
-		"\5\26\f\2\u011c\u0124\3\2\2\2\u011d\u011f\7\u0098\2\2\u011e\u011d\3\2"+
-		"\2\2\u011e\u011f\3\2\2\2\u011f\u0120\3\2\2\2\u0120\u0121\5\26\f\2\u0121"+
-		"\u0122\5\24\13\2\u0122\u0124\3\2\2\2\u0123\u0101\3\2\2\2\u0123\u0106\3"+
-		"\2\2\2\u0123\u010c\3\2\2\2\u0123\u0111\3\2\2\2\u0123\u0118\3\2\2\2\u0123"+
-		"\u011e\3\2\2\2\u0124\31\3\2\2\2\u0125\u0127\7\u00c7\2\2\u0126\u0125\3"+
-		"\2\2\2\u0126\u0127\3\2\2\2\u0127\u0129\3\2\2\2\u0128\u012a\5$\23\2\u0129"+
-		"\u0128\3\2\2\2\u0129\u012a\3\2\2\2\u012a\u012d\3\2\2\2\u012b\u012e\5\36"+
-		"\20\2\u012c\u012e\5 \21\2\u012d\u012b\3\2\2\2\u012d\u012c\3\2\2\2\u012e"+
-		"\u0132\3\2\2\2\u012f\u0131\5(\25\2\u0130\u012f\3\2\2\2\u0131\u0134\3\2"+
-		"\2\2\u0132\u0130\3\2\2\2\u0132\u0133\3\2\2\2\u0133\u0138\3\2\2\2\u0134"+
-		"\u0132\3\2\2\2\u0135\u0137\7\u00c6\2\2\u0136\u0135\3\2\2\2\u0137\u013a"+
-		"\3\2\2\2\u0138\u0136\3\2\2\2\u0138\u0139\3\2\2\2\u0139\u013c\3\2\2\2\u013a"+
-		"\u0138\3\2\2\2\u013b\u013d\7\u00c8\2\2\u013c\u013b\3\2\2\2\u013c\u013d"+
-		"\3\2\2\2\u013d\33\3\2\2\2\u013e\u0141\5\36\20\2\u013f\u0141\5 \21\2\u0140"+
-		"\u013e\3\2\2\2\u0140\u013f\3\2\2\2\u0141\35\3\2\2\2\u0142\u0143\7\u00a2"+
-		"\2\2\u0143\u0144\7@\2\2\u0144\u0145\7\u00b0\2\2\u0145\u0146\7\u00a8\2"+
-		"\2\u0146\37\3\2\2\2\u0147\u0148\7\u00a2\2\2\u0148\u0149\7\u00b1\2\2\u0149"+
-		"\u014a\7C\2\2\u014a\u014b\7\u00a9\2\2\u014b\u014c\7\u0113\2\2\u014c!\3"+
-		"\2\2\2\u014d\u014e\t\6\2\2\u014e#\3\2\2\2\u014f\u0155\5(\25\2\u0150\u0155"+
-		"\7\u00cb\2\2\u0151\u0155\7\u00cc\2\2\u0152\u0155\7\u00cd\2\2\u0153\u0155"+
-		"\5&\24\2\u0154\u014f\3\2\2\2\u0154\u0150\3\2\2\2\u0154\u0151\3\2\2\2\u0154"+
-		"\u0152\3\2\2\2\u0154\u0153\3\2\2\2\u0155\u0156\3\2\2\2\u0156\u0154\3\2"+
-		"\2\2\u0156\u0157\3\2\2\2\u0157\u0165\3\2\2\2\u0158\u015f\7\u00c7\2\2\u0159"+
-		"\u0160\5(\25\2\u015a\u0160\5&\24\2\u015b\u0160\7\u00cb\2\2\u015c\u0160"+
-		"\7\u00cc\2\2\u015d\u0160\7\u00cd\2\2\u015e\u0160\5$\23\2\u015f\u0159\3"+
-		"\2\2\2\u015f\u015a\3\2\2\2\u015f\u015b\3\2\2\2\u015f\u015c\3\2\2\2\u015f"+
-		"\u015d\3\2\2\2\u015f\u015e\3\2\2\2\u0160\u0161\3\2\2\2\u0161\u015f\3\2"+
-		"\2\2\u0161\u0162\3\2\2\2\u0162\u0163\3\2\2\2\u0163\u0165\7\u00c8\2\2\u0164"+
-		"\u0154\3\2\2\2\u0164\u0158\3\2\2\2\u0165%\3\2\2\2\u0166\u0168\7\u00c9"+
-		"\2\2\u0167\u0169\7\u00c9\2\2\u0168\u0167\3\2\2\2\u0169\u016a\3\2\2\2\u016a"+
-		"\u0168\3\2\2\2\u016a\u016b\3\2\2\2\u016b\'\3\2\2\2\u016c\u016e\7\u00c9"+
-		"\2\2\u016d\u016c\3\2\2\2\u016d\u016e\3\2\2\2\u016e\u0170\3\2\2\2\u016f"+
-		"\u0171\7\u00ca\2\2\u0170\u016f\3\2\2\2\u0171\u0172\3\2\2\2\u0172\u0170"+
-		"\3\2\2\2\u0172\u0173\3\2\2\2\u0173\u0176\3\2\2\2\u0174\u0176\7\u00c9\2"+
-		"\2\u0175\u016d\3\2\2\2\u0175\u0174\3\2\2\2\u0176)\3\2\2\2\u0177\u0185"+
-		"\5,\27\2\u0178\u0185\5.\30\2\u0179\u0185\5\60\31\2\u017a\u0185\5\62\32"+
-		"\2\u017b\u0185\5\64\33\2\u017c\u0185\5\66\34\2\u017d\u0185\58\35\2\u017e"+
-		"\u0185\5:\36\2\u017f\u0185\5<\37\2\u0180\u0185\5> \2\u0181\u0185\7\u00d7"+
-		"\2\2\u0182\u0185\7\u00d8\2\2\u0183\u0185\7\u00d9\2\2\u0184\u0177\3\2\2"+
-		"\2\u0184\u0178\3\2\2\2\u0184\u0179\3\2\2\2\u0184\u017a\3\2\2\2\u0184\u017b"+
-		"\3\2\2\2\u0184\u017c\3\2\2\2\u0184\u017d\3\2\2\2\u0184\u017e\3\2\2\2\u0184"+
-		"\u017f\3\2\2\2\u0184\u0180\3\2\2\2\u0184\u0181\3\2\2\2\u0184\u0182\3\2"+
-		"\2\2\u0184\u0183\3\2\2\2\u0185+\3\2\2\2\u0186\u0187\t\7\2\2\u0187-\3\2"+
-		"\2\2\u0188\u0189\t\b\2\2\u0189/\3\2\2\2\u018a\u018b\t\t\2\2\u018b\61\3"+
-		"\2\2\2\u018c\u018d\t\n\2\2\u018d\63\3\2\2\2\u018e\u018f\t\13\2\2\u018f"+
-		"\65\3\2\2\2\u0190\u0191\t\f\2\2\u0191\67\3\2\2\2\u0192\u0193\t\r\2\2\u0193"+
-		"9\3\2\2\2\u0194\u0195\t\16\2\2\u0195;\3\2\2\2\u0196\u0197\t\17\2\2\u0197"+
-		"=\3\2\2\2\u0198\u0199\t\20\2\2\u0199?\3\2\2\2\u019a\u019f\5B\"\2\u019b"+
-		"\u019f\5D#\2\u019c\u019f\5F$\2\u019d\u019f\5H%\2\u019e\u019a\3\2\2\2\u019e"+
-		"\u019b\3\2\2\2\u019e\u019c\3\2\2\2\u019e\u019d\3\2\2\2\u019fA\3\2\2\2"+
-		"\u01a0\u01a1\t\21\2\2\u01a1C\3\2\2\2\u01a2\u01a3\t\22\2\2\u01a3E\3\2\2"+
-		"\2\u01a4\u01a5\t\23\2\2\u01a5G\3\2\2\2\u01a6\u01a7\t\24\2\2\u01a7I\3\2"+
-		"\2\2\u01a8\u01af\5L\'\2\u01a9\u01af\5T+\2\u01aa\u01af\5\\/\2\u01ab\u01af"+
-		"\5^\60\2\u01ac\u01af\5`\61\2\u01ad\u01af\5b\62\2\u01ae\u01a8\3\2\2\2\u01ae"+
-		"\u01a9\3\2\2\2\u01ae\u01aa\3\2\2\2\u01ae\u01ab\3\2\2\2\u01ae\u01ac\3\2"+
-		"\2\2\u01ae\u01ad\3\2\2\2\u01afK\3\2\2\2\u01b0\u01b5\5N(\2\u01b1\u01b5"+
-		"\5P)\2\u01b2\u01b5\5R*\2\u01b3\u01b5\7\u0130\2\2\u01b4\u01b0\3\2\2\2\u01b4"+
-		"\u01b1\3\2\2\2\u01b4\u01b2\3\2\2\2\u01b4\u01b3\3\2\2\2\u01b5M\3\2\2\2"+
-		"\u01b6\u01b7\t\25\2\2\u01b7O\3\2\2\2\u01b8\u01b9\t\26\2\2\u01b9Q\3\2\2"+
-		"\2\u01ba\u01bb\t\27\2\2\u01bbS\3\2\2\2\u01bc\u01c1\5V,\2\u01bd\u01c1\5"+
-		"X-\2\u01be\u01c1\5Z.\2\u01bf\u01c1\7\u012c\2\2\u01c0\u01bc\3\2\2\2\u01c0"+
-		"\u01bd\3\2\2\2\u01c0\u01be\3\2\2\2\u01c0\u01bf\3\2\2\2\u01c1U\3\2\2\2"+
-		"\u01c2\u01c3\t\30\2\2\u01c3W\3\2\2\2\u01c4\u01c5\t\31\2\2\u01c5Y\3\2\2"+
-		"\2\u01c6\u01c7\t\32\2\2\u01c7[\3\2\2\2\u01c8\u01c9\t\33\2\2\u01c9]\3\2"+
-		"\2\2\u01ca\u01cb\t\34\2\2\u01cb_\3\2\2\2\u01cc\u01cd\t\35\2\2\u01cda\3"+
-		"\2\2\2\u01ce\u01cf\t\36\2\2\u01cfc\3\2\2\2\u01d0\u0219\5f\64\2\u01d1\u0219"+
-		"\7\u013a\2\2\u01d2\u0219\7\u013c\2\2\u01d3\u0219\7\u0146\2\2\u01d4\u0219"+
-		"\7\u0147\2\2\u01d5\u0219\7\u014a\2\2\u01d6\u0219\7\u014b\2\2\u01d7\u0219"+
-		"\7\u014c\2\2\u01d8\u0219\7\u014d\2\2\u01d9\u0219\7\u014e\2\2\u01da\u0219"+
-		"\7\u0151\2\2\u01db\u0219\7\u0152\2\2\u01dc\u0219\7\u0153\2\2\u01dd\u0219"+
-		"\7\u0154\2\2\u01de\u0219\7\u0155\2\2\u01df\u0219\7\u0156\2\2\u01e0\u0219"+
-		"\7\u0157\2\2\u01e1\u0219\7\u0158\2\2\u01e2\u0219\7\u0159\2\2\u01e3\u0219"+
-		"\7\u015a\2\2\u01e4\u0219\7\u015b\2\2\u01e5\u0219\7\u015c\2\2\u01e6\u0219"+
-		"\7\u015d\2\2\u01e7\u0219\7\u015e\2\2\u01e8\u0219\7\u015f\2\2\u01e9\u0219"+
-		"\7\u0160\2\2\u01ea\u0219\7\u0161\2\2\u01eb\u0219\7\u0162\2\2\u01ec\u0219"+
-		"\7\u0163\2\2\u01ed\u0219\7\u0164\2\2\u01ee\u0219\7\u0165\2\2\u01ef\u0219"+
-		"\7\u0166\2\2\u01f0\u0219\7\u0167\2\2\u01f1\u0219\7\u0140\2\2\u01f2\u0219"+
-		"\7\u0168\2\2\u01f3\u0219\7\u0144\2\2\u01f4\u0219\7\u0169\2\2\u01f5\u0219"+
-		"\7\u0145\2\2\u01f6\u0219\7\u016a\2\2\u01f7\u0219\7\u016b\2\2\u01f8\u0219"+
-		"\7\u016c\2\2\u01f9\u0219\7\u016d\2\2\u01fa\u0219\7\u016e\2\2\u01fb\u0219"+
-		"\7\u016f\2\2\u01fc\u0219\7\u0170\2\2\u01fd\u0219\7\u0171\2\2\u01fe\u0219"+
-		"\7\u0172\2\2\u01ff\u0219\7\u0173\2\2\u0200\u0219\7\u0174\2\2\u0201\u0219"+
-		"\7\u0175\2\2\u0202\u0219\7\u0178\2\2\u0203\u0219\7\u0179\2\2\u0204\u0219"+
-		"\7\u017a\2\2\u0205\u0219\7\u017b\2\2\u0206\u0219\7\u017c\2\2\u0207\u0219"+
-		"\7\u017d\2\2\u0208\u0219\7\u017e\2\2\u0209\u0219\7\u017f\2\2\u020a\u0219"+
-		"\7\u0180\2\2\u020b\u0219\7\u0181\2\2\u020c\u0219\7\u0182\2\2\u020d\u0219"+
-		"\7\u0139\2\2\u020e\u0219\7\u0183\2\2\u020f\u0219\7\u0184\2\2\u0210\u0219"+
-		"\7\u0185\2\2\u0211\u0219\7\u0186\2\2\u0212\u0219\7\u0187\2\2\u0213\u0219"+
-		"\7\u0188\2\2\u0214\u0219\7\u0189\2\2\u0215\u0219\7\u018a\2\2\u0216\u0219"+
-		"\7\u018b\2\2\u0217\u0219\5h\65\2\u0218\u01d0\3\2\2\2\u0218\u01d1\3\2\2"+
-		"\2\u0218\u01d2\3\2\2\2\u0218\u01d3\3\2\2\2\u0218\u01d4\3\2\2\2\u0218\u01d5"+
-		"\3\2\2\2\u0218\u01d6\3\2\2\2\u0218\u01d7\3\2\2\2\u0218\u01d8\3\2\2\2\u0218"+
-		"\u01d9\3\2\2\2\u0218\u01da\3\2\2\2\u0218\u01db\3\2\2\2\u0218\u01dc\3\2"+
-		"\2\2\u0218\u01dd\3\2\2\2\u0218\u01de\3\2\2\2\u0218\u01df\3\2\2\2\u0218"+
-		"\u01e0\3\2\2\2\u0218\u01e1\3\2\2\2\u0218\u01e2\3\2\2\2\u0218\u01e3\3\2"+
-		"\2\2\u0218\u01e4\3\2\2\2\u0218\u01e5\3\2\2\2\u0218\u01e6\3\2\2\2\u0218"+
-		"\u01e7\3\2\2\2\u0218\u01e8\3\2\2\2\u0218\u01e9\3\2\2\2\u0218\u01ea\3\2"+
-		"\2\2\u0218\u01eb\3\2\2\2\u0218\u01ec\3\2\2\2\u0218\u01ed\3\2\2\2\u0218"+
-		"\u01ee\3\2\2\2\u0218\u01ef\3\2\2\2\u0218\u01f0\3\2\2\2\u0218\u01f1\3\2"+
-		"\2\2\u0218\u01f2\3\2\2\2\u0218\u01f3\3\2\2\2\u0218\u01f4\3\2\2\2\u0218"+
-		"\u01f5\3\2\2\2\u0218\u01f6\3\2\2\2\u0218\u01f7\3\2\2\2\u0218\u01f8\3\2"+
-		"\2\2\u0218\u01f9\3\2\2\2\u0218\u01fa\3\2\2\2\u0218\u01fb\3\2\2\2\u0218"+
-		"\u01fc\3\2\2\2\u0218\u01fd\3\2\2\2\u0218\u01fe\3\2\2\2\u0218\u01ff\3\2"+
-		"\2\2\u0218\u0200\3\2\2\2\u0218\u0201\3\2\2\2\u0218\u0202\3\2\2\2\u0218"+
-		"\u0203\3\2\2\2\u0218\u0204\3\2\2\2\u0218\u0205\3\2\2\2\u0218\u0206\3\2"+
-		"\2\2\u0218\u0207\3\2\2\2\u0218\u0208\3\2\2\2\u0218\u0209\3\2\2\2\u0218"+
-		"\u020a\3\2\2\2\u0218\u020b\3\2\2\2\u0218\u020c\3\2\2\2\u0218\u020d\3\2"+
-		"\2\2\u0218\u020e\3\2\2\2\u0218\u020f\3\2\2\2\u0218\u0210\3\2\2\2\u0218"+
-		"\u0211\3\2\2\2\u0218\u0212\3\2\2\2\u0218\u0213\3\2\2\2\u0218\u0214\3\2"+
-		"\2\2\u0218\u0215\3\2\2\2\u0218\u0216\3\2\2\2\u0218\u0217\3\2\2\2\u0219"+
-		"e\3\2\2\2\u021a\u021b\7\u013a\2\2\u021b\u021e\7\u0147\2\2\u021c\u021e"+
-		"\7\u018d\2\2\u021d\u021a\3\2\2\2\u021d\u021c\3\2\2\2\u021eg\3\2\2\2\u021f"+
-		"\u0220\t\37\2\2\u0220i\3\2\2\2Bkoqty|\177\u0083\u0088\u008c\u008f\u0092"+
-		"\u0097\u009d\u00a1\u00a4\u00a9\u00ad\u00b0\u00b3\u00b8\u00be\u00c2\u00c6"+
-		"\u00c8\u00cf\u00d5\u00d9\u00e4\u00e6\u00ed\u00f2\u00f6\u00ff\u0104\u0108"+
-		"\u010f\u0113\u0118\u011e\u0123\u0126\u0129\u012d\u0132\u0138\u013c\u0140"+
-		"\u0154\u0156\u015f\u0161\u0164\u016a\u016d\u0172\u0175\u0184\u019e\u01ae"+
-		"\u01b4\u01c0\u0218\u021d";
+		"\u0132\4\2\u0115\u0115\u0121\u0124\4\2\u0139\u0139\u0183\u0184\5\2\u013a"+
+		"\u013a\u013c\u013c\u0146\u0146\3\2\u0151\u0152\3\2\u0153\u0154\3\2\u0155"+
+		"\u0156\3\2\u0159\u015a\3\2\u015b\u015c\3\2\u015d\u015e\3\2\u015f\u0160"+
+		"\3\2\u0163\u0164\3\2\u0165\u0166\5\2\u0140\u0140\u016d\u016d\u0172\u0172"+
+		"\5\2\u0144\u0144\u016f\u016f\u0173\u0173\5\2\u0169\u0169\u0170\u0170\u0174"+
+		"\u0174\5\2\u0145\u0145\u0175\u0175\u0179\u0179\4\2\u016a\u016a\u017a\u017a"+
+		"\4\2\u016b\u016b\u017b\u017b\4\2\u016c\u016c\u017c\u017c\4\2\u0178\u0178"+
+		"\u017d\u017d\3\2\u017e\u017f\4\2\u0168\u0168\u016e\u016e\4\2\u0142\u0142"+
+		"\u0176\u0177\2\u0281\2u\3\2\2\2\4~\3\2\2\2\6\u0086\3\2\2\2\b\u00c2\3\2"+
+		"\2\2\n\u00d4\3\2\2\2\f\u00d7\3\2\2\2\16\u00db\3\2\2\2\20\u00e5\3\2\2\2"+
+		"\22\u00f7\3\2\2\2\24\u00f9\3\2\2\2\26\u0109\3\2\2\2\30\u012d\3\2\2\2\32"+
+		"\u0130\3\2\2\2\34\u014a\3\2\2\2\36\u014c\3\2\2\2 \u0151\3\2\2\2\"\u0157"+
+		"\3\2\2\2$\u016e\3\2\2\2&\u0170\3\2\2\2(\u017f\3\2\2\2*\u018f\3\2\2\2,"+
+		"\u0191\3\2\2\2.\u0193\3\2\2\2\60\u0195\3\2\2\2\62\u0197\3\2\2\2\64\u0199"+
+		"\3\2\2\2\66\u019b\3\2\2\28\u019d\3\2\2\2:\u019f\3\2\2\2<\u01a1\3\2\2\2"+
+		">\u01a3\3\2\2\2@\u01a5\3\2\2\2B\u01a7\3\2\2\2D\u01a9\3\2\2\2F\u01ab\3"+
+		"\2\2\2H\u01b1\3\2\2\2J\u01b3\3\2\2\2L\u01b5\3\2\2\2N\u01b7\3\2\2\2P\u01b9"+
+		"\3\2\2\2R\u01bd\3\2\2\2T\u01c3\3\2\2\2V\u01c7\3\2\2\2X\u01cd\3\2\2\2Z"+
+		"\u01cf\3\2\2\2\\\u01d1\3\2\2\2^\u01d3\3\2\2\2`\u01d9\3\2\2\2b\u01db\3"+
+		"\2\2\2d\u01dd\3\2\2\2f\u01df\3\2\2\2h\u01e1\3\2\2\2j\u01e3\3\2\2\2l\u01e5"+
+		"\3\2\2\2n\u01e7\3\2\2\2p\u01e9\3\2\2\2r\u021e\3\2\2\2tv\5\34\17\2ut\3"+
+		"\2\2\2uv\3\2\2\2vy\3\2\2\2wz\5\6\4\2xz\5\30\r\2yw\3\2\2\2yx\3\2\2\2z{"+
+		"\3\2\2\2{y\3\2\2\2{|\3\2\2\2|\3\3\2\2\2}\177\5\32\16\2~}\3\2\2\2~\177"+
+		"\3\2\2\2\177\u0081\3\2\2\2\u0080\u0082\5\6\4\2\u0081\u0080\3\2\2\2\u0082"+
+		"\u0083\3\2\2\2\u0083\u0081\3\2\2\2\u0083\u0084\3\2\2\2\u0084\5\3\2\2\2"+
+		"\u0085\u0087\7\u00c6\2\2\u0086\u0085\3\2\2\2\u0086\u0087\3\2\2\2\u0087"+
+		"\u0089\3\2\2\2\u0088\u008a\5(\25\2\u0089\u0088\3\2\2\2\u0089\u008a\3\2"+
+		"\2\2\u008a\u008b\3\2\2\2\u008b\u008d\5p9\2\u008c\u008e\5(\25\2\u008d\u008c"+
+		"\3\2\2\2\u008d\u008e\3\2\2\2\u008e\u0092\3\2\2\2\u008f\u0091\5\22\n\2"+
+		"\u0090\u008f\3\2\2\2\u0091\u0094\3\2\2\2\u0092\u0090\3\2\2\2\u0092\u0093"+
+		"\3\2\2\2\u0093\u0096\3\2\2\2\u0094\u0092\3\2\2\2\u0095\u0097\5\f\7\2\u0096"+
+		"\u0095\3\2\2\2\u0096\u0097\3\2\2\2\u0097\u0099\3\2\2\2\u0098\u009a\5("+
+		"\25\2\u0099\u0098\3\2\2\2\u0099\u009a\3\2\2\2\u009a\u009c\3\2\2\2\u009b"+
+		"\u009d\5\f\7\2\u009c\u009b\3\2\2\2\u009c\u009d\3\2\2\2\u009d\u00a1\3\2"+
+		"\2\2\u009e\u00a0\5\22\n\2\u009f\u009e\3\2\2\2\u00a0\u00a3\3\2\2\2\u00a1"+
+		"\u009f\3\2\2\2\u00a1\u00a2\3\2\2\2\u00a2\u00a7\3\2\2\2\u00a3\u00a1\3\2"+
+		"\2\2\u00a4\u00a6\5\22\n\2\u00a5\u00a4\3\2\2\2\u00a6\u00a9\3\2\2\2\u00a7"+
+		"\u00a5\3\2\2\2\u00a7\u00a8\3\2\2\2\u00a8\u00ab\3\2\2\2\u00a9\u00a7\3\2"+
+		"\2\2\u00aa\u00ac\5(\25\2\u00ab\u00aa\3\2\2\2\u00ab\u00ac\3\2\2\2\u00ac"+
+		"\u00ae\3\2\2\2\u00ad\u00af\5\f\7\2\u00ae\u00ad\3\2\2\2\u00ae\u00af\3\2"+
+		"\2\2\u00af\u00b3\3\2\2\2\u00b0\u00b2\5\22\n\2\u00b1\u00b0\3\2\2\2\u00b2"+
+		"\u00b5\3\2\2\2\u00b3\u00b1\3\2\2\2\u00b3\u00b4\3\2\2\2\u00b4\u00b7\3\2"+
+		"\2\2\u00b5\u00b3\3\2\2\2\u00b6\u00b8\5\f\7\2\u00b7\u00b6\3\2\2\2\u00b7"+
+		"\u00b8\3\2\2\2\u00b8\u00ba\3\2\2\2\u00b9\u00bb\5(\25\2\u00ba\u00b9\3\2"+
+		"\2\2\u00ba\u00bb\3\2\2\2\u00bb\u00bd\3\2\2\2\u00bc\u00be\5\16\b\2\u00bd"+
+		"\u00bc\3\2\2\2\u00bd\u00be\3\2\2\2\u00be\7\3\2\2\2\u00bf\u00c1\5$\23\2"+
+		"\u00c0\u00bf\3\2\2\2\u00c1\u00c4\3\2\2\2\u00c2\u00c0\3\2\2\2\u00c2\u00c3"+
+		"\3\2\2\2\u00c3\u00c8\3\2\2\2\u00c4\u00c2\3\2\2\2\u00c5\u00c7\5\n\6\2\u00c6"+
+		"\u00c5\3\2\2\2\u00c7\u00ca\3\2\2\2\u00c8\u00c6\3\2\2\2\u00c8\u00c9\3\2"+
+		"\2\2\u00c9\u00cc\3\2\2\2\u00ca\u00c8\3\2\2\2\u00cb\u00cd\5\32\16\2\u00cc"+
+		"\u00cb\3\2\2\2\u00cc\u00cd\3\2\2\2\u00cd\u00d0\3\2\2\2\u00ce\u00d1\5$"+
+		"\23\2\u00cf\u00d1\5\20\t\2\u00d0\u00ce\3\2\2\2\u00d0\u00cf\3\2\2\2\u00d1"+
+		"\u00d2\3\2\2\2\u00d2\u00d0\3\2\2\2\u00d2\u00d3\3\2\2\2\u00d3\t\3\2\2\2"+
+		"\u00d4\u00d5\7\u00c7\2\2\u00d5\u00d6\7\u00c8\2\2\u00d6\13\3\2\2\2\u00d7"+
+		"\u00d9\5R*\2\u00d8\u00da\5\"\22\2\u00d9\u00d8\3\2\2\2\u00d9\u00da\3\2"+
+		"\2\2\u00da\r\3\2\2\2\u00db\u00df\7*\2\2\u00dc\u00de\t\2\2\2\u00dd\u00dc"+
+		"\3\2\2\2\u00de\u00e1\3\2\2\2\u00df\u00dd\3\2\2\2\u00df\u00e0\3\2\2\2\u00e0"+
+		"\u00e3\3\2\2\2\u00e1\u00df\3\2\2\2\u00e2\u00e4\5*\26\2\u00e3\u00e2\3\2"+
+		"\2\2\u00e3\u00e4\3\2\2\2\u00e4\17\3\2\2\2\u00e5\u00f0\7\u00c7\2\2\u00e6"+
+		"\u00ef\5&\24\2\u00e7\u00ef\5(\25\2\u00e8\u00ef\5\22\n\2\u00e9\u00ef\5"+
+		"p9\2\u00ea\u00ef\5\f\7\2\u00eb\u00ef\5\30\r\2\u00ec\u00ef\7\u00c6\2\2"+
+		"\u00ed\u00ef\5\16\b\2\u00ee\u00e6\3\2\2\2\u00ee\u00e7\3\2\2\2\u00ee\u00e8"+
+		"\3\2\2\2\u00ee\u00e9\3\2\2\2\u00ee\u00ea\3\2\2\2\u00ee\u00eb\3\2\2\2\u00ee"+
+		"\u00ec\3\2\2\2\u00ee\u00ed\3\2\2\2\u00ef\u00f2\3\2\2\2\u00f0\u00ee\3\2"+
+		"\2\2\u00f0\u00f1\3\2\2\2\u00f1\u00f3\3\2\2\2\u00f2\u00f0\3\2\2\2\u00f3"+
+		"\u00f4\7\u00c8\2\2\u00f4\21\3\2\2\2\u00f5\u00f8\5*\26\2\u00f6\u00f8\5"+
+		"H%\2\u00f7\u00f5\3\2\2\2\u00f7\u00f6\3\2\2\2\u00f8\23\3\2\2\2\u00f9\u00fa"+
+		"\t\3\2\2\u00fa\25\3\2\2\2\u00fb\u00fd\7B\2\2\u00fc\u00fb\3\2\2\2\u00fc"+
+		"\u00fd\3\2\2\2\u00fd\u00fe\3\2\2\2\u00fe\u010a\t\4\2\2\u00ff\u0101\7B"+
+		"\2\2\u0100\u00ff\3\2\2\2\u0100\u0101\3\2\2\2\u0101\u0102\3\2\2\2\u0102"+
+		"\u010a\t\5\2\2\u0103\u010a\7?\2\2\u0104\u010a\7<\2\2\u0105\u010a\7F\2"+
+		"\2\u0106\u010a\7\u009c\2\2\u0107\u010a\7\u009f\2\2\u0108\u010a\7\u00a1"+
+		"\2\2\u0109\u00fc\3\2\2\2\u0109\u0100\3\2\2\2\u0109\u0103\3\2\2\2\u0109"+
+		"\u0104\3\2\2\2\u0109\u0105\3\2\2\2\u0109\u0106\3\2\2\2\u0109\u0107\3\2"+
+		"\2\2\u0109\u0108\3\2\2\2\u010a\27\3\2\2\2\u010b\u010c\5\24\13\2\u010c"+
+		"\u010e\5\26\f\2\u010d\u010f\7\u0098\2\2\u010e\u010d\3\2\2\2\u010e\u010f"+
+		"\3\2\2\2\u010f\u012e\3\2\2\2\u0110\u0112\5\24\13\2\u0111\u0113\7\u0098"+
+		"\2\2\u0112\u0111\3\2\2\2\u0112\u0113\3\2\2\2\u0113\u0114\3\2\2\2\u0114"+
+		"\u0115\5\26\f\2\u0115\u012e\3\2\2\2\u0116\u0117\5\26\f\2\u0117\u0119\5"+
+		"\24\13\2\u0118\u011a\7\u0098\2\2\u0119\u0118\3\2\2\2\u0119\u011a\3\2\2"+
+		"\2\u011a\u012e\3\2\2\2\u011b\u011d\5\26\f\2\u011c\u011e\7\u0098\2\2\u011d"+
+		"\u011c\3\2\2\2\u011d\u011e\3\2\2\2\u011e\u011f\3\2\2\2\u011f\u0120\5\24"+
+		"\13\2\u0120\u012e\3\2\2\2\u0121\u0123\7\u0098\2\2\u0122\u0121\3\2\2\2"+
+		"\u0122\u0123\3\2\2\2\u0123\u0124\3\2\2\2\u0124\u0125\5\24\13\2\u0125\u0126"+
+		"\5\26\f\2\u0126\u012e\3\2\2\2\u0127\u0129\7\u0098\2\2\u0128\u0127\3\2"+
+		"\2\2\u0128\u0129\3\2\2\2\u0129\u012a\3\2\2\2\u012a\u012b\5\26\f\2\u012b"+
+		"\u012c\5\24\13\2\u012c\u012e\3\2\2\2\u012d\u010b\3\2\2\2\u012d\u0110\3"+
+		"\2\2\2\u012d\u0116\3\2\2\2\u012d\u011b\3\2\2\2\u012d\u0122\3\2\2\2\u012d"+
+		"\u0128\3\2\2\2\u012e\31\3\2\2\2\u012f\u0131\7\u00c7\2\2\u0130\u012f\3"+
+		"\2\2\2\u0130\u0131\3\2\2\2\u0131\u0133\3\2\2\2\u0132\u0134\5$\23\2\u0133"+
+		"\u0132\3\2\2\2\u0133\u0134\3\2\2\2\u0134\u0137\3\2\2\2\u0135\u0138\5\36"+
+		"\20\2\u0136\u0138\5 \21\2\u0137\u0135\3\2\2\2\u0137\u0136\3\2\2\2\u0138"+
+		"\u013c\3\2\2\2\u0139\u013b\5(\25\2\u013a\u0139\3\2\2\2\u013b\u013e\3\2"+
+		"\2\2\u013c\u013a\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u0142\3\2\2\2\u013e"+
+		"\u013c\3\2\2\2\u013f\u0141\7\u00c6\2\2\u0140\u013f\3\2\2\2\u0141\u0144"+
+		"\3\2\2\2\u0142\u0140\3\2\2\2\u0142\u0143\3\2\2\2\u0143\u0146\3\2\2\2\u0144"+
+		"\u0142\3\2\2\2\u0145\u0147\7\u00c8\2\2\u0146\u0145\3\2\2\2\u0146\u0147"+
+		"\3\2\2\2\u0147\33\3\2\2\2\u0148\u014b\5\36\20\2\u0149\u014b\5 \21\2\u014a"+
+		"\u0148\3\2\2\2\u014a\u0149\3\2\2\2\u014b\35\3\2\2\2\u014c\u014d\7\u00a2"+
+		"\2\2\u014d\u014e\7@\2\2\u014e\u014f\7\u00b0\2\2\u014f\u0150\7\u00a8\2"+
+		"\2\u0150\37\3\2\2\2\u0151\u0152\7\u00a2\2\2\u0152\u0153\7\u00b1\2\2\u0153"+
+		"\u0154\7C\2\2\u0154\u0155\7\u00a9\2\2\u0155\u0156\7\u0113\2\2\u0156!\3"+
+		"\2\2\2\u0157\u0158\t\6\2\2\u0158#\3\2\2\2\u0159\u015f\5(\25\2\u015a\u015f"+
+		"\7\u00cb\2\2\u015b\u015f\7\u00cc\2\2\u015c\u015f\7\u00cd\2\2\u015d\u015f"+
+		"\5&\24\2\u015e\u0159\3\2\2\2\u015e\u015a\3\2\2\2\u015e\u015b\3\2\2\2\u015e"+
+		"\u015c\3\2\2\2\u015e\u015d\3\2\2\2\u015f\u0160\3\2\2\2\u0160\u015e\3\2"+
+		"\2\2\u0160\u0161\3\2\2\2\u0161\u016f\3\2\2\2\u0162\u0169\7\u00c7\2\2\u0163"+
+		"\u016a\5(\25\2\u0164\u016a\5&\24\2\u0165\u016a\7\u00cb\2\2\u0166\u016a"+
+		"\7\u00cc\2\2\u0167\u016a\7\u00cd\2\2\u0168\u016a\5$\23\2\u0169\u0163\3"+
+		"\2\2\2\u0169\u0164\3\2\2\2\u0169\u0165\3\2\2\2\u0169\u0166\3\2\2\2\u0169"+
+		"\u0167\3\2\2\2\u0169\u0168\3\2\2\2\u016a\u016b\3\2\2\2\u016b\u0169\3\2"+
+		"\2\2\u016b\u016c\3\2\2\2\u016c\u016d\3\2\2\2\u016d\u016f\7\u00c8\2\2\u016e"+
+		"\u015e\3\2\2\2\u016e\u0162\3\2\2\2\u016f%\3\2\2\2\u0170\u0172\7\u00c9"+
+		"\2\2\u0171\u0173\7\u00c9\2\2\u0172\u0171\3\2\2\2\u0173\u0174\3\2\2\2\u0174"+
+		"\u0172\3\2\2\2\u0174\u0175\3\2\2\2\u0175\'\3\2\2\2\u0176\u0178\7\u00c9"+
+		"\2\2\u0177\u0176\3\2\2\2\u0177\u0178\3\2\2\2\u0178\u017a\3\2\2\2\u0179"+
+		"\u017b\7\u00ca\2\2\u017a\u0179\3\2\2\2\u017b\u017c\3\2\2\2\u017c\u017d"+
+		"\3\2\2\2\u017c\u017a\3\2\2\2\u017d\u0180\3\2\2\2\u017e\u0180\7\u00c9\2"+
+		"\2\u017f\u0177\3\2\2\2\u017f\u017e\3\2\2\2\u0180)\3\2\2\2\u0181\u0190"+
+		"\5,\27\2\u0182\u0190\5.\30\2\u0183\u0190\5\60\31\2\u0184\u0190\5\62\32"+
+		"\2\u0185\u0190\5\64\33\2\u0186\u0190\5\66\34\2\u0187\u0190\58\35\2\u0188"+
+		"\u0190\5:\36\2\u0189\u0190\5<\37\2\u018a\u0190\5> \2\u018b\u0190\5@!\2"+
+		"\u018c\u0190\5B\"\2\u018d\u0190\5D#\2\u018e\u0190\5F$\2\u018f\u0181\3"+
+		"\2\2\2\u018f\u0182\3\2\2\2\u018f\u0183\3\2\2\2\u018f\u0184\3\2\2\2\u018f"+
+		"\u0185\3\2\2\2\u018f\u0186\3\2\2\2\u018f\u0187\3\2\2\2\u018f\u0188\3\2"+
+		"\2\2\u018f\u0189\3\2\2\2\u018f\u018a\3\2\2\2\u018f\u018b\3\2\2\2\u018f"+
+		"\u018c\3\2\2\2\u018f\u018d\3\2\2\2\u018f\u018e\3\2\2\2\u0190+\3\2\2\2"+
+		"\u0191\u0192\t\7\2\2\u0192-\3\2\2\2\u0193\u0194\t\b\2\2\u0194/\3\2\2\2"+
+		"\u0195\u0196\t\t\2\2\u0196\61\3\2\2\2\u0197\u0198\t\n\2\2\u0198\63\3\2"+
+		"\2\2\u0199\u019a\t\13\2\2\u019a\65\3\2\2\2\u019b\u019c\t\f\2\2\u019c\67"+
+		"\3\2\2\2\u019d\u019e\t\r\2\2\u019e9\3\2\2\2\u019f\u01a0\t\16\2\2\u01a0"+
+		";\3\2\2\2\u01a1\u01a2\t\17\2\2\u01a2=\3\2\2\2\u01a3\u01a4\t\20\2\2\u01a4"+
+		"?\3\2\2\2\u01a5\u01a6\t\21\2\2\u01a6A\3\2\2\2\u01a7\u01a8\7\u00d7\2\2"+
+		"\u01a8C\3\2\2\2\u01a9\u01aa\7\u00d8\2\2\u01aaE\3\2\2\2\u01ab\u01ac\7\u00d9"+
+		"\2\2\u01acG\3\2\2\2\u01ad\u01b2\5J&\2\u01ae\u01b2\5L\'\2\u01af\u01b2\5"+
+		"N(\2\u01b0\u01b2\5P)\2\u01b1\u01ad\3\2\2\2\u01b1\u01ae\3\2\2\2\u01b1\u01af"+
+		"\3\2\2\2\u01b1\u01b0\3\2\2\2\u01b2I\3\2\2\2\u01b3\u01b4\t\22\2\2\u01b4"+
+		"K\3\2\2\2\u01b5\u01b6\t\23\2\2\u01b6M\3\2\2\2\u01b7\u01b8\t\24\2\2\u01b8"+
+		"O\3\2\2\2\u01b9\u01ba\t\25\2\2\u01baQ\3\2\2\2\u01bb\u01be\5V,\2\u01bc"+
+		"\u01be\5T+\2\u01bd\u01bb\3\2\2\2\u01bd\u01bc\3\2\2\2\u01beS\3\2\2\2\u01bf"+
+		"\u01c4\5h\65\2\u01c0\u01c4\5j\66\2\u01c1\u01c4\5l\67\2\u01c2\u01c4\5n"+
+		"8\2\u01c3\u01bf\3\2\2\2\u01c3\u01c0\3\2\2\2\u01c3\u01c1\3\2\2\2\u01c3"+
+		"\u01c2\3\2\2\2\u01c4U\3\2\2\2\u01c5\u01c8\5X-\2\u01c6\u01c8\5`\61\2\u01c7"+
+		"\u01c5\3\2\2\2\u01c7\u01c6\3\2\2\2\u01c8W\3\2\2\2\u01c9\u01ce\5Z.\2\u01ca"+
+		"\u01ce\5\\/\2\u01cb\u01ce\5^\60\2\u01cc\u01ce\7\u0130\2\2\u01cd\u01c9"+
+		"\3\2\2\2\u01cd\u01ca\3\2\2\2\u01cd\u01cb\3\2\2\2\u01cd\u01cc\3\2\2\2\u01ce"+
+		"Y\3\2\2\2\u01cf\u01d0\t\26\2\2\u01d0[\3\2\2\2\u01d1\u01d2\t\27\2\2\u01d2"+
+		"]\3\2\2\2\u01d3\u01d4\t\30\2\2\u01d4_\3\2\2\2\u01d5\u01da\5b\62\2\u01d6"+
+		"\u01da\5d\63\2\u01d7\u01da\5f\64\2\u01d8\u01da\7\u012c\2\2\u01d9\u01d5"+
+		"\3\2\2\2\u01d9\u01d6\3\2\2\2\u01d9\u01d7\3\2\2\2\u01d9\u01d8\3\2\2\2\u01da"+
+		"a\3\2\2\2\u01db\u01dc\t\31\2\2\u01dcc\3\2\2\2\u01dd\u01de\t\32\2\2\u01de"+
+		"e\3\2\2\2\u01df\u01e0\t\33\2\2\u01e0g\3\2\2\2\u01e1\u01e2\t\34\2\2\u01e2"+
+		"i\3\2\2\2\u01e3\u01e4\t\35\2\2\u01e4k\3\2\2\2\u01e5\u01e6\t\36\2\2\u01e6"+
+		"m\3\2\2\2\u01e7\u01e8\t\37\2\2\u01e8o\3\2\2\2\u01e9\u01ea\5r:\2\u01ea"+
+		"q\3\2\2\2\u01eb\u021f\t \2\2\u01ec\u021f\t!\2\2\u01ed\u01ee\7\u013a\2"+
+		"\2\u01ee\u01f4\7\u0147\2\2\u01ef\u01f4\7\u014b\2\2\u01f0\u01f4\7\u014a"+
+		"\2\2\u01f1\u01f4\7\u014e\2\2\u01f2\u01f4\7\u018d\2\2\u01f3\u01ed\3\2\2"+
+		"\2\u01f3\u01ef\3\2\2\2\u01f3\u01f0\3\2\2\2\u01f3\u01f1\3\2\2\2\u01f3\u01f2"+
+		"\3\2\2\2\u01f4\u021f\3\2\2\2\u01f5\u021f\t\"\2\2\u01f6\u021f\t#\2\2\u01f7"+
+		"\u021f\t$\2\2\u01f8\u021f\t%\2\2\u01f9\u021f\t&\2\2\u01fa\u021f\t\'\2"+
+		"\2\u01fb\u021f\t(\2\2\u01fc\u021f\7\u0162\2\2\u01fd\u021f\7\u0161\2\2"+
+		"\u01fe\u021f\t)\2\2\u01ff\u021f\t*\2\2\u0200\u021f\7\u0167\2\2\u0201\u021f"+
+		"\t+\2\2\u0202\u021f\t,\2\2\u0203\u021f\t-\2\2\u0204\u021f\t.\2\2\u0205"+
+		"\u021f\t/\2\2\u0206\u021f\t\60\2\2\u0207\u021f\t\61\2\2\u0208\u021f\t"+
+		"\62\2\2\u0209\u021f\t\63\2\2\u020a\u021f\7\u0180\2\2\u020b\u021f\7\u0181"+
+		"\2\2\u020c\u021f\7\u0182\2\2\u020d\u021f\7\u0187\2\2\u020e\u021f\7\u014f"+
+		"\2\2\u020f\u021f\7\u0157\2\2\u0210\u021f\7\u0158\2\2\u0211\u021f\7\u0185"+
+		"\2\2\u0212\u021f\7\u0186\2\2\u0213\u021f\7\u0188\2\2\u0214\u021f\7\u018a"+
+		"\2\2\u0215\u021f\7\u018b\2\2\u0216\u021f\t\64\2\2\u0217\u021f\7\u0171"+
+		"\2\2\u0218\u021f\t\65\2\2\u0219\u021f\7\u0189\2\2\u021a\u021f\7\u018c"+
+		"\2\2\u021b\u021f\7\u014c\2\2\u021c\u021f\7\u014d\2\2\u021d\u021f\7\u0150"+
+		"\2\2\u021e\u01eb\3\2\2\2\u021e\u01ec\3\2\2\2\u021e\u01f3\3\2\2\2\u021e"+
+		"\u01f5\3\2\2\2\u021e\u01f6\3\2\2\2\u021e\u01f7\3\2\2\2\u021e\u01f8\3\2"+
+		"\2\2\u021e\u01f9\3\2\2\2\u021e\u01fa\3\2\2\2\u021e\u01fb\3\2\2\2\u021e"+
+		"\u01fc\3\2\2\2\u021e\u01fd\3\2\2\2\u021e\u01fe\3\2\2\2\u021e\u01ff\3\2"+
+		"\2\2\u021e\u0200\3\2\2\2\u021e\u0201\3\2\2\2\u021e\u0202\3\2\2\2\u021e"+
+		"\u0203\3\2\2\2\u021e\u0204\3\2\2\2\u021e\u0205\3\2\2\2\u021e\u0206\3\2"+
+		"\2\2\u021e\u0207\3\2\2\2\u021e\u0208\3\2\2\2\u021e\u0209\3\2\2\2\u021e"+
+		"\u020a\3\2\2\2\u021e\u020b\3\2\2\2\u021e\u020c\3\2\2\2\u021e\u020d\3\2"+
+		"\2\2\u021e\u020e\3\2\2\2\u021e\u020f\3\2\2\2\u021e\u0210\3\2\2\2\u021e"+
+		"\u0211\3\2\2\2\u021e\u0212\3\2\2\2\u021e\u0213\3\2\2\2\u021e\u0214\3\2"+
+		"\2\2\u021e\u0215\3\2\2\2\u021e\u0216\3\2\2\2\u021e\u0217\3\2\2\2\u021e"+
+		"\u0218\3\2\2\2\u021e\u0219\3\2\2\2\u021e\u021a\3\2\2\2\u021e\u021b\3\2"+
+		"\2\2\u021e\u021c\3\2\2\2\u021e\u021d\3\2\2\2\u021fs\3\2\2\2Duy{~\u0083"+
+		"\u0086\u0089\u008d\u0092\u0096\u0099\u009c\u00a1\u00a7\u00ab\u00ae\u00b3"+
+		"\u00b7\u00ba\u00bd\u00c2\u00c8\u00cc\u00d0\u00d2\u00d9\u00df\u00e3\u00ee"+
+		"\u00f0\u00f7\u00fc\u0100\u0109\u010e\u0112\u0119\u011d\u0122\u0128\u012d"+
+		"\u0130\u0133\u0137\u013c\u0142\u0146\u014a\u015e\u0160\u0169\u016b\u016e"+
+		"\u0174\u0177\u017c\u017f\u018f\u01b1\u01bd\u01c3\u01c7\u01cd\u01d9\u01f3"+
+		"\u021e";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

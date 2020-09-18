@@ -1,24 +1,6 @@
 grammar fonitika;
 
-qChar :
-        /*kentimataAboveOligonAndGorgon
-        | kentimataAboveOligonAndDigorgon
-        | yporroiAndGorgon
-        | yporroiAndGorgonLeftDot
-        | yporroiAndGorgonRightDot
-        | yporroiAndDigorgon
-        | yporroiAndDigorgonLeftDot
-        | yporroiAndTrigorgon
-        | yporroiAndTrigorgonLeftDot
-        | yporroiAndKentimataOverOligonAndGorgon
-        | yporroiAndKentimataOverOligonAndDigorgon
-        | yporroiAndKentimataOverOligonAndTrigorgon
-        | yporroiAndKentimataOverOligonAndGorgonLDot
-        | yporroiAndKentimataOverOligonAndGorgonRDot
-        | yporroiAndKentimataOverOligonAndDigorgonLDot
-        | yporroiAndKentimataOverOligonAndDigorgonRDot
-        | yporroiAndKentimataOverOligonAndTrigorgonLDot
-        | yporroiAndKentimataOverOligonAndTrigorgonRDot*/
+/*qChar :
         kentimaToTheRightOfOligon
         | OLIGON_NEO
         | PETASTI
@@ -101,53 +83,76 @@ qChar :
         | ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON
         | HAMILI_AND_KENTIMATA_OVER_OLIGON
         | yporroi
-//        | YPORROI_AND_KENTIMATA_OVER_OLIGON
+        | YPORROI_AND_KENTIMATA_OVER_OLIGON
         // with vareia
         // TODO this is wrong, because it can accept many varias in a row
 //        | VAREIA_NEO qChar
-        ;
+        ;*/
 
-kentimaToTheRightOfOligon : OLIGON_NEO KENTIMA_NEO_MESO | KENTIMA_TO_THE_RIGHT_OF_OLIGON ;
-/*kentimataAboveOligonAndGorgon : KENTIMATA_ABOVE_OLIGON GORGON_USED_ON_KENTIMATA_ABOVE_OLIGON ;
-kentimataAboveOligonAndDigorgon : KENTIMATA_ABOVE_OLIGON DIGORGON_USED_ON_KENTIMATA_ABOVE_OLIGON ;*/
-/*yporroiAndGorgon : YPORROI GORGON_USED_ON_YPORROI;
-yporroiAndGorgonLeftDot : YPORROI GORGON_LEFT_DOT_USED_ON_YPORROI;
-yporroiAndGorgonRightDot : YPORROI GORGON_RIGHT_DOT_USED_ON_YPORROI;
-yporroiAndDigorgon : YPORROI DIGORGON_USED_ON_YPORROI;
-yporroiAndDigorgonLeftDot : YPORROI DIGORGON_LEFT_DOT_USED_ON_YPORROI;
-yporroiAndTrigorgon : YPORROI TRIGORGON_USED_ON_YPORROI;
-yporroiAndTrigorgonLeftDot : YPORROI TRIGORGON_LEFT_DOT_USED_ON_YPORROI;*/
-/*yporroiAndKentimataOverOligonAndGorgon : YPORROI_AND_KENTIMATA_OVER_OLIGON GORGON_USED_ON_L116_YPORROI ;
-yporroiAndKentimataOverOligonAndDigorgon : YPORROI_AND_KENTIMATA_OVER_OLIGON DIGORGON_USED_ON_L116_YPORROI ;
-yporroiAndKentimataOverOligonAndTrigorgon : YPORROI_AND_KENTIMATA_OVER_OLIGON TRIGORGON_USED_ON_L116_YPORROI ;
-yporroiAndKentimataOverOligonAndGorgonLDot : YPORROI_AND_KENTIMATA_OVER_OLIGON GORGON_LEFT_DOT_USED_ON_L116_YPORROI ;
-yporroiAndKentimataOverOligonAndGorgonRDot : YPORROI_AND_KENTIMATA_OVER_OLIGON GORGON_PARESTIGMENON_DEXIA_STA_DEXIA ;
-yporroiAndKentimataOverOligonAndDigorgonLDot : YPORROI_AND_KENTIMATA_OVER_OLIGON DIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA ;
-yporroiAndKentimataOverOligonAndDigorgonRDot : YPORROI_AND_KENTIMATA_OVER_OLIGON DIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA ;
-yporroiAndKentimataOverOligonAndTrigorgonLDot : YPORROI_AND_KENTIMATA_OVER_OLIGON TRIGORGON_PARESTIGMENON_ARISTERA_KATO_STA_DEXIA ;
-yporroiAndKentimataOverOligonAndTrigorgonRDot : YPORROI_AND_KENTIMATA_OVER_OLIGON TRIGORGON_PARESTIGMENON_DEXIA_STA_DEXIA ;*/
+/*kentimaToTheRightOfOligon : OLIGON_NEO KENTIMA_NEO_MESO
+        | KENTIMA_TO_THE_RIGHT_OF_OLIGON
+        | OLIGON_OVER_PETASTI
+        | KENTIMA_UNDER_OLIGON
+        ;*/
 
-yporroi : /*yporroiAndGorgon
-        | yporroiAndGorgonLeftDot
-        | yporroiAndGorgonRightDot
-        | yporroiAndDigorgon
-        | yporroiAndDigorgonLeftDot
-        | yporroiAndTrigorgon
-        | yporroiAndTrigorgonLeftDot
-        | yporroiAndKentimataOverOligonAndGorgon
-        | yporroiAndKentimataOverOligonAndDigorgon
-        | yporroiAndKentimataOverOligonAndTrigorgon
-        | yporroiAndKentimataOverOligonAndGorgonLDot
-        | yporroiAndKentimataOverOligonAndGorgonRDot
-        | yporroiAndKentimataOverOligonAndDigorgonLDot
-        | yporroiAndKentimataOverOligonAndDigorgonRDot
-        | yporroiAndKentimataOverOligonAndTrigorgonLDot
-        | yporroiAndKentimataOverOligonAndTrigorgonRDot*/
-        YPORROI
+/*yporroi : YPORROI
         | YPORROI_OVER_OLIGON
         | YPORROI_OVER_PETASTI
-        | YPORROI_AND_KENTIMATA_OVER_OLIGON
+//        | YPORROI_AND_KENTIMATA_OVER_OLIGON
+        ;*/
+
+qChar : qChar2 ;
+
+qChar2 :
+        ( ISON_NEO | ISON_OVER_PETASTI | ISON_OVER_OLIGON ) # zeroV
+        | (OLIGON_NEO | PETASTI | KENTIMATA_NEO_MESO) # alphaV
+        | ((OLIGON_NEO KENTIMA_NEO_MESO) | KENTIMA_UNDER_OLIGON | OLIGON_OVER_PETASTI | ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON | KENTIMA_TO_THE_RIGHT_OF_OLIGON) # betaV
+        | (KENTIMA_OVER_OLIGON | KENTIMA_OVER_PETASTI) # gammaV
+        | (YPSILI_AT_RIGHT_END_OF_OLIGON | YPSILI_AT_RIGHT_END_OF_PETASTI) # deltaV
+        | (YPSILI_AT_LEFT_END_OF_OLIGON | YPSILI_AT_LEFT_END_OF_PETASTI) # epsilonV
+        | (YPSILI_NEXT_TO_KENTIMA_OVER_OLIGON | YPSILI_NEXT_TO_KENTIMA_OVER_PETASTI) # sigmaTafV
+        | (YPSILI_OVER_KENTIMA_OVER_OLIGON | YPSILI_OVER_KENTIMA_OVER_PETASTI) # zetaV
+        | (TWO_IPSILES_OVER_OLIGON | TWO_IPSILES_OVER_PETASTI) # hetaV
+        | (TWO_IPSILES_OVER_KETNIMATA_OVER_OLIGON | TWO_IPSILES_OVER_KETNIMATA_OVER_PETASTI) # thetaV
+        | YPSILI_OVER_KENTIMA_OVER_PETASTI_AND_YPSILI_RIGHT # iotaV
+        | YPSILI_OVER_KENTIMA_OVER_OLIGON_AND_YPSILI_TO_LEFT # iotaAlphaV
+        | ( THREE_YPSILES_OVER_OLIGON | THREE_YPSILES_OVER_PETASTI ) # iotaBetaV
+        | ( THREE_YPSILES_OVER_OLIGON_KENTIMATA_IN_MIDDLE | THREE_YPSILES_OVER_PETASTI_KENTIMATA_IN_MIDDLE ) # iotaGammaV
+        | THREE_YPSILES_OVER_OLIGON_KENTIMA_IN_MIDDLE # iotaDeltaV
+        // TODO ιε missing?
+        | ( APOSTROFOS_NEO | APOSTROPHOS_OVER_PETASTI | APOSTROPHOS_OVER_OLIGON ) # mAlphaV
+        | ( ELAFRON | ELAPHRON_OVER_PETASTI | ELAPHRON_OVER_OLIGON ) # mBetaV
+        | ( ELAPHRON_OVER_APOSTROPHOS | ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI | ELAPHRON_OVER_APOSTROPHOS_OVER_ISON ) # mGammaV
+        | ( CHAMILI | HAMILI_OVER_OLIGON | HAMILI_OVER_PETASTI) # mDeltaV
+        | ( HAMILI_OVER_APOSTROPHOS | HAMILI_OVER_APOSTROPHOS_OVER_PETASTI ) # mEpsilonV
+        | ( HAMILI_OVER_ELAPHRON | HAMILI_OVER_ELAPHRON_OVER_PETASTI ) # mSigmaTafV
+        | ( HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS | HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS_OVER_PETASTI ) # mZetaV
+        | ( HAMILI_OVER_HAMILI | HAMILI_OVER_HAMILI_OVER_PETASTI ) # mΗetaV
+        | ( HAMILI_OVER_HAMILI_OVER_APOSTROPHOS | HAMILI_OVER_HAMILI_OVER_APOSTROPHOS_OVER_PETASTI ) # mThetaV
+        | HAMILI_OVER_HAMILI_OVER_ELAPHRON # mIotaV
+        | HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS # mIotaAlphaV
+        | HAMILI_OVER_HAMILI_OVER_HAMILI # mIotaBetaV
+
+        | ( ISON_AND_KENTIMATA_OVER_OLIGON ) # zeroAndAlphaV
+        | APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON # betaVAndApli
+        | YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT # deltaAndAlphaV
+        | YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT # epsilonAndAlphaV
+        | APOSTROPHOS_UNDER_ISON # zeroAndmAlphaV
+        | APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON # mAlphaAndAlphaV
+        | ELAPHRON_AND_KENTIMATA_OVER_OLIGON # mBetaAndAlphaV
+        | ELAPHRON_OVER_APOSTROPHOS_AND_KENTIMATA_OVER_OLIGON # mGammaAndAlphaV
+        | HAMILI_AND_KENTIMATA_OVER_OLIGON # mDeltaAndAlphaV
+
+        | ( CONTINUOUS_ELAFRON | CONTINUOUS_ELAFRON_OVER_PETASTI ) # continuousElafron
+        | TWO_APOSTROPHOI_IN_A_ROW # twoApostrofoi
+        | ( YPORROI | YPORROI_OVER_OLIGON | YPORROI_OVER_PETASTI ) # yporroi
+        | CONTINUOUS_ELAFRON_AND_KENTIMATA_OVER_OLIGON # continuousElafronAndKentimata
+        | YPORROI_AND_KENTIMATA_OVER_OLIGON # yporroiAndKentimata
+        | OLIGON_ABOVE_KENTIMATA # oligonOnKentimata
+        | KENTIMATA_ABOVE_OLIGON # kentimataOnOligon
+        | APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA # oligonOnKentimataAndApli
         ;
+
 
 //yporroi_tChar : yporroi ;
 

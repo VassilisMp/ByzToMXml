@@ -57,8 +57,8 @@ public final class Engine {
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     int division = 1;
-    List<Mxml.Note> noteList = new ArrayList<>();
-    BiMap<String, Integer> noteTypeMap = initializeNoteTypeMap();
+    public List<Mxml.Note> noteList = new ArrayList<>();
+    public BiMap<String, Integer> noteTypeMap = initializeNoteTypeMap();
     private BigDecimal durationSum = BigDecimal.ZERO;
     private Integer timeBeats = null;
     // instances of Engine are immutable
@@ -248,8 +248,7 @@ public final class Engine {
                 .map(note -> {
                     // replace dots in noteType String
                     String value = note.getType().getValue();
-                    if (value != null && value.charAt(value.length() - 1) == '.')
-                        note.getType().setValue(value.replace(".", ""));
+                    if (value != null) note.getType().setValue(value.replace(".", ""));
                     return note.getDuration();
                 })
                 .reduce(durationSum, BigDecimal::add);
@@ -433,7 +432,7 @@ public final class Engine {
         if (division % 256 == 0) noteTypeMap.put("1024th", division / 256);
     }
 
-    void changeDivision(int multiplier) {
+    public void changeDivision(int multiplier) {
         division *= multiplier;
         // change the duration of all notes according to the new corresponding to the new division value
         noteList.parallelStream().forEach(note -> note.updateDivision(multiplier));
@@ -441,7 +440,7 @@ public final class Engine {
         mapValuesUpdate();
     }
 
-    int getIndex() {
+    public int getIndex() {
         ListIterator<Mxml.Note> iterator = noteList.listIterator(noteList.size());
         while (iterator.hasPrevious())
             if (iterator.previous().canGetTime())

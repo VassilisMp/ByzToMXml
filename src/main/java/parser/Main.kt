@@ -1,3 +1,8 @@
+package parser
+
+import org.apache.poi.xwpf.usermodel.XWPFDocument
+import java.io.FileInputStream
+
 object Main {
     @JvmStatic
     fun main(args: Array<String>) {
@@ -17,7 +22,10 @@ object Main {
         }
         println(s)
         File("$grammarName.g4").writeText("lexer grammar $grammarName;\n\n$s")*/
-        val parser = Parser()
+        //    private val title = "elpiza"
+        //    private val title = "dynamis_k_ioannidh_simple"
+        val title = "makarios_anir_syntoma_fokaeos_simple"
+        val parser = Parser(XWPFDocument(FileInputStream("$title.docx")))
         parser.parse()
     }
 }

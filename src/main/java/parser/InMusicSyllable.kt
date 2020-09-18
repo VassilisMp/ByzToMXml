@@ -1,9 +1,9 @@
-package grammar
+package parser
 
-class InMusicSyllable(val syllable: String) {
-    val start: String
-    val middle: String
-    val end: String
+class InMusicSyllable(val syllable: String?) {
+    val start: String?
+    val middle: String?
+    val end: String?
 
     init {
         val groups = regex.find(syllable)?.groups
@@ -24,3 +24,5 @@ class InMusicSyllable(val syllable: String) {
                 "(γκ|µπ|ντ|τσ|τζ|[βγδζθκλμνξπρστφχψς])?").toRegex()
     }
 }
+
+private fun Regex.find(input: String?): MatchResult? = input?.let { find(it) }

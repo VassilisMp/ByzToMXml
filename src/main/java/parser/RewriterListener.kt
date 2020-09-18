@@ -1,9 +1,11 @@
-package grammar
+package parser
 
 import Byzantine.ByzStep
 import Byzantine.MartirikoSimio
 import Byzantine.Martyria
+import grammar.ByzBaseListener
 import grammar.ByzLexer.*
+import grammar.ByzParser
 import org.antlr.v4.runtime.TokenStream
 import org.antlr.v4.runtime.TokenStreamRewriter
 import org.antlr.v4.runtime.tree.TerminalNode
@@ -29,7 +31,7 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
         }
     }
 
-    override fun enterSyllable(ctx: ByzParser.SyllableContext) {
+    /*override fun enterSyllable(ctx: ByzParser.SyllableContext) {
         return when {
             ctx.getParent()::class.java == ByzParser.TextContext::class.java -> return
             ctx.getParent()::class.java == ByzParser.ArktikiMartyriaContext::class.java -> {
@@ -45,7 +47,7 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
                 if (pt::class.java == ByzParser.QCharContext::class.java) return
             }
         }
-    }
+    }*/
 
 
     override fun exitFthoraMeEndeixi(ctx: ByzParser.FthoraMeEndeixiContext?) {

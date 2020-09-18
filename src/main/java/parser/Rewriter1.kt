@@ -1,10 +1,12 @@
-package grammar
+package parser
 
 import Mxml.Note.NoteTypeEnum.QUARTER
+import grammar.ByzBaseListener
+import grammar.ByzBaseVisitor
 import grammar.ByzLexer.*
+import grammar.ByzParser
 import org.antlr.v4.runtime.tree.ParseTree
 import org.audiveris.proxymusic.*
-import java.math.BigDecimal
 
 // replace all characters with the simplest ones
 class Rewriter1 : ByzBaseListener() {
@@ -13,6 +15,7 @@ class Rewriter1 : ByzBaseListener() {
     var missingLetter: String? = null
     private val lastPitch = Pitch().apply { step = Step.C; octave = 4 }
     val elements: MutableList<Any> = mutableListOf()
+    val visitor = GorgotitesVisitor()
 
     override fun exitNewArktikiMartyria(ctx: ByzParser.NewArktikiMartyriaContext) {
         text.append(ctx.text)
@@ -34,27 +37,38 @@ class Rewriter1 : ByzBaseListener() {
         val inMusicSyllable = InMusicSyllable(syllable)
         var fthora1 = ""
         var fthora2 = ""
-        ctx.fthoraMeEndeixi().firstOrNull()?.let {
+        /*ctx.fthoraMeEndeixi().firstOrNull()?.let {
             if (it.fthora().yfesi() != null || it.fthora().diesi() != null) fthora1 = it.text
             else fthora2 = it.text
-        }
+        }*/
         val fthora = fthora1 + fthora2
         val gorgotita = ctx.tChar().firstOrNull { it.gorgotita() != null }?.text ?: ""
         val argia = ctx.tChar().firstOrNull { it.argia() != null }?.text ?: ""
         val tChar = gorgotita + argia
-        if (ctx.qChar() is ByzParser.KentimaToTheRightOfOligonContext)
-            text.append(concatContexts(qChar1 = plus2, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
-        else when(ctx.qChar().start.type) {
-            ISON_NEO ->
-                text.append(concatContexts(qChar1 = ison, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
-            APOSTROFOS_NEO ->
-                text.append(concatContexts(qChar1 = minus1, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
-            YPORROI, YPORROI_OVER_OLIGON, YPORROI_OVER_PETASTI ->
-                text.append(concatContexts(qChar1 = minus1, tChar1 = tChar, fthora1 = fthora, qChar2 = minus1, syllable1 = syllable))
-            OLIGON_NEO, PETASTI, KENTIMATA_NEO_MESO ->
-                text.append(concatContexts(qChar1 = plus1, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
-            KENTIMA_UNDER_OLIGON, OLIGON_OVER_PETASTI, ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON ->
+        /*if (ctx.qChar() is ByzParser.KentimaToTheRightOfOligonContext) {
+//            text.append(concatContexts(qChar1 = plus2, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
+            2.nextNote(syllable).add()
+        }
+        else */when(ctx.qChar().start.type) {
+            ISON_NEO -> {
+//                text.append(concatContexts(qChar1 = ison, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
+                0.nextNote(syllable).add()
+            }
+            APOSTROFOS_NEO -> {
+//                text.append(concatContexts(qChar1 = minus1, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
+                (-1).nextNote(syllable).add()
+            }
+            YPORROI, YPORROI_OVER_OLIGON, YPORROI_OVER_PETASTI -> {
+//                text.append(concatContexts(qChar1 = minus1, tChar1 = tChar, fthora1 = fthora, qChar2 = minus1, syllable1 = syllable))
+                (-1).nextNote(syllable).add(); (-1).nextNote().add()
+            }
+            OLIGON_NEO, PETASTI, KENTIMATA_NEO_MESO -> {
+//                text.append(concatContexts(qChar1 = plus1, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
+                1.nextNote(syllable).add()
+            }
+            KENTIMA_UNDER_OLIGON, OLIGON_OVER_PETASTI, ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON -> {
                 text.append(concatContexts(qChar1 = plus2, tChar1 = tChar, fthora1 = fthora, syllable1 = syllable))
+            }
             OLIGON_ABOVE_KENTIMATA ->
                 text.append(concatContexts(qChar1 = plus1, tChar1 = gorgotita, fthora1 = fthora1, qChar2 = plus1, tChar2 = argia, fthora2 = fthora2, syllable1 = syllable))
             KENTIMATA_ABOVE_OLIGON ->
@@ -148,18 +162,15 @@ class Rewriter1 : ByzBaseListener() {
         TODO("translate tChars")
     }
 
-    private fun Int.nextNote(syllable: String?): Note =
+    private fun Int.nextNote(syllable: String? = null): Note =
         ("${lastPitch.octave}${lastPitch.step.num}".toInt(7) + this).toString(7).let {
             Note().apply {
                 pitch = Pitch().apply { step = it[1].toString().toInt().step; octave = it[0].toString().toInt() }
-                duration = BigDecimal(120)
-                type = NoteType().apply { value = QUARTER.toString() }
-                syllable?.let {
-                    lyric.add(Lyric().apply {
-                        elisionAndSyllabicAndText += Syllabic.SINGLE
-                        elisionAndSyllabicAndText += TextElementData().apply { value = it }
-                    })
-                }
+                duration = 120.toBigDecimal()
+                type = NoteType().apply { value = QUARTER.noteType }
+                // add syllable if not null
+                syllable?.let { lyric += Lyric().apply { elisionAndSyllabicAndText += Syllabic.SINGLE
+                    elisionAndSyllabicAndText += TextElementData().apply { value = it } } }
             }
         }
 
@@ -185,6 +196,8 @@ class Rewriter1 : ByzBaseListener() {
             6 -> Step.B
             else -> Step.C // never used
         }
+
+    private fun Note.add() { elements += this }
 
     private companion object {
         const val plus1 = "\uD834\uDC47" // oligon 1
@@ -221,5 +234,11 @@ class Rewriter1 : ByzBaseListener() {
         const val ARGON = "\uD834\uDC97"
         const val IMIDIARGON = "\uD834\uDC98"
         const val DIARGON = "\uD834\uDC99"
+    }
+
+    class ArktikiMartyriaVisitor: ByzBaseVisitor<Unit>() {
+        override fun visitNewArktikiMartyria(ctx: ByzParser.NewArktikiMartyriaContext?) {
+            super.visitNewArktikiMartyria(ctx)
+        }
     }
 }

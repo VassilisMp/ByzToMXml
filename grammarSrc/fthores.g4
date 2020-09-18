@@ -1,13 +1,15 @@
 grammar fthores;
 
 fthora :
-        yfesi
-        | diesi
-        | fthoraDiatoniki
-        | fthoraChromatiki
-        | geniki
-        | chroa
+        yfesodiesi
+        | monimi
         ;
+monimi : fthoraDiatoniki
+         | fthoraChromatiki
+         | geniki
+         | chroa
+         ;
+yfesodiesi : yfesi | diesi ;
 yfesi : yfesiApli
         | yfesiMonogrammos
         | yfesiDigrammos
