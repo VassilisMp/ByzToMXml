@@ -1,3 +1,4 @@
+/*
 package parser
 
 import Mxml.Note.NoteTypeEnum.*
@@ -38,3 +39,4 @@ class Gorgon: Consumer<MutableList<Any>>{
 //        elements.subList(0, index).reversed().
     }
 }
+*/

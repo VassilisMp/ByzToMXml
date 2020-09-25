@@ -1,13 +1,12 @@
 package parser
 
-import Mxml.Note.NoteTypeEnum.QUARTER
 import grammar.ByzBaseVisitor
 import grammar.ByzParser
 import org.antlr.v4.runtime.tree.ParseTree
 import org.audiveris.proxymusic.Note
 import org.audiveris.proxymusic.Pitch
 import org.audiveris.proxymusic.Step
-import parser.ArgiesVisitor.Companion.apli
+import parser.ArgiesVisitor.Companion.Apli
 import parser.GorgotitesVisitor.Companion.gorgon
 
 class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : ByzBaseVisitor<List<Any>>() {
@@ -71,7 +70,7 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
     override fun visitMIotaBetaV(ctx: ByzParser.MIotaBetaVContext?) = standard(-12)
     override fun visitZeroAndAlphaV(ctx: ByzParser.ZeroAndAlphaVContext?) = dual(0, 1)
     override fun visitBetaVAndApli(ctx: ByzParser.BetaVAndApliContext?) =
-            listOfNotNull(nextNote(2, syllable), argia, gorgotita, Tchar(0, -1, false), yfesodiesi, monimi)
+            listOfNotNull(nextNote(2, syllable), argia, gorgotita, Apli(), yfesodiesi, monimi)
     override fun visitDeltaAndAlphaV(ctx: ByzParser.DeltaAndAlphaVContext?) = dual(4, 1)
     override fun visitEpsilonAndAlphaV(ctx: ByzParser.EpsilonAndAlphaVContext?) = dual(5, 1)
     override fun visitZeroAndmAlphaV(ctx: ByzParser.ZeroAndmAlphaVContext?) = dual(0, -1)
@@ -80,13 +79,13 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
     override fun visitMGammaAndAlphaV(ctx: ByzParser.MGammaAndAlphaVContext?) = dual(-3, 1)
     override fun visitMDeltaAndAlphaV(ctx: ByzParser.MDeltaAndAlphaVContext?) = dual(-4, 1)
     override fun visitContinuousElafron(ctx: ByzParser.ContinuousElafronContext?) =
-            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), gorgon, nextNote(-1, end), argia, gorgotita, yfesodiesi, monimi) }
+            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), gorgon(), nextNote(-1, end), argia, gorgotita, yfesodiesi, monimi) }
     override fun visitTwoApostrofoi(ctx: ByzParser.TwoApostrofoiContext?) = dual(-1, -1)
     override fun visitYporroi(ctx: ByzParser.YporroiContext?) =
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), argia, gorgotita, monimi, nextNote(-1, end), yfesodiesi) }
     override fun visitContinuousElafronAndKentimata(ctx: ByzParser.ContinuousElafronAndKentimataContext?) =
             with(InMusicSyllable(syllable)) {
-                listOfNotNull(nextNote(-1, start), gorgon, nextNote(-1, middle), monimi, nextNote(1, end), argia, gorgotita, yfesodiesi) }
+                listOfNotNull(nextNote(-1, start), gorgon(), nextNote(-1, middle), monimi, nextNote(1, end), argia, gorgotita, yfesodiesi) }
     override fun visitYporroiAndKentimata(ctx: ByzParser.YporroiAndKentimataContext?) =
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), argia, gorgotita, monimi, nextNote(-1, middle), nextNote(1, end), yfesodiesi) }
     override fun visitOligonOnKentimata(ctx: ByzParser.OligonOnKentimataContext?) =
@@ -94,7 +93,7 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
     override fun visitKentimataOnOligon(ctx: ByzParser.KentimataOnOligonContext?) =
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), argia, monimi, nextNote(1, end), gorgotita, yfesodiesi) }
     override fun visitOligonOnKentimataAndApli(ctx: ByzParser.OligonOnKentimataAndApliContext?) =
-            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), gorgotita, monimi, nextNote(1, end), argia, apli, yfesodiesi) }
+            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), gorgotita, monimi, nextNote(1, end), argia, Apli(), yfesodiesi) }
 
     override fun visitPause(ctx: ByzParser.PauseContext?): List<Any> {
         // TODO
@@ -103,11 +102,11 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
 
     private fun nextNote(num: Int, syllable: String? = null): Note =
             ("${lastPitch.octave}${lastPitch.step.toNum()}".toInt(7) + num).toString(7).let {
-                newNote(
+                west.Note(
                         step = it[1].toString().toInt().toStep(),
                         octave = it[0].toString().toInt(),
                         duration = 1,
-                        noteType = QUARTER,
+                        noteType = west.Note.NoteTypeEnum.QUARTER,
                         syllable = syllable
                 ).apply { lastPitch = this.pitch }
             }
@@ -132,4 +131,9 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
         6 -> Step.B
         else -> Step.C // never used
     }
+}
+
+private fun newPitch(step: Step, octave: Int): Pitch = Pitch().apply {
+    this.step = step
+    this.octave = octave
 }

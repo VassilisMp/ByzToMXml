@@ -4,13 +4,17 @@ import Byzantine.ByzScale
 import Byzantine.ByzStep
 import Byzantine.ByzStep.*
 import Byzantine.Martyria
+import com.google.common.math.IntMath.factorial
 import com.uchuhimo.collections.MutableBiMap
 import com.uchuhimo.collections.biMapOf
 import com.uchuhimo.collections.mutableBiMapOf
+import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.audiveris.proxymusic.*
 import org.audiveris.proxymusic.Step.*
 import org.audiveris.proxymusic.util.Marshalling
+import parser.GorgotitesVisitor.Companion.gorgon
+import west.Note
 import west.newPart
 import west.newScorePartWise
 import java.io.FileInputStream
@@ -30,7 +34,7 @@ class Engine(filePath: String) {
     var divisions: Int = 1
         set(value) {
             field = value
-            mapValuesUpdate()
+//            mapValuesUpdate()
         }
     lateinit var noteList: MutableList<Any>
     var noteTypeMap: MutableBiMap<String, Int> = mutableBiMapOf(
@@ -38,9 +42,34 @@ class Engine(filePath: String) {
             "long" to 16,
             "breve" to 8,
             "whole" to 4,
+            "half." to 3,
             "half" to 2,
             "quarter" to 1
     )
+    /*public enum class NoteTypeEnum(val noteType: String, val duration: Int, val dot: EmptyPlacement?, val dot2: EmptyPlacement?) {
+        MAXIMADD("maxima", 5880, EmptyPlacement(), EmptyPlacement()),
+        MAXIMAD("maxima", 5040, EmptyPlacement(), null),
+        MAXIMA("maxima", 3360, null, null),
+        LONGD("long", 2880, EmptyPlacement(), null),
+        LONG("long", 1920, null, null),
+        BREVEDD("breve", 1680, EmptyPlacement(), EmptyPlacement()),
+        BREVED("breve", 1440, EmptyPlacement(), null),
+        BREVE("breve", 960, null, null),
+        WHOLEDD("whole", 840, EmptyPlacement(), EmptyPlacement()),
+        WHOLED("whole", 720, EmptyPlacement(), null),
+        WHOLE("whole", 480, null, null),
+        HALFDD("half", 420, EmptyPlacement(), EmptyPlacement()),
+        HALFD("half", 360, EmptyPlacement(), null),
+        HALF("half", 240, null, null),
+        QUARTERDD("quarter", 210, EmptyPlacement(), EmptyPlacement()),
+        QUARTERD("quarter", 180, EmptyPlacement(), null),
+        QUARTER("quarter", 120,null, null),
+        EIGHTHDD("eighth", 105, EmptyPlacement(), EmptyPlacement()),
+        EIGHTHD("eighth", 90, EmptyPlacement(), null),
+        EIGHTH("eighth", 60, null, null),
+        SIXTEENTHD("16th", 45, EmptyPlacement(), null),
+        SIXTEENTH("16th", 30, null, null)
+    }*/
     fun toNoteType(duration: Int) = noteTypeMap.inverse[duration]
     fun toNoteTypeDiv(num: Int) = noteTypeMap.inverse[divisions / num]
 
@@ -62,19 +91,24 @@ class Engine(filePath: String) {
     fun run() {
         val parser = Parser(docx)
         noteList = parser.parse()
-//        noteList.filterIsInstance<Tchar>().forEach { it.accept(this) }
+        // convert argo to argia, gorgo
+        noteList.filterIsInstance<Tchar>().filter { it.argo }.forEach {
+            it.argo = false
+            noteList.add(noteList.indexOf(it)+1, gorgon())
+        }
+        noteList.filterIsInstance<Tchar>().forEach { it.accept(this) }
         noteList.filterIsInstance<Note>().forEach { it.noteType?.run { it.noteType = it.noteType!!.replace(".", "") } }
-        val list = noteList.filterIsInstance<Note>().apply { forEach { it.noteType?.run { it.noteType = it.noteType!!.replace(".", "") } } }
-        try {
-            FileOutputStream("$fileName.xml").use { fileOutputStream ->
-                val part = newPart("P1", "Voice", divisions, list)
-                val scorePartwise: org.audiveris.proxymusic.ScorePartwise = newScorePartWise(part)
-                val marshaller: Marshaller = Marshalling.getContext(org.audiveris.proxymusic.ScorePartwise::class.java).createMarshaller()
-                marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true)
-                marshaller.marshal(scorePartwise, fileOutputStream)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        divisions = factorial(divisions)
+        val list = noteList.filterIsInstance<Note>().apply { forEach {
+            it.noteType?.run { it.noteType = it.noteType!!.replace(".", "") }
+            it.duration_ = (it.rationalDuration*divisions).toInt()
+        } }
+        FileOutputStream("$fileName.xml").use { fileOutputStream ->
+            val part = newPart("P1", "Voice", divisions, list)
+            val scorePartwise: ScorePartwise = newScorePartWise(part)
+            val marshaller: Marshaller = Marshalling.getContext(ScorePartwise::class.java).createMarshaller()
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true)
+            marshaller.marshal(scorePartwise, fileOutputStream)
         }
     }
 
@@ -131,13 +165,13 @@ class Engine(filePath: String) {
         if (divisions % 256 == 0) noteTypeMap["1024th"] = divisions / 256
     }
 
-    fun changeDivision(multiplier: Int) {
+    /*fun changeDivision(multiplier: Int) {
         divisions *= multiplier
         // change the duration of all notes according to the new corresponding to the new division value
         noteList.filterIsInstance<Note>().forEach { note -> note.updateDivision(multiplier) }
         // reInsert the values in the map to add those supported by the new measure division
         mapValuesUpdate()
-    }
+    }*/
 
     private fun commasToAccidental(commas: Int): Accidental? {
         val accidentalValue: AccidentalValue = Martyria.ACCIDENTALS_MAP[commas] ?: return null
@@ -207,3 +241,5 @@ fun <K, V> BiMap<in K, in V>.with(vararg pairs: Pair<K, V>): BiMap<K, V> {
     }
     return this as BiMap<K, V>
 }*/
+
+private fun String.toFraction() = getFraction(this)

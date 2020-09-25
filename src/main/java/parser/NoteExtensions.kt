@@ -1,13 +1,18 @@
+/*
 package parser
 
 import org.audiveris.proxymusic.*
 import west.cast
 import java.math.BigDecimal
 
-/* Method to check if x is power of 2*/
+*/
+/* Method to check if x is power of 2*//*
+
 fun Int.isPowerOfTwo(): Boolean {
-    /* First x in the below expression is
-    for the case when x is 0 */
+    */
+/* First x in the below expression is
+    for the case when x is 0 *//*
+
     return this != 0 && this and this - 1 == 0
 }
 
@@ -77,6 +82,9 @@ fun Note.addTied(startStopContinue: StartStopContinue) {
     notation.tiedOrSlurOrTuplet += Tied().also { it.type = startStopContinue }
 }
 
+fun Note.setTupletStart() = setTuplet(YesNo.YES, AboveBelow.ABOVE, StartStop.START)
+fun Note.setTupletStop() = setTuplet(type = StartStop.STOP)
+
 fun Note.setTuplet(bracket: YesNo? = null, placement: AboveBelow? = null, type: StartStop) {
     notation.tiedOrSlurOrTuplet += Tuplet().also {tuplet ->
         if (bracket != null) tuplet.bracket = bracket
@@ -86,6 +94,10 @@ fun Note.setTuplet(bracket: YesNo? = null, placement: AboveBelow? = null, type: 
 }
 
 fun Note.addTie(tie: Tie) { this.tie += tie }
+fun Note.addTie(type: StartStop) {
+    this.tie += Tie().apply { this.type = type }
+    notation.tiedOrSlurOrTuplet += Tied().also { it.type = StartStopContinue.valueOf(type.name) }
+}
 
 fun Note.updateDivision(multiplier: Int) { duration_ *= multiplier }
 
@@ -108,3 +120,9 @@ fun newNote(
     // add syllable if not null
     if (syllable != null) lyricText = syllable
 }
+
+fun newTimeModification(actualNotes: Int, normalNotes: Int, normalType: String) = TimeModification().apply {
+    this.actualNotes = actualNotes.toBigInteger()
+    this.normalNotes = normalNotes.toBigInteger()
+    this.normalType = normalType
+}*/
