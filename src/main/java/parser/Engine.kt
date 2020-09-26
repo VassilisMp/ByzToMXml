@@ -1,17 +1,14 @@
 package parser
 
-import Byzantine.ByzScale
-import Byzantine.ByzStep
-import Byzantine.ByzStep.*
-import Byzantine.Martyria
 import com.google.common.math.IntMath.factorial
-import com.uchuhimo.collections.biMapOf
 import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.audiveris.proxymusic.*
-import org.audiveris.proxymusic.Step.*
 import org.audiveris.proxymusic.util.Marshalling
 import parser.GorgotitesVisitor.Companion.gorgon
+import parser.fthores.ByzScale
+import parser.fthores.ByzScale.Companion.get2OctavesScale
+import parser.fthores.Martyria
 import west.Note
 import west.newPart
 import west.newScorePartWise
@@ -25,7 +22,7 @@ import javax.xml.bind.Marshaller
 class Engine(filePath: String) {
     private val docx: XWPFDocument
     private val fileName: String
-    val currentByzScale: ByzScale = ByzScale.get2OctavesScale()
+    val currentByzScale: ByzScale = get2OctavesScale()
 
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
@@ -93,41 +90,6 @@ class Engine(filePath: String) {
             i += 3
         }
         return stepToAccidental
-    }
-
-    companion object {
-        private val STEPS_MAP = biMapOf(
-                NH to G,
-                PA to A,
-                BOU to B,
-                GA to C,
-                DI to D,
-                KE to E,
-                ZW to F
-        )
-        /**
-         * The best mapping from European to Byzantine hard-diatonic scale, without the need of turkish accidentals
-         */
-        private val STANDARD_MAP: Map<Step, ByzStep> = mapOf(
-                C to NH,
-                D to PA,
-                E to BOU,
-                F to GA,
-                G to DI,
-                A to KE,
-                B to ZW
-        )
-
-        /**
-         * The relative European step for Byzantine step NH of this engine converted to byzStep again,
-         * via use of STEPS_MAP and STANDARD_MAP, use of STANDARD_MAP is required because everything is calculated using ByzScales.
-         * e.g. STEPS_MAP: NH->G, STANDARD_MAP: G->DI
-         */
-        private val relativeStandardStep: ByzStep = STANDARD_MAP.getValue(NH.toStep())
-
-        fun ByzStep.toStep() = STEPS_MAP.getValue(this)
-        fun Step.toByzStep() = STEPS_MAP.inverse[this]
-        fun Note.byzStep(): ByzStep? = STEPS_MAP.inverse[step]
     }
 }
 

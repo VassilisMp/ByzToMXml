@@ -18,22 +18,23 @@ import java.util.stream.Collectors;
 
 import static Byzantine.Martyria.ACCIDENTALS_MAP;
 import static Byzantine.Martyria.FLATS_FOURTHS;
+import static java.util.Arrays.asList;
 
 public final class ByzScale implements CircularList<Martyria> {
     // TODO add the missing scales
-    static final ByzScale NEXEANES = createScale(Arrays.asList(
+    static final ByzScale NEXEANES = createScale(asList(
             new Martyria(0, ByzStep.PA, MartirikoSimio.NEXEANESx, 5),
             new Martyria(0, ByzStep.BOU, MartirikoSimio.NENANO, 12),
             new Martyria(0, ByzStep.GA, MartirikoSimio.NEXEANESx, 5),
             new Martyria(0, ByzStep.DI, MartirikoSimio.NENANO, 9)
     ));
-    static final ByzScale NEANES = createScale(Arrays.asList(
+    static final ByzScale NEANES = createScale(asList(
             new Martyria(0, ByzStep.DI, MartirikoSimio.NEANES, 6),
             new Martyria(0, ByzStep.KE, MartirikoSimio.NEANES2, 11),
             new Martyria(0, ByzStep.ZW, MartirikoSimio.NEANES, 5),
             new Martyria(1, ByzStep.NH, MartirikoSimio.NEANES2, 9)
     ));
-    static final ByzScale SOFT_DIATONIC = createScale(Arrays.asList(
+    static final ByzScale SOFT_DIATONIC = createScale(asList(
             new Martyria((byte) -1, ByzStep.DI, MartirikoSimio.AGIA, 9),
             new Martyria((byte) -1, ByzStep.KE, MartirikoSimio.ANANES, 8),
             new Martyria((byte) -1, ByzStep.ZW, MartirikoSimio.AANES, 5),
@@ -42,7 +43,7 @@ public final class ByzScale implements CircularList<Martyria> {
             new Martyria((byte) 0, ByzStep.BOU, MartirikoSimio.NEHEANES, 5),
             new Martyria((byte) 0, ByzStep.GA, MartirikoSimio.NANA, 9)
     ));
-    static final ByzScale HARD_DIATONIC = createScale(Arrays.asList(
+    static final ByzScale HARD_DIATONIC = createScale(asList(
             new Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
             new Martyria(0, ByzStep.PA, MartirikoSimio.ANEANES, 9),
             new Martyria(0, ByzStep.BOU, MartirikoSimio.NEHEANES, 4),
