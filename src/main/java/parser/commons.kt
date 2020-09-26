@@ -1,3 +1,5 @@
+package parser
+
 import Byzantine.ByzClass
 
 /* TODO Palaia fonts not supported

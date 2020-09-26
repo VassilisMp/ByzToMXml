@@ -5,9 +5,7 @@ import Byzantine.ByzStep
 import Byzantine.ByzStep.*
 import Byzantine.Martyria
 import com.google.common.math.IntMath.factorial
-import com.uchuhimo.collections.MutableBiMap
 import com.uchuhimo.collections.biMapOf
-import com.uchuhimo.collections.mutableBiMapOf
 import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.audiveris.proxymusic.*
@@ -32,46 +30,7 @@ class Engine(filePath: String) {
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
     // division must be <= 16383
     var divisions: Int = 1
-        set(value) {
-            field = value
-//            mapValuesUpdate()
-        }
     lateinit var noteList: MutableList<Any>
-    var noteTypeMap: MutableBiMap<String, Int> = mutableBiMapOf(
-            "maxima" to 28,
-            "long" to 16,
-            "breve" to 8,
-            "whole" to 4,
-            "half." to 3,
-            "half" to 2,
-            "quarter" to 1
-    )
-    /*public enum class NoteTypeEnum(val noteType: String, val duration: Int, val dot: EmptyPlacement?, val dot2: EmptyPlacement?) {
-        MAXIMADD("maxima", 5880, EmptyPlacement(), EmptyPlacement()),
-        MAXIMAD("maxima", 5040, EmptyPlacement(), null),
-        MAXIMA("maxima", 3360, null, null),
-        LONGD("long", 2880, EmptyPlacement(), null),
-        LONG("long", 1920, null, null),
-        BREVEDD("breve", 1680, EmptyPlacement(), EmptyPlacement()),
-        BREVED("breve", 1440, EmptyPlacement(), null),
-        BREVE("breve", 960, null, null),
-        WHOLEDD("whole", 840, EmptyPlacement(), EmptyPlacement()),
-        WHOLED("whole", 720, EmptyPlacement(), null),
-        WHOLE("whole", 480, null, null),
-        HALFDD("half", 420, EmptyPlacement(), EmptyPlacement()),
-        HALFD("half", 360, EmptyPlacement(), null),
-        HALF("half", 240, null, null),
-        QUARTERDD("quarter", 210, EmptyPlacement(), EmptyPlacement()),
-        QUARTERD("quarter", 180, EmptyPlacement(), null),
-        QUARTER("quarter", 120,null, null),
-        EIGHTHDD("eighth", 105, EmptyPlacement(), EmptyPlacement()),
-        EIGHTHD("eighth", 90, EmptyPlacement(), null),
-        EIGHTH("eighth", 60, null, null),
-        SIXTEENTHD("16th", 45, EmptyPlacement(), null),
-        SIXTEENTH("16th", 30, null, null)
-    }*/
-    fun toNoteType(duration: Int) = noteTypeMap.inverse[duration]
-    fun toNoteTypeDiv(num: Int) = noteTypeMap.inverse[divisions / num]
 
     init {
         val matcher: Matcher = Pattern.compile("(.*/)*(.*)(\\.docx?)").matcher(filePath)
@@ -83,7 +42,7 @@ class Engine(filePath: String) {
     }
 
     fun initAccidentalCommas() {
-        // T0DO
+        // TODO
 //        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep)
     }
 
@@ -97,12 +56,12 @@ class Engine(filePath: String) {
             noteList.add(noteList.indexOf(it)+1, gorgon())
         }
         noteList.filterIsInstance<Tchar>().forEach { it.accept(this) }
-        noteList.filterIsInstance<Note>().forEach { it.noteType?.run { it.noteType = it.noteType!!.replace(".", "") } }
         divisions = factorial(divisions)
-        val list = noteList.filterIsInstance<Note>().apply { forEach {
+        val list = noteList.filterIsInstance<Note>().map {
             it.noteType?.run { it.noteType = it.noteType!!.replace(".", "") }
             it.duration_ = (it.rationalDuration*divisions).toInt()
-        } }
+            it
+        }
         FileOutputStream("$fileName.xml").use { fileOutputStream ->
             val part = newPart("P1", "Voice", divisions, list)
             val scorePartwise: ScorePartwise = newScorePartWise(part)
@@ -111,67 +70,6 @@ class Engine(filePath: String) {
             marshaller.marshal(scorePartwise, fileOutputStream)
         }
     }
-
-    private fun mapValuesUpdate() {
-//        noteTypeMap.clear();
-        // 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima
-        noteTypeMap["maxima.."] = divisions * 49
-        noteTypeMap["maxima."] = divisions * 42
-        noteTypeMap["maxima"] = divisions * 28
-        //noteTypeMap.put("long..", division * 28);
-        noteTypeMap["long."] = divisions * 24
-        noteTypeMap["long"] = divisions * 16
-        noteTypeMap["breve.."] = divisions * 14
-        noteTypeMap["breve."] = divisions * 12
-        noteTypeMap["breve"] = divisions * 8
-        noteTypeMap["whole.."] = divisions * 7
-        noteTypeMap["whole."] = divisions * 6
-        noteTypeMap["whole"] = divisions * 4
-        if ((divisions * 2) % 4 == 0) noteTypeMap["half.."] = (3.5 * divisions).toInt()
-        noteTypeMap["half."] = divisions * 3
-        noteTypeMap["half"] = divisions * 2
-        noteTypeMap["quarter"] = divisions
-        if (divisions % 2 == 0) {
-            noteTypeMap["quarter."] = (divisions * 1.5).toInt()
-            noteTypeMap["eighth"] = divisions / 2
-        }
-        if (divisions % 4 == 0) {
-            noteTypeMap["quarter.."] = (divisions * 1.75).toInt()
-            noteTypeMap["eighth."] = (divisions * 0.75).toInt()
-            noteTypeMap["16th"] = divisions / 4
-        }
-        if (divisions % 8 == 0) {
-            noteTypeMap["eighth.."] = (divisions * 0.875).toInt()
-            noteTypeMap["16th."] = (divisions * 0.375).toInt()
-            noteTypeMap["32nd"] = divisions / 8
-        }
-        if (divisions % 16 == 0) {
-            noteTypeMap["16th.."] = (divisions * 0.4375).toInt()
-            noteTypeMap["32nd."] = (divisions * 0.1875).toInt()
-            noteTypeMap["64th"] = divisions / 16
-        }
-        if (divisions % 32 == 0) {
-            noteTypeMap["32nd.."] = (divisions * 0.21875).toInt()
-            noteTypeMap["64th."] = (divisions * 0.09375).toInt()
-            noteTypeMap["128th"] = divisions / 32 // TODO continue to 128 dotted
-        }
-        if (divisions % 64 == 0) {
-            noteTypeMap["64th.."] = (divisions * 0.109375).toInt()
-            noteTypeMap["256th"] = divisions / 64
-        }
-        if (divisions % 128 == 0) {
-            noteTypeMap["512th"] = divisions / 128
-        }
-        if (divisions % 256 == 0) noteTypeMap["1024th"] = divisions / 256
-    }
-
-    /*fun changeDivision(multiplier: Int) {
-        divisions *= multiplier
-        // change the duration of all notes according to the new corresponding to the new division value
-        noteList.filterIsInstance<Note>().forEach { note -> note.updateDivision(multiplier) }
-        // reInsert the values in the map to add those supported by the new measure division
-        mapValuesUpdate()
-    }*/
 
     private fun commasToAccidental(commas: Int): Accidental? {
         val accidentalValue: AccidentalValue = Martyria.ACCIDENTALS_MAP[commas] ?: return null

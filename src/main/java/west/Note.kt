@@ -14,6 +14,11 @@ class Note(
 ) : org.audiveris.proxymusic.Note() {
 
     var rationalDuration: Fraction = Fraction.ONE
+        set(value) {
+            field = value
+            noteType = teo(field)
+            setDots()
+        }
 
     var accidentalCommmas: Int? = null
         private set
@@ -97,7 +102,7 @@ class Note(
             syllable = lyricText,
             rest = rest != null
     ).also {
-        it.dot.addAll(this.dot.toList())
+        it.dot = this.dot.toList()
 //        it.dot.plusAssign(mutableListOf<EmptyPlacement>().also { list -> for (i in 0..this.dot.size) list += EmptyPlacement() })
 //    accidentalCommmas = note.accidentalCommmas
     }
@@ -111,35 +116,21 @@ class Note(
                 '}'
     }
 
-    enum class NoteTypeEnum(val noteType: String, val duration: Int, val dot: EmptyPlacement?, val dot2: EmptyPlacement?) {
-        MAXIMADD("maxima", 5880, EmptyPlacement(), EmptyPlacement()),
-        MAXIMAD("maxima", 5040, EmptyPlacement(), null),
-        MAXIMA("maxima", 3360, null, null),
-        LONGD("long", 2880, EmptyPlacement(), null),
-        LONG("long", 1920, null, null),
-        BREVEDD("breve", 1680, EmptyPlacement(), EmptyPlacement()),
-        BREVED("breve", 1440, EmptyPlacement(), null),
-        BREVE("breve", 960, null, null),
-        WHOLEDD("whole", 840, EmptyPlacement(), EmptyPlacement()),
-        WHOLED("whole", 720, EmptyPlacement(), null),
-        WHOLE("whole", 480, null, null),
-        HALFDD("half", 420, EmptyPlacement(), EmptyPlacement()),
-        HALFD("half", 360, EmptyPlacement(), null),
-        HALF("half", 240, null, null),
-        QUARTERDD("quarter", 210, EmptyPlacement(), EmptyPlacement()),
-        QUARTERD("quarter", 180, EmptyPlacement(), null),
-        QUARTER("quarter", 105, null, null),
-        EIGHTHDD("eighth", 90, EmptyPlacement(), EmptyPlacement()),
-        EIGHTHD("eighth", 60, EmptyPlacement(), null),
-        EIGHTH("eighth", 60, null, null),
-        SIXTEENTHD("16th", 45, EmptyPlacement(), null),
-        SIXTEENTH("16th", 30, null, null),
-        THIRTY_SECOND("32nd", 15, null, null),
-        SIXTY_FOURTH("64th", 0/*7.5F*/, null, null),
-        ONE_TWO_EIGHTH("128th", 0/*3.75F*/, null, null),
-        TWO_FIVE_SIXTH("256th", 0/*1.875F*/, null, null),
-        FIVE_TWELFTH("512th", 0/*0.9375F*/, null, null),
-        TEN_TWENTY_FOURTH("1024th", 0/*0.46875F*/, null, null);
+    enum class NoteTypeEnum(val noteType: String) {
+        MAXIMA("maxima"),
+        LONG("long"),
+        BREVE("breve"),
+        WHOLE("whole"),
+        HALF("half"),
+        QUARTER("quarter"),
+        EIGHTH("eighth"),
+        SIXTEENTH("16th"),
+        THIRTY_SECOND("32nd"),
+        SIXTY_FOURTH("64th"),
+        ONE_TWO_EIGHTH("128th"),
+        TWO_FIVE_SIXTH("256th"),
+        FIVE_TWELFTH("512th"),
+        TEN_TWENTY_FOURTH("1024th");
     }
 
     init {
@@ -164,8 +155,44 @@ class Note(
     return this != 0 && this and this - 1 == 0
 }*/
 
-fun newTimeModification(actualNotes: Int, normalNotes: Int, normalType: String) = TimeModification().apply {
-    this.actualNotes = actualNotes.toBigInteger()
-    this.normalNotes = normalNotes.toBigInteger()
-    this.normalType = normalType
-}
+fun Int.toFraction(): Fraction = Fraction.getFraction(this, 1)
+private val fractionMap = mapOf(
+        49.toFraction() to "maxima..",
+        42.toFraction() to "maxima.",
+        28.toFraction() to "maxima",
+        24.toFraction() to "long.",
+        16.toFraction() to "long",
+        14.toFraction() to "breve..",
+        12.toFraction() to "breve.",
+        8.toFraction() to "breve",
+        7.toFraction() to "whole..",
+        6.toFraction() to "whole.",
+        4.toFraction() to "whole",
+        Fraction.getFraction(3.5) to "half..",
+        3.toFraction() to "half.",
+        2.toFraction() to "half",
+        Fraction.getFraction(1.75) to "quarter..",
+        Fraction.getFraction(1.5) to "quarter.",
+        1.toFraction() to "quarter",
+        Fraction.getFraction(1, 2) to "eighth",
+        Fraction.getFraction(0.75) to "eighth.",
+        Fraction.getFraction(1, 4) to "16th",
+        Fraction.getFraction(0.875) to "eighth..",
+        Fraction.getFraction(0.375) to "16th.",
+        Fraction.getFraction(1, 8) to "32nd",
+        Fraction.getFraction(0.4375) to "16th..",
+        Fraction.getFraction(0.1875) to "32nd.",
+        Fraction.getFraction(1, 16) to "64th",
+        Fraction.getFraction(0.21875) to "32nd..",
+        Fraction.getFraction(0.09375) to "64th.",
+        Fraction.getFraction(1, 32) to "128th",
+        Fraction.getFraction(0.109375) to "64th..",
+        Fraction.getFraction(1, 64) to "256th",
+        Fraction.getFraction(1, 128) to "512th",
+        Fraction.getFraction(1, 256) to "1024th"
+)
+
+fun getNoteType(fraction: Fraction): String? = fractionMap[fraction]
+private fun teo(fraction: Fraction): String? =
+        if (fraction.denominator%2 == 0 || fraction.denominator == 1) getNoteType(fraction)
+        else getNoteType(Fraction.getReducedFraction(fraction.numerator, fraction.denominator - 1))

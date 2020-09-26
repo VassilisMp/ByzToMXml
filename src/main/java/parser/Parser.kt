@@ -1,7 +1,6 @@
 package parser
 
 import Byzantine.ByzClass
-import fontToByzClass
 import grammar.ByzLexer
 import grammar.ByzParser
 import org.antlr.v4.runtime.CharStreams
