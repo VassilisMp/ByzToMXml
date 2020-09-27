@@ -13,10 +13,11 @@ class Tchar(private val dotPlace: Int, var division: Int, var argo: Boolean): Co
 
     override fun accept(engine: Engine) {
         fun Note.checkTieNote(tieNoteTie: StartStop, thisNoteTie: StartStop, newAddedTime: Fraction) {
+            if ((rationalDuration - newAddedTime).numerator == 0) return
             if (noteType == null) {
                 val tieNote = this.copy().also {
                     it.rationalDuration = this.rationalDuration - newAddedTime
-                    it.noteType!!
+                    it.noteType ?: throw NullPointerException("${this.rationalDuration} ${it.rationalDuration}")
                     it.addTie(tieNoteTie)
                     if (this.lyricText != null) {
                         val syllable = InMusicSyllable(this.lyricText)
@@ -51,18 +52,19 @@ class Tchar(private val dotPlace: Int, var division: Int, var argo: Boolean): Co
         notes.forEach { it.rationalDuration += addedTime - 1 }
         // if gorgotita is parestigmeno, double the added time on the specific note
         if (dotPlace > 0) notes[dotPlace-1].rationalDuration += addedTime
-        // if division%2 != 0, it means the divider is odd, so we need a tuplet
-        if (division%2 != 0) {
-            // if parestigmeno, then the normal notes are 1 less than than the divider
-            val normalNotes = if (dotPlace > 0) division-1 else division
-            notes.forEach { it.setTimeModification(division, normalNotes, getNoteType(getFraction(1, division-1))!!) }
-            notes.first().setTupletStart()
-            notes.last().setTupletStop()
-        }
+        if (division%2 != 0) notes.forEach { it.inTuplet = true }
         // if first is the dot Note, use double time
         notes.first().checkTieNote(StartStop.START, StartStop.STOP, if (dotPlace == 1) addedTime*2 else addedTime)
         // if last is the dot Note, use double time
         notes.last().checkTieNote(StartStop.STOP, StartStop.START, if (dotPlace == notes.size) addedTime*2 else addedTime)
+        // if division%2 != 0, it means the divider is odd, so we need a tuplet
+        if (division%2 != 0) {
+            // if parestigmeno, then the normal notes are 1 less than than the divider
+//            val normalNotes = /*if (dotPlace > 0) division-1 else */division-1
+            notes.forEach { it.setTimeModification(division, division-1, getNoteType("1/${division-1}")!!) }
+            notes.first().setTupletStart()
+            notes.last().setTupletStop()
+        }
     }
 
     override fun toString(): String = when {

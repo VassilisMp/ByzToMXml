@@ -1,13 +1,12 @@
 package west
 
 import org.audiveris.proxymusic.*
-import javax.xml.bind.JAXBElement
 
 fun newMeasure(
         divisions: Int = 1,
         number: Int,
         clef: Clef? = null,
-        timeSignature: TimeSignature? = null,
+        timeSignature: Array<Int>? = null,
         noteList: List<Any>
 ) = ScorePartwise.Part.Measure().apply {
     this.divisions = divisions
@@ -22,24 +21,29 @@ fun newClef(sign: ClefSign, line: Int): Clef = Clef().apply {
     this.line = line.toBigInteger()
 }
 
-private var ScorePartwise.Part.Measure.clef: Clef?
+var ScorePartwise.Part.Measure.clef: Clef?
     get() = attributes?.clef?.firstOrNull()
     set(value) {
         if (attributes == null) attributes = Attributes()
         attributes!!.clef.add(value)
     }
 
-private var ScorePartwise.Part.Measure.timeSignature: TimeSignature?
-    get() = attributes?.time?.firstOrNull()?.timeSignature?.let {
-        TimeSignature(it[0].value.toInt(), it[1].value.toInt())
-    }
+
+val factory: ObjectFactory = ObjectFactory()
+var ScorePartwise.Part.Measure.timeSignature: Array<Int>?
+    get() = attributes?.time?.firstOrNull()?.timeSignature?.map { it.value.toInt() }?.toTypedArray()
     set(value) {
-        if (attributes == null) attributes = Attributes()
-        if (attributes!!.time.firstOrNull() == null) attributes!!.time.add(Time())
-        attributes!!.time.first().timeSignature.addAll(value as Iterable<JAXBElement<String>>)
+        if (value != null) {
+            if (attributes == null) attributes = Attributes()
+            if (attributes!!.time.firstOrNull() == null) attributes!!.time.add(Time())
+            attributes!!.time.first().timeSignature.let {
+                it.add(factory.createTimeBeats(value[0].toString()))
+                it.add(factory.createTimeBeatType(value[1].toString()))
+            }
+        }
     }
 
-data class TimeSignature(val numerator: Int, val denominator: Int) : ArrayList<JAXBElement<String>>(2), WestMusicElement {
+/*data class TimeSignature(val numerator: Int, val denominator: Int) : ArrayList<JAXBElement<String>>(2), WestMusicElement {
     init {
         this[0] = factory.createTimeBeats(numerator.toString())
         this[1] = factory.createTimeBeats(denominator.toString())
@@ -47,7 +51,7 @@ data class TimeSignature(val numerator: Int, val denominator: Int) : ArrayList<J
     companion object {
         val factory: ObjectFactory = ObjectFactory()
     }
-}
+}*/
 
 private var ScorePartwise.Part.Measure.number_: Int?
     get() = number?.toInt()

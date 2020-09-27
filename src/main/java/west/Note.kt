@@ -3,6 +3,8 @@ package west
 import Byzantine.ByzStep
 import com.uchuhimo.collections.biMapOf
 import org.apache.commons.lang3.math.Fraction
+import org.apache.commons.lang3.math.Fraction.getFraction
+import org.apache.commons.lang3.math.Fraction.getReducedFraction
 import org.audiveris.proxymusic.*
 import org.audiveris.proxymusic.Step.*
 import parser.fthores.Martyria.Companion.ACCIDENTALS_MAP
@@ -16,12 +18,19 @@ class Note(
         rest: Boolean = false
 ) : org.audiveris.proxymusic.Note() {
 
+    var inTuplet: Boolean = false
+
     var rationalDuration: Fraction = Fraction.ONE
         set(value) {
             field = value
-            noteType = teo(field)
+            noteType = if (inTuplet) teo(rationalDuration)
+            else getNoteType(field)
             setDots()
         }
+
+    fun setNoteTypeInTuplet() {
+        noteType = teo(rationalDuration)
+    }
 
     var accidentalCommas: Int = 0
         set(value) {
@@ -90,6 +99,7 @@ class Note(
     }
 
     fun setTimeModification(actualNotes: Int, normalNotes: Int, normalType: String) {
+        setNoteTypeInTuplet()
         timeModification = TimeModification().apply {
             this.actualNotes = actualNotes.toBigInteger()
             this.normalNotes = normalNotes.toBigInteger()
@@ -115,7 +125,7 @@ class Note(
             syllable = lyricText,
             rest = rest != null
     ).also {
-        it.dot = this.dot.toList()
+        it.dot = this.dot?.toList()
 //        it.dot.plusAssign(mutableListOf<EmptyPlacement>().also { list -> for (i in 0..this.dot.size) list += EmptyPlacement() })
 //    accidentalCommmas = note.accidentalCommmas
     }
@@ -200,7 +210,7 @@ class Note(
     return this != 0 && this and this - 1 == 0
 }*/
 
-fun Int.toFraction(): Fraction = Fraction.getFraction(this, 1)
+fun Int.toFraction(): Fraction = getFraction(this, 1)
 private val fractionMap = mapOf(
         49.toFraction() to "maxima..",
         42.toFraction() to "maxima.",
@@ -213,31 +223,33 @@ private val fractionMap = mapOf(
         7.toFraction() to "whole..",
         6.toFraction() to "whole.",
         4.toFraction() to "whole",
-        Fraction.getFraction(3.5) to "half..",
+        getFraction(3.5) to "half..",
         3.toFraction() to "half.",
         2.toFraction() to "half",
-        Fraction.getFraction(1.75) to "quarter..",
-        Fraction.getFraction(1.5) to "quarter.",
+        getFraction(1.75) to "quarter..",
+        getFraction(1.5) to "quarter.",
         1.toFraction() to "quarter",
-        Fraction.getFraction(1, 2) to "eighth",
-        Fraction.getFraction(0.75) to "eighth.",
-        Fraction.getFraction(1, 4) to "16th",
-        Fraction.getFraction(0.875) to "eighth..",
-        Fraction.getFraction(0.375) to "16th.",
-        Fraction.getFraction(1, 8) to "32nd",
-        Fraction.getFraction(0.4375) to "16th..",
-        Fraction.getFraction(0.1875) to "32nd.",
-        Fraction.getFraction(1, 16) to "64th",
-        Fraction.getFraction(0.21875) to "32nd..",
-        Fraction.getFraction(0.09375) to "64th.",
-        Fraction.getFraction(1, 32) to "128th",
-        Fraction.getFraction(0.109375) to "64th..",
-        Fraction.getFraction(1, 64) to "256th",
-        Fraction.getFraction(1, 128) to "512th",
-        Fraction.getFraction(1, 256) to "1024th"
+        getFraction(1, 2) to "eighth",
+        getFraction(0.75) to "eighth.",
+        getFraction(1, 4) to "16th",
+        getFraction(0.875) to "eighth..",
+        getFraction(0.375) to "16th.",
+        getFraction(1, 8) to "32nd",
+        getFraction(0.4375) to "16th..",
+        getFraction(0.1875) to "32nd.",
+        getFraction(1, 16) to "64th",
+        getFraction(0.21875) to "32nd..",
+        getFraction(0.09375) to "64th.",
+        getFraction(1, 32) to "128th",
+        getFraction(0.109375) to "64th..",
+        getFraction(1, 64) to "256th",
+        getFraction(1, 128) to "512th",
+        getFraction(1, 256) to "1024th"
 )
 
 fun getNoteType(fraction: Fraction): String? = fractionMap[fraction]
+fun getNoteType(fraction: String): String? = getNoteType(getFraction(fraction))
+fun getFraction(numerator: Int): Fraction = getFraction(numerator, 1)
 private fun teo(fraction: Fraction): String? =
         if (fraction.denominator%2 == 0 || fraction.denominator == 1) getNoteType(fraction)
-        else getNoteType(Fraction.getReducedFraction(fraction.numerator, fraction.denominator - 1))
+        else getNoteType(getReducedFraction(fraction.numerator, fraction.denominator - 1))

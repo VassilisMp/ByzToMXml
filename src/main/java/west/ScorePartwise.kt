@@ -1,15 +1,20 @@
 package west
 
-import org.audiveris.proxymusic.*
+import org.audiveris.proxymusic.PartList
+import org.audiveris.proxymusic.PartName
+import org.audiveris.proxymusic.ScorePart
+import org.audiveris.proxymusic.ScorePartwise
+import org.audiveris.proxymusic.ScorePartwise.Part.Measure
 
 fun newScorePartWise(vararg parts: ScorePartwise.Part) = ScorePartwise().apply {
     partList = PartList().also { it.addScoreParts(*parts) }
     part += parts
 }
 
-fun newPart(id: String, partName: String, divisions: Int = 1, noteList: List<Any>) = ScorePartwise.Part().apply {
+fun newPart(id: String, partName: String, measures: List<Measure>) = ScorePartwise.Part().apply {
     this.scorePart = newScorePart(id, partName)
-    this.measure.add(newMeasure(divisions, 1, newClef(ClefSign.G, 2), noteList = noteList))
+    this.measure += measures
+//    this.measure.add(newMeasure(divisions, 1, newClef(ClefSign.G, 2), noteList = noteList))
 }
 
 var ScorePartwise.Part.scorePart: ScorePart
