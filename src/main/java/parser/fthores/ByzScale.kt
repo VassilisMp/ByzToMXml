@@ -51,9 +51,10 @@ class ByzScale {
     fun copy() = ByzScale(this)
 
     fun getByStep(step: ByzStep, octave: Int?): ByzScale {
-        if (octave !in scale[0].octave..scale.last().octave) return this
-        if (octave != null) scale.indexOfFirst { it.step == step && it.octave == octave }.let { if (it >= 0) cursorPos = it }
-        else scale.indexOfFirst { it.step == step }.let { if (it >= 0) cursorPos = it }
+        if (octave != null) {
+            if (octave !in scale[0].octave..scale.last().octave) return this
+            scale.indexOfFirst { it.step == step && it.octave == octave }.let { if (it >= 0) cursorPos = it }
+        } else scale.indexOfFirst { it.step == step }.let { if (it >= 0) cursorPos = it }
         return this
     }
 

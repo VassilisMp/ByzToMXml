@@ -9,7 +9,7 @@ import org.audiveris.proxymusic.Step
 import parser.ArgiesVisitor.Companion.Apli
 import parser.GorgotitesVisitor.Companion.gorgon
 
-class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : ByzBaseVisitor<List<Any>>() {
+class QuantityCharVisitor(private var lastPitch: Pitch = PitchOf(Step.G, 4)) : ByzBaseVisitor<List<Any>>() {
 
     private var gorgotita: Tchar? = null
     private var argia: Tchar? = null
@@ -95,11 +95,6 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
     override fun visitOligonOnKentimataAndApli(ctx: ByzParser.OligonOnKentimataAndApliContext?) =
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), gorgotita, monimi, nextNote(1, end), argia, Apli(), yfesodiesi) }
 
-    override fun visitPause(ctx: ByzParser.PauseContext?): List<Any> {
-        // TODO
-        return super.visitPause(ctx)
-    }
-
     private fun nextNote(num: Int, syllable: String? = null): Note =
             ("${lastPitch.octave}${lastPitch.step.toNum()}".toInt(7) + num).toString(7).let {
                 west.Note(
@@ -133,7 +128,7 @@ class QuantityCharVisitor(private var lastPitch: Pitch = newPitch(Step.C, 4)) : 
     }
 }
 
-private fun newPitch(step: Step, octave: Int): Pitch = Pitch().apply {
+fun PitchOf(step: Step, octave: Int): Pitch = Pitch().apply {
     this.step = step
     this.octave = octave
 }

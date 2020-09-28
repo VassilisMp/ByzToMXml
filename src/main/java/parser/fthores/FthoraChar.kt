@@ -7,6 +7,7 @@ import parser.fthores.ByzScale.Companion.NEXEANES
 import parser.fthores.ByzScale.Companion.SOFT_DIATONIC
 import parser.fthores.Type.*
 import west.Note
+import west.cast
 import java.util.function.Consumer
 
 class FthoraChar internal constructor(
@@ -39,9 +40,10 @@ class FthoraChar internal constructor(
     }*/
 
     override fun accept(engine: Engine) {
+        // get relative Byzantine step from Step
+        val lastNote = with(engine.noteList) {
+            subList(0, indexOf(this@FthoraChar)+1).findLast { it is Note }!!.cast<Note>() }!!
         if (type != null) {
-            // get relative Byzantine step from Step
-            val lastNote = getLastNote()
             var byzScale: ByzScale? = null
             when (type) {
                 S_D -> {
@@ -65,7 +67,7 @@ class FthoraChar internal constructor(
             engine.noteList.add(engine.noteList.indexOf(this), scale.copy())
         }
         if (commas != null) {
-            getLastNote().accidentalCommas = commas
+            lastNote.accidentalCommas = commas
             return
         }
     }
@@ -77,9 +79,5 @@ class FthoraChar internal constructor(
                 ", step=" + step +
                 ", commas=" + commas +
                 "} "
-    }
-
-    fun getLastNote(): Note {
-        TODO("implement")
     }
 }

@@ -1,20 +1,20 @@
 package west
 
 import Byzantine.ByzStep
+import Byzantine.ByzStep.*
 import com.uchuhimo.collections.biMapOf
 import org.apache.commons.lang3.math.Fraction
 import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.commons.lang3.math.Fraction.getReducedFraction
 import org.audiveris.proxymusic.*
 import org.audiveris.proxymusic.Step.*
-import parser.fthores.Martyria.Companion.ACCIDENTALS_MAP
 
 class Note(
         step: Step? = null,
         octave: Int? = null,
-        duration: Int,
-        noteType: NoteTypeEnum?,
-        syllable: String?,
+        duration: Int = 1,
+        noteType: NoteTypeEnum? = null,
+        syllable: String? = null,
         rest: Boolean = false
 ) : org.audiveris.proxymusic.Note() {
 
@@ -32,15 +32,15 @@ class Note(
         noteType = teo(rationalDuration)
     }
 
-    var accidentalCommas: Int = 0
+    var accidentalCommas: Int? = null
         set(value) {
             field = value
-            val accidentalValue = ACCIDENTALS_MAP[accidentalCommas]
+            /*val accidentalValue = ACCIDENTALS_MAP[accidentalCommas]
             if (accidentalValue != null) {
                 accidental = Accidental().apply {
-                    this.value = ACCIDENTALS_MAP.getValue(accidentalCommas)
+                    this.value = accidentalValue
                 }
-            }
+            }*/
         }
 
     var lyricText: String?
@@ -117,6 +117,8 @@ class Note(
         }
     }
 
+    fun equalsPitch(other: Note): Boolean = this.step == other.step && this.octave == other.octave
+
     fun copy(): Note = Note(
             step = step,
             octave = octave,
@@ -169,25 +171,25 @@ class Note(
     companion object {
         val steps = listOf(C, D, E, F, G, A, B)
         private val STEPS_MAP = biMapOf(
-                ByzStep.NH to G,
-                ByzStep.PA to A,
-                ByzStep.BOU to B,
-                ByzStep.GA to C,
-                ByzStep.DI to D,
-                ByzStep.KE to E,
-                ByzStep.ZW to F
+                NH to G,
+                PA to A,
+                BOU to B,
+                GA to C,
+                DI to D,
+                KE to E,
+                ZW to F
         )
         /**
          * The best mapping from European to Byzantine hard-diatonic scale, without the need of turkish accidentals
          */
         private val STANDARD_MAP: Map<Step, ByzStep> = mapOf(
-                C to ByzStep.NH,
-                D to ByzStep.PA,
-                E to ByzStep.BOU,
-                F to ByzStep.GA,
-                G to ByzStep.DI,
-                A to ByzStep.KE,
-                B to ByzStep.ZW
+                C to NH,
+                D to PA,
+                E to BOU,
+                F to GA,
+                G to DI,
+                A to KE,
+                B to ZW
         )
 
         /**
@@ -195,11 +197,12 @@ class Note(
          * via use of STEPS_MAP and STANDARD_MAP, use of STANDARD_MAP is required because everything is calculated using ByzScales.
          * e.g. STEPS_MAP: NH->G, STANDARD_MAP: G->DI
          */
-        private val relativeStandardStep: ByzStep = STANDARD_MAP.getValue(ByzStep.NH.toStep())
+        val relativeStandardStep: ByzStep = STANDARD_MAP.getValue(NH.toStep())
 
         fun ByzStep.toStep() = STEPS_MAP.getValue(this)
         fun Step.toByzStep() = STEPS_MAP.inverse[this]
 //        fun Note.byzStep(): ByzStep? = STEPS_MAP.inverse[step]
+        fun RestNote() = Note(rest= true)
     }
 }
 

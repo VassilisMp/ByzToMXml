@@ -10,8 +10,10 @@ import parser.GorgotitesVisitor.Companion.gorgon
 import parser.fthores.ByzScale
 import parser.fthores.ByzScale.Companion.get2OctavesScale
 import parser.fthores.Martyria
+import parser.fthores.Martyria.Companion.ACCIDENTALS_MAP
 import west.*
 import west.Note
+import west.Note.Companion.relativeStandardStep
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -46,7 +48,6 @@ class Engine(filePath: String) {
 //        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep)
     }
 
-    @Throws(Exception::class)
     fun run() {
         val parser = Parser(docx)
         noteList = parser.parse()
@@ -62,13 +63,34 @@ class Engine(filePath: String) {
             it.duration_ = (it.rationalDuration*divisions).toInt()
             it
         }
-        FileOutputStream("$fileName.xml").use { fileOutputStream ->
-            val part = newPart("P1", "Voice", toMeasures(list))
-            val scorePartwise: ScorePartwise = newScorePartWise(part)
-            val marshaller: Marshaller = Marshalling.getContext(ScorePartwise::class.java).createMarshaller()
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true)
-            marshaller.marshal(scorePartwise, fileOutputStream)
+        val byzScale = get2OctavesScale()
+        byzScale.initAccidentalCommas(relativeStandardStep)
+        // get commas from the key of the score
+        fun getCommasFromKey(note: Note): Int {
+            println("${note.byzStep} ${note.byzOctave}")
+            return byzScale.getMartyria(note.byzStep, note.byzOctave!!)!!.accidentalCommas
         }
+        fun getAccidental(commas: Int) = ACCIDENTALS_MAP[commas]
+        val measures = toMeasures(list)
+        measures.forEach { measure ->
+            val measureNotes = measure.noteOrBackupOrForward.filter { it is Note && it.rest == null }.cast<List<Note>>()!!
+            measureNotes.forEachIndexed { index, note ->
+                val lastNote = measureNotes.subList(0, index).findLast { it.equalsPitch(note) }
+                val stepCommas = if (lastNote == null) getCommasFromKey(note) else lastNote.accidentalCommas!!
+                if (note.accidentalCommas == null) note.accidentalCommas = stepCommas
+                val diff = note.accidentalCommas!! - stepCommas
+                val accidentalValue = getAccidental(diff)
+                if (accidentalValue != null) note.accidental = Accidental().apply { value = accidentalValue }
+            }
+        }
+        val part = newPart("P1", "Voice", measures)
+        newScorePartWise(part).toXml(fileName)
+    }
+
+    private fun ScorePartwise.toXml(filename: String) = FileOutputStream("$filename.xml").use {
+        val marshaller: Marshaller = Marshalling.getContext(this::class.java).createMarshaller()
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true)
+        marshaller.marshal(this, it)
     }
 
     private fun toMeasures(list: List<Any>, timeBeats: Int? = null): List<Measure> {
