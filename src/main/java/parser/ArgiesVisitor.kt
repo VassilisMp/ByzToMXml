@@ -3,7 +3,7 @@ package parser
 import grammar.ByzBaseVisitor
 import grammar.ByzParser.*
 
-class ArgiesVisitor: ByzBaseVisitor<Tchar>() {
+class ArgiesVisitor: ByzBaseVisitor<Tchar?>() {
 
     override fun visitKlasma(ctx: KlasmaContext?) = Apli()
     override fun visitApli(ctx: ApliContext?) = Apli()

@@ -122,7 +122,7 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

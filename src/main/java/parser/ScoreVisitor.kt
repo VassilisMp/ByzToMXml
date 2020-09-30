@@ -1,9 +1,8 @@
 package parser
 
 import grammar.ByzBaseVisitor
-import grammar.ByzParser
-import grammar.ByzParser.ClusterType2Context
-import grammar.ByzParser.NewArktikiMartyriaContext
+import grammar.ByzParser.*
+import org.antlr.v4.runtime.tree.ParseTree
 import org.audiveris.proxymusic.Step
 import west.Note.Companion.RestNote
 
@@ -13,15 +12,15 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
     val text: StringBuilder = StringBuilder()
     var missingLetter: String? = null
     val elements: MutableList<Any> = mutableListOf()
-    val lastPitch = PitchOf(Step.G, 4)
+    val lastPitch = PitchOf(Step.A, 4)
     private val quantityCharVisitor = QuantityCharVisitor(lastPitch)
 
-    override fun visitClusterType2(ctx: ClusterType2Context) {
-//        print(ctx.text + "  ")
+    override fun visitClusterType2(ctx: ClusterType2Context): Unit = with(ctx) {
+        fun getArxigramma() = ARXIGRAMMA()?.text?.drop(1) ?: ""
         // concatenate arxigramma and syllables and possible missing letter that was on the previous cluster by mistake
-        var syllable: String = ctx.getArxigramma() +
+        var syllable: String = getArxigramma() +
                 (missingLetter ?: "") +
-                ctx.syllable().joinToString(separator = "", transform = { it.text })
+                syllable().joinToString(separator = "", transform = { it.text })
         if (missingLetter != null) missingLetter = null
         // if two last letters of the syllable are the same it means, the last belongs to the next note
         if (syllable.length>1) syllable.takeLast(2).let {
@@ -30,33 +29,31 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
                 missingLetter = it[0].toString()
             }
         }
-        val gorgotita = ctx.gorgotita()
-//        println(gorgotita)
-        val argia = ctx.argies()
-//        println(argia)
+        val gorgotita = tChar().mapNotNull { visitGorgotita(it) }.firstOrNull()
+        val argia = tChar().mapNotNull { visitArgia(it) }.firstOrNull()
         elements.addAll(quantityCharVisitor.visit(syllable = syllable, gorgotita = gorgotita, argia = argia, tree = ctx.qChar()))
         // visit pause or return if null
-        elements.addAll(pauseVisitor.visit(ctx.pause() ?: return))
+        if (pause() != null) elements.addAll(visitPause(ctx))
     }
-
-    private fun ClusterType2Context.getArxigramma(): String = (this.ARXIGRAMMA()?.text?.drop(1) ?: "")
-    private fun ClusterType2Context.gorgotita(): Tchar? = tChar().map { gorgotitesVisitor.visit(it) }.firstOrNull()
-    private fun ClusterType2Context.argies(): Tchar? = tChar().map { argiesVisitor.visit(it) }.firstOrNull()
 
     companion object {
         private val argiesVisitor = ArgiesVisitor()
-        internal val gorgotitesVisitor = GorgotitesVisitor()
+        private fun visitArgia(ctx: TCharContext): Tchar? = argiesVisitor.visit(ctx)
+        private val gorgotitesVisitor = GorgotitesVisitor()
+        private fun visitGorgotita(ctx: TCharContext) = gorgotitesVisitor.visit(ctx)
         private val pauseVisitor = object : ByzBaseVisitor<List<Any>>() {
-            override fun visitPause(ctx: ByzParser.PauseContext): List<Any> {
-                var times = 1
-                when {
-                    ctx.APLI().size > 0 -> times += 1
-                    ctx.DIPLI().size > 0 -> times += 2
-                    ctx.TRIPLI().size > 0 -> times += 3
+            override fun visit(tree: ParseTree?): List<Any> = super.visit(tree) ?: emptyList()
+            override fun visitPause(ctx: PauseContext): List<Any> {
+                val times = when {
+                    ctx.APLI().isNotEmpty() -> -2
+                    ctx.DIPLI().isNotEmpty() -> -3
+                    ctx.TRIPLI().isNotEmpty() -> -4
+                    else -> -1
                 }
-                return listOfNotNull(RestNote(), Tchar(0, -times, false), gorgotitesVisitor.visit(ctx.gorgotita()))
+                return listOfNotNull(RestNote(), Tchar(division = times), gorgotitesVisitor.visit(ctx.gorgotita()))
             }
         }
+        private fun visitPause(ctx: ClusterType2Context) = pauseVisitor.visit(ctx)
         private val arktikiMartyriaVisitor = object: ByzBaseVisitor<Unit>() {
             override fun visitNewArktikiMartyria(ctx: NewArktikiMartyriaContext?) = null
         }

@@ -196,13 +196,13 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx) { }
+	@Override public void enterPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx) { }
+	@Override public void exitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

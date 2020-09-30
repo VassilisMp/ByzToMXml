@@ -9,7 +9,7 @@ import west.toFraction
 import java.util.function.Consumer
 import kotlin.math.abs
 
-class Tchar(private val dotPlace: Int, var division: Int, var argo: Boolean): Consumer<Engine> {
+class Tchar(private val dotPlace: Int = 0, var division: Int = 2, var argo: Boolean = false): Consumer<Engine> {
 
     override fun accept(engine: Engine) {
         fun Note.checkTieNote(tieNoteTie: StartStop, thisNoteTie: StartStop, newAddedTime: Fraction) {

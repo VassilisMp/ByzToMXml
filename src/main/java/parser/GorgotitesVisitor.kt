@@ -3,7 +3,7 @@ package parser
 import grammar.ByzBaseVisitor
 import grammar.ByzParser.*
 
-class GorgotitesVisitor: ByzBaseVisitor<Tchar>() {
+class GorgotitesVisitor: ByzBaseVisitor<Tchar?>() {
 
     override fun visitGorgon(ctx: GorgonContext?) = gorgon()
     override fun visitGorgonParestigmenoAristera(ctx: GorgonParestigmenoAristeraContext?) = Tchar(1, 2, false)

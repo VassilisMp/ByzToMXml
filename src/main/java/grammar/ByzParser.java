@@ -154,7 +154,7 @@ public class ByzParser extends Parser {
 		RULE_emptyCluster = 4, RULE_fthoraMeEndeixi = 5, RULE_pause = 6, RULE_cluster = 7, 
 		RULE_tChar = 8, RULE_grammaMartyrias = 9, RULE_martyrikoSimio = 10, RULE_martyria = 11, 
 		RULE_arktikiMartyria = 12, RULE_newArktikiMartyria = 13, RULE_plagiosTetartoyArktikiMartyria = 14, 
-		RULE_plagiosPrwtouArktikiMartyria = 15, RULE_endixiFthoggou = 16, RULE_text = 17, 
+		RULE_prwtosArktikiMartyria = 15, RULE_endixiFthoggou = 16, RULE_text = 17, 
 		RULE_capWord = 18, RULE_syllable = 19, RULE_gorgotita = 20, RULE_gorgon = 21, 
 		RULE_gorgonParestigmenoAristera = 22, RULE_gorgonParestigmenoDexia = 23, 
 		RULE_digorgon = 24, RULE_digorgonParestigmenoAristeraKato = 25, RULE_digorgonParestigmenoAristeraAno = 26, 
@@ -172,8 +172,8 @@ public class ByzParser extends Parser {
 			"newScore", "score2", "clusterType2", "score", "emptyCluster", "fthoraMeEndeixi", 
 			"pause", "cluster", "tChar", "grammaMartyrias", "martyrikoSimio", "martyria", 
 			"arktikiMartyria", "newArktikiMartyria", "plagiosTetartoyArktikiMartyria", 
-			"plagiosPrwtouArktikiMartyria", "endixiFthoggou", "text", "capWord", 
-			"syllable", "gorgotita", "gorgon", "gorgonParestigmenoAristera", "gorgonParestigmenoDexia", 
+			"prwtosArktikiMartyria", "endixiFthoggou", "text", "capWord", "syllable", 
+			"gorgotita", "gorgon", "gorgonParestigmenoAristera", "gorgonParestigmenoDexia", 
 			"digorgon", "digorgonParestigmenoAristeraKato", "digorgonParestigmenoAristeraAno", 
 			"digorgonParestigmenoDexia", "trigorgon", "trigorgonParestigmenoAristeraKato", 
 			"trigorgonParestigmenoAristeraPano", "trigorgonParestigmenoDexia", "argon", 
@@ -1892,15 +1892,15 @@ public class ByzParser extends Parser {
 	}
 
 	public static class ArktikiMartyriaContext extends ParserRuleContext {
-		public PlagiosTetartoyArktikiMartyriaContext plagiosTetartoyArktikiMartyria() {
-			return getRuleContext(PlagiosTetartoyArktikiMartyriaContext.class,0);
-		}
-		public PlagiosPrwtouArktikiMartyriaContext plagiosPrwtouArktikiMartyria() {
-			return getRuleContext(PlagiosPrwtouArktikiMartyriaContext.class,0);
+		public NewArktikiMartyriaContext newArktikiMartyria() {
+			return getRuleContext(NewArktikiMartyriaContext.class,0);
 		}
 		public TerminalNode LEFT_PARENTHESIS() { return getToken(ByzParser.LEFT_PARENTHESIS, 0); }
 		public TextContext text() {
 			return getRuleContext(TextContext.class,0);
+		}
+		public MartyriaContext martyria() {
+			return getRuleContext(MartyriaContext.class,0);
 		}
 		public List<SyllableContext> syllable() {
 			return getRuleContexts(SyllableContext.class);
@@ -1960,22 +1960,18 @@ public class ByzParser extends Parser {
 				}
 			}
 
+			setState(307);
+			newArktikiMartyria();
 			setState(309);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,43,_ctx) ) {
-			case 1:
-				{
-				setState(307);
-				plagiosTetartoyArktikiMartyria();
-				}
-				break;
-			case 2:
+			_la = _input.LA(1);
+			if (((((_la - 54)) & ~0x3f) == 0 && ((1L << (_la - 54)) & ((1L << (MARTYRIA_ALLI_PROTOS_ICHOS - 54)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS - 54)) | (1L << (MARTYRIA_TRIFONIAS - 54)) | (1L << (MARTYRIA_TETARTOS_ICHOS - 54)) | (1L << (MARTYRIA_LEGETOS_ICHOS - 54)) | (1L << (APOSTROFOI_TELOUS_ICHIMATOS - 54)) | (1L << (MARTYRIA_VARYS_ICHOS - 54)) | (1L << (ARKTIKO_PA - 54)) | (1L << (ARKTIKO_VOU - 54)) | (1L << (ARKTIKO_GA - 54)) | (1L << (ARKTIKO_DI - 54)) | (1L << (ARKTIKO_KE - 54)) | (1L << (ARKTIKO_ZO - 54)) | (1L << (ARKTIKO_NI - 54)))) != 0) || ((((_la - 150)) & ~0x3f) == 0 && ((1L << (_la - 150)) & ((1L << (GRAMMA_MARTYRIAS_TONOS - 150)) | (1L << (LOW_GA - 150)) | (1L << (LOW_DI - 150)) | (1L << (LOW_KE - 150)) | (1L << (MARTYRIA_NENANO - 150)) | (1L << (MARTYRIA_ALLI_PROTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_ALLI_DEYTEROS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_TRIFONIAS_LOW - 150)) | (1L << (MARTYRIA_TETARTOS_ICHOS_LOW - 150)) | (1L << (MARTYRIA_NENANO_LOW - 150)))) != 0)) {
 				{
 				setState(308);
-				plagiosPrwtouArktikiMartyria();
+				martyria();
 				}
-				break;
 			}
+
 			setState(314);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,44,_ctx);
@@ -2035,8 +2031,8 @@ public class ByzParser extends Parser {
 		public PlagiosTetartoyArktikiMartyriaContext plagiosTetartoyArktikiMartyria() {
 			return getRuleContext(PlagiosTetartoyArktikiMartyriaContext.class,0);
 		}
-		public PlagiosPrwtouArktikiMartyriaContext plagiosPrwtouArktikiMartyria() {
-			return getRuleContext(PlagiosPrwtouArktikiMartyriaContext.class,0);
+		public PrwtosArktikiMartyriaContext prwtosArktikiMartyria() {
+			return getRuleContext(PrwtosArktikiMartyriaContext.class,0);
 		}
 		public NewArktikiMartyriaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -2075,7 +2071,7 @@ public class ByzParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(327);
-				plagiosPrwtouArktikiMartyria();
+				prwtosArktikiMartyria();
 				}
 				break;
 			}
@@ -2142,34 +2138,34 @@ public class ByzParser extends Parser {
 		return _localctx;
 	}
 
-	public static class PlagiosPrwtouArktikiMartyriaContext extends ParserRuleContext {
+	public static class PrwtosArktikiMartyriaContext extends ParserRuleContext {
 		public TerminalNode HXOS_WORD() { return getToken(ByzParser.HXOS_WORD, 0); }
 		public TerminalNode ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS() { return getToken(ByzParser.ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS, 0); }
 		public TerminalNode FANEROSIS_TETRAFONIAS() { return getToken(ByzParser.FANEROSIS_TETRAFONIAS, 0); }
 		public TerminalNode FTHOGGOS_PA_WORD() { return getToken(ByzParser.FTHOGGOS_PA_WORD, 0); }
 		public TerminalNode FTHORA_DIATONIKI_PA() { return getToken(ByzParser.FTHORA_DIATONIKI_PA, 0); }
-		public PlagiosPrwtouArktikiMartyriaContext(ParserRuleContext parent, int invokingState) {
+		public PrwtosArktikiMartyriaContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_plagiosPrwtouArktikiMartyria; }
+		@Override public int getRuleIndex() { return RULE_prwtosArktikiMartyria; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterPlagiosPrwtouArktikiMartyria(this);
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).enterPrwtosArktikiMartyria(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitPlagiosPrwtouArktikiMartyria(this);
+			if ( listener instanceof ByzListener ) ((ByzListener)listener).exitPrwtosArktikiMartyria(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitPlagiosPrwtouArktikiMartyria(this);
+			if ( visitor instanceof ByzVisitor ) return ((ByzVisitor<? extends T>)visitor).visitPrwtosArktikiMartyria(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final PlagiosPrwtouArktikiMartyriaContext plagiosPrwtouArktikiMartyria() throws RecognitionException {
-		PlagiosPrwtouArktikiMartyriaContext _localctx = new PlagiosPrwtouArktikiMartyriaContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_plagiosPrwtouArktikiMartyria);
+	public final PrwtosArktikiMartyriaContext prwtosArktikiMartyria() throws RecognitionException {
+		PrwtosArktikiMartyriaContext _localctx = new PrwtosArktikiMartyriaContext(_ctx, getState());
+		enterRule(_localctx, 30, RULE_prwtosArktikiMartyria);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -6364,8 +6360,8 @@ public class ByzParser extends Parser {
 		"\2\2\2\u012d\u0116\3\2\2\2\u012d\u011b\3\2\2\2\u012d\u0122\3\2\2\2\u012d"+
 		"\u0128\3\2\2\2\u012e\31\3\2\2\2\u012f\u0131\7\u00c7\2\2\u0130\u012f\3"+
 		"\2\2\2\u0130\u0131\3\2\2\2\u0131\u0133\3\2\2\2\u0132\u0134\5$\23\2\u0133"+
-		"\u0132\3\2\2\2\u0133\u0134\3\2\2\2\u0134\u0137\3\2\2\2\u0135\u0138\5\36"+
-		"\20\2\u0136\u0138\5 \21\2\u0137\u0135\3\2\2\2\u0137\u0136\3\2\2\2\u0138"+
+		"\u0132\3\2\2\2\u0133\u0134\3\2\2\2\u0134\u0135\3\2\2\2\u0135\u0137\5\34"+
+		"\17\2\u0136\u0138\5\30\r\2\u0137\u0136\3\2\2\2\u0137\u0138\3\2\2\2\u0138"+
 		"\u013c\3\2\2\2\u0139\u013b\5(\25\2\u013a\u0139\3\2\2\2\u013b\u013e\3\2"+
 		"\2\2\u013c\u013a\3\2\2\2\u013c\u013d\3\2\2\2\u013d\u0142\3\2\2\2\u013e"+
 		"\u013c\3\2\2\2\u013f\u0141\7\u00c6\2\2\u0140\u013f\3\2\2\2\u0141\u0144"+

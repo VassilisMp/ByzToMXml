@@ -158,15 +158,15 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ByzParser#plagiosPrwtouArktikiMartyria}.
+	 * Enter a parse tree produced by {@link ByzParser#prwtosArktikiMartyria}.
 	 * @param ctx the parse tree
 	 */
-	void enterPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx);
+	void enterPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ByzParser#plagiosPrwtouArktikiMartyria}.
+	 * Exit a parse tree produced by {@link ByzParser#prwtosArktikiMartyria}.
 	 * @param ctx the parse tree
 	 */
-	void exitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx);
+	void exitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ByzParser#endixiFthoggou}.
 	 * @param ctx the parse tree

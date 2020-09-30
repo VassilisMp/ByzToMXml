@@ -39,8 +39,6 @@ class Engine(filePath: String) {
         if (matcher.find()) fileName = matcher.group(2) else throw FileNotFoundException("couldn't match filename")
         docx = XWPFDocument(FileInputStream(filePath))
         initAccidentalCommas()
-        // TODO
-//        putFthoraScale(ByzScale(currentByzScale), 0)
     }
 
     fun initAccidentalCommas() {
@@ -51,13 +49,22 @@ class Engine(filePath: String) {
     fun run() {
         val parser = Parser(docx)
         noteList = parser.parse()
-        // convert argo to argia, gorgo
+        // convert argo to gorgo, argia
         noteList.filterIsInstance<Tchar>().filter { it.argo }.forEach {
-            it.argo = false
-            noteList.add(noteList.indexOf(it) + 1, gorgon())
+            // get argo index
+            val argoIndex = noteList.indexOf(it)
+            // replace argo with gorgo
+            noteList[argoIndex] = gorgon()
+            // add the argia to the note
+            val nextNoteIndex = noteList.nextNoteIndex(argoIndex, 1)
+            noteList.add(nextNoteIndex + 1, it.apply { argo = false })
         }
+        // run timeChars
         noteList.filterIsInstance<Tchar>().forEach { it.accept(this) }
+        // set divisions based on the the greatest denominator used in dividing times
         divisions = factorial(divisions)
+        // remove dots from noteType strings
+        // set notes duration based on divisions
         val list = noteList.filterIsInstance<Note>().map {
             it.noteType?.run { it.noteType = it.noteType!!.replace(".", "") }
             it.duration_ = (it.rationalDuration*divisions).toInt()
@@ -172,3 +179,16 @@ fun <K, V> BiMap<in K, in V>.with(vararg pairs: Pair<K, V>): BiMap<K, V> {
 }*/
 
 private fun String.toFraction() = getFraction(this)
+private fun List<Any>.nextNoteIndex(startIndex: Int, noteNum: Int = 1): Int {
+    var noteNum1 = 0
+    for (index in startIndex..this.size) {
+        if (this[index] is Note) {
+            noteNum1++
+            if (noteNum1 == noteNum) return index
+        }
+    }
+    return -1
+    /*return subList(startIndex+1, this.size)
+            .filterIsInstance<Note>()
+            .firstOrNull()?.let { indexOf(this) }*/
+}

@@ -135,17 +135,18 @@ martyria :
 
 arktikiMartyria :
         LEFT_PARENTHESIS? text?
-        (plagiosTetartoyArktikiMartyria | plagiosPrwtouArktikiMartyria)
+        newArktikiMartyria
+        martyria?
         syllable* ARXIGRAMMA* RIGHT_PARENTHESIS?
         ;
 
-newArktikiMartyria: plagiosTetartoyArktikiMartyria | plagiosPrwtouArktikiMartyria ;
+newArktikiMartyria: plagiosTetartoyArktikiMartyria | prwtosArktikiMartyria ;
 
 plagiosTetartoyArktikiMartyria :
         HXOS_WORD MARTYRIA_PLAGIOS_ICHOS ARKTIKH_MARTYRIA_TETARTOS_ICHOS FTHOGGOS_NH_WORD
         ;
 
-plagiosPrwtouArktikiMartyria :
+prwtosArktikiMartyria :
         HXOS_WORD ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS FANEROSIS_TETRAFONIAS FTHOGGOS_PA_WORD FTHORA_DIATONIKI_PA
         ;
 

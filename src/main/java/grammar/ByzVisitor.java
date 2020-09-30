@@ -101,11 +101,11 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ByzParser#plagiosPrwtouArktikiMartyria}.
+	 * Visit a parse tree produced by {@link ByzParser#prwtosArktikiMartyria}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx);
+	T visitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ByzParser#endixiFthoggou}.
 	 * @param ctx the parse tree
