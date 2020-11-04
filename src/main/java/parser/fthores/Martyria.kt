@@ -91,6 +91,7 @@ class Martyria {
                 8 to SLASH_SHARP,
                 9 to DOUBLE_SHARP,
                 -1 to QUARTER_FLAT,
+                -3 to SLASH_FLAT, // TODO wrong symbol
                 -4 to SLASH_FLAT,
                 -5 to FLAT,
                 -8 to DOUBLE_SLASH_FLAT,

@@ -1,5 +1,6 @@
 package parser
 
+import Byzantine.ByzStep
 import com.google.common.math.IntMath.factorial
 import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.poi.xwpf.usermodel.XWPFDocument
@@ -21,6 +22,7 @@ import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.xml.bind.Marshaller
+import javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT
 import kotlin.collections.HashMap
 import kotlin.collections.set
 
@@ -90,13 +92,16 @@ class Engine(filePath: String) {
                 if (accidentalValue != null) note.accidental = Accidental().apply { value = accidentalValue }
             }
         }
+        // TODO add Key
+        measures.first().key = byzScale.getKey(ByzStep.DI)
+//        measures.first().key = ByzScale.NEANES_KEY
         val part = newPart("P1", "Voice", measures)
         newScorePartWise(part).toXml(fileName)
     }
 
     private fun ScorePartwise.toXml(filename: String) = FileOutputStream("$filename.xml").use {
         val marshaller: Marshaller = Marshalling.getContext(this::class.java).createMarshaller()
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true)
+        marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true)
         marshaller.marshal(this, it)
     }
 

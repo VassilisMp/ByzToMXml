@@ -4,8 +4,7 @@ import Byzantine.ByzStep
 import Byzantine.MartirikoSimio
 import Byzantine.Martyria
 import grammar.ByzBaseListener
-import grammar.ByzLexer.*
-import grammar.ByzParser
+import grammar.ByzParser.*
 import org.antlr.v4.runtime.TokenStream
 import org.antlr.v4.runtime.TokenStreamRewriter
 import org.antlr.v4.runtime.tree.TerminalNode
@@ -14,7 +13,7 @@ import org.audiveris.proxymusic.Step
 class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
     internal val rewriter: TokenStreamRewriter = TokenStreamRewriter(tokens)
     private var arxigramma: TerminalNode? = null
-    private var syllable: ByzParser.SyllableContext? = null
+    private var syllable: SyllableContext? = null
     private var inMusic: Boolean = false
     private var lastStep: Step? = null
     private var lastMartyria: Martyria? = null
@@ -31,32 +30,36 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
         }
     }
 
-    /*override fun enterSyllable(ctx: ByzParser.SyllableContext) {
+    override fun enterSyllable(ctx: SyllableContext) {
+        fun deleteSyllable() = rewriter.delete(ctx.start, ctx.stop)
+        val parent = ctx.getParent()
+        val children = parent.children
+        val syllableIndex = children.indexOf(ctx)
+
         return when {
-            ctx.getParent()::class.java == ByzParser.TextContext::class.java -> return
-            ctx.getParent()::class.java == ByzParser.ArktikiMartyriaContext::class.java -> {
-                rewriter.delete(ctx.start, ctx.stop)
-                return
-            }
-            ctx.getParent().children[1] == ctx || !inMusic -> {
+            children[syllableIndex-1] is MartyriaContext && children[syllableIndex+1].text == ")"-> {
+                println("in when " + ctx.text)
                 syllable = ctx
-//                println(syllable?.text)
+                deleteSyllable()
             }
-            else -> ctx.getParent().children.subList(0, ctx.getParent().children.indexOf(ctx)).asReversed().forEach { pt ->
-                if (pt::class.java == ByzParser.SyllableContext::class.java) syllable = ctx
-                if (pt::class.java == ByzParser.QCharContext::class.java) return
-            }
+            parent is TextContext -> Unit
+            parent is ArktikiMartyriaContext -> deleteSyllable()
+            children[1] == ctx || !inMusic -> syllable = ctx
+            else -> /*children.subList(0, syllableIndex).asReversed().forEach { pt ->
+                if (pt is SyllableContext) syllable = ctx
+                if (pt is QCharContext) Unit
+            }*/Unit
         }
-    }*/
+    }
 
 
-    override fun exitFthoraMeEndeixi(ctx: ByzParser.FthoraMeEndeixiContext?) {
+    override fun exitFthoraMeEndeixi(ctx: FthoraMeEndeixiContext?) {
 //        println(ctx?.text)
 //        rewriter.tokenStream.
 //        print(ctx?.getStart())
     }
 
-    override fun enterQChar(ctx: ByzParser.QCharContext) {
+    override fun enterQChar(ctx: QCharContext) {
 //        println(ctx?.text)
         inMusic = true
         var flag = false
@@ -80,18 +83,18 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
     }
 
     // removes useless text
-    override fun enterText(ctx: ByzParser.TextContext) = rewriter.delete(ctx.start, ctx.stop)
+    override fun enterText(ctx: TextContext) = rewriter.delete(ctx.start, ctx.stop)
 
-    override fun enterCapWord(ctx: ByzParser.CapWordContext) = rewriter.delete(ctx.start, ctx.stop)
+    override fun enterCapWord(ctx: CapWordContext) = rewriter.delete(ctx.start, ctx.stop)
 
     // remove martyrias
-    override fun enterMartyria(ctx: ByzParser.MartyriaContext) =
+    override fun enterMartyria(ctx: MartyriaContext) =
         if (rewriter.tokenStream[ctx.start.tokenIndex - 1].type == LEFT_PARENTHESIS
                 && rewriter.tokenStream[ctx.stop.tokenIndex + 1].type == RIGHT_PARENTHESIS) {
             rewriter.delete(ctx.start.tokenIndex-1, ctx.stop.tokenIndex+1)
         } else rewriter.delete(ctx.start, ctx.stop)
 
-    override fun enterPlagiosTetartoyArktikiMartyria(ctx: ByzParser.PlagiosTetartoyArktikiMartyriaContext?) {
+    override fun enterPlagiosTetartoyArktikiMartyria(ctx: PlagiosTetartoyArktikiMartyriaContext?) {
         lastMartyria = Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9)
         lastStep
 //        super.enterPlagiosTetartoyArktikiMartyria(ctx)

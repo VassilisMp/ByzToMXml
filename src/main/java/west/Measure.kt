@@ -61,7 +61,7 @@ private var ScorePartwise.Part.Measure.attributes: Attributes?
     get() = noteOrBackupOrForward.firstOrNull()?.cast()
     set(value) { noteOrBackupOrForward.add(0, value) }
 
-private var ScorePartwise.Part.Measure.key: Key?
+internal var ScorePartwise.Part.Measure.key: Key?
     get() = attributes?.key?.firstOrNull()
     set(value) {
         if (attributes == null) attributes = Attributes()

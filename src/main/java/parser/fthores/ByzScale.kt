@@ -1,14 +1,17 @@
 package parser.fthores
 
 import Byzantine.ByzStep
+import Byzantine.ByzStep.*
 import org.audiveris.proxymusic.Key
 import org.audiveris.proxymusic.ObjectFactory
 import org.audiveris.proxymusic.Step
 import org.jetbrains.annotations.Contract
+import parser.fthores.Martyria.Companion.FLATS_FOURTHS
+import parser.fthores.Martyria.Companion.SHARP_FIFTHS
+import west.Note.Companion.toStep
 import java.util.*
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.Consumer
-import java.util.function.Function
 import java.util.function.Supplier
 
 class ByzScale {
@@ -50,7 +53,7 @@ class ByzScale {
 
     fun copy() = ByzScale(this)
 
-    fun getByStep(step: ByzStep, octave: Int?): ByzScale {
+    fun getByStep(step: ByzStep, octave: Int? = null): ByzScale {
         if (octave != null) {
             if (octave !in scale[0].octave..scale.last().octave) return this
             scale.indexOfFirst { it.step == step && it.octave == octave }.let { if (it >= 0) cursorPos = it }
@@ -103,7 +106,7 @@ class ByzScale {
     }
 
     private fun calcAbsPos() {
-        val martyria1 = getMartyria(ByzStep.DI, 0)
+        val martyria1 = getMartyria(DI, 0)
         val indexOfMesoDI = scale.indexOf(martyria1)
         var i = 0
         val thisSize = scale.size
@@ -125,7 +128,7 @@ class ByzScale {
         cursorPos = 0
     }
 
-    fun applyFthora(fthora: ByzScale?) {
+    fun applyFthora(fthora: ByzScale?): ByzScale {
         if (fthora != null) {
 //            HARD_DIATONIC.indexOfStep(relativeStep)
             // save cursor position for both scales
@@ -164,20 +167,17 @@ class ByzScale {
             }
             calcAbsPos()
         }
+        return this
     }
 
-    operator fun get(i: Int): Martyria? {
-        return scale[i]
-    }
+    operator fun get(i: Int): Martyria? = scale[i]
 
     operator fun get(step: ByzStep): ByzScale {
         scale.indexOfFirst { it.step == step }.let { if (it >= 0) cursorPos = it }
         return this
     }
 
-    fun size(): Int {
-        return scale.size
-    }
+    fun size(): Int = scale.size
 
     override fun toString(): String {
         return "ByzScale{" +
@@ -188,7 +188,7 @@ class ByzScale {
                 '}'
     }
 
-    fun getKey(STEPS_MAP: Map<ByzStep?, Step?>, startStep: ByzStep?, octave: Int?): Key {
+    fun getKey(startStep: ByzStep?, octave: Int? = null): Key {
         var scale: List<Martyria> = scale
         if (startStep != null) {
             val start = this.indexOf(startStep, octave)
@@ -196,12 +196,9 @@ class ByzScale {
         }
         val key = ObjectFactory().createKey()
         val nonTraditionalKey = key.nonTraditionalKey
-        val funRef = AtomicReference(
-                Function { martyria: Martyria -> martyria.accidentalCommas < 0 }
-        )
-        val finalScale = scale
+        val funRef = AtomicReference { martyria: Martyria -> martyria.accidentalCommas < 0 }
         val addAccidentals = Consumer { step: Step ->
-            finalScale.firstOrNull { STEPS_MAP[it.step] == step && funRef.get().apply(it) }
+            scale.firstOrNull { it.step.toStep() == step && funRef.get().invoke(it) }
                     ?.let { martyria ->
                         nonTraditionalKey.addMany(
                                 step,
@@ -210,9 +207,9 @@ class ByzScale {
                         )
                     }
         }
-        Martyria.FLATS_FOURTHS.forEach(addAccidentals)
-        funRef.set(Function { martyria: Martyria -> martyria.accidentalCommas > 0 })
-        Martyria.SHARP_FIFTHS.forEach(addAccidentals)
+        FLATS_FOURTHS.forEach(addAccidentals)
+        funRef.set { martyria -> martyria.accidentalCommas > 0 }
+        SHARP_FIFTHS.forEach(addAccidentals)
         return key
     }
 
@@ -220,7 +217,7 @@ class ByzScale {
         val HARD_DIATONIC = HARD_DIATONIC.getByStep(relativeStandardStep, null)
         val HARD_DIATONIC_cursorPos = HARD_DIATONIC.cursorPos
         HARD_DIATONIC.cursorPos = HARD_DIATONIC_cursorPos - 1
-        getByStep(ByzStep.NH, null)
+        getByStep(NH, null)
         val currentByzScaleCursorPos = cursorPos
         run {
             var i = currentByzScaleCursorPos
@@ -250,34 +247,34 @@ class ByzScale {
     companion object {
         // TODO add the missing scales
         val NEXEANES = createScale(
-                Martyria(0, ByzStep.PA, MartirikoSimio.NEXEANESx, 5),
-                Martyria(0, ByzStep.BOU, MartirikoSimio.NENANO, 12),
-                Martyria(0, ByzStep.GA, MartirikoSimio.NEXEANESx, 5),
-                Martyria(0, ByzStep.DI, MartirikoSimio.NENANO, 9)
+                Martyria(0, PA, MartirikoSimio.NEXEANESx, 5),
+                Martyria(0, BOU, MartirikoSimio.NENANO, 12),
+                Martyria(0, GA, MartirikoSimio.NEXEANESx, 5),
+                Martyria(0, DI, MartirikoSimio.NENANO, 9)
         )
         val NEANES = createScale(
-                Martyria(0, ByzStep.DI, MartirikoSimio.NEANES, 6),
-                Martyria(0, ByzStep.KE, MartirikoSimio.NEANES2, 11),
-                Martyria(0, ByzStep.ZW, MartirikoSimio.NEANES, 5),
-                Martyria(1, ByzStep.NH, MartirikoSimio.NEANES2, 9)
+                Martyria(0, DI, MartirikoSimio.NEANES, 6),
+                Martyria(0, KE, MartirikoSimio.NEANES2, 11),
+                Martyria(0, ZW, MartirikoSimio.NEANES, 5),
+                Martyria(1, NH, MartirikoSimio.NEANES2, 9)
         )
         val SOFT_DIATONIC = createScale(
-                Martyria(-1, ByzStep.DI, MartirikoSimio.AGIA, 9),
-                Martyria(-1, ByzStep.KE, MartirikoSimio.ANANES, 8),
-                Martyria(-1, ByzStep.ZW, MartirikoSimio.AANES, 5),
-                Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
-                Martyria(0, ByzStep.PA, MartirikoSimio.ANEANES, 8),
-                Martyria(0, ByzStep.BOU, MartirikoSimio.NEHEANES, 5),
-                Martyria(0, ByzStep.GA, MartirikoSimio.NANA, 9)
+                Martyria(-1, DI, MartirikoSimio.AGIA, 9),
+                Martyria(-1, KE, MartirikoSimio.ANANES, 8),
+                Martyria(-1, ZW, MartirikoSimio.AANES, 5),
+                Martyria(0, NH, MartirikoSimio.NEAGIE, 9),
+                Martyria(0, PA, MartirikoSimio.ANEANES, 8),
+                Martyria(0, BOU, MartirikoSimio.NEHEANES, 5),
+                Martyria(0, GA, MartirikoSimio.NANA, 9)
         )
         val HARD_DIATONIC = createScale(
-                Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9),
-                Martyria(0, ByzStep.PA, MartirikoSimio.ANEANES, 9),
-                Martyria(0, ByzStep.BOU, MartirikoSimio.NEHEANES, 4),
-                Martyria(0, ByzStep.GA, MartirikoSimio.NANA, 9),
-                Martyria(0, ByzStep.DI, MartirikoSimio.AGIA, 9),
-                Martyria(0, ByzStep.KE, MartirikoSimio.ANANES, 9),
-                Martyria(0, ByzStep.ZW, MartirikoSimio.AANES, 4)
+                Martyria(0, NH, MartirikoSimio.NEAGIE, 9),
+                Martyria(0, PA, MartirikoSimio.ANEANES, 9),
+                Martyria(0, BOU, MartirikoSimio.NEHEANES, 4),
+                Martyria(0, GA, MartirikoSimio.NANA, 9),
+                Martyria(0, DI, MartirikoSimio.AGIA, 9),
+                Martyria(0, KE, MartirikoSimio.ANANES, 9),
+                Martyria(0, ZW, MartirikoSimio.AANES, 4)
         )
 
         private fun createScale(vararg martyriasParam: Martyria): ByzScale {
@@ -304,7 +301,7 @@ class ByzScale {
             // wrap in ByzScale
             val diatonicByzScale = ByzScale(SOFT_DIATONIC)
             diatonicByzScale.fthorikoSimio = FthorikoSimio.NH_D
-            diatonicByzScale.fthoraHolder = diatonicByzScale.getMartyria(ByzStep.NH, 0)
+            diatonicByzScale.fthoraHolder = diatonicByzScale.getMartyria(NH, 0)
             // go two positions to left, to call getNext().commasToNext on the previous martyria
             diatonicByzScale.getItemToLeft(2)
             // set commasToPrev using commasToNext value of the previous martyria
@@ -325,6 +322,11 @@ class ByzScale {
             diatonicByzScale.calcAbsPos()
             return diatonicByzScale
         }
+        /*val NEANES_KEY = get2OctavesScale()
+                .getByStep(NH)
+                .apply { initAccidentalCommas(Note.relativeStandardStep) }
+                .applyFthora(NEANES)
+                .getKey(NH)*/
     }
 }
 
