@@ -2,6 +2,7 @@ package parser
 
 import Byzantine.ByzStep
 import com.google.common.math.IntMath.factorial
+import org.antlr.v4.runtime.InputMismatchException
 import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.audiveris.proxymusic.*
@@ -48,6 +49,7 @@ class Engine(filePath: String) {
 //        ByzScale.initAccidentalCommas(currentByzScale, relativeStandardStep)
     }
 
+    @Throws(InputMismatchException::class)
     fun run() {
         val parser = Parser(docx)
         noteList = parser.parse()

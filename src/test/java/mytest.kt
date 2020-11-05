@@ -1,9 +1,10 @@
 import Byzantine.ByzClass
-import gen.convertBaseListener
+/*import gen.convertBaseListener
 import gen.convertLexer
-import gen.convertParser
+import gen.convertParser*/
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
+import org.antlr.v4.runtime.InputMismatchException
 import org.antlr.v4.runtime.tree.ParseTreeWalker
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.math.Fraction
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import parser.Engine
 import parser.InMusicSyllable
+import parser.Parser
 import parser.fontToByzClass
 import west.Note
 import java.io.File
@@ -221,43 +223,10 @@ class ParseTest {
         println("B123".surrogatesToHex())
     }
 
-    @Test
+    /*@Test
     fun convert() {
         Listener().run()
-    }
-}
-
-fun CharSequence.surrogatesToHex(): CharSequence = when{
-    this.hasSurrogatePairAt(0) -> map {
-        """\u${Integer.toHexString(it.toInt()).toUpperCase()}"""
-    }.joinToString(separator = "", prefix = "'", postfix = "'")
-    else -> "'$this'"
-}
-
-class Listener : convertBaseListener() {
-    override fun enterRuleLine(ctx: convertParser.RuleLineContext?) {
-        val rule: convertParser.MyRuleContext? = ctx?.getChild(convertParser.MyRuleContext::class.java, 0)
-        println(rule?.LITERAL(0)?.text?.removeSurrounding("'")?.surrogatesToHex())
-    }
-
-    // create frm byzLexer.g4
-    fun run() {
-        /*val file = File("/grammarSrc/byzLexer.g4")
-        val str = "// Argies (Retards)\n" +
-                "KLASMA_ANO : '\uD834\uDC7F' | 'B117' ;\n" +
-                "DIPLI_ARCHAION : '\uD834\uDC80' ;\n" +
-                "KRATIMA_ARCHAION : '\uD834\uDC81' ;\n" +
-                "KRATIMA_ALLO : '\uD834\uDC82' ;\n" +
-                "KRATIMA_NEO : '\uD834\uDC83' ;\n" +
-                "APODERMA_NEO : '\uD834\uDC84' ;\n"*/
-        val lexer = convertLexer(CharStreams.fromStream(File("grammarSrc/byzLexer.g4").inputStream()))
-        val tokenStream = CommonTokenStream(lexer)
-        val parser = convertParser(tokenStream)
-        val tree = parser.lines()
-        val walker = ParseTreeWalker()
-        walker.walk(this, tree)
-        println(tree.toStringTree(parser));
-    }
+    }*/
 
     @Test
     fun inMusicSyllableTest() {
@@ -294,8 +263,12 @@ class Listener : convertBaseListener() {
 
     @Test
     fun newEngineKtTest() {
-        val engine = Engine("makarios_anir_syntoma_fokaeos_simple.docx")
-        engine.run()
+        val engine = Engine("arktikesMartyries.docx")
+        try {
+            engine.run()
+        } catch (e: InputMismatchException) {
+            println("caught")
+        }
     }
 
     @Test
@@ -312,4 +285,47 @@ class Listener : convertBaseListener() {
 
         println(note)
     }
+
+    @Test
+    fun parseArkt() {
+        val parser = Parser(XWPFDocument(FileInputStream("arktikesMartyries.docx")), false)
+//        parser.parse()
+        println(parser.byzCharsStr)
+    }
 }
+
+fun CharSequence.surrogatesToHex(): CharSequence = when{
+    this.hasSurrogatePairAt(0) -> map {
+        """\u${Integer.toHexString(it.toInt()).toUpperCase()}"""
+    }.joinToString(separator = "", prefix = "'", postfix = "'")
+    else -> "'$this'"
+}
+
+/*
+class Listener : convertBaseListener() {
+    override fun enterRuleLine(ctx: convertParser.RuleLineContext?) {
+        val rule: convertParser.MyRuleContext? = ctx?.getChild(convertParser.MyRuleContext::class.java, 0)
+        println(rule?.LITERAL(0)?.text?.removeSurrounding("'")?.surrogatesToHex())
+    }
+
+    // create frm byzLexer.g4
+    fun run() {
+        */
+/*val file = File("/grammarSrc/byzLexer.g4")
+        val str = "// Argies (Retards)\n" +
+                "KLASMA_ANO : '\uD834\uDC7F' | 'B117' ;\n" +
+                "DIPLI_ARCHAION : '\uD834\uDC80' ;\n" +
+                "KRATIMA_ARCHAION : '\uD834\uDC81' ;\n" +
+                "KRATIMA_ALLO : '\uD834\uDC82' ;\n" +
+                "KRATIMA_NEO : '\uD834\uDC83' ;\n" +
+                "APODERMA_NEO : '\uD834\uDC84' ;\n"*//*
+
+        val lexer = convertLexer(CharStreams.fromStream(File("grammarSrc/byzLexer.g4").inputStream()))
+        val tokenStream = CommonTokenStream(lexer)
+        val parser = convertParser(tokenStream)
+        val tree = parser.lines()
+        val walker = ParseTreeWalker()
+        walker.walk(this, tree)
+        println(tree.toStringTree(parser));
+    }
+}*/
