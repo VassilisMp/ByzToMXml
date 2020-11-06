@@ -42,6 +42,7 @@ class Martyria {
      */
     var accidentalCommas = 0
 
+    // AccidentalValue documentation http://usermanuals.musicxml.com/MusicXML/MusicXML.htm#ST-MusicXML-accidental-value.htm
     val accidental: AccidentalValue
         get() = ACCIDENTALS_MAP.getValue(accidentalCommas)
 
@@ -86,6 +87,7 @@ class Martyria {
     companion object {
         val ACCIDENTALS_MAP: Map<Int, AccidentalValue> = mapOf(
                 1 to QUARTER_SHARP,
+                2 to QUARTER_SHARP, // TODO wrong symbol
                 4 to SHARP,
                 5 to SLASH_QUARTER_SHARP,
                 8 to SLASH_SHARP,

@@ -1,4 +1,4 @@
-// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/pba/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
 package grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -11,18 +11,6 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  */
 public class ByzBaseListener implements ByzListener {
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNewScore(ByzParser.NewScoreContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNewScore(ByzParser.NewScoreContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -167,42 +155,6 @@ public class ByzBaseListener implements ByzListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1211,6 +1163,702 @@ public class ByzBaseListener implements ByzListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOligonOnKentimataAndApli(ByzParser.OligonOnKentimataAndApliContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosTetrafwnos(ByzParser.PrwtosTetrafwnosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosTetrafwnos(ByzParser.PrwtosTetrafwnosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeuterosVouSkliroXroma(ByzParser.DeuterosVouSkliroXromaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeuterosVouSkliroXroma(ByzParser.DeuterosVouSkliroXromaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTritosGa(ByzParser.TritosGaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTritosGa(ByzParser.TritosGaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLegetos(ByzParser.LegetosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLegetos(ByzParser.LegetosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosPrwtouKe(ByzParser.PlagiosPrwtouKeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosPrwtouKe(ByzParser.PlagiosPrwtouKeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysDiatonikosEptafwnos(ByzParser.VarysDiatonikosEptafwnosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysDiatonikosEptafwnos(ByzParser.VarysDiatonikosEptafwnosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartoy(ByzParser.PlagiosTetartoyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartoy(ByzParser.PlagiosTetartoyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartouTrifwnos(ByzParser.PlagiosTetartouTrifwnosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartouTrifwnos(ByzParser.PlagiosTetartouTrifwnosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosKeArktikiMartyria(ByzParser.PrwtosKeArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosKeArktikiMartyria(ByzParser.PrwtosKeArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosKePaArktikiMartyria(ByzParser.PrwtosKePaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosKePaArktikiMartyria(ByzParser.PrwtosKePaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosTetrafwnosArktikiMartyria(ByzParser.PrwtosTetrafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosTetrafwnosArktikiMartyria(ByzParser.PrwtosTetrafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosXrwmatikosArktikiMartyria(ByzParser.PrwtosXrwmatikosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosXrwmatikosArktikiMartyria(ByzParser.PrwtosXrwmatikosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrwtosDifwnosArktikiMartyria(ByzParser.PrwtosDifwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrwtosDifwnosArktikiMartyria(ByzParser.PrwtosDifwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeuterosArktikiMartyria(ByzParser.DeuterosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeuterosArktikiMartyria(ByzParser.DeuterosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeuterosVouArktikiMartyria(ByzParser.DeuterosVouArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeuterosVouArktikiMartyria(ByzParser.DeuterosVouArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeuterosVouSkliroXromaArktikiMartyria(ByzParser.DeuterosVouSkliroXromaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeuterosVouSkliroXromaArktikiMartyria(ByzParser.DeuterosVouSkliroXromaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeuterosVouSkliroXromaAlliArktikiMartyria(ByzParser.DeuterosVouSkliroXromaAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeuterosVouSkliroXromaAlliArktikiMartyria(ByzParser.DeuterosVouSkliroXromaAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeuterosPaSkliroXromaArktikiMartyria(ByzParser.DeuterosPaSkliroXromaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeuterosPaSkliroXromaArktikiMartyria(ByzParser.DeuterosPaSkliroXromaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTritosArktikiMartyria(ByzParser.TritosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTritosArktikiMartyria(ByzParser.TritosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTritosAlliArktikiMartyria(ByzParser.TritosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTritosAlliArktikiMartyria(ByzParser.TritosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTritosPaArktikiMartyria(ByzParser.TritosPaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTritosPaArktikiMartyria(ByzParser.TritosPaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTritosFthoraNhArktikiMartyria(ByzParser.TritosFthoraNhArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTritosFthoraNhArktikiMartyria(ByzParser.TritosFthoraNhArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTetartosDiArktikiMartyria(ByzParser.TetartosDiArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTetartosDiArktikiMartyria(ByzParser.TetartosDiArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTetartosPaArktikiMartyria(ByzParser.TetartosPaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTetartosPaArktikiMartyria(ByzParser.TetartosPaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLegetosArktikiMartyria(ByzParser.LegetosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLegetosArktikiMartyria(ByzParser.LegetosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLegetosAlliArktikiMartyria(ByzParser.LegetosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLegetosAlliArktikiMartyria(ByzParser.LegetosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLegetosMalakoXrwmaArktikiMartyria(ByzParser.LegetosMalakoXrwmaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLegetosMalakoXrwmaArktikiMartyria(ByzParser.LegetosMalakoXrwmaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTetartosMalakoXrwmaArktikiMartyria(ByzParser.TetartosMalakoXrwmaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTetartosMalakoXrwmaArktikiMartyria(ByzParser.TetartosMalakoXrwmaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTetartosNenanwArktikiMartyria(ByzParser.TetartosNenanwArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTetartosNenanwArktikiMartyria(ByzParser.TetartosNenanwArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTetartosKlitonArktikiMartyria(ByzParser.TetartosKlitonArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTetartosKlitonArktikiMartyria(ByzParser.TetartosKlitonArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosPrwtouKeArktikiMartyria(ByzParser.PlagiosPrwtouKeArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosPrwtouKeArktikiMartyria(ByzParser.PlagiosPrwtouKeArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosPrwtouKeAlliArktikiMartyria(ByzParser.PlagiosPrwtouKeAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosPrwtouKeAlliArktikiMartyria(ByzParser.PlagiosPrwtouKeAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosPrwtouPentafwnosArktikiMartyria(ByzParser.PlagiosPrwtouPentafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosPrwtouPentafwnosArktikiMartyria(ByzParser.PlagiosPrwtouPentafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyArktikiMartyria(ByzParser.PlagiosDeuteroyArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyArktikiMartyria(ByzParser.PlagiosDeuteroyArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyNenanwArktikiMartyria(ByzParser.PlagiosDeuteroyNenanwArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyNenanwArktikiMartyria(ByzParser.PlagiosDeuteroyNenanwArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyVouMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyVouMalakoArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyVouMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyVouMalakoArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyDiMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyDiMalakoArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyDiMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyDiMalakoArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyKeMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyKeMalakoArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyKeMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyKeMalakoArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyKeMalakoDifwniaArktikiMartyria(ByzParser.PlagiosDeuteroyKeMalakoDifwniaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyKeMalakoDifwniaArktikiMartyria(ByzParser.PlagiosDeuteroyKeMalakoDifwniaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyNhArktikiMartyria(ByzParser.PlagiosDeuteroyNhArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyNhArktikiMartyria(ByzParser.PlagiosDeuteroyNhArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosDeuteroyNhEptafwnosArktikiMartyria(ByzParser.PlagiosDeuteroyNhEptafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosDeuteroyNhEptafwnosArktikiMartyria(ByzParser.PlagiosDeuteroyNhEptafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysGaArktikiMartyria(ByzParser.VarysGaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysGaArktikiMartyria(ByzParser.VarysGaArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysZwSklirosArktikiMArtyria(ByzParser.VarysZwSklirosArktikiMArtyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysZwSklirosArktikiMArtyria(ByzParser.VarysZwSklirosArktikiMArtyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysZwSklirosEptafwnosArktikiMArtyria(ByzParser.VarysZwSklirosEptafwnosArktikiMArtyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysZwSklirosEptafwnosArktikiMArtyria(ByzParser.VarysZwSklirosEptafwnosArktikiMArtyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysDiatonikosArktikiMartyria(ByzParser.VarysDiatonikosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysDiatonikosArktikiMartyria(ByzParser.VarysDiatonikosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysDiatonikosEptafwnosArktikiMartyria(ByzParser.VarysDiatonikosEptafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysDiatonikosEptafwnosArktikiMartyria(ByzParser.VarysDiatonikosEptafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysDiatonikosEptafwnosAlliArktikiMartyria(ByzParser.VarysDiatonikosEptafwnosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysDiatonikosEptafwnosAlliArktikiMartyria(ByzParser.VarysDiatonikosEptafwnosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysDiatonikosTetrafwnosArktikiMartyria(ByzParser.VarysDiatonikosTetrafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysDiatonikosTetrafwnosArktikiMartyria(ByzParser.VarysDiatonikosTetrafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVarysDiatonikosPentafwnosArktikiMartyria(ByzParser.VarysDiatonikosPentafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarysDiatonikosPentafwnosArktikiMartyria(ByzParser.VarysDiatonikosPentafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartouAlliArktikiMartyria(ByzParser.PlagiosTetartouAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartouAlliArktikiMartyria(ByzParser.PlagiosTetartouAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartouTrifwnosArktikiMartyria(ByzParser.PlagiosTetartouTrifwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartouTrifwnosArktikiMartyria(ByzParser.PlagiosTetartouTrifwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartouTrifwnosAlliArktikiMartyria(ByzParser.PlagiosTetartouTrifwnosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartouTrifwnosAlliArktikiMartyria(ByzParser.PlagiosTetartouTrifwnosAlliArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartouEptafwnosArktikiMartyria(ByzParser.PlagiosTetartouEptafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartouEptafwnosArktikiMartyria(ByzParser.PlagiosTetartouEptafwnosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPlagiosTetartouEptafwnosXrwmatikosArktikiMartyria(ByzParser.PlagiosTetartouEptafwnosXrwmatikosArktikiMartyriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPlagiosTetartouEptafwnosXrwmatikosArktikiMartyria(ByzParser.PlagiosTetartouEptafwnosXrwmatikosArktikiMartyriaContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

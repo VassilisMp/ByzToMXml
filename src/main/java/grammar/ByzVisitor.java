@@ -1,4 +1,4 @@
-// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/pba/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
 package grammar;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -10,12 +10,6 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * operations with no return type.
  */
 public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#newScore}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNewScore(ByzParser.NewScoreContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ByzParser#score2}.
 	 * @param ctx the parse tree
@@ -88,24 +82,6 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#newArktikiMartyria}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartoyArktikiMartyria}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#prwtosArktikiMartyria}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ByzParser#endixiFthoggou}.
 	 * @param ctx the parse tree
@@ -654,4 +630,352 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOligonOnKentimataAndApli(ByzParser.OligonOnKentimataAndApliContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#newArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNewArktikiMartyria(ByzParser.NewArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosTetrafwnos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosTetrafwnos(ByzParser.PrwtosTetrafwnosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#deuterosVouSkliroXroma}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeuterosVouSkliroXroma(ByzParser.DeuterosVouSkliroXromaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tritosGa}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTritosGa(ByzParser.TritosGaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#legetos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLegetos(ByzParser.LegetosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosPrwtouKe}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosPrwtouKe(ByzParser.PlagiosPrwtouKeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysDiatonikosEptafwnos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysDiatonikosEptafwnos(ByzParser.VarysDiatonikosEptafwnosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartoy}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartoy(ByzParser.PlagiosTetartoyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartouTrifwnos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartouTrifwnos(ByzParser.PlagiosTetartouTrifwnosContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosArktikiMartyria(ByzParser.PrwtosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosKeArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosKeArktikiMartyria(ByzParser.PrwtosKeArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosKePaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosKePaArktikiMartyria(ByzParser.PrwtosKePaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosTetrafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosTetrafwnosArktikiMartyria(ByzParser.PrwtosTetrafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosXrwmatikosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosXrwmatikosArktikiMartyria(ByzParser.PrwtosXrwmatikosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#prwtosDifwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrwtosDifwnosArktikiMartyria(ByzParser.PrwtosDifwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#deuterosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeuterosArktikiMartyria(ByzParser.DeuterosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#deuterosVouArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeuterosVouArktikiMartyria(ByzParser.DeuterosVouArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#deuterosVouSkliroXromaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeuterosVouSkliroXromaArktikiMartyria(ByzParser.DeuterosVouSkliroXromaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#deuterosVouSkliroXromaAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeuterosVouSkliroXromaAlliArktikiMartyria(ByzParser.DeuterosVouSkliroXromaAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#deuterosPaSkliroXromaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDeuterosPaSkliroXromaArktikiMartyria(ByzParser.DeuterosPaSkliroXromaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tritosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTritosArktikiMartyria(ByzParser.TritosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tritosAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTritosAlliArktikiMartyria(ByzParser.TritosAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tritosPaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTritosPaArktikiMartyria(ByzParser.TritosPaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tritosFthoraNhArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTritosFthoraNhArktikiMartyria(ByzParser.TritosFthoraNhArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tetartosDiArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTetartosDiArktikiMartyria(ByzParser.TetartosDiArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tetartosPaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTetartosPaArktikiMartyria(ByzParser.TetartosPaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#legetosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLegetosArktikiMartyria(ByzParser.LegetosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#legetosAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLegetosAlliArktikiMartyria(ByzParser.LegetosAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#legetosMalakoXrwmaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLegetosMalakoXrwmaArktikiMartyria(ByzParser.LegetosMalakoXrwmaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tetartosMalakoXrwmaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTetartosMalakoXrwmaArktikiMartyria(ByzParser.TetartosMalakoXrwmaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tetartosNenanwArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTetartosNenanwArktikiMartyria(ByzParser.TetartosNenanwArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#tetartosKlitonArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTetartosKlitonArktikiMartyria(ByzParser.TetartosKlitonArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosPrwtouArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosPrwtouArktikiMartyria(ByzParser.PlagiosPrwtouArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosPrwtouKeArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosPrwtouKeArktikiMartyria(ByzParser.PlagiosPrwtouKeArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosPrwtouKeAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosPrwtouKeAlliArktikiMartyria(ByzParser.PlagiosPrwtouKeAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosPrwtouPentafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosPrwtouPentafwnosArktikiMartyria(ByzParser.PlagiosPrwtouPentafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyArktikiMartyria(ByzParser.PlagiosDeuteroyArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyNenanwArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyNenanwArktikiMartyria(ByzParser.PlagiosDeuteroyNenanwArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyVouMalakoArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyVouMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyVouMalakoArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyDiMalakoArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyDiMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyDiMalakoArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyKeMalakoArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyKeMalakoArktikiMartyria(ByzParser.PlagiosDeuteroyKeMalakoArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyKeMalakoDifwniaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyKeMalakoDifwniaArktikiMartyria(ByzParser.PlagiosDeuteroyKeMalakoDifwniaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyNhArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyNhArktikiMartyria(ByzParser.PlagiosDeuteroyNhArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosDeuteroyNhEptafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosDeuteroyNhEptafwnosArktikiMartyria(ByzParser.PlagiosDeuteroyNhEptafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysGaArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysGaArktikiMartyria(ByzParser.VarysGaArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysZwSklirosArktikiMArtyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysZwSklirosArktikiMArtyria(ByzParser.VarysZwSklirosArktikiMArtyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysZwSklirosEptafwnosArktikiMArtyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysZwSklirosEptafwnosArktikiMArtyria(ByzParser.VarysZwSklirosEptafwnosArktikiMArtyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysDiatonikosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysDiatonikosArktikiMartyria(ByzParser.VarysDiatonikosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysDiatonikosEptafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysDiatonikosEptafwnosArktikiMartyria(ByzParser.VarysDiatonikosEptafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysDiatonikosEptafwnosAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysDiatonikosEptafwnosAlliArktikiMartyria(ByzParser.VarysDiatonikosEptafwnosAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysDiatonikosTetrafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysDiatonikosTetrafwnosArktikiMartyria(ByzParser.VarysDiatonikosTetrafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#varysDiatonikosPentafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarysDiatonikosPentafwnosArktikiMartyria(ByzParser.VarysDiatonikosPentafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartoyArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartoyArktikiMartyria(ByzParser.PlagiosTetartoyArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartouAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartouAlliArktikiMartyria(ByzParser.PlagiosTetartouAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartouTrifwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartouTrifwnosArktikiMartyria(ByzParser.PlagiosTetartouTrifwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartouTrifwnosAlliArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartouTrifwnosAlliArktikiMartyria(ByzParser.PlagiosTetartouTrifwnosAlliArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartouEptafwnosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartouEptafwnosArktikiMartyria(ByzParser.PlagiosTetartouEptafwnosArktikiMartyriaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#plagiosTetartouEptafwnosXrwmatikosArktikiMartyria}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlagiosTetartouEptafwnosXrwmatikosArktikiMartyria(ByzParser.PlagiosTetartouEptafwnosXrwmatikosArktikiMartyriaContext ctx);
 }

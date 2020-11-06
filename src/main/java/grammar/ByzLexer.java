@@ -1,13 +1,13 @@
-// Generated from /home/vassilis/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
+// Generated from /home/pba/IdeaProjects/ByzToMXml/grammarSrc/Byz.g4 by ANTLR 4.8
 package grammar;
-
+import org.antlr.v4.runtime.Lexer;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.LexerATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.misc.Utils;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ByzLexer extends Lexer {
@@ -309,7 +309,7 @@ public class ByzLexer extends Lexer {
 			"'F090'", "'F065'", "'F088'", "'I096'", "'I049'", "'I050'", "'I051'", 
 			"'I052'", "'I053'", "'I112'", "'I091'", "'I093'", "'I092'", "'I080'", 
 			"'I123'", "'I125'", "'I037'", "'I054'", "'I055'", "'I056'", "'I057'", 
-			"'I061'", "'I094'", "'I038'", "'I042'", "'I095'", "'I040'", "'I043'", 
+			"'I061'", "'I094'", "'I038'", "'I042'", "'I040'", "'I095'", "'I043'", 
 			"'I081'", "'I087'", "'I113'", "'I119'", "'X083'", "'X068'", "'X070'", 
 			"'X074'", "'X075'", "'X076'", "'X058'", null, "'('", "')'", null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
@@ -1465,9 +1465,9 @@ public class ByzLexer extends Lexer {
 		"\7K\2\2\u076d\u076e\7\62\2\2\u076e\u076f\7\65\2\2\u076f\u0770\7:\2\2\u0770"+
 		"\u016a\3\2\2\2\u0771\u0772\7K\2\2\u0772\u0773\7\62\2\2\u0773\u0774\7\66"+
 		"\2\2\u0774\u0775\7\64\2\2\u0775\u016c\3\2\2\2\u0776\u0777\7K\2\2\u0777"+
-		"\u0778\7\62\2\2\u0778\u0779\7;\2\2\u0779\u077a\7\67\2\2\u077a\u016e\3"+
-		"\2\2\2\u077b\u077c\7K\2\2\u077c\u077d\7\62\2\2\u077d\u077e\7\66\2\2\u077e"+
-		"\u077f\7\62\2\2\u077f\u0170\3\2\2\2\u0780\u0781\7K\2\2\u0781\u0782\7\62"+
+		"\u0778\7\62\2\2\u0778\u0779\7\66\2\2\u0779\u077a\7\62\2\2\u077a\u016e"+
+		"\3\2\2\2\u077b\u077c\7K\2\2\u077c\u077d\7\62\2\2\u077d\u077e\7;\2\2\u077e"+
+		"\u077f\7\67\2\2\u077f\u0170\3\2\2\2\u0780\u0781\7K\2\2\u0781\u0782\7\62"+
 		"\2\2\u0782\u0783\7\66\2\2\u0783\u0784\7\65\2\2\u0784\u0172\3\2\2\2\u0785"+
 		"\u0786\7K\2\2\u0786\u0787\7\62\2\2\u0787\u0788\7:\2\2\u0788\u0789\7\63"+
 		"\2\2\u0789\u0174\3\2\2\2\u078a\u078b\7K\2\2\u078b\u078c\7\62\2\2\u078c"+

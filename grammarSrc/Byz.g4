@@ -1,9 +1,9 @@
 grammar Byz;
-import byzLexer, gorgotites, argies, fthores, fonitika;
+import byzLexer, gorgotites, argies, fthores, fonitika, arktikesMartyries;
 
 //test : (capWord | syllable)+ ;
 // level 2
-newScore: newArktikiMartyria? (clusterType2|martyria)+ ;
+//newScore: newArktikiMartyria? (clusterType2|martyria)+ ;
 
 score2 : arktikiMartyria? clusterType2+ ;
 
@@ -138,16 +138,6 @@ arktikiMartyria :
         newArktikiMartyria
         martyria?
         syllable* ARXIGRAMMA* RIGHT_PARENTHESIS?
-        ;
-
-newArktikiMartyria: plagiosTetartoyArktikiMartyria | prwtosArktikiMartyria ;
-
-plagiosTetartoyArktikiMartyria :
-        HXOS_WORD MARTYRIA_PLAGIOS_ICHOS ARKTIKH_MARTYRIA_TETARTOS_ICHOS FTHOGGOS_NH_WORD
-        ;
-
-prwtosArktikiMartyria :
-        HXOS_WORD ARKTIKH_MARTYRIA_PLAGIOS_A_ICHOS FANEROSIS_TETRAFONIAS FTHOGGOS_PA_WORD FTHORA_DIATONIKI_PA
         ;
 
 endixiFthoggou :

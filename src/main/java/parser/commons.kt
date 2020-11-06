@@ -1,6 +1,9 @@
 package parser
 
 import Byzantine.ByzClass
+import Byzantine.Cloner
+import org.audiveris.proxymusic.ObjectFactory
+import java.io.File
 
 /* TODO Palaia fonts not supported
      * because of different character matching to Byzantine fonts
@@ -39,3 +42,20 @@ internal val fontToByzClass = mapOf(
         "MK Xronos2016" to ByzClass.X,
         "MKXronos" to ByzClass.X
 )
+
+val proxyMusicFactory = ObjectFactory()
+
+fun Any.deepClone(): Any = Cloner.deepClone(this)
+
+@Deprecated("One time used only")
+fun generateByzMusicSymbolsGrammar(grammarName: String = "generatedGrammar") {
+    val s = (0x1D046..0x1D0F5).joinToString(separator = "\n") {
+        val name = Character.getName(it)
+                .replaceFirst("BYZANTINE MUSICAL SYMBOL ", "")
+                .replace(' ', '_')
+        val char = String(Character.toChars(it))
+        "$name : \'$char\' ;"
+    }
+    println(s)
+    File("$grammarName.g4").writeText("lexer grammar $grammarName;\n\n$s")
+}
