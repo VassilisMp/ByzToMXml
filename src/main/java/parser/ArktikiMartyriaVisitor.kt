@@ -1,193 +1,191 @@
 package parser
 
+import Byzantine.ByzStep.*
 import grammar.ByzBaseVisitor
-import grammar.ByzParser
 import grammar.ByzParser.*
 import org.audiveris.proxymusic.AccidentalValue
-import org.audiveris.proxymusic.AccidentalValue.QUARTER_FLAT
-import org.audiveris.proxymusic.AccidentalValue.SHARP
 import org.audiveris.proxymusic.Key
 import org.audiveris.proxymusic.Pitch
 import org.audiveris.proxymusic.Step
 import org.audiveris.proxymusic.Step.*
+import parser.fthores.ByzScale
 import parser.fthores.Martyria.Companion.ACCIDENTALS_MAP
+import west.Note
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class ArktikiMartyriaVisitor: ByzBaseVisitor<ArktikiMartyriaVisitor.PitchnKey>() {
-    override fun visitPrwtosArktikiMartyria(ctx: PrwtosArktikiMartyriaContext?) = PitchnKey(PitchOf(Step.A, 4), ussakKey())
+class ArktikiMartyriaVisitor : ByzBaseVisitor<ArktikiMartyriaVisitor.PitchnKey>() {
 
-    override fun visitPrwtosTetrafwnos(ctx: PrwtosTetrafwnosContext?) = PitchnKey(PitchOf(Step.A, 4), huseyniKey())
+    override fun visitPrwtosArktikiMartyria(ctx: PrwtosArktikiMartyriaContext?) = PitchnKey(PitchOf(A, 4), ussakKey())
 
-    override fun visitPrwtosXrwmatikosArktikiMartyria(ctx: ByzParser.PrwtosXrwmatikosArktikiMartyriaContext?) = PitchnKey(PitchOf(B, 5), prwtosXrwmatikosKey())
+    override fun visitPrwtosTetrafwnos(ctx: PrwtosTetrafwnosContext?) = PitchnKey(PitchOf(A, 4), huseyniKey())
 
-    override fun visitPrwtosDifwnosArktikiMartyria(ctx: ByzParser.PrwtosDifwnosArktikiMartyriaContext?) =
-            PitchnKey(PitchOf(Step.A, 4), createKey(keyAccidental(B, -1), keyAccidental(D, -3)))
+    override fun visitPrwtosXrwmatikosArktikiMartyria(ctx: PrwtosXrwmatikosArktikiMartyriaContext?) = PitchnKey(PitchOf(B, 5), prwtosXrwmatikosKey())
 
-    override fun visitDeuterosArktikiMartyria(ctx: ByzParser.DeuterosArktikiMartyriaContext?) = PitchnKey(PitchOf(D, 5), deuterosKey())
+    override fun visitPrwtosDifwnosArktikiMartyria(ctx: PrwtosDifwnosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(A, 4), createKey(keyAccidental(B, -1), keyAccidental(D, -3)))
 
-    override fun visitDeuterosVouArktikiMartyria(ctx: ByzParser.DeuterosVouArktikiMartyriaContext?) = PitchnKey(PitchOf(B, 4), deuterosKey())
+    override fun visitDeuterosArktikiMartyria(ctx: DeuterosArktikiMartyriaContext?) = PitchnKey(PitchOf(D, 5), deuterosKey())
+
+    override fun visitDeuterosVouArktikiMartyria(ctx: DeuterosVouArktikiMartyriaContext?) = PitchnKey(PitchOf(B, 4), deuterosKey())
 
     override fun visitDeuterosVouSkliroXroma(ctx: DeuterosVouSkliroXromaContext?): PitchnKey =
-            super.visitDeuterosVouSkliroXroma(ctx)
+            PitchnKey(PitchOf(B, 4), createKey(
+                    keyAccidental(B, -1),
+                    keyAccidental(E, -1),
+                    keyAccidental(F, 4),
+                    keyAccidental(G, 4),
+                    keyAccidental(D, 3),
+                    keyAccidental(A, 3)
+            ))
 
-    override fun visitLegetos(ctx: LegetosContext?): PitchnKey {
-        return super.visitLegetos(ctx)
-    }
+    override fun visitDeuterosPaSkliroXromaArktikiMartyria(ctx: DeuterosPaSkliroXromaArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(A, 4), hicazKey())
 
-    override fun visitPlagiosPrwtouKe(ctx: ByzParser.PlagiosPrwtouKeContext?): PitchnKey {
-        return super.visitPlagiosPrwtouKe(ctx)
-    }
+    override fun visitTritosGa(ctx: TritosGaContext?) = PitchnKey(PitchOf(C, 5), ussakKey())
 
-    override fun visitVarysDiatonikosEptafwnos(ctx: ByzParser.VarysDiatonikosEptafwnosContext?): PitchnKey {
-        return super.visitVarysDiatonikosEptafwnos(ctx)
-    }
+    override fun visitTritosPaArktikiMartyria(ctx: TritosPaArktikiMartyriaContext?) = PitchnKey(PitchOf(A, 4), ussakKey())
 
-    override fun visitPlagiosTetartoy(ctx: ByzParser.PlagiosTetartoyContext?): PitchnKey {
-        return super.visitPlagiosTetartoy(ctx)
-    }
+    override fun visitTritosFthoraNhArktikiMartyria(ctx: TritosFthoraNhArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(C, 5), gaDiatonicKey())
 
-    override fun visitPlagiosTetartouTrifwnos(ctx: ByzParser.PlagiosTetartouTrifwnosContext?): PitchnKey {
-        return super.visitPlagiosTetartouTrifwnos(ctx)
-    }
+    override fun visitTetartosDiArktikiMartyria(ctx: TetartosDiArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(D, 5), huseyniKey())
 
-    override fun visitDeuterosPaSkliroXromaArktikiMartyria(ctx: ByzParser.DeuterosPaSkliroXromaArktikiMartyriaContext?): PitchnKey {
-        return super.visitDeuterosPaSkliroXromaArktikiMartyria(ctx)
-    }
+    override fun visitTetartosPaArktikiMartyria(ctx: TetartosPaArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(A, 4), huseyniKey())
 
-    override fun visitTritosPaArktikiMartyria(ctx: ByzParser.TritosPaArktikiMartyriaContext?): PitchnKey {
-        return super.visitTritosPaArktikiMartyria(ctx)
-    }
+    override fun visitLegetos(ctx: LegetosContext?) = PitchnKey(PitchOf(B, 4), createKey(
+            keyAccidental(B, -1),
+            keyAccidental(E, -1),
+            keyAccidental(F, 4)
+    ))
 
-    override fun visitTritosFthoraNhArktikiMartyria(ctx: ByzParser.TritosFthoraNhArktikiMartyriaContext?): PitchnKey {
-        return super.visitTritosFthoraNhArktikiMartyria(ctx)
-    }
+    override fun visitLegetosMalakoXrwmaArktikiMartyria(ctx: LegetosMalakoXrwmaArktikiMartyriaContext?) = PitchnKey(PitchOf(B, 4), deuterosKey())
 
-    override fun visitTetartosDiArktikiMartyria(ctx: ByzParser.TetartosDiArktikiMartyriaContext?): PitchnKey {
-        return super.visitTetartosDiArktikiMartyria(ctx)
-    }
+    override fun visitTetartosMalakoXrwmaArktikiMartyria(ctx: TetartosMalakoXrwmaArktikiMartyriaContext?) = PitchnKey(PitchOf(D, 5), deuterosKey())
 
-    override fun visitTetartosPaArktikiMartyria(ctx: ByzParser.TetartosPaArktikiMartyriaContext?): PitchnKey {
-        return super.visitTetartosPaArktikiMartyria(ctx)
-    }
+    override fun visitTetartosNenanwArktikiMartyria(ctx: TetartosNenanwArktikiMartyriaContext?) = PitchnKey(PitchOf(D, 5), hicazKey())
 
-    override fun visitLegetosMalakoXrwmaArktikiMartyria(ctx: ByzParser.LegetosMalakoXrwmaArktikiMartyriaContext?): PitchnKey {
-        return super.visitLegetosMalakoXrwmaArktikiMartyria(ctx)
-    }
+    override fun visitTetartosKlitonArktikiMartyria(ctx: TetartosKlitonArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(D, 5), createKey(keyAccidental(F, 4), keyAccidental(C, 4)))
 
-    override fun visitTetartosMalakoXrwmaArktikiMartyria(ctx: ByzParser.TetartosMalakoXrwmaArktikiMartyriaContext?): PitchnKey {
-        return super.visitTetartosMalakoXrwmaArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosPrwtouArktikiMartyria(ctx: PlagiosPrwtouArktikiMartyriaContext?) = PitchnKey(PitchOf(A, 4), huseyniKey())
 
-    override fun visitTetartosNenanwArktikiMartyria(ctx: ByzParser.TetartosNenanwArktikiMartyriaContext?): PitchnKey {
-        return super.visitTetartosNenanwArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosPrwtouKe(ctx: PlagiosPrwtouKeContext?) =
+            PitchnKey(
+                    PitchOf(E, 5),
+                    ByzScale.get2OctavesScale()
+                            .getByStep(KE)
+                            .apply { initAccidentalCommas(Note.relativeStandardStep) }
+                            .applyFthora(ByzScale.SOFT_DIATONIC[PA])
+                            .getKey(KE)
+            )
 
-    override fun visitTetartosKlitonArktikiMartyria(ctx: ByzParser.TetartosKlitonArktikiMartyriaContext?): PitchnKey {
-        return super.visitTetartosKlitonArktikiMartyria(ctx)
-    }
 
-    override fun visitPlagiosPrwtouArktikiMartyria(ctx: ByzParser.PlagiosPrwtouArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosPrwtouArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosPrwtouPentafwnosArktikiMartyria(ctx: PlagiosPrwtouPentafwnosArktikiMartyriaContext?) = PitchnKey(PitchOf(A, 4), ussakKey())
 
-    override fun visitPlagiosPrwtouPentafwnosArktikiMartyria(ctx: ByzParser.PlagiosPrwtouPentafwnosArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosPrwtouPentafwnosArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyArktikiMartyria(ctx: PlagiosDeuteroyArktikiMartyriaContext?) = PitchnKey(PitchOf(A, 4), hicazKey())
 
-    override fun visitPlagiosDeuteroyArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyNenanwArktikiMartyria(ctx: PlagiosDeuteroyNenanwArktikiMartyriaContext?) = PitchnKey(PitchOf(D, 5), hicazKey())
 
-    override fun visitPlagiosDeuteroyNenanwArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyNenanwArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyNenanwArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyVouMalakoArktikiMartyria(ctx: PlagiosDeuteroyVouMalakoArktikiMartyriaContext?) = PitchnKey(PitchOf(B, 4), deuterosKey())
 
-    override fun visitPlagiosDeuteroyVouMalakoArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyVouMalakoArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyVouMalakoArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyDiMalakoArktikiMartyria(ctx: PlagiosDeuteroyDiMalakoArktikiMartyriaContext?) = PitchnKey(PitchOf(D, 5), deuterosKey())
 
-    override fun visitPlagiosDeuteroyDiMalakoArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyDiMalakoArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyDiMalakoArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyKeMalakoArktikiMartyria(ctx: PlagiosDeuteroyKeMalakoArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(E, 5), malakoXrwmaPa())
 
-    override fun visitPlagiosDeuteroyKeMalakoArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyKeMalakoArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyKeMalakoArktikiMartyria(ctx)
-    }
+    // TODO change to PlagiosDeuteroyPaMalakoDifwniaArktikiMartyria
+    override fun visitPlagiosDeuteroyKeMalakoDifwniaArktikiMartyria(ctx: PlagiosDeuteroyKeMalakoDifwniaArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(A, 4), malakoXrwmaPa())
 
-    override fun visitPlagiosDeuteroyKeMalakoDifwniaArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyKeMalakoDifwniaArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyKeMalakoDifwniaArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyNhArktikiMartyria(ctx: PlagiosDeuteroyNhArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(G, 4), skliroXrwmaNh())
 
-    override fun visitPlagiosDeuteroyNhArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyNhArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyNhArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosDeuteroyNhEptafwnosArktikiMartyria(ctx: PlagiosDeuteroyNhEptafwnosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(G, 5), skliroXrwmaNh())
 
-    override fun visitPlagiosDeuteroyNhEptafwnosArktikiMartyria(ctx: ByzParser.PlagiosDeuteroyNhEptafwnosArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosDeuteroyNhEptafwnosArktikiMartyria(ctx)
-    }
+    override fun visitVarysGaArktikiMartyria(ctx: VarysGaArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(C, 5), ussakKey())
 
-    override fun visitVarysGaArktikiMartyria(ctx: ByzParser.VarysGaArktikiMartyriaContext?): PitchnKey {
-        return super.visitVarysGaArktikiMartyria(ctx)
-    }
+    override fun visitVarysZwSklirosArktikiMArtyria(ctx: VarysZwSklirosArktikiMArtyriaContext?) =
+            PitchnKey(PitchOf(F, 4), acemAsiran())
 
-    override fun visitVarysZwSklirosArktikiMArtyria(ctx: ByzParser.VarysZwSklirosArktikiMArtyriaContext?): PitchnKey {
-        return super.visitVarysZwSklirosArktikiMArtyria(ctx)
-    }
+    override fun visitVarysZwSklirosEptafwnosArktikiMArtyria(ctx: VarysZwSklirosEptafwnosArktikiMArtyriaContext?) =
+            PitchnKey(PitchOf(F, 5), acemAsiran())
 
-    override fun visitVarysZwSklirosEptafwnosArktikiMArtyria(ctx: ByzParser.VarysZwSklirosEptafwnosArktikiMArtyriaContext?): PitchnKey {
-        return super.visitVarysZwSklirosEptafwnosArktikiMArtyria(ctx)
-    }
+    override fun visitVarysDiatonikosArktikiMartyria(ctx: VarysDiatonikosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(F, 4), huseyniKey())
 
-    override fun visitVarysDiatonikosArktikiMartyria(ctx: ByzParser.VarysDiatonikosArktikiMartyriaContext?): PitchnKey {
-        return super.visitVarysDiatonikosArktikiMartyria(ctx)
-    }
+    override fun visitVarysDiatonikosEptafwnos(ctx: VarysDiatonikosEptafwnosContext?) =
+            PitchnKey(PitchOf(F, 5), huseyniKey())
 
-    override fun visitVarysDiatonikosTetrafwnosArktikiMartyria(ctx: ByzParser.VarysDiatonikosTetrafwnosArktikiMartyriaContext?): PitchnKey {
-        return super.visitVarysDiatonikosTetrafwnosArktikiMartyria(ctx)
-    }
+    override fun visitVarysDiatonikosTetrafwnosArktikiMartyria(ctx: VarysDiatonikosTetrafwnosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(F, 4), createKey(keyAccidental(B, -1), keyAccidental(F, 4), keyAccidental(C, 4)))
 
-    override fun visitVarysDiatonikosPentafwnosArktikiMartyria(ctx: ByzParser.VarysDiatonikosPentafwnosArktikiMartyriaContext?): PitchnKey {
-        return super.visitVarysDiatonikosPentafwnosArktikiMartyria(ctx)
-    }
+    override fun visitVarysDiatonikosPentafwnosArktikiMartyria(ctx: VarysDiatonikosPentafwnosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(F, 4), huseyniKey())
 
-    override fun visitPlagiosTetartouEptafwnosArktikiMartyria(ctx: ByzParser.PlagiosTetartouEptafwnosArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosTetartouEptafwnosArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosTetartoy(ctx: PlagiosTetartoyContext?) =
+            PitchnKey(PitchOf(G, 4), huseyniKey())
 
-    override fun visitPlagiosTetartouEptafwnosXrwmatikosArktikiMartyria(ctx: ByzParser.PlagiosTetartouEptafwnosXrwmatikosArktikiMartyriaContext?): PitchnKey {
-        return super.visitPlagiosTetartouEptafwnosXrwmatikosArktikiMartyria(ctx)
-    }
+    override fun visitPlagiosTetartouTrifwnos(ctx: PlagiosTetartouTrifwnosContext?) =
+            PitchnKey(PitchOf(C, 5), gaDiatonicKey())
+
+    override fun visitPlagiosTetartouEptafwnosArktikiMartyria(ctx: PlagiosTetartouEptafwnosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(G, 5), huseyniKey())
+
+    override fun visitPlagiosTetartouEptafwnosXrwmatikosArktikiMartyria(ctx: PlagiosTetartouEptafwnosXrwmatikosArktikiMartyriaContext?) =
+            PitchnKey(PitchOf(G, 5), skliroXrwmaNh())
 
     data class PitchnKey(val pitch: Pitch, val key: Key)
 
     companion object {
-        private fun keyAccidental(step: Step, commas: Int): KeyAccidental =
-                KeyAccidental(step, accidentalAlter(commas), accidental(commas))
-        private data class KeyAccidental(val step: Step, val alter: Float, val accidental: AccidentalValue) {
-            fun toArray(): Array<Any> = arrayOf(step, alter.toBigDecimal(), accidental)
+        private fun keyAccidental(step: Step, commas: Int) = arrayOf(step, accidentalAlter(commas), accidental(commas))
+
+        private fun createKey(vararg elements: Array<Any>): Key = proxyMusicFactory.createKey().apply {
+            elements.forEach { nonTraditionalKey.addAll(it) }
         }
-        // alter calc formula
-//            (accidentalCommas * 2.0 / 9).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
-        private fun createKey(vararg elements: KeyAccidental): Key = proxyMusicFactory.createKey().apply {
-            elements.forEach { nonTraditionalKey.addAll(it.toArray()) }
-        }
+
         private fun accidental(commas: Int) = ACCIDENTALS_MAP[commas] ?: throw Error("wrong accidental commas")
-        private fun accidentalAlter(commas: Int): Float {
-            return (commas * 2.0 / 9).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toFloat()
-        }
+        private fun accidentalAlter(commas: Int) = (commas * 2.0 / 9).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
+
         // TODO use static values instead of function calls
         private fun ussakKey() = createKey(keyAccidental(B, -1))
-        private fun huseyniKey() = createKey(keyAccidental(F, 4))
+        private fun huseyniKey() = createKey(keyAccidental(B, -1), keyAccidental(F, 4))
         private fun prwtosXrwmatikosKey() = createKey(
                 keyAccidental(F, 2),
-                keyAccidental(Step.C, 4),
-                keyAccidental(Step.G, 4)
+                keyAccidental(C, 4),
+                keyAccidental(G, 4)
         )
+
         private fun deuterosKey() = createKey(
                 keyAccidental(B, -1),
                 keyAccidental(E, -3),
                 keyAccidental(F, 4)
         )
+
+        private fun hicazKey() = ByzScale.get2OctavesScale().run {
+            initAccidentalCommas(Note.relativeStandardStep)
+            applyChord(ByzScale.NEXEANES, 4, PA)
+                    .applyChord(ByzScale.SOFT_DIATONIC, 5, DI, 2)
+            getKey(PA)
+        }
+
+        private fun gaDiatonicKey() = createKey(keyAccidental(B, -1), keyAccidental(E, -1))
+        private fun malakoXrwmaPa() = ByzScale.get2OctavesScale()
+                .getByStep(PA)
+                .apply { initAccidentalCommas(Note.relativeStandardStep) }
+                .applyFthora(ByzScale.NEANES)
+                .getKey(PA)
+
+        private fun skliroXrwmaNh() = ByzScale.get2OctavesScale()
+                .getByStep(NH)
+                .apply { initAccidentalCommas(Note.relativeStandardStep) }
+                .applyFthora(ByzScale.NEXEANES)
+                .getKey(NH)
+
+        private fun acemAsiran() = createKey(keyAccidental(B, -5))
     }
 }

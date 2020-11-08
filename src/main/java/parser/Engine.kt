@@ -95,7 +95,8 @@ class Engine(filePath: String) {
             }
         }
         // TODO add Key
-        measures.first().key = byzScale.getKey(ByzStep.DI)
+        if (parser.key != null)
+            measures.first().key = parser.key
 //        measures.first().key = ByzScale.NEANES_KEY
         val part = newPart("P1", "Voice", measures)
         newScorePartWise(part).toXml(fileName)

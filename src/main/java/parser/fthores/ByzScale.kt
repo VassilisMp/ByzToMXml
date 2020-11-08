@@ -128,45 +128,68 @@ class ByzScale {
         cursorPos = 0
     }
 
-    fun applyFthora(fthora: ByzScale?): ByzScale {
-        if (fthora != null) {
-//            HARD_DIATONIC.indexOfStep(relativeStep)
-            // save cursor position for both scales
-            val fthoraCursorPos = fthora.cursorPos
-            val cursorPos = cursorPos
-            fthoraHolder = scale[cursorPos]
-            var a = getPrevIfExists()
-            var b = fthora.getPrev()
-            // iterate scale to left first
-            var diff = 0
-            while (a != null) {
-                diff = a.commasToNext + diff - b!!.commasToNext
-                a.accidentalCommas += diff
-                a.commasToNext = b.commasToNext
-                a.commasToPrev = b.commasToPrev
-                a.simio = b.simio
-                a = getPrevIfExists()
-                b = fthora.getPrev()
-                //                System.out.println(String.format("%s, %s", martyria, fthoraMart));
-            }
-            // reset cursor positions
-            fthora.cursorPos = fthoraCursorPos
-            this.cursorPos = cursorPos
-            // iterate scale to right
-            diff = 0
-            a = this[this.cursorPos]
-            b = fthora[fthora.cursorPos]
-            while (a != null) {
-                a.accidentalCommas += diff
-                diff = b!!.commasToNext + diff - a.commasToNext
-                a.commasToNext = b.commasToNext
-                a.commasToPrev = b.commasToPrev
-                a.simio = b.simio
-                a = getNextIfExists()
-                b = fthora.getNext()
-            }
-            calcAbsPos()
+    fun applyFthora(fthora: ByzScale): ByzScale {
+        //            HARD_DIATONIC.indexOfStep(relativeStep)
+        // save cursor position for both scales
+        val fthoraCursorPos = fthora.cursorPos
+        val cursorPos = cursorPos
+        fthoraHolder = scale[cursorPos]
+        var a = getPrevIfExists()
+        var b = fthora.getPrev()
+        // iterate scale to left first
+        var diff = 0
+        while (a != null) {
+            diff = a.commasToNext + diff - b!!.commasToNext
+            a.accidentalCommas += diff
+            a.commasToNext = b.commasToNext
+            a.commasToPrev = b.commasToPrev
+            a.simio = b.simio
+            a = getPrevIfExists()
+            b = fthora.getPrev()
+            //                System.out.println(String.format("%s, %s", martyria, fthoraMart));
         }
+        // reset cursor positions
+        fthora.cursorPos = fthoraCursorPos
+        this.cursorPos = cursorPos
+        // iterate scale to right
+        diff = 0
+        a = this[this.cursorPos]
+        b = fthora[fthora.cursorPos]
+        while (a != null) {
+            a.accidentalCommas += diff
+            diff = b!!.commasToNext + diff - a.commasToNext
+            a.commasToNext = b.commasToNext
+            a.commasToPrev = b.commasToPrev
+            a.simio = b.simio
+            a = getNextIfExists()
+            b = fthora.getNext()
+        }
+        calcAbsPos()
+        return this
+    }
+
+    fun applyChord(chord: ByzScale, notes: Int = 4, step: ByzStep, octave: Int? = null): ByzScale {
+        this.getByStep(step, octave)
+        // save cursor position for both scales
+//        val fthoraCursorPos = tetrachord.cursorPos
+        val cursorPos = cursorPos
+        fthoraHolder = scale[cursorPos]
+//        var a = getPrevIfExists()
+//        var b = tetrachord.getPrev()
+        // iterate scale to right
+        var diff = 0
+        var a = this[this.cursorPos]
+        var b = chord[chord.cursorPos]
+        for (i in 1..notes) {
+            a!!.accidentalCommas += diff
+            diff = b!!.commasToNext + diff - a!!.commasToNext
+            a.commasToNext = b.commasToNext
+            a.commasToPrev = b.commasToPrev
+            a.simio = b.simio
+            a = getNextIfExists()
+            b = chord.getNext()
+        }
+        calcAbsPos()
         return this
     }
 

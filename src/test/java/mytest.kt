@@ -1,4 +1,5 @@
 import Byzantine.ByzClass
+import Byzantine.ByzStep
 import grammar.ByzLexer
 import grammar.ByzParser
 /*import gen.convertBaseListener
@@ -19,6 +20,7 @@ import parser.Engine
 import parser.InMusicSyllable
 import parser.Parser
 import parser.fontToByzClass
+import parser.fthores.ByzScale
 import west.Note
 import java.io.File
 import java.io.FileInputStream
@@ -306,6 +308,26 @@ class ParseTest {
             ByzLexer.VOCABULARY.getSymbolicName(it.type)
         }.replace("HXOS_WORD", "\nHXOS_WORD")
         println(namesList)
+    }
+
+    @Test
+    fun scaleToKey() {
+        val scale = ByzScale.get2OctavesScale()
+        scale.initAccidentalCommas(Note.relativeStandardStep)
+        scale.applyChord(ByzScale.NEXEANES, 4, ByzStep.BOU)
+                .applyChord(ByzScale.SOFT_DIATONIC, 5, ByzStep.KE, 2)
+        val key = scale.getKey(ByzStep.BOU)
+        println(key.nonTraditionalKey)
+    }
+
+    @Test
+    fun PaHardToKey() {
+        val scale = ByzScale.get2OctavesScale()
+        scale.initAccidentalCommas(Note.relativeStandardStep)
+        scale.applyChord(ByzScale.NEXEANES, 4, ByzStep.PA)
+                .applyChord(ByzScale.SOFT_DIATONIC, 5, ByzStep.DI, 2)
+        val key = scale.getKey(ByzStep.PA)
+        println(key.nonTraditionalKey)
     }
 }
 

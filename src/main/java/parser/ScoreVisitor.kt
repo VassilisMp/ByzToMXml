@@ -3,6 +3,7 @@ package parser
 import grammar.ByzBaseVisitor
 import grammar.ByzParser.*
 import org.antlr.v4.runtime.tree.ParseTree
+import org.audiveris.proxymusic.Key
 import org.audiveris.proxymusic.Pitch
 import org.audiveris.proxymusic.Step
 import west.Note.Companion.RestNote
@@ -15,6 +16,7 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
     val elements: MutableList<Any> = mutableListOf()
     var lastPitch = PitchOf(Step.G, 4)
     private val quantityCharVisitor = QuantityCharVisitor(lastPitch)
+    var key: Key? = null
 
     override fun visitClusterType2(ctx: ClusterType2Context): Unit = with(ctx) {
         fun getArxigramma() = ARXIGRAMMA()?.text?.drop(1) ?: ""
@@ -38,8 +40,11 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
     }
 
     override fun visitNewArktikiMartyria(ctx: NewArktikiMartyriaContext?) {
-        val pitch = visitArktikiMartyria(ctx)
-        if (pitch != null) lastPitch = pitch
+        val pitchnKey = visitArktikiMartyria(ctx)
+        if (pitchnKey != null) {
+            lastPitch = pitchnKey.pitch
+            key = pitchnKey.key
+        }
     }
 
     companion object {
@@ -60,11 +65,7 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
             }
         }
         private fun visitPause(ctx: ClusterType2Context) = pauseVisitor.visit(ctx)
-        private val arktikiMartyriaVisitor = object: ByzBaseVisitor<Pitch?>() {
-            override fun visitPlagiosTetartoyArktikiMartyria(ctx: PlagiosTetartoyArktikiMartyriaContext?) =
-                    PitchOf(Step.G, 4)
-            override fun visitPrwtosArktikiMartyria(ctx: PrwtosArktikiMartyriaContext?) = PitchOf(Step.A, 4)
-        }
+        private val arktikiMartyriaVisitor = ArktikiMartyriaVisitor()
         private fun visitArktikiMartyria(ctx: NewArktikiMartyriaContext?) = arktikiMartyriaVisitor.visit(ctx)
     }
 }

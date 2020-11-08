@@ -87,15 +87,20 @@ class Martyria {
     companion object {
         val ACCIDENTALS_MAP: Map<Int, AccidentalValue> = mapOf(
                 1 to QUARTER_SHARP,
-                2 to QUARTER_SHARP, // TODO wrong symbol
+                2 to SHARP_2, // extra
+                3 to SHARP_UP, // SHARP_3, // extra
                 4 to SHARP,
                 5 to SLASH_QUARTER_SHARP,
+                7 to THREE_QUARTERS_SHARP, // extra
                 8 to SLASH_SHARP,
                 9 to DOUBLE_SHARP,
+
                 -1 to QUARTER_FLAT,
-                -3 to SLASH_FLAT, // TODO wrong symbol
+                -2 to FLAT_2, // extra
+                -3 to FLAT_UP, // extra
                 -4 to SLASH_FLAT,
                 -5 to FLAT,
+                -7 to THREE_QUARTERS_FLAT, // extra
                 -8 to DOUBLE_SLASH_FLAT,
                 -9 to FLAT_FLAT
         )
