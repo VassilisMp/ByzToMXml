@@ -91,6 +91,11 @@ class Tchar(private val dotPlace: Int = 0, var division: Int = 2, var argo: Bool
 
 fun List<Any>.mySublist(tChar: Tchar, notesNum: Int): List<Note> = mutableListOf<Note>().apply {
     val index = this@mySublist.indexOf(tChar)
+    // if 1 return 1 note, because if it is in the beginning there might not exist two previous notes
+    if (notesNum == 1) {
+        addAll(this@mySublist.subList(0, index).filterIsInstance<Note>().asReversed().subList(0, 1).asReversed())
+        return@apply
+    }
     addAll(this@mySublist.subList(0, index).filterIsInstance<Note>().asReversed().subList(0, 2).asReversed())
     if (notesNum-2 > 0)
         addAll(this@mySublist.subList(index+1, this@mySublist.size).filterIsInstance<Note>().subList(0, notesNum-2))
