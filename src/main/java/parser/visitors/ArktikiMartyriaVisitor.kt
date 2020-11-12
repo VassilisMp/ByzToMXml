@@ -143,7 +143,7 @@ class ArktikiMartyriaVisitor : ByzBaseVisitor<ArktikiMartyriaVisitor.PitchnKey>(
     companion object {
         private fun keyAccidental(step: Step, commas: Int) = arrayOf(step, accidentalAlter(commas), accidental(commas))
 
-        private fun createKey(vararg elements: Array<Any>): Key = proxyMusicFactory.createKey().apply {
+        private fun createKey(vararg elements: Array<out Any>): Key = proxyMusicFactory.createKey().apply {
             elements.forEach { nonTraditionalKey.addAll(it) }
         }
 

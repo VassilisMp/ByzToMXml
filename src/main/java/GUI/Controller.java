@@ -37,7 +37,15 @@ public class Controller implements Initializable {
     void startButtonOnAction(ActionEvent event) {
         try {
             Engine engine = new Engine(selectedFile.getPath());
+            long start = System.nanoTime();
             engine.run();
+            double elapsedTime = (System.nanoTime() - start)/1000000000.0;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+            alert.setHeaderText("Execution Time");
+            alert.setContentText("elapsedTime: " + elapsedTime);
+
+            alert.showAndWait();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
 
