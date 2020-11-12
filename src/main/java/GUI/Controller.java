@@ -1,6 +1,5 @@
 package GUI;
 
-import Byzantine.Exceptions.ByzantineException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,11 +9,9 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.audiveris.proxymusic.Step;
+import parser.Engine;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,9 +36,9 @@ public class Controller implements Initializable {
     @FXML
     void startButtonOnAction(ActionEvent event) {
         try {
-            Byzantine.Engine engine = new Byzantine.Engine(selectedFile.getPath(), Step.A).setTimeBeats(4);
+            Engine engine = new Engine(selectedFile.getPath());
             engine.run();
-        } catch (JAXBException | IOException e) {
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
 
             // Header Text: null
@@ -49,17 +46,6 @@ public class Controller implements Initializable {
             alert.setContentText(ExceptionUtils.getStackTrace(e));
 
             alert.showAndWait();
-        } catch (NullPointerException | ByzantineException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-
-            // Header Text: null
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-
-            alert.showAndWait();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -69,9 +55,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("ByzScore Doc", "*.doc")
-                ,new FileChooser.ExtensionFilter("ByzScore Docx", "*.docx")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("ByzScore Docx", "*.docx"));
     }
 }

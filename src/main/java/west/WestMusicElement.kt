@@ -1,4 +1,0 @@
-package west
-
-interface WestMusicElement {
-}

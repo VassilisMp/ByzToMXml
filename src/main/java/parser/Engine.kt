@@ -1,5 +1,7 @@
 package parser
 
+import Byzantine.fthores.ByzScale
+import Byzantine.fthores.ByzScale.Companion.get2OctavesScale
 import com.google.common.math.IntMath.factorial
 import org.antlr.v4.runtime.InputMismatchException
 import org.apache.poi.xwpf.usermodel.XWPFDocument
@@ -7,9 +9,7 @@ import org.audiveris.proxymusic.ClefSign
 import org.audiveris.proxymusic.ScorePartwise
 import org.audiveris.proxymusic.ScorePartwise.Part.Measure
 import org.audiveris.proxymusic.util.Marshalling
-import parser.GorgotitesVisitor.Companion.gorgon
-import parser.fthores.ByzScale
-import parser.fthores.ByzScale.Companion.get2OctavesScale
+import parser.visitors.GorgotitesVisitor.Companion.gorgon
 import west.*
 import west.Note.Companion.relativeStandardStep
 import java.io.FileInputStream
