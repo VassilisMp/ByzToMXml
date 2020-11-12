@@ -135,9 +135,11 @@ class Note(
     override fun toString(): String {
         return "Note{" +
                 " pitch=${if (pitch != null) pitch.step.toString() + pitch.octave else "null"}" +
-                ", duration=$duration" +
-                ", type=${type.value}" +
+                ", duration=$rationalDuration" +
+                ", type=${type?.value}" +
                 ", commas=$accidentalCommas" +  //", tie=" + ((getTie().size()>0)?getTie().get(0).getType():"null") +
+                ", rest=${rest != null}" +
+                ", lyric=$lyricText" +
                 '}'
     }
 

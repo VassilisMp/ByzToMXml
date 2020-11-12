@@ -1,20 +1,16 @@
 package parser
 
-import Byzantine.ByzStep
 import com.google.common.math.IntMath.factorial
 import org.antlr.v4.runtime.InputMismatchException
-import org.apache.commons.lang3.math.Fraction.getFraction
 import org.apache.poi.xwpf.usermodel.XWPFDocument
-import org.audiveris.proxymusic.*
+import org.audiveris.proxymusic.ClefSign
+import org.audiveris.proxymusic.ScorePartwise
 import org.audiveris.proxymusic.ScorePartwise.Part.Measure
 import org.audiveris.proxymusic.util.Marshalling
 import parser.GorgotitesVisitor.Companion.gorgon
 import parser.fthores.ByzScale
 import parser.fthores.ByzScale.Companion.get2OctavesScale
-import parser.fthores.Martyria
-import parser.fthores.Martyria.Companion.ACCIDENTALS_MAP
 import west.*
-import west.Note
 import west.Note.Companion.relativeStandardStep
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -24,8 +20,6 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.xml.bind.Marshaller
 import javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT
-import kotlin.collections.HashMap
-import kotlin.collections.set
 
 class Engine(filePath: String) {
     private val docx: XWPFDocument
@@ -64,7 +58,9 @@ class Engine(filePath: String) {
             noteList.add(nextNoteIndex + 1, it.apply { argo = false })
         }
         // run timeChars
-        noteList.filterIsInstance<Tchar>().forEach { it.accept(this) }
+        for (it in noteList.filterIsInstance<Tchar>()) {
+            it.accept(this)
+        }
         // set divisions based on the the greatest denominator used in dividing times
         divisions = factorial(divisions)
         // remove dots from noteType strings
@@ -74,15 +70,17 @@ class Engine(filePath: String) {
             it.duration_ = (it.rationalDuration*divisions).toInt()
             it
         }
+        // capitalize first note lyric
+        list.first().apply { if (lyricText != null) { lyricText = lyricText!!.capitalize() } }
+        val measures = toMeasures(list)
         val byzScale = get2OctavesScale()
         byzScale.initAccidentalCommas(relativeStandardStep)
         // get commas from the key of the score
-        fun getCommasFromKey(note: Note): Int {
+        /*fun getCommasFromKey(note: Note): Int {
             println("${note.byzStep} ${note.byzOctave}")
             return byzScale.getMartyria(note.byzStep, note.byzOctave!!)!!.accidentalCommas
         }
         fun getAccidental(commas: Int) = ACCIDENTALS_MAP[commas]
-        val measures = toMeasures(list)
         measures.forEach { measure ->
             val measureNotes = measure.noteOrBackupOrForward.filter { it is Note && it.rest == null }.cast<List<Note>>()!!
             measureNotes.forEachIndexed { index, note ->
@@ -93,7 +91,7 @@ class Engine(filePath: String) {
                 val accidentalValue = getAccidental(diff)
                 if (accidentalValue != null) note.accidental = Accidental().apply { value = accidentalValue }
             }
-        }
+        }*/
         // TODO add Key
         if (parser.key != null)
             measures.first().key = parser.key
@@ -152,7 +150,7 @@ class Engine(filePath: String) {
         return measures
     }
 
-    private fun commasToAccidental(commas: Int): Accidental? {
+    /*private fun commasToAccidental(commas: Int): Accidental? {
         val accidentalValue: AccidentalValue = Martyria.ACCIDENTALS_MAP[commas] ?: return null
         val accidental = Accidental()
         accidental.value = accidentalValue
@@ -174,7 +172,7 @@ class Engine(filePath: String) {
             i += 3
         }
         return stepToAccidental
-    }
+    }*/
 }
 
 /*
@@ -186,7 +184,6 @@ fun <K, V> BiMap<in K, in V>.with(vararg pairs: Pair<K, V>): BiMap<K, V> {
     return this as BiMap<K, V>
 }*/
 
-private fun String.toFraction() = getFraction(this)
 private fun List<Any>.nextNoteIndex(startIndex: Int, noteNum: Int = 1): Int {
     var noteNum1 = 0
     for (index in startIndex..this.size) {

@@ -1,3 +1,4 @@
+/*
 package parser
 
 import Byzantine.ByzStep
@@ -19,14 +20,19 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
     private var lastMartyria: Martyria? = null
 
     // put arxigramma and syllables in the correct places, meaning after quantity chars
-    override fun visitTerminal(node: TerminalNode?) {
+    */
+/*override fun visitTerminal(node: TerminalNode?) {
         if (node?.symbol?.type == ARXIGRAMMA &&
                 rewriter.tokenStream[node.symbol.tokenIndex + 1]?.type == RIGHT_PARENTHESIS) {
             arxigramma = node
-            /*for (i in (node.symbol.tokenIndex - 1 .. 0)) {
+            *//*
+*/
+/*for (i in (node.symbol.tokenIndex - 1 .. 0)) {
                     val token: Token = rewriter.tokenStream[node.symbol.tokenIndex - 1]
                     println(rewriter.tokenStream[node.symbol.tokenIndex-1])
-                }*/
+                }*//*
+*/
+/*
         }
     }
 
@@ -45,18 +51,15 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
             parent is TextContext -> Unit
             parent is ArktikiMartyriaContext -> deleteSyllable()
             children[1] == ctx || !inMusic -> syllable = ctx
-            else -> /*children.subList(0, syllableIndex).asReversed().forEach { pt ->
+            else -> *//*
+*/
+/*children.subList(0, syllableIndex).asReversed().forEach { pt ->
                 if (pt is SyllableContext) syllable = ctx
                 if (pt is QCharContext) Unit
-            }*/Unit
+            }*//*
+*/
+/*Unit
         }
-    }
-
-
-    override fun exitFthoraMeEndeixi(ctx: FthoraMeEndeixiContext?) {
-//        println(ctx?.text)
-//        rewriter.tokenStream.
-//        print(ctx?.getStart())
     }
 
     override fun enterQChar(ctx: QCharContext) {
@@ -80,12 +83,13 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
         // TODO run qchars
 //        ctx?.start
 //        super.enterQChar(ctx)
-    }
+    }*//*
+
 
     // removes useless text
-    override fun enterText(ctx: TextContext) = rewriter.delete(ctx.start, ctx.stop)
+//    override fun enterText(ctx: TextContext) = rewriter.delete(ctx.start, ctx.stop)
 
-    override fun enterCapWord(ctx: CapWordContext) = rewriter.delete(ctx.start, ctx.stop)
+//    override fun enterCapWord(ctx: CapWordContext) = rewriter.delete(ctx.start, ctx.stop)
 
     // remove martyrias
     override fun enterMartyria(ctx: MartyriaContext) =
@@ -93,10 +97,4 @@ class RewriterListener(tokens: TokenStream) : ByzBaseListener() {
                 && rewriter.tokenStream[ctx.stop.tokenIndex + 1].type == RIGHT_PARENTHESIS) {
             rewriter.delete(ctx.start.tokenIndex-1, ctx.stop.tokenIndex+1)
         } else rewriter.delete(ctx.start, ctx.stop)
-
-    override fun enterPlagiosTetartoyArktikiMartyria(ctx: PlagiosTetartoyArktikiMartyriaContext?) {
-        lastMartyria = Martyria(0, ByzStep.NH, MartirikoSimio.NEAGIE, 9)
-        lastStep
-//        super.enterPlagiosTetartoyArktikiMartyria(ctx)
-    }
-}
+}*/

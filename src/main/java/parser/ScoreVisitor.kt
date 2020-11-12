@@ -2,26 +2,30 @@ package parser
 
 import grammar.ByzBaseVisitor
 import grammar.ByzParser.*
+import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
 import org.audiveris.proxymusic.Key
-import org.audiveris.proxymusic.Pitch
 import org.audiveris.proxymusic.Step
 import west.Note.Companion.RestNote
 
 // replace all characters with the simplest ones
-class ScoreVisitor : ByzBaseVisitor<Unit>() {
+class ScoreVisitor(val parser: Parser) : ByzBaseVisitor<Unit>() {
 
     val text: StringBuilder = StringBuilder()
-    var missingLetter: String? = null
+//    var missingLetter: String? = null
     val elements: MutableList<Any> = mutableListOf()
-    var lastPitch = PitchOf(Step.G, 4)
-    private val quantityCharVisitor = QuantityCharVisitor(lastPitch)
+    private val quantityCharVisitor = QuantityCharVisitor(PitchOf(Step.G, 4))
     var key: Key? = null
+    var counter = 0
+    var syllable: String = ""
+    private var prevSyllable: String = ""
 
-    override fun visitClusterType2(ctx: ClusterType2Context): Unit = with(ctx) {
+    /*override fun visitClusterType2(ctx: ClusterType2Context): Unit = with(ctx) {
         fun getArxigramma() = ARXIGRAMMA()?.text?.drop(1) ?: ""
         // concatenate arxigramma and syllables and possible missing letter that was on the previous cluster by mistake
-        var syllable: String = getArxigramma() +
+        println(++counter)
+        prevSyllable = syllable
+        syllable = getArxigramma() +
                 (missingLetter ?: "") +
                 syllable().joinToString(separator = "", transform = { it.text })
         if (missingLetter != null) missingLetter = null
@@ -34,15 +38,45 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
         }
         val gorgotita = tChar().mapNotNull { visitGorgotita(it) }.firstOrNull()
         val argia = tChar().mapNotNull { visitArgia(it) }.firstOrNull()
-        elements.addAll(quantityCharVisitor.visit(syllable = syllable, gorgotita = gorgotita, argia = argia, tree = ctx.qChar()))
+        elements.addAll(quantityCharVisitor.visit(prevSyllable = prevSyllable, syllable = syllable, gorgotita = gorgotita, argia = argia, tree = ctx.qChar()))
         // visit pause or return if null
         if (pause() != null) elements.addAll(visitPause(ctx))
+        println(ctx.toStringTree(parser))
+    }*/
+
+    private fun String.mapLetters() = replace("\uD834\uDCE7", "ου").replace("\uD834\uDCE8", "στ")
+
+    override fun visitCluster(ctx: ClusterContext): Unit = with(ctx) {
+        fun getArxigramma() = ARXIGRAMMA()?.text?.drop(1) ?: ""
+        // concatenate arxigramma and syllables and possible missing letter that was on the previous cluster by mistake
+        println(++counter)
+        prevSyllable = syllable
+        fun takeFirstLetter(): String {
+            return text()?.text?.run {
+                if (hasSurrogatePairAt(lastIndex-1)) takeLast(2)
+                else takeLast(1)
+            }?.mapLetters() ?: ""
+        }
+        syllable = getArxigramma() + takeFirstLetter() +
+                letters().joinToString(separator = "", transform = { it.text }).mapLetters()
+        val gorgotita = tChar().mapNotNull { visitGorgotita(it) }.firstOrNull()
+        val argia = tChar().mapNotNull { visitArgia(it) }.firstOrNull()
+        elements.addAll(quantityCharVisitor.visit(prevSyllable = prevSyllable, syllable = syllable, gorgotita = gorgotita, argia = argia, tree = qChar()))
+        // visit pause or return if null
+        if (pause() != null) elements.addAll(Companion.visitPause(ctx))
+        println(ctx.toStringTree(parser))
+    }
+
+    override fun visitStrangeCluster(ctx: StrangeClusterContext) = with(ctx) {
+        cluster().children.addAll(tChar())
+        cluster().children.addAll(fthoraMeEndeixi())
+        visitCluster(cluster())
     }
 
     override fun visitNewArktikiMartyria(ctx: NewArktikiMartyriaContext?) {
         val pitchnKey = visitArktikiMartyria(ctx)
         if (pitchnKey != null) {
-            lastPitch = pitchnKey.pitch
+            quantityCharVisitor.lastPitch = pitchnKey.pitch
             key = pitchnKey.key
         }
     }
@@ -64,7 +98,7 @@ class ScoreVisitor : ByzBaseVisitor<Unit>() {
                 return listOfNotNull(RestNote(), Tchar(division = times), gorgotitesVisitor.visit(ctx.gorgotita()))
             }
         }
-        private fun visitPause(ctx: ClusterType2Context) = pauseVisitor.visit(ctx)
+        private fun visitPause(ctx: ParseTree?) = pauseVisitor.visit(ctx)
         private val arktikiMartyriaVisitor = ArktikiMartyriaVisitor()
         private fun visitArktikiMartyria(ctx: NewArktikiMartyriaContext?) = arktikiMartyriaVisitor.visit(ctx)
     }

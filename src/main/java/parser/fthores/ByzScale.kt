@@ -6,6 +6,7 @@ import org.audiveris.proxymusic.Key
 import org.audiveris.proxymusic.ObjectFactory
 import org.audiveris.proxymusic.Step
 import org.jetbrains.annotations.Contract
+import parser.addMany
 import parser.fthores.Martyria.Companion.FLATS_FOURTHS
 import parser.fthores.Martyria.Companion.SHARP_FIFTHS
 import west.Note.Companion.toStep
@@ -352,5 +353,3 @@ class ByzScale {
                 .getKey(NH)*/
     }
 }
-
-fun <T> MutableList<T>.addMany(vararg elements: T) = elements.forEach { this.add(it) }

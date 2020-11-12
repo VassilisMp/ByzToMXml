@@ -5,9 +5,13 @@ import byzLexer, gorgotites, argies, fthores, fonitika, arktikesMartyries;
 // level 2
 //newScore: newArktikiMartyria? (clusterType2|martyria)+ ;
 
-score2 : arktikiMartyria? clusterType2+ ;
+//score2 : arktikiMartyria? (martyria | clusterType2)+ ;
+score : newArktikiMartyria (strangeCluster | (SPLITTER (cluster | martyria)?) | (cluster | martyria))+ ;
+strangeCluster : cluster (SPLITTER (tChar | fthoraMeEndeixi)+)? ;
+cluster : text? ARXIGRAMMA? qChar (letters | tChar | fthoraMeEndeixi | grammaMartyrias | martyrikoSimio | GRAMMA_MARTYRIAS_TONOS)*? pause? ;
+text : letters ;
 
-clusterType2 : ARXIGRAMMA? syllable? qChar
+/*clusterType2 : ARXIGRAMMA? syllable? qChar
         (
             syllable? tChar* fthoraMeEndeixi?
             syllable? fthoraMeEndeixi? tChar*
@@ -17,12 +21,12 @@ clusterType2 : ARXIGRAMMA? syllable? qChar
 //            fthoraMeEndeixi? tChar* syllable?
         )
         pause?
-        ;
+        ;*/
 
 // level 1
-score : text* emptyCluster* arktikiMartyria? (text | cluster)+ ;
+//score : /*text* */emptyCluster* arktikiMartyria? (/*text | */cluster)+ ;
 
-emptyCluster : LEFT_PARENTHESIS RIGHT_PARENTHESIS ;
+//emptyCluster : LEFT_PARENTHESIS RIGHT_PARENTHESIS ;
 
 //eteronAlone : (LEFT_PARENTHESIS ETERON_PARAKALESMA RIGHT_PARENTHESIS) ;
 
@@ -47,7 +51,7 @@ pause : LEIMMA_ENOS_CHRONOU (APLI | DIPLI | TRIPLI)* gorgotita? ;
         | SIMANSIS_ARSEOS_TETRASIMOU
         ;*/
 
-cluster : /*fthoraAlone?*/ LEFT_PARENTHESIS /*text?*/
+/*cluster : fthoraAlone? LEFT_PARENTHESIS text?
         ( capWord
             | syllable
             | tChar
@@ -65,7 +69,7 @@ cluster : /*fthoraAlone?*/ LEFT_PARENTHESIS /*text?*/
 //            | text
         )* RIGHT_PARENTHESIS
 //        eteronAlone?
-        ;
+        ;*/
         /*|   qChar SYLLABLE? fChar? tChar?
         |   qChar tChar? SYLLABLE? fChar
         |   qChar tChar? fChar? SYLLABLE
@@ -112,15 +116,15 @@ martyrikoSimio :
         | MARTYRIA_NENANO_LOW
         ;
 
-martyria :
-        grammaMartyrias martyrikoSimio GRAMMA_MARTYRIAS_TONOS?
+martyria : ( grammaMartyrias | martyrikoSimio | GRAMMA_MARTYRIAS_TONOS )+ ;
+        /*grammaMartyrias martyrikoSimio GRAMMA_MARTYRIAS_TONOS?
         | grammaMartyrias GRAMMA_MARTYRIAS_TONOS? martyrikoSimio
         | martyrikoSimio grammaMartyrias GRAMMA_MARTYRIAS_TONOS?
         | martyrikoSimio GRAMMA_MARTYRIAS_TONOS? grammaMartyrias
         | GRAMMA_MARTYRIAS_TONOS? grammaMartyrias martyrikoSimio
-        | GRAMMA_MARTYRIAS_TONOS? martyrikoSimio grammaMartyrias
+        | GRAMMA_MARTYRIAS_TONOS? martyrikoSimio grammaMartyrias*/
 //        | martyria agogiSeMartyria
-        ;
+//        ;
 
 /*agogiSeMartyria :
         AGOGI_SE_MARTYRIA_POLI_ARGI
@@ -133,12 +137,12 @@ martyria :
         ;*/
 
 
-arktikiMartyria :
-        LEFT_PARENTHESIS? text?
+/*arktikiMartyria :
+        LEFT_PARENTHESIS? *//*text?*//*
         newArktikiMartyria
         martyria?
         syllable* ARXIGRAMMA* RIGHT_PARENTHESIS?
-        ;
+        ;*/
 
 endixiFthoggou :
         ENDIXI_NH_ARISTERA
@@ -195,11 +199,14 @@ alla :
     ;
 */
 
-text : (syllable | LATIN_WORD | GREEK_WORD | SYMBOLS_NUMBERS | capWord )+
+/*text : (syllable | LATIN_WORD | GREEK_WORD | SYMBOLS_NUMBERS | capWord )+
         | LEFT_PARENTHESIS (syllable | capWord | LATIN_WORD | GREEK_WORD | SYMBOLS_NUMBERS | text )+ RIGHT_PARENTHESIS;
 
-capWord : CAP_LETTER CAP_LETTER+ ;
-syllable :
+capWord : CAP_LETTER CAP_LETTER+ ;*/
+letter : GREEK_LETTER | STIGMA | DIFTOGGOS_OU ;
+letters : letter+ ;
+
+/*syllable : letter
         CAP_LETTER? SMALL_LETTER+?
         | CAP_LETTER
-        ;
+        ;*/

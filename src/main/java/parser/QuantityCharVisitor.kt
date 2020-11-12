@@ -9,15 +9,17 @@ import org.audiveris.proxymusic.Step
 import parser.ArgiesVisitor.Companion.Apli
 import parser.GorgotitesVisitor.Companion.gorgon
 
-class QuantityCharVisitor(private var lastPitch: Pitch = PitchOf(Step.G, 4)) : ByzBaseVisitor<List<Any>>() {
+class QuantityCharVisitor(var lastPitch: Pitch = PitchOf(Step.G, 4)) : ByzBaseVisitor<List<Any>>() {
 
     private var gorgotita: Tchar? = null
     private var argia: Tchar? = null
     private var yfesodiesi: String? = null
     private var monimi: String? = null
     private var syllable: String? = null
+    private var prevSyllable: String? = null
 
     fun visit(
+            prevSyllable: String? = null,
             syllable: String? = null,
             gorgotita: Tchar? = null,
             argia: Tchar? = null,
@@ -25,6 +27,7 @@ class QuantityCharVisitor(private var lastPitch: Pitch = PitchOf(Step.G, 4)) : B
             monimi: String? = null,
             tree: ParseTree
     ): List<Any> {
+        this.prevSyllable = prevSyllable
         this.syllable = syllable
         this.gorgotita = gorgotita
         this.argia = argia
@@ -78,16 +81,16 @@ class QuantityCharVisitor(private var lastPitch: Pitch = PitchOf(Step.G, 4)) : B
     override fun visitMBetaAndAlphaV(ctx: ByzParser.MBetaAndAlphaVContext?) = dual(-2, 1)
     override fun visitMGammaAndAlphaV(ctx: ByzParser.MGammaAndAlphaVContext?) = dual(-3, 1)
     override fun visitMDeltaAndAlphaV(ctx: ByzParser.MDeltaAndAlphaVContext?) = dual(-4, 1)
-    override fun visitContinuousElafron(ctx: ByzParser.ContinuousElafronContext?) =
-            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), gorgon(), nextNote(-1, end), argia, gorgotita, yfesodiesi, monimi) }
+    override fun visitContinuousElafron(ctx: ByzParser.ContinuousElafronContext?): List<Any> =
+            listOfNotNull(nextNote(-1, InMusicSyllable(prevSyllable).end), gorgon(), nextNote(-1, syllable), argia, gorgotita, yfesodiesi, monimi)
     override fun visitTwoApostrofoi(ctx: ByzParser.TwoApostrofoiContext?) = dual(-1, -1)
     override fun visitYporroi(ctx: ByzParser.YporroiContext?) =
-            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), argia, gorgotita, monimi, nextNote(-1, end), yfesodiesi) }
+            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), gorgotita, monimi, nextNote(-1, end), argia, yfesodiesi) }
     override fun visitContinuousElafronAndKentimata(ctx: ByzParser.ContinuousElafronAndKentimataContext?) =
             with(InMusicSyllable(syllable)) {
-                listOfNotNull(nextNote(-1, start), gorgon(), nextNote(-1, middle), monimi, nextNote(1, end), argia, gorgotita, yfesodiesi) }
+                listOfNotNull(nextNote(-1, InMusicSyllable(prevSyllable).end), gorgon(), nextNote(-1, start), monimi, nextNote(1, end), argia, gorgotita, yfesodiesi) }
     override fun visitYporroiAndKentimata(ctx: ByzParser.YporroiAndKentimataContext?) =
-            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), argia, gorgotita, monimi, nextNote(-1, middle), nextNote(1, end), yfesodiesi) }
+            with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(-1, start), gorgotita, monimi, nextNote(-1, middle), argia, nextNote(1, end), yfesodiesi) }
     override fun visitOligonOnKentimata(ctx: ByzParser.OligonOnKentimataContext?) =
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), gorgotita, monimi, nextNote(1, end), argia, yfesodiesi) }
     override fun visitKentimataOnOligon(ctx: ByzParser.KentimataOnOligonContext?) =

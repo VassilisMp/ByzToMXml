@@ -19,9 +19,15 @@ class InMusicSyllable(val syllable: String?) {
     }
 
     companion object {
-        private val regex = ("(γκ|µπ|ντ|τσ|τζ|Γκ|Μπ|Ντ|Τσ|Τζ|[βγδζθκλμνξπρστφχψςΒΓΔΖΘΚΛΜΝΞΠΡΣΤΦΧΨΣ])?" +
+        // TODO added τρ, maybe needs all symfwna that start a syllable
+        private val regex = ("(τρ|γκ|µπ|ντ|τσ|τζ|Τρ|Γκ|Μπ|Ντ|Τσ|Τζ|[βγδζθκλμνξπρστφχψςΒΓΔΖΘΚΛΜΝΞΠΡΣΤΦΧΨΣ])?" +
                 "(αι|ει|οι|ου|υι|αυ|ευ|Αι|Ει|Οι|Ου|Υι|Αυ|Ευ|[αεηιουωΑΕΗΙΟΥΩ])" +
                 "(γκ|µπ|ντ|τσ|τζ|[βγδζθκλμνξπρστφχψς])?").toRegex()
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val inMusicSyllable = InMusicSyllable("δρα")
+            println(inMusicSyllable.end)
+        }
     }
 }
 

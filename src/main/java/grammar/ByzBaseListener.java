@@ -16,30 +16,6 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScore2(ByzParser.Score2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitScore2(ByzParser.Score2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterClusterType2(ByzParser.ClusterType2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitClusterType2(ByzParser.ClusterType2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterScore(ByzParser.ScoreContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -52,13 +28,37 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmptyCluster(ByzParser.EmptyClusterContext ctx) { }
+	@Override public void enterStrangeCluster(ByzParser.StrangeClusterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEmptyCluster(ByzParser.EmptyClusterContext ctx) { }
+	@Override public void exitStrangeCluster(ByzParser.StrangeClusterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCluster(ByzParser.ClusterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCluster(ByzParser.ClusterContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterText(ByzParser.TextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitText(ByzParser.TextContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -83,18 +83,6 @@ public class ByzBaseListener implements ByzListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPause(ByzParser.PauseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCluster(ByzParser.ClusterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCluster(ByzParser.ClusterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -148,18 +136,6 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -172,37 +148,25 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterText(ByzParser.TextContext ctx) { }
+	@Override public void enterLetter(ByzParser.LetterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitText(ByzParser.TextContext ctx) { }
+	@Override public void exitLetter(ByzParser.LetterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCapWord(ByzParser.CapWordContext ctx) { }
+	@Override public void enterLetters(ByzParser.LettersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCapWord(ByzParser.CapWordContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSyllable(ByzParser.SyllableContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSyllable(ByzParser.SyllableContext ctx) { }
+	@Override public void exitLetters(ByzParser.LettersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -904,13 +868,13 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMΗetaV(ByzParser.MΗetaVContext ctx) { }
+	@Override public void enterMHetaV(ByzParser.MHetaVContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMΗetaV(ByzParser.MΗetaVContext ctx) { }
+	@Override public void exitMHetaV(ByzParser.MHetaVContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

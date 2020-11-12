@@ -2,9 +2,11 @@ package parser
 
 import grammar.ByzBaseVisitor
 import grammar.ByzParser.*
+import org.antlr.v4.runtime.tree.ParseTree
 
 class GorgotitesVisitor: ByzBaseVisitor<Tchar?>() {
 
+    override fun visit(tree: ParseTree?): Tchar? = if (tree != null) super.visit(tree) else null
     override fun visitGorgon(ctx: GorgonContext?) = gorgon()
     override fun visitGorgonParestigmenoAristera(ctx: GorgonParestigmenoAristeraContext?) = Tchar(1, 2, false)
     override fun visitGorgonParestigmenoDexia(ctx: GorgonParestigmenoDexiaContext?) = Tchar(2, 2, false)

@@ -8,26 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface ByzListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link ByzParser#score2}.
-	 * @param ctx the parse tree
-	 */
-	void enterScore2(ByzParser.Score2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link ByzParser#score2}.
-	 * @param ctx the parse tree
-	 */
-	void exitScore2(ByzParser.Score2Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link ByzParser#clusterType2}.
-	 * @param ctx the parse tree
-	 */
-	void enterClusterType2(ByzParser.ClusterType2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link ByzParser#clusterType2}.
-	 * @param ctx the parse tree
-	 */
-	void exitClusterType2(ByzParser.ClusterType2Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link ByzParser#score}.
 	 * @param ctx the parse tree
 	 */
@@ -38,15 +18,35 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitScore(ByzParser.ScoreContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ByzParser#emptyCluster}.
+	 * Enter a parse tree produced by {@link ByzParser#strangeCluster}.
 	 * @param ctx the parse tree
 	 */
-	void enterEmptyCluster(ByzParser.EmptyClusterContext ctx);
+	void enterStrangeCluster(ByzParser.StrangeClusterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ByzParser#emptyCluster}.
+	 * Exit a parse tree produced by {@link ByzParser#strangeCluster}.
 	 * @param ctx the parse tree
 	 */
-	void exitEmptyCluster(ByzParser.EmptyClusterContext ctx);
+	void exitStrangeCluster(ByzParser.StrangeClusterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ByzParser#cluster}.
+	 * @param ctx the parse tree
+	 */
+	void enterCluster(ByzParser.ClusterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ByzParser#cluster}.
+	 * @param ctx the parse tree
+	 */
+	void exitCluster(ByzParser.ClusterContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ByzParser#text}.
+	 * @param ctx the parse tree
+	 */
+	void enterText(ByzParser.TextContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ByzParser#text}.
+	 * @param ctx the parse tree
+	 */
+	void exitText(ByzParser.TextContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ByzParser#fthoraMeEndeixi}.
 	 * @param ctx the parse tree
@@ -67,16 +67,6 @@ public interface ByzListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPause(ByzParser.PauseContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ByzParser#cluster}.
-	 * @param ctx the parse tree
-	 */
-	void enterCluster(ByzParser.ClusterContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ByzParser#cluster}.
-	 * @param ctx the parse tree
-	 */
-	void exitCluster(ByzParser.ClusterContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ByzParser#tChar}.
 	 * @param ctx the parse tree
@@ -118,16 +108,6 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitMartyria(ByzParser.MartyriaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ByzParser#arktikiMartyria}.
-	 * @param ctx the parse tree
-	 */
-	void enterArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ByzParser#arktikiMartyria}.
-	 * @param ctx the parse tree
-	 */
-	void exitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link ByzParser#endixiFthoggou}.
 	 * @param ctx the parse tree
 	 */
@@ -138,35 +118,25 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ByzParser#text}.
+	 * Enter a parse tree produced by {@link ByzParser#letter}.
 	 * @param ctx the parse tree
 	 */
-	void enterText(ByzParser.TextContext ctx);
+	void enterLetter(ByzParser.LetterContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ByzParser#text}.
+	 * Exit a parse tree produced by {@link ByzParser#letter}.
 	 * @param ctx the parse tree
 	 */
-	void exitText(ByzParser.TextContext ctx);
+	void exitLetter(ByzParser.LetterContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ByzParser#capWord}.
+	 * Enter a parse tree produced by {@link ByzParser#letters}.
 	 * @param ctx the parse tree
 	 */
-	void enterCapWord(ByzParser.CapWordContext ctx);
+	void enterLetters(ByzParser.LettersContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ByzParser#capWord}.
+	 * Exit a parse tree produced by {@link ByzParser#letters}.
 	 * @param ctx the parse tree
 	 */
-	void exitCapWord(ByzParser.CapWordContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link ByzParser#syllable}.
-	 * @param ctx the parse tree
-	 */
-	void enterSyllable(ByzParser.SyllableContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link ByzParser#syllable}.
-	 * @param ctx the parse tree
-	 */
-	void exitSyllable(ByzParser.SyllableContext ctx);
+	void exitLetters(ByzParser.LettersContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ByzParser#gorgotita}.
 	 * @param ctx the parse tree
@@ -792,17 +762,17 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitMZetaV(ByzParser.MZetaVContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code mΗetaV}
+	 * Enter a parse tree produced by the {@code mHetaV}
 	 * labeled alternative in {@link ByzParser#qChar2}.
 	 * @param ctx the parse tree
 	 */
-	void enterMΗetaV(ByzParser.MΗetaVContext ctx);
+	void enterMHetaV(ByzParser.MHetaVContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code mΗetaV}
+	 * Exit a parse tree produced by the {@code mHetaV}
 	 * labeled alternative in {@link ByzParser#qChar2}.
 	 * @param ctx the parse tree
 	 */
-	void exitMΗetaV(ByzParser.MΗetaVContext ctx);
+	void exitMHetaV(ByzParser.MHetaVContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code mThetaV}
 	 * labeled alternative in {@link ByzParser#qChar2}.

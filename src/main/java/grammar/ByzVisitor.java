@@ -11,29 +11,29 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link ByzParser#score2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitScore2(ByzParser.Score2Context ctx);
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#clusterType2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClusterType2(ByzParser.ClusterType2Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link ByzParser#score}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitScore(ByzParser.ScoreContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ByzParser#emptyCluster}.
+	 * Visit a parse tree produced by {@link ByzParser#strangeCluster}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEmptyCluster(ByzParser.EmptyClusterContext ctx);
+	T visitStrangeCluster(ByzParser.StrangeClusterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#cluster}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCluster(ByzParser.ClusterContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ByzParser#text}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitText(ByzParser.TextContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ByzParser#fthoraMeEndeixi}.
 	 * @param ctx the parse tree
@@ -46,12 +46,6 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPause(ByzParser.PauseContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#cluster}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCluster(ByzParser.ClusterContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ByzParser#tChar}.
 	 * @param ctx the parse tree
@@ -77,35 +71,23 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMartyria(ByzParser.MartyriaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ByzParser#arktikiMartyria}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link ByzParser#endixiFthoggou}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ByzParser#text}.
+	 * Visit a parse tree produced by {@link ByzParser#letter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitText(ByzParser.TextContext ctx);
+	T visitLetter(ByzParser.LetterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ByzParser#capWord}.
+	 * Visit a parse tree produced by {@link ByzParser#letters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCapWord(ByzParser.CapWordContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link ByzParser#syllable}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSyllable(ByzParser.SyllableContext ctx);
+	T visitLetters(ByzParser.LettersContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ByzParser#gorgotita}.
 	 * @param ctx the parse tree
@@ -477,12 +459,12 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMZetaV(ByzParser.MZetaVContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code mΗetaV}
+	 * Visit a parse tree produced by the {@code mHetaV}
 	 * labeled alternative in {@link ByzParser#qChar2}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMΗetaV(ByzParser.MΗetaVContext ctx);
+	T visitMHetaV(ByzParser.MHetaVContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code mThetaV}
 	 * labeled alternative in {@link ByzParser#qChar2}.

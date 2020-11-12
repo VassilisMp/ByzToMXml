@@ -17,7 +17,10 @@ class Tchar(private val dotPlace: Int = 0, var division: Int = 2, var argo: Bool
             if (noteType == null) {
                 val tieNote = this.copy().also {
                     it.rationalDuration = this.rationalDuration - newAddedTime
-                    it.noteType ?: throw NullPointerException("${this.rationalDuration} ${it.rationalDuration}")
+                    it.noteType ?: throw NullPointerException("${this.rationalDuration} ${it.rationalDuration}\n" +
+                            "tieNote: $it\n" +
+                            "note: $this\n" +
+                            "tchar: ${this@Tchar}")
                     it.addTie(tieNoteTie)
                     if (this.lyricText != null) {
                         val syllable = InMusicSyllable(this.lyricText)
@@ -30,7 +33,7 @@ class Tchar(private val dotPlace: Int = 0, var division: Int = 2, var argo: Bool
                 noteType!!
                 addTie(thisNoteTie)
                 // add tieNote in noteList before this Note
-                val index = engine.noteList.indexOf(this)
+                val index = engine.noteList.indexOf(this) + if (thisNoteTie == StartStop.START) 1 else 0
                 engine.noteList.add(index, tieNote)
             }
         }

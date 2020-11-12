@@ -17,20 +17,6 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitScore2(ByzParser.Score2Context ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitClusterType2(ByzParser.ClusterType2Context ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitScore(ByzParser.ScoreContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -38,7 +24,21 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEmptyCluster(ByzParser.EmptyClusterContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStrangeCluster(ByzParser.StrangeClusterContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitCluster(ByzParser.ClusterContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitText(ByzParser.TextContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -53,13 +53,6 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitPause(ByzParser.PauseContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitCluster(ByzParser.ClusterContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -94,13 +87,6 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitArktikiMartyria(ByzParser.ArktikiMartyriaContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitEndixiFthoggou(ByzParser.EndixiFthoggouContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -108,21 +94,14 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitText(ByzParser.TextContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLetter(ByzParser.LetterContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitCapWord(ByzParser.CapWordContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitSyllable(ByzParser.SyllableContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLetters(ByzParser.LettersContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -535,7 +514,7 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMΗetaV(ByzParser.MΗetaVContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMHetaV(ByzParser.MHetaVContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

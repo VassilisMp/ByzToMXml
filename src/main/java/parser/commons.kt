@@ -59,3 +59,5 @@ fun generateByzMusicSymbolsGrammar(grammarName: String = "generatedGrammar") {
     println(s)
     File("$grammarName.g4").writeText("lexer grammar $grammarName;\n\n$s")
 }
+
+fun <T> MutableList<T>.addMany(vararg elements: T) = elements.forEach { this.add(it) }

@@ -198,7 +198,7 @@ MARTYRIA_TETARTOS_ICHOS_LOW : 'F065' ;
 MARTYRIA_NENANO_LOW : 'F088' ;
 
 // STOIXEIA ARKTIKWN MARTYRIWN
-HXOS_WORD : 'I096' ;
+HXOS_WORD : 'I096' | 'Ήχος' ;
 HXOS_A_GRAMMA : 'I049' ;
 HXOS_B_GRAMMA : 'I050' ;
 HXOS_G_GRAMMA : 'I051' ;
@@ -237,12 +237,15 @@ AGOGI_SE_MARTYRIA_GORGI : 'X075' -> skip ;
 AGOGI_SE_MARTYRIA_GORGOTERI : 'X076' -> skip ;
 AGOGI_SE_MARTYRIA_POLI_GORGI : 'X058' -> skip ;
 
+SPLITTER : '_' ;
 ARXIGRAMMA : '@'. ;
 
-LEFT_PARENTHESIS : '(' ;
-RIGHT_PARENTHESIS : ')' ;
-CAP_LETTER : [Α-Ω] ;
-SMALL_LETTER : [α-ω] ;
+GREEK_LETTER : [Α-Ωα-ω] ;
+
+//LEFT_PARENTHESIS : '(' ;
+//RIGHT_PARENTHESIS : ')' ;
+//CAP_LETTER : [Α-Ω] ;
+//SMALL_LETTER : [α-ω] ;
 //SYLLABLE : CAP_LETTER? SMALL_LETTER+ ;
 LATIN_WORD : LATIN_LETTER+ -> skip ;
 GREEK_WORD : [ΆΈ-ΐΪ-ΰϊ-ώ]+ -> skip ;
@@ -250,3 +253,4 @@ GREEK_WORD : [ΆΈ-ΐΪ-ΰϊ-ώ]+ -> skip ;
 fragment LATIN_LETTER : [a-zA-Z] ;
 SYMBOLS_NUMBERS : [0-9\-_] -> skip ;
 WHITESPACE : [ \t\r\n]+ -> skip ;
+ANYTHING : .+? -> skip ;
