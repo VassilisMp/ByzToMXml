@@ -13,37 +13,12 @@ import west.Note.Companion.RestNote
 class ScoreVisitor(val parser: Parser) : ByzBaseVisitor<Unit>() {
 
     val text: StringBuilder = StringBuilder()
-//    var missingLetter: String? = null
     val elements: MutableList<Any> = mutableListOf()
     private val quantityCharVisitor = QuantityCharVisitor(PitchOf(Step.G, 4))
     var key: Key? = null
     var counter = 0
     var syllable: String = ""
     private var prevSyllable: String = ""
-
-    /*override fun visitClusterType2(ctx: ClusterType2Context): Unit = with(ctx) {
-        fun getArxigramma() = ARXIGRAMMA()?.text?.drop(1) ?: ""
-        // concatenate arxigramma and syllables and possible missing letter that was on the previous cluster by mistake
-        println(++counter)
-        prevSyllable = syllable
-        syllable = getArxigramma() +
-                (missingLetter ?: "") +
-                syllable().joinToString(separator = "", transform = { it.text })
-        if (missingLetter != null) missingLetter = null
-        // if two last letters of the syllable are the same it means, the last belongs to the next note
-        if (syllable.length>1) syllable.takeLast(2).let {
-            if (it[0] == it[1]) {
-                syllable = syllable.dropLast(1)
-                missingLetter = it[0].toString()
-            }
-        }
-        val gorgotita = tChar().mapNotNull { visitGorgotita(it) }.firstOrNull()
-        val argia = tChar().mapNotNull { visitArgia(it) }.firstOrNull()
-        elements.addAll(quantityCharVisitor.visit(prevSyllable = prevSyllable, syllable = syllable, gorgotita = gorgotita, argia = argia, tree = ctx.qChar()))
-        // visit pause or return if null
-        if (pause() != null) elements.addAll(visitPause(ctx))
-        println(ctx.toStringTree(parser))
-    }*/
 
     private fun String.mapLetters() = replace("\uD834\uDCE7", "ου").replace("\uD834\uDCE8", "στ")
 

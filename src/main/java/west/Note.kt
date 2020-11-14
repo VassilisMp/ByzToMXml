@@ -23,13 +23,13 @@ class Note(
     var rationalDuration: Fraction = Fraction.ONE
         set(value) {
             field = value
-            noteType = if (inTuplet) teo(rationalDuration)
+            noteType = if (inTuplet) durationToNoteType(rationalDuration)
             else getNoteType(field)
             setDots()
         }
 
     fun setNoteTypeInTuplet() {
-        noteType = teo(rationalDuration)
+        noteType = durationToNoteType(rationalDuration)
     }
 
     var accidentalCommas: Int? = null
@@ -255,6 +255,6 @@ private val fractionMap = mapOf(
 fun getNoteType(fraction: Fraction): String? = fractionMap[fraction]
 fun getNoteType(fraction: String): String? = getNoteType(getFraction(fraction))
 fun getFraction(numerator: Int): Fraction = getFraction(numerator, 1)
-private fun teo(fraction: Fraction): String? =
+private fun durationToNoteType(fraction: Fraction): String? =
         if (fraction.denominator%2 == 0 || fraction.denominator == 1) getNoteType(fraction)
         else getNoteType(getReducedFraction(fraction.numerator, fraction.denominator - 1))

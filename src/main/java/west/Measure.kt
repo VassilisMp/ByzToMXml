@@ -43,16 +43,6 @@ var ScorePartwise.Part.Measure.timeSignature: Array<Int>?
         }
     }
 
-/*data class TimeSignature(val numerator: Int, val denominator: Int) : ArrayList<JAXBElement<String>>(2), WestMusicElement {
-    init {
-        this[0] = factory.createTimeBeats(numerator.toString())
-        this[1] = factory.createTimeBeats(denominator.toString())
-    }
-    companion object {
-        val factory: ObjectFactory = ObjectFactory()
-    }
-}*/
-
 private var ScorePartwise.Part.Measure.number_: Int?
     get() = number?.toInt()
     set(value) { number = value?.toString() }
