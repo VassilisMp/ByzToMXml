@@ -6,11 +6,13 @@ import byzLexer, gorgotites, argies, fthores, fonitika, arktikesMartyries;
 //newScore: newArktikiMartyria? (clusterType2|martyria)+ ;
 
 //score2 : arktikiMartyria? (martyria | clusterType2)+ ;
-score : newArktikiMartyria (strangeCluster | (SPLITTER (cluster | martyria)?) | (cluster | martyria))+ ;
+score : newArktikiMartyria (strangeCluster | (SPLITTER (cluster | martyria)?) | (cluster | martyria | pause))+ ;
 strangeCluster : cluster (SPLITTER (tChar | fthoraMeEndeixi)+)? ;
-cluster : text? ARXIGRAMMA? qChar (letters | tChar | fthoraMeEndeixi | grammaMartyrias | martyrikoSimio | GRAMMA_MARTYRIAS_TONOS)*? pause? ;
+cluster : text? ARXIGRAMMA? qChar (KENTIMA_NEO_MESO | letters | tChar | fthoraMeEndeixi | grammaMartyrias | martyrikoSimio | GRAMMA_MARTYRIAS_TONOS)*? pause? ;
 text : letters ;
-
+//cleanScore : cleanCluster+;
+//cleanCluster : qChar letters? gorgotita? argia* fthoraMeEndeixi? pause?
+//KENTIMA_NEO_MESO
 /*clusterType2 : ARXIGRAMMA? syllable? qChar
         (
             syllable? tChar* fthoraMeEndeixi?

@@ -661,6 +661,13 @@ public class ByzBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements By
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitKentimataOnOligonAndKentima(ByzParser.KentimataOnOligonAndKentimaContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitOligonOnKentimataAndApli(ByzParser.OligonOnKentimataAndApliContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

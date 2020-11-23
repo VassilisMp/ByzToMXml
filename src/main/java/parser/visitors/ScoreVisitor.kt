@@ -23,6 +23,19 @@ class ScoreVisitor(val parser: Parser) : ByzBaseVisitor<Unit>() {
     private fun String.mapLetters() = replace("\uD834\uDCE7", "ου").replace("\uD834\uDCE8", "στ")
 
     override fun visitCluster(ctx: ClusterContext): Unit = with(ctx) {
+        // if kentima neo exists, then combine it with the other qChar
+        val qchar = KENTIMA_NEO_MESO().firstOrNull()?.run {
+            val qChar2Context = qChar().getChild(0) as QChar2Context
+            val qchar2 = when (qChar().start.type) {
+                OLIGON_NEO -> BetaVContext(qChar2Context)
+                KENTIMATA_ABOVE_OLIGON -> KentimataOnOligonAndKentimaContext(qChar2Context)
+                else -> throw Exception("")
+            }
+            qchar2.children.addAll(qChar2Context.children)
+            qchar2.addChild(this)
+            return@run qchar2
+        } ?: qChar()
+
         fun getArxigramma() = ARXIGRAMMA()?.text?.drop(1) ?: ""
         // concatenate arxigramma and syllables and possible missing letter that was on the previous cluster by mistake
         println(++counter)
@@ -37,7 +50,7 @@ class ScoreVisitor(val parser: Parser) : ByzBaseVisitor<Unit>() {
                 letters().joinToString(separator = "", transform = { it.text }).mapLetters()
         val gorgotita = tChar().mapNotNull { visitGorgotita(it) }.firstOrNull()
         val argia = tChar().mapNotNull { visitArgia(it) }.firstOrNull()
-        elements.addAll(quantityCharVisitor.visit(prevSyllable = prevSyllable, syllable = syllable, gorgotita = gorgotita, argia = argia, tree = qChar()))
+        elements.addAll(quantityCharVisitor.visit(prevSyllable = prevSyllable, syllable = syllable, gorgotita = gorgotita, argia = argia, tree = qchar))
         // visit pause or return if null
         if (pause() != null) elements.addAll(visitPause(ctx))
         println(ctx.toStringTree(parser))

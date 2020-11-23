@@ -1120,6 +1120,18 @@ public class ByzBaseListener implements ByzListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterKentimataOnOligonAndKentima(ByzParser.KentimataOnOligonAndKentimaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKentimataOnOligonAndKentima(ByzParser.KentimataOnOligonAndKentimaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOligonOnKentimataAndApli(ByzParser.OligonOnKentimataAndApliContext ctx) { }
 	/**
 	 * {@inheritDoc}

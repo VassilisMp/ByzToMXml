@@ -99,6 +99,9 @@ class QuantityCharVisitor(var lastPitch: Pitch = PitchOf(Step.G, 4)) : ByzBaseVi
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), argia, monimi, nextNote(1, end), gorgotita, yfesodiesi) }
     override fun visitOligonOnKentimataAndApli(ctx: ByzParser.OligonOnKentimataAndApliContext?) =
             with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(1, start), gorgotita, monimi, nextNote(1, end), argia, Apli(), yfesodiesi) }
+    override fun visitKentimataOnOligonAndKentima(ctx: ByzParser.KentimataOnOligonAndKentimaContext?): List<Any> {
+        return with(InMusicSyllable(syllable)) { listOfNotNull(nextNote(2, start), argia, monimi, nextNote(1, end), gorgotita, yfesodiesi) }
+    }
 
     private fun nextNote(num: Int, syllable: String? = null): Note =
             ("${lastPitch.octave}${lastPitch.step.toNum()}".toInt(7) + num).toString(7).let {

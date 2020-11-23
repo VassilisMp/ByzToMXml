@@ -606,6 +606,13 @@ public interface ByzVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKentimataOnOligon(ByzParser.KentimataOnOligonContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code kentimataOnOligonAndKentima}
+	 * labeled alternative in {@link ByzParser#qChar2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKentimataOnOligonAndKentima(ByzParser.KentimataOnOligonAndKentimaContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code oligonOnKentimataAndApli}
 	 * labeled alternative in {@link ByzParser#qChar2}.
 	 * @param ctx the parse tree

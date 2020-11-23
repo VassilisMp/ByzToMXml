@@ -134,7 +134,7 @@ qChar2 :
         | HAMILI_OVER_HAMILI_OVER_ELAPHRON_OVER_APOSTROPHOS # mIotaAlphaV
         | HAMILI_OVER_HAMILI_OVER_HAMILI # mIotaBetaV
 
-        | ( ISON_AND_KENTIMATA_OVER_OLIGON ) # zeroAndAlphaV
+        | ISON_AND_KENTIMATA_OVER_OLIGON # zeroAndAlphaV
         | APLI_UNDER_ANTIKENOMA_UNDER_KENTIMA_UNDER_OLIGON # betaVAndApli
         | YPSILI_AT_RIGHT_END_OF_OLIGON_AND_KENTIMATA_AT_LEFT # deltaAndAlphaV
         | YPSILI_AT_LEFT_END_OF_OLIGON_AND_KENTIMATA_AT_RIGHT # epsilonAndAlphaV
@@ -151,7 +151,7 @@ qChar2 :
         | YPORROI_AND_KENTIMATA_OVER_OLIGON # yporroiAndKentimata
         | OLIGON_ABOVE_KENTIMATA # oligonOnKentimata
         | KENTIMATA_ABOVE_OLIGON # kentimataOnOligon
-//        | KENTIMATA_ABOVE_OLIGON KENTIMA_NEO_MESO # kentimataOnOligonAndKentima
+        | KENTIMATA_ABOVE_OLIGON KENTIMA_NEO_MESO # kentimataOnOligonAndKentima
         | APLI_UNDER_ANTIKENOMA_UNDER_OLIGON_ABOVE_KENTIMATA # oligonOnKentimataAndApli
         ;
 

@@ -35,4 +35,14 @@ internal class EngineTest {
             println("caught")
         }
     }
+
+    @Test
+    fun nekrTest() {
+        val engine = Engine("oimoi.docx")
+        try {
+            engine.run()
+        } catch (e: InputMismatchException) {
+            println("caught")
+        }
+    }
 }

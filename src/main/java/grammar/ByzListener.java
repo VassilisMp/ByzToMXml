@@ -1014,6 +1014,18 @@ public interface ByzListener extends ParseTreeListener {
 	 */
 	void exitKentimataOnOligon(ByzParser.KentimataOnOligonContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code kentimataOnOligonAndKentima}
+	 * labeled alternative in {@link ByzParser#qChar2}.
+	 * @param ctx the parse tree
+	 */
+	void enterKentimataOnOligonAndKentima(ByzParser.KentimataOnOligonAndKentimaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code kentimataOnOligonAndKentima}
+	 * labeled alternative in {@link ByzParser#qChar2}.
+	 * @param ctx the parse tree
+	 */
+	void exitKentimataOnOligonAndKentima(ByzParser.KentimataOnOligonAndKentimaContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code oligonOnKentimataAndApli}
 	 * labeled alternative in {@link ByzParser#qChar2}.
 	 * @param ctx the parse tree

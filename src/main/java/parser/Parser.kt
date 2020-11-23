@@ -35,7 +35,7 @@ class Parser(private val docx: XWPFDocument, private val inPrivateArea: Boolean 
                 byzClass == ByzClass.A -> "@$this".replace(".", "")
                 byzClass != null && byzClass != ByzClass.T -> {
                     // if is Byzantine font then keep only chars in unicode private use area
-                    if (inPrivateArea) {
+                    val char = if (inPrivateArea) {
                         filter { it.toInt() in 0xE000..0xF8FF }
                                 .map {
                                     val codePoint = (it.toInt() - 0xF000)
@@ -50,6 +50,9 @@ class Parser(private val docx: XWPFDocument, private val inPrivateArea: Boolean 
                             else "$byzClass${String.format("%03d", codePoint)}"
                         }.joinToString(separator = "") { it }
                     }
+                    // L158 is not a single char, it is Apostrophos and Kentimata, so it must be replaced
+                    if (char == "L158") "B106B120"
+                    else char
                 }
                 // else keep only [α-ωΑ-Ω], which is greek text
                 else -> this.replace(".", "")
@@ -57,7 +60,7 @@ class Parser(private val docx: XWPFDocument, private val inPrivateArea: Boolean 
         }
     }
 
-    @Throws(InputMismatchException::class)
+    @Throws(ParseException::class)
     fun parse(str: String = byzCharsStr): MutableList<Any> {
         println(str)
         val lexer = ByzLexer(CharStreams.fromString(str))
@@ -68,6 +71,7 @@ class Parser(private val docx: XWPFDocument, private val inPrivateArea: Boolean 
         val errorListener = ErrorListener()
         parser.addErrorListener(errorListener)
         val scoreTree = parser.score()
+//        if (errorListener.errors.isNotEmpty()) throw ParseException("Found Errors while parsing!")
         val visitor = ScoreVisitor(parser)
         visitor.visit(scoreTree)
         println(visitor.elements)
@@ -76,7 +80,13 @@ class Parser(private val docx: XWPFDocument, private val inPrivateArea: Boolean 
     }
 
     private class ErrorListener: BaseErrorListener() {
-        var exception: InputMismatchException? = null
+        data class Error(val recognizer: Recognizer<*, *>?,
+                         val offendingSymbol: Any?,
+                         val line: Int,
+                         val charPositionInLine: Int,
+                         val msg: String?,
+                         val e: RecognitionException?)
+        val errors: MutableList<Error> = ArrayList()
         override fun syntaxError(
                 recognizer: Recognizer<*, *>?,
                 offendingSymbol: Any?,
@@ -85,8 +95,10 @@ class Parser(private val docx: XWPFDocument, private val inPrivateArea: Boolean 
                 msg: String?,
                 e: RecognitionException?
         ) {
-            if (line == 1 && e is InputMismatchException) exception = e
-            super.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e)
+//            if (line == 1 && e is InputMismatchException) exception = e
+            errors.add(Error(recognizer, offendingSymbol, line, charPositionInLine, msg, e))
+            System.err.print("line $line:$charPositionInLine $msg")
+            System.err.println(", recognizer: $recognizer, offendingSymbol: $offendingSymbol, exception: $e")
         }
     }
 }
