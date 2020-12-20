@@ -57,15 +57,22 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void addOnAction() throws IOException {
+    void addOnAction() {
         File file = fileChooser.showOpenDialog(filesVbox.getScene().getWindow());
         // check if null, because we don' t want to lose the last selection
         if (file != null) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/file.fxml"));
-            Parent root = fxmlLoader.load();
-            FileController fileController = fxmlLoader.getController();
-            fileController.setAll(file, root, filesVbox);
-            fileControllersOpened.add(fileController);
+            try {
+                Parent root = fxmlLoader.load();
+                FileController fileController = fxmlLoader.getController();
+                fileController.setAll(file, root, filesVbox);
+                fileControllersOpened.add(fileController);
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Something went wrong!");
+                addStageIcon(getStage(alert), getClass());
+                alert.showAndWait();
+                e.printStackTrace();
+            }
         }
     }
 
