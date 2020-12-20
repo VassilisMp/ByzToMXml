@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane style="-fx-border-color: grey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.FileController">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+   </padding>
+   <Button layoutX="568.0" mnemonicParsing="false" onAction="#closeOnAction" text="x" textFill="RED"
+           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+   <VBox alignment="TOP_CENTER" layoutX="264.0" layoutY="81.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+      </padding>
+      <TextField fx:id="fileNameText" editable="false"/>
+      <AnchorPane>
+         <CheckBox fx:id="timeBeatsCheck" mnemonicParsing="false" text="constant time beats"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+         <TextField fx:id="timeBeatsText" layoutX="164.0" prefHeight="28.0" prefWidth="36.0" visible="false"/>
+         <ProgressIndicator fx:id="progress" layoutX="579.0" prefHeight="29.0" prefWidth="26.0" visible="false"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0"/>
+         <ImageView fx:id="finishImage" fitHeight="28.0" fitWidth="26.0" layoutX="449.0" pickOnBounds="true"
+                    preserveRatio="true" visible="false" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Image url="@../images/ok.png"/>
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane>
+         <Button fx:id="converButton" mnemonicParsing="false" onAction="#convertOnAction" text="convert"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+         <Button fx:id="saveAsButton" disable="true" layoutX="543.0" mnemonicParsing="false"
+                 onAction="#saveAsOnAction" text="save as" AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+      </AnchorPane>
+   </VBox>
+</AnchorPane>

@@ -1,6 +1,6 @@
 package parser
 
-class InMusicSyllable(val syllable: String?) {
+class InMusicSyllable(syllable: String?) {
     val start: String?
     val middle: String?
     val end: String?
@@ -23,12 +23,7 @@ class InMusicSyllable(val syllable: String?) {
         private val regex = ("(τρ|γκ|µπ|ντ|τσ|τζ|Τρ|Γκ|Μπ|Ντ|Τσ|Τζ|[βγδζθκλμνξπρστφχψςΒΓΔΖΘΚΛΜΝΞΠΡΣΤΦΧΨΣ])?" +
                 "(αι|ει|οι|ου|υι|αυ|ευ|Αι|Ει|Οι|Ου|Υι|Αυ|Ευ|[αεηιουωΑΕΗΙΟΥΩ])" +
                 "(γκ|µπ|ντ|τσ|τζ|[βγδζθκλμνξπρστφχψς])?").toRegex()
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val inMusicSyllable = InMusicSyllable("δρα")
-            println(inMusicSyllable.end)
-        }
     }
 }
 
-private fun Regex.find(input: String?): MatchResult? = input?.let { find(it) }
+private fun Regex.find(input: String?): MatchResult? = if (input != null) find(input) else null

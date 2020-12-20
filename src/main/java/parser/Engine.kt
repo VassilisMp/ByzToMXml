@@ -7,22 +7,21 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.audiveris.proxymusic.ClefSign
 import org.audiveris.proxymusic.ScorePartwise
 import org.audiveris.proxymusic.ScorePartwise.Part.Measure
-import org.audiveris.proxymusic.util.Marshalling
 import parser.visitors.GorgotitesVisitor.Companion.gorgon
 import west.*
 import west.Note.Companion.relativeStandardStep
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import java.io.FileOutputStream
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-import javax.xml.bind.Marshaller
-import javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT
 
-class Engine(filePath: String) {
+class Engine(filePath: String, val timeBeats: Int? = null) {
     private val docx: XWPFDocument
     private val fileName: String
+        get() {
+            return field
+        }
     val currentByzScale: ByzScale = get2OctavesScale()
 
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
@@ -43,7 +42,7 @@ class Engine(filePath: String) {
     }
 
     @Throws(ParseException::class)
-    fun run() {
+    fun run(): ScorePartwise {
         val parser = Parser(docx)
         noteList = parser.parse()
         // convert argo to gorgo, argia
@@ -71,7 +70,7 @@ class Engine(filePath: String) {
         }
         // capitalize first note lyric
         list.first().apply { if (lyricText != null) { lyricText = lyricText!!.capitalize() } }
-        val measures = toMeasures(list)
+        val measures = toMeasures(list, timeBeats)
         val byzScale = get2OctavesScale()
         byzScale.initAccidentalCommas(relativeStandardStep)
         // get commas from the key of the score
@@ -96,13 +95,7 @@ class Engine(filePath: String) {
             measures.first().key = parser.key
 //        measures.first().key = ByzScale.NEANES_KEY
         val part = newPart("P1", "Voice", measures)
-        newScorePartWise(part).toXml(fileName)
-    }
-
-    private fun ScorePartwise.toXml(filename: String) = FileOutputStream("$filename.xml").use {
-        val marshaller: Marshaller = Marshalling.getContext(this::class.java).createMarshaller()
-        marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true)
-        marshaller.marshal(this, it)
+        return newScorePartWise(part) //.toXml(fileName)
     }
 
     private fun toMeasures(list: List<Any>, timeBeats: Int? = null): List<Measure> {
