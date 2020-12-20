@@ -1,6 +1,5 @@
 package gui;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -16,6 +15,8 @@ import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import static gui.Main.executor;
+import static javafx.application.Platform.runLater;
 import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 import static org.apache.commons.io.FilenameUtils.removeExtension;
 
@@ -67,9 +68,9 @@ public class FileController {
 
     @FXML
     void convertOnAction() {
-        Main.executor.execute(() -> {
+        executor.execute(() -> {
             try {
-                Platform.runLater(() -> {
+                runLater(() -> {
                     progress.setVisible(true);
                     converButton.setDisable(true);
                 });
@@ -79,7 +80,7 @@ public class FileController {
                 long start = System.nanoTime();
                 scorePartwise = engine.run();
                 double elapsedTime = (System.nanoTime() - start)/1000000000.0;
-                Platform.runLater(() -> {
+                runLater(() -> {
                     progress.setVisible(false);
                     finishImage.setVisible(true);
                     saveAsButton.setDisable(false);
@@ -87,31 +88,35 @@ public class FileController {
                 });
 
             } catch (Exception e) {
-                Platform.runLater(() -> {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-
-                    // Header Text: null
-                    alert.setHeaderText(null);
-                    alert.setContentText(ExceptionUtils.getStackTrace(e));
-                    alert.setResizable(true);
-
-                    alert.showAndWait();
-                });
+                runLater(() -> showExceptionAlert(e));
             }
         });
     }
 
+    private void showExceptionAlert(Exception e) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+        // Header Text: null
+        alert.setHeaderText(null);
+        alert.setContentText(ExceptionUtils.getStackTrace(e));
+        alert.setResizable(true);
+
+        alert.showAndWait();
+    }
+
     @FXML
     void saveAsOnAction() {
+        saveFileChooser.setInitialFileName(getFileName() + ".xml");
         File file = saveFileChooser.showSaveDialog(filesVbox.getScene().getWindow());
         if (file == null) return;
-        Main.executor.execute(() -> {
-            try (FileOutputStream fos = new FileOutputStream(file.getAbsolutePath())) {
+        executor.execute(() -> {
+            String filePath = file.getParentFile().getAbsolutePath() + File.separator + removeExtension(file.getName()) + ".xml";
+            try (FileOutputStream fos = new FileOutputStream(filePath)) {
                 Marshaller marshaller = Marshalling.getContext(ScorePartwise.class).createMarshaller();
                 marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true);
                 marshaller.marshal(scorePartwise, fos);
             } catch (Exception e) {
-                Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait());
+                runLater(() -> new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait());
             }
         });
     }
