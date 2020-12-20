@@ -15,7 +15,7 @@ import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import static gui.Main.executor;
+import static gui.Main.*;
 import static javafx.application.Platform.runLater;
 import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 import static org.apache.commons.io.FilenameUtils.removeExtension;
@@ -100,6 +100,7 @@ public class FileController {
         alert.setHeaderText(null);
         alert.setContentText(ExceptionUtils.getStackTrace(e));
         alert.setResizable(true);
+        addStageIcon(getStage(alert), getClass());
 
         alert.showAndWait();
     }
@@ -116,7 +117,11 @@ public class FileController {
                 marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true);
                 marshaller.marshal(scorePartwise, fos);
             } catch (Exception e) {
-                runLater(() -> new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait());
+                runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    addStageIcon(getStage(alert), getClass());
+                    alert.showAndWait();
+                });
             }
         });
     }

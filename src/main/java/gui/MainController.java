@@ -5,14 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.audiveris.proxymusic.ScorePartwise;
 import org.audiveris.proxymusic.util.Marshalling;
 
@@ -25,14 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static gui.Main.executor;
+import static gui.Main.*;
 import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 
 public class MainController implements Initializable {
 
     private final FileChooser fileChooser = new FileChooser();
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
-    private Stage myStage;
     private static final List<FileController> fileControllersOpened = new ArrayList<>();
 
     static void removeFileController(FileController fileController) {
@@ -51,12 +49,16 @@ public class MainController implements Initializable {
         alert.setHeaderText("ByzToMXML");
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.setResizable(true);
+        Image image = new Image(getClass().getResourceAsStream(logoPath));
+        ImageView imageView = new ImageView(image);
+        alert.setGraphic(imageView);
+        addStageIcon(getStage(alert), getClass());
         alert.showAndWait();
     }
 
     @FXML
     void addOnAction() throws IOException {
-        File file = fileChooser.showOpenDialog(myStage);
+        File file = fileChooser.showOpenDialog(filesVbox.getScene().getWindow());
         // check if null, because we don' t want to lose the last selection
         if (file != null) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML/file.fxml"));
@@ -84,12 +86,14 @@ public class MainController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "No files to save");
             alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert.setResizable(true);
+            addStageIcon(getStage(alert), getClass());
             alert.show();
             return;
         }
-        Stage newWindow = new Stage();
+        /*Stage newWindow = new Stage();
         newWindow.setScene(new Scene(new Pane(), 230, 100));
-        File file = directoryChooser.showDialog(newWindow);
+        addStageIcon(newWindow, getClass());*/
+        File file = directoryChooser.showDialog(filesVbox.getScene().getWindow());
         if (file == null) return;
         fileControllersOpened.forEach(controller -> executor.execute(() -> {
             System.out.printf("%s%s.xml", file.getAbsolutePath(), controller.getFileName());
@@ -100,15 +104,17 @@ public class MainController implements Initializable {
                 marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true);
                 marshaller.marshal(controller.getScorePartwise(), fos);
             } catch (Exception e) {
-                Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, e.getMessage()).showAndWait());
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    addStageIcon(getStage(alert), getClass());
+                    alert.showAndWait();
+                });
             }
         }));
     }
 
     @FXML
-    void initialize() {
-        myStage = (Stage) filesVbox.getScene().getWindow();
-    }
+    void initialize() {}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
