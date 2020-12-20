@@ -29,8 +29,8 @@ internal class EngineTest {
         try {
             val scorePartwise = engine.run()
             FileOutputStream("$savePath${File.separator}${fileName.removeExtension()}.xml").use {
-                val marshaller = Marshalling.getContext(ScorePartwise::class.java).createMarshaller();
-                marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true);
+                val marshaller = Marshalling.getContext(ScorePartwise::class.java).createMarshaller()
+                marshaller.setProperty(JAXB_FORMATTED_OUTPUT, true)
                 marshaller.marshal(scorePartwise, it)
             }
         } catch (e: InputMismatchException) {
