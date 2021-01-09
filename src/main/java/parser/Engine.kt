@@ -10,18 +10,12 @@ import org.audiveris.proxymusic.ScorePartwise.Part.Measure
 import parser.visitors.GorgotitesVisitor.Companion.gorgon
 import west.*
 import west.Note.Companion.relativeStandardStep
+import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
-class Engine(filePath: String, val timeBeats: Int? = null) {
+class Engine(file: File, private val timeBeats: Int? = null) {
     private val docx: XWPFDocument
-    private val fileName: String
-        get() {
-            return field
-        }
     val currentByzScale: ByzScale = get2OctavesScale()
 
     // measure division must be at least 2, or else I 'll have to implement the case of division change, in the argo case as well..
@@ -29,10 +23,11 @@ class Engine(filePath: String, val timeBeats: Int? = null) {
     var divisions: Int = 1
     lateinit var noteList: MutableList<Any>
 
+    constructor(filePath: String, timeBeats: Int? = null) : this(File(filePath), timeBeats)
+
     init {
-        val matcher: Matcher = Pattern.compile("(.*/)*(.*)(\\.docx?)").matcher(filePath)
-        if (matcher.find()) fileName = matcher.group(2) else throw FileNotFoundException("couldn't match filename")
-        docx = XWPFDocument(FileInputStream(filePath))
+        if (file.extension !in listOf("doc", "docx")) throw Exception("wrong file extension")
+        docx = XWPFDocument(FileInputStream(file))
         initAccidentalCommas()
     }
 
